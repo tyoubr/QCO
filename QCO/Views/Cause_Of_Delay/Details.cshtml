@@ -1,0 +1,30 @@
+﻿@model QCO.Models.tbl_Cause_Of_Delay
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>tbl_Cause_Of_Delay</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CAUSE_OF_DELAY)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CAUSE_OF_DELAY)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.REMARKS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.REMARKS)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CAUSEID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

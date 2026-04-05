@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="sqlDataSource1.ResultSchemaSerializable" xml:space="preserve">
+    <value>PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IlF1ZXJ5Ij48RmllbGQgTmFtZT0iSVIiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQk9PS0lOR19OTyIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJGQUJSSUNfREVTQyIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJGQUJSSUNfRElBIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkNPTE9SX1JBTkdFIiBUeXBlPSJEZWNpbWFsIiAvPjxGaWVsZCBOYW1lPSJLTklUVElOR19TT1VSQ0UiIFR5cGU9IkRlY2ltYWwiIC8+PEZpZWxkIE5hbWU9IlRPVEFMX1BST0RVQ1RJT04iIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVE9UQUxfUkVDRUlWRUQiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVE9UQUxfSVNTVUVEIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlRPVEFMX1JFVFVSTkVEIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlRPVEFMX09UT19UUkFOU0ZFUlNfSU4iIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVE9UQUxfU1RTX1RSQU5TRkVSU19JTiIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJUT1RBTF9DVENfVFJBTlNGRVJTX0lOIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlRPVEFMX09UT19UUkFOU0ZFUlNfT1VUIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlRPVEFMX1NUU19UUkFOU0ZFUlNfT1VUIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlRPVEFMX0NUQ19UUkFOU0ZFUlNfT1VUIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlBPX0JSRUFLRE9XTl9JRCIgVHlwZT0iRGVjaW1hbCIgLz48L1ZpZXc+PFZpZXcgTmFtZT0iUXVlcnlfMSI+PEZpZWxkIE5hbWU9IklSIiBUeXBlPSJTdHJpbmciIC8+PC9WaWV3PjwvRGF0YVNldD4=</value>
+  </data>
+  <data name="tableCell22.ExpressionBindings" xml:space="preserve">
+    <value>Iif([COLOR_RANGE] = 1, 'Dark Color',
+Iif([COLOR_RANGE] = 2, 'Light Color',
+Iif([COLOR_RANGE] = 3, 'Black Color',
+Iif([COLOR_RANGE] = 4, 'White Color',
+Iif([COLOR_RANGE] = 5, 'Average Color',
+Iif([COLOR_RANGE] = 6, 'Melange',
+Iif([COLOR_RANGE] = 7, 'Wash',
+Iif([COLOR_RANGE] = 8, 'Scouring',
+Iif([COLOR_RANGE] = 9, 'Extra Dark',
+Iif([COLOR_RANGE] = 10, 'Medium Color',
+Iif([COLOR_RANGE] = 11, 'Super Dark',
+Iif([COLOR_RANGE] = 12, 'Royal color',
+Iif([COLOR_RANGE] = 13, 'Average-Double Dyeing',
+Iif([COLOR_RANGE] = 14, 'Dark - Double Dyeing',
+Iif([COLOR_RANGE] = 15, 'Black-Double Dyeing',
+Iif([COLOR_RANGE] = 16, 'Light-Double Dyeing',
+Iif([COLOR_RANGE] = 17, 'Medium-Double Dyeing',
+Iif([COLOR_RANGE] = 18, 'Extra Dark-Double Dyeing',
+Iif([COLOR_RANGE] = 19, 'Peroxide Wash',
+Iif([COLOR_RANGE] = 20, 'White / G.Mell / Scouring / H2o2',
+Iif([COLOR_RANGE] = 21, 'Green / Turquoise Color',
+Iif([COLOR_RANGE] = 22, 'Reactive Black',
+Iif([COLOR_RANGE] = 23, 'Light Royal',
+Iif([COLOR_RANGE] = 24, 'Dark Royal',
+Iif([COLOR_RANGE] = 25, 'Green / Turquoise Color- Double Dyeing',
+Iif([COLOR_RANGE] = 26, 'Reactive Black- Double Dyeing',
+Iif([COLOR_RANGE] = 27, 'Light Royal - Double Dyeing',
+Iif([COLOR_RANGE] = 28, 'Dark Royal - Double Dyeing',
+Iif([COLOR_RANGE] = 29, 'Light Melange',
+Iif([COLOR_RANGE] = 30, 'Dark Melange',
+Iif([COLOR_RANGE] = 31, 'Navy',
+Iif([COLOR_RANGE] = 32, 'Light Lemon',
+Iif([COLOR_RANGE] = 33, 'AOP',
+Iif([COLOR_RANGE] = 34, 'RFD',
+Iif([COLOR_RANGE] = 35, 'Vivid',
+Iif([COLOR_RANGE] = 36, 'Olive Melange',
+Iif([COLOR_RANGE] = 37, 'Beige Melange',
+Iif([COLOR_RANGE] = 38, 'Panthom',
+Iif([COLOR_RANGE] = 39, 'Aster Blue',
+Iif([COLOR_RANGE] = 40, 'Tommy Heather',
+Iif([COLOR_RANGE] = 41, 'Yellow',
+Iif([COLOR_RANGE] = 42, '27 Green',
+Iif([COLOR_RANGE] = 43, 'December sky mari',
+Iif([COLOR_RANGE] = 44, 'Lt Teal gain dle',
+Iif([COLOR_RANGE] = 45, 'Blance-805(Ecru)',
+Iif([COLOR_RANGE] = 46, '16 Lt Blue',
+Iif([COLOR_RANGE] = 47, 'Royal Heather',
+Iif([COLOR_RANGE] = 48, 'Pink',
+Iif([COLOR_RANGE] = 49, '924 Gris Chine Fonce B-65',
+Iif([COLOR_RANGE] = 50, '306 Jaun',
+Iif([COLOR_RANGE] = 51, 'Turtle Green',
+Iif([COLOR_RANGE] = 52, 'Marine',
+Iif([COLOR_RANGE] = 53, 'Neon pink Beam',
+Iif([COLOR_RANGE] = 54, 'Desurt Dusk',
+Iif([COLOR_RANGE] = 55, 'Asphit',
+Iif([COLOR_RANGE] = 56, 'Bross',
+Iif([COLOR_RANGE] = 57, 'Charcoal Heather',
+Iif([COLOR_RANGE] = 58, 'Navy Heather',
+Iif([COLOR_RANGE] = 59, 'Red',
+Iif([COLOR_RANGE] = 60, 'Sky',
+Iif([COLOR_RANGE] = 61, 'Fluro Cent Color',
+Iif([COLOR_RANGE] = 62, 'Special Color',
+Iif([COLOR_RANGE] = 63, 'Un-Dyed Wash',
+Iif([COLOR_RANGE] = 64, 'Indigo',
+Iif([COLOR_RANGE] = 65, 'Polyester Average',
+Iif([COLOR_RANGE] = 66, 'Polyester Dark',
+Iif([COLOR_RANGE] = 67, 'Polyester Black',
+Iif([COLOR_RANGE] = 68, 'Polyester Royal', 'Unknown Color'))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))</value>
+  </data>
+</root>

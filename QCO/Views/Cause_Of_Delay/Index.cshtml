@@ -1,0 +1,160 @@
+﻿@model IEnumerable<QCO.Models.tbl_Cause_Of_Delay>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Inline Styles -->
+<style>
+    /* Page Container */
+    .container {
+        max-width: 1300px;
+        margin: 0 auto;
+    }
+
+    /* Card Styling */
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: linear-gradient(to right, #4e73df, #1cc88a);
+        color: white;
+        padding: 15px;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    /* Table Styling */
+    .table {
+        margin: 0;
+    }
+
+        .table thead th {
+            background-color: #f8f9fc;
+            color: #5a5c69;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f3f9;
+        }
+
+        .table td {
+            vertical-align: middle;
+            padding: 10px;
+        }
+
+    /* Buttons */
+    .btn {
+        font-size: 0.85rem;
+        border-radius: 20px;
+        padding: 5px 15px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .btn-outline-warning {
+        color: #ffc107;
+        border-color: #ffc107;
+    }
+
+        .btn-outline-warning:hover {
+            background-color: #ffc107;
+            color: white;
+        }
+
+    .btn-outline-info {
+        color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+    .btn-outline-danger {
+        color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+    /* Page Header */
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4e73df;
+        }
+
+    /* Utility Classes */
+    .rounded-pill {
+        border-radius: 50px;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 class="fw-bold">Cause of Delay</h1>
+        <a asp-action="Create" class="btn btn-success btn-lg shadow-sm rounded-pill">
+            <i class="bi bi-plus-circle"></i> Create New
+        </a>
+    </div>
+
+    <!-- Table Card -->
+    <div class="card">
+        <div class="card-header">Cause of Delay Records</div>
+        <div class="card-body p-0">
+            <table class="table table-hover table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Cause of Delay</th>
+                        <th>Remarks</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.CAUSE_OF_DELAY)</td>
+                            <td>@Html.DisplayFor(modelItem => item.REMARKS)</td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.CAUSEID" class="btn btn-outline-warning rounded-pill shadow-sm">
+                                    <i class="bi bi-pencil-fill"></i> Edit
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.CAUSEID" class="btn btn-outline-info rounded-pill shadow-sm">
+                                    <i class="bi bi-eye-fill"></i> Details
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.CAUSEID" class="btn btn-outline-danger rounded-pill shadow-sm">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

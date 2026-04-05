@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="sqlDataSource1.ResultSchemaSerializable" xml:space="preserve">
+    <value>PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IlF1ZXJ5XzEiPjxGaWVsZCBOYW1lPSJDb21wYW55X05hbWUiIFR5cGU9IlN0cmluZyIgLz48L1ZpZXc+PFZpZXcgTmFtZT0iUXVlcnlfMiI+PEZpZWxkIE5hbWU9IlNMTk8iIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJDT01QQU5ZIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ik1PTklUT1JJTkdfREFURSIgVHlwZT0iRGF0ZVRpbWUiIC8+PEZpZWxkIE5hbWU9IldlZWtObyIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkxJTkVfTk8iIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQk9PS0lOR19OTyIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJCT09LSU5HX05PX0NPREUiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iVE9UQUxfU01WIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlNUQVRVUyIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJGRUVEX0ZJTklTSCIgVHlwZT0iRGF0ZVRpbWUiIC8+PEZpZWxkIE5hbWU9IlBSRV9TVFlMRV9GSU5JU0giIFR5cGU9IkRhdGVUaW1lIiAvPjxGaWVsZCBOYW1lPSJQcmV2aW91c19Cb29raW5nX05vIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlByZXZpb3VzX1RvdGFsX1NNViIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJUb3RhbF9NQ19TRVRVUF9EVVJBVElPTiIgVHlwZT0iRGVjaW1hbCIgLz48RmllbGQgTmFtZT0iRGVsYXlfZm9yX01hbiIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJUb3RhbF9NYW5fRGVsYXlfVGltZSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkRlbGF5X2Zvcl9NYWNoaW5lIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRvdGFsX01hY2hpbmVfRGVsYXlfVGltZSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkRlbGF5X2Zvcl9NZXRob2QiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iVG90YWxfTWV0aG9kX0RlbGF5X1RpbWUiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJEZWxheV9mb3JfTWF0ZXJpYWwiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iVG90YWxfTWF0ZXJpYWxfRGVsYXlfVGltZSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkRheTFfRGF0ZSIgVHlwZT0iRGF0ZVRpbWUiIC8+PEZpZWxkIE5hbWU9IkRheTFfT3BlcmF0b3IiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iRGF5MV9IZWxwZXIiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iRGF5MV9Xb3JraW5nX0hvdXIiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iRGF5MV9BY3R1YWxfU01WIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRheTFfRWZmaV9QZXIiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iRGF5Ml9EYXRlIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iRGF5Ml9PcGVyYXRvciIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEYXkyX0hlbHBlciIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEYXkyX1dvcmtpbmdfSG91ciIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEYXkyX0FjdHVhbF9TTVYiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iRGF5Ml9FZmZpX1BlciIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJEYXkzX0RhdGUiIFR5cGU9IkRhdGVUaW1lIiAvPjxGaWVsZCBOYW1lPSJEYXkzX09wZXJhdG9yIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRheTNfSGVscGVyIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRheTNfV29ya2luZ19Ib3VyIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRheTNfQWN0dWFsX1NNViIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEYXkzX0VmZmlfUGVyIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IkRheTRfRGF0ZSIgVHlwZT0iRGF0ZVRpbWUiIC8+PEZpZWxkIE5hbWU9IkRheTRfT3BlcmF0b3IiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iRGF5NF9IZWxwZXIiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iRGF5NF9Xb3JraW5nX0hvdXIiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iRGF5NF9BY3R1YWxfU01WIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRheTRfRWZmaV9QZXIiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iRGF5NV9EYXRlIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iRGF5NV9PcGVyYXRvciIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEYXk1X0hlbHBlciIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEYXk1X1dvcmtpbmdfSG91ciIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEYXk1X0FjdHVhbF9TTVYiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iRGF5NV9FZmZpX1BlciIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJEYXk2X0RhdGUiIFR5cGU9IkRhdGVUaW1lIiAvPjxGaWVsZCBOYW1lPSJEYXk2X09wZXJhdG9yIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRheTZfSGVscGVyIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRheTZfV29ya2luZ19Ib3VyIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRheTZfQWN0dWFsX1NNViIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEYXk2X0VmZmlfUGVyIiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlByb2RfRGF5MV9EYXRlIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iUHJvZF9EYXkxX1F1YW50aXR5IiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlByb2RfRGF5Ml9EYXRlIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iUHJvZF9EYXkyX1F1YW50aXR5IiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlByb2RfRGF5M19EYXRlIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iUHJvZF9EYXkzX1F1YW50aXR5IiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlByb2RfRGF5NF9EYXRlIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iUHJvZF9EYXk0X1F1YW50aXR5IiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlByb2RfRGF5NV9EYXRlIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iUHJvZF9EYXk1X1F1YW50aXR5IiBUeXBlPSJEb3VibGUiIC8+PEZpZWxkIE5hbWU9IlByb2RfRGF5Nl9EYXRlIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iUHJvZF9EYXk2X1F1YW50aXR5IiBUeXBlPSJEb3VibGUiIC8+PC9WaWV3PjwvRGF0YVNldD4=</value>
+  </data>
+  <data name="xrTableCell68.ExpressionBindings" xml:space="preserve">
+    <value>Iif([day1ACV] &gt;= [day2ACV] &amp;&amp; [day1ACV] &gt;= [day3ACV] &amp;&amp; [day1ACV] &gt;= [day4ACV] &amp;&amp; [day1ACV] &gt;= [day5ACV] &amp;&amp; [day1ACV] &gt;= [day6ACV], 1,
+Iif([day2ACV] &gt;= [day3ACV] &amp;&amp; [day2ACV] &gt;= [day4ACV] &amp;&amp; [day2ACV] &gt;= [day5ACV] &amp;&amp; [day2ACV] &gt;= [day6ACV], 2,
+Iif([day3ACV] &gt;= [day4ACV] &amp;&amp; [day3ACV] &gt;= [day5ACV] &amp;&amp; [day3ACV] &gt;= [day6ACV], 3,
+Iif([day4ACV] &gt;= [day5ACV] &amp;&amp; [day4ACV] &gt;= [day6ACV], 4,
+Iif([day5ACV] &gt;= [day6ACV], 5, 6)))))
+</value>
+  </data>
+  <data name="xrTableCell69.ExpressionBindings" xml:space="preserve">
+    <value>Iif([day1ACV] &gt;= [day2ACV] &amp;&amp; [day1ACV] &gt;= [day3ACV] &amp;&amp; [day1ACV] &gt;= [day4ACV] &amp;&amp; [day1ACV] &gt;= [day5ACV] &amp;&amp; [day1ACV] &gt;= [day6ACV], [day1ACV],
+Iif([day2ACV] &gt;= [day3ACV] &amp;&amp; [day2ACV] &gt;= [day4ACV] &amp;&amp; [day2ACV] &gt;= [day5ACV] &amp;&amp; [day2ACV] &gt;= [day6ACV], [day2ACV],
+Iif([day3ACV] &gt;= [day4ACV] &amp;&amp; [day3ACV] &gt;= [day5ACV] &amp;&amp; [day3ACV] &gt;= [day6ACV], [day3ACV],
+Iif([day4ACV] &gt;= [day5ACV] &amp;&amp; [day4ACV] &gt;= [day6ACV], [day4ACV],
+Iif([day5ACV] &gt;= [day6ACV], [day5ACV], [day6ACV])))))
+</value>
+  </data>
+  <data name="xrTableCell113.ExpressionBindings" xml:space="preserve">
+    <value>Iif([day1ACV] &gt;= [day2ACV] &amp;&amp; [day1ACV] &gt;= [day3ACV] &amp;&amp; [day1ACV] &gt;= [day4ACV] &amp;&amp; [day1ACV] &gt;= [day5ACV] &amp;&amp; [day1ACV] &gt;= [day6ACV], 1,
+Iif([day2ACV] &gt;= [day3ACV] &amp;&amp; [day2ACV] &gt;= [day4ACV] &amp;&amp; [day2ACV] &gt;= [day5ACV] &amp;&amp; [day2ACV] &gt;= [day6ACV], 2,
+Iif([day3ACV] &gt;= [day4ACV] &amp;&amp; [day3ACV] &gt;= [day5ACV] &amp;&amp; [day3ACV] &gt;= [day6ACV], 3,
+Iif([day4ACV] &gt;= [day5ACV] &amp;&amp; [day4ACV] &gt;= [day6ACV], 4,
+Iif([day5ACV] &gt;= [day6ACV], 5, 6)))))
+</value>
+  </data>
+  <data name="xrTableCell114.ExpressionBindings" xml:space="preserve">
+    <value>sumAvg(Iif([day1ACV] &gt;= [day2ACV] &amp;&amp; [day1ACV] &gt;= [day3ACV] &amp;&amp; [day1ACV] &gt;= [day4ACV] &amp;&amp; [day1ACV] &gt;= [day5ACV] &amp;&amp; [day1ACV] &gt;= [day6ACV], [day1ACV],
+Iif([day2ACV] &gt;= [day3ACV] &amp;&amp; [day2ACV] &gt;= [day4ACV] &amp;&amp; [day2ACV] &gt;= [day5ACV] &amp;&amp; [day2ACV] &gt;= [day6ACV], [day2ACV],
+Iif([day3ACV] &gt;= [day4ACV] &amp;&amp; [day3ACV] &gt;= [day5ACV] &amp;&amp; [day3ACV] &gt;= [day6ACV], [day3ACV],
+Iif([day4ACV] &gt;= [day5ACV] &amp;&amp; [day4ACV] &gt;= [day6ACV], [day4ACV],
+Iif([day5ACV] &gt;= [day6ACV], [day5ACV], [day6ACV])))))
+)</value>
+  </data>
+  <data name="day1ACV.Expression" xml:space="preserve">
+    <value>(
+    (ToDecimal(IsNull([Prod_Day1_Quantity], 0)) * ToDecimal(IsNull([TOTAL_SMV], 0)))
+    /
+    (
+        (ToDecimal(IsNull([Day1_Operator], 0)) + ToDecimal(IsNull([Day1_Helper], 0))) 
+        * ToDecimal(IsNull([Day1_Working_Hour], 0)) 
+        * 60
+    )
+)
+* 100
+</value>
+  </data>
+  <data name="day2ACV.Expression" xml:space="preserve">
+    <value>(
+    (ToDecimal(IsNull([Prod_Day2_Quantity], 0)) * ToDecimal(IsNull([TOTAL_SMV], 0)))
+    /
+    (
+        (ToDecimal(IsNull([Day2_Operator], 0)) + ToDecimal(IsNull([Day2_Helper], 0))) 
+        * ToDecimal(IsNull([Day2_Working_Hour], 0)) 
+        * 60
+    )
+)
+* 100
+</value>
+  </data>
+  <data name="day3ACV.Expression" xml:space="preserve">
+    <value>(
+    (ToDecimal(IsNull([Prod_Day3_Quantity], 0)) * ToDecimal(IsNull([TOTAL_SMV], 0)))
+    /
+    (
+        (ToDecimal(IsNull([Day3_Operator], 0)) + ToDecimal(IsNull([Day3_Helper], 0))) 
+        * ToDecimal(IsNull([Day3_Working_Hour], 0)) 
+        * 60
+    )
+)
+* 100
+</value>
+  </data>
+  <data name="day4ACV.Expression" xml:space="preserve">
+    <value>(
+    (ToDecimal(IsNull([Prod_Day4_Quantity], 0)) * ToDecimal(IsNull([TOTAL_SMV], 0)))
+    /
+    (
+        (ToDecimal(IsNull([Day4_Operator], 0)) + ToDecimal(IsNull([Day4_Helper], 0))) 
+        * ToDecimal(IsNull([Day4_Working_Hour], 0)) 
+        * 60
+    )
+)
+* 100
+</value>
+  </data>
+  <data name="day5ACV.Expression" xml:space="preserve">
+    <value>(
+    (ToDecimal(IsNull([Prod_Day5_Quantity], 0)) * ToDecimal(IsNull([TOTAL_SMV], 0)))
+    /
+    (
+        (ToDecimal(IsNull([Day5_Operator], 0)) + ToDecimal(IsNull([Day5_Helper], 0))) 
+        * ToDecimal(IsNull([Day5_Working_Hour], 0)) 
+        * 60
+    )
+)
+* 100
+</value>
+  </data>
+  <data name="day6ACV.Expression" xml:space="preserve">
+    <value>(
+    (ToDecimal(IsNull([Prod_Day6_Quantity], 0)) * ToDecimal(IsNull([TOTAL_SMV], 0)))
+    /
+    (
+        (ToDecimal(IsNull([Day6_Operator], 0)) + ToDecimal(IsNull([Day6_Helper], 0))) 
+        * ToDecimal(IsNull([Day6_Working_Hour], 0)) 
+        * 60
+    )
+)
+* 100
+</value>
+  </data>
+</root>

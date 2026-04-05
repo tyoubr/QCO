@@ -1,0 +1,151 @@
+﻿@using QCO.Models
+@model LayoutMonitoringSheetViewModel
+
+@{
+    ViewData["Title"] = "Details of Layout Monitoring Sheet";
+}
+<style>
+    /* Normal screen layout */
+    .container .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .container .col-md-3 {
+        flex: 0 0 25%; /* Make each column 25% width */
+    }
+
+    /* Print Layout */
+    @@media print {
+        .container .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .container .col-md-3 {
+            flex: 0 0 25%; /* Make each column 25% width for print */
+        }
+
+        /* Optional: Make sure the labels and inputs fit nicely */
+        .form-group label, .form-group input {
+            font-size: 14px; /* Adjust font size for printing */
+        }
+
+        /* Hide unnecessary elements when printing (like the disabled inputs) */
+        .form-control[disabled] {
+            background-color: #f0f0f0; /* Light gray for disabled fields */
+        }
+
+        /* Optional: Hide buttons or other elements you don't need in the print */
+        .no-print {
+            display: none;
+        }
+    }
+</style>
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    <h4>Monitoring Sheet Details</h4>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="Slno">Slno</label>
+                    <input type="text" class="form-control" id="Slno" value="@Model.Slno" disabled />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="BookingNo">Booking No</label>
+                    <input type="text" class="form-control" id="BookingNo" value="@Model.BookingNo" disabled />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="BuyerName">Buyer Name</label>
+                    <input type="text" class="form-control" id="BuyerName" value="@Model.BuyerName" disabled />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="LineNo">Line No</label>
+                    <input type="text" class="form-control" id="LineNo" value="@Model.LineNo" disabled />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="FeedStart">Feed Start</label>
+                    <input type="text" class="form-control" id="FeedStart" value="@Model.FeedStart" disabled />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="FeedFinish">Feed Finish</label>
+                    <input type="text" class="form-control" id="FeedFinish" value="@Model.FeedFinish" disabled />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="PreStyleFinish">Pre Style Finish</label>
+                    <input type="text" class="form-control" id="PreStyleFinish" value="@Model.PreStyleFinish" disabled />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="Status">Status</label>
+                    <input type="text" class="form-control" id="Status" value="@Model.Status" disabled />
+                </div>
+            </div>
+             
+        </div>
+    </div>
+
+
+    <h3>Details:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Seq. No.</th>
+                <th>Process Name</th>
+                <th>Resource Name</th>
+                <th>Operation Starts</th>
+                <th>Operation Ends</th>
+                <th>Duration</th>
+               @*  <th>Remarks</th> *@
+                <th>Causes of Delay</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model.DetailRecords)
+            {
+                <tr>
+                    <td>@record.SequenceNo</td>
+                    <td>@record.ProcessName</td>
+                    <td>@record.ResourceName</td>
+                    <td>@record.McSetupStart?.ToString("HH:mm")</td>
+                    <td>@record.McSetupFinish?.ToString("HH:mm")</td>
+                    <td>@record.McSetupDuration</td>
+                 @*    <td>@record.Remarks</td> *@
+                    <td>
+                        @if (record.Causes != null && record.Causes.Count > 0)
+                        {
+                            @for (int i = 0; i < record.Causes.Count; i++)
+                            {
+                                <span>@record.Causes[i].CAUSE_OF_DELAY - @record.CauseTimes[i]</span>
+                                @if (i < record.Causes.Count - 1)
+                                {
+                                    @: |
+                                }
+                            }
+                        }
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

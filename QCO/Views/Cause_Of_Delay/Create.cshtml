@@ -1,0 +1,148 @@
+﻿@model QCO.Models.tbl_Cause_Of_Delay
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- Inline Styles -->
+<style>
+    .container {
+        max-width: 600px;
+        margin: 30px auto;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .form-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #4e73df;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            font-weight: 600;
+            color: #5a5c69;
+        }
+
+        .form-group input {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+            .form-group input:focus {
+                border-color: #4e73df;
+                outline: none;
+                box-shadow: 0 0 5px rgba(78, 115, 223, 0.5);
+            }
+
+    .btn-primary {
+        background-color: #4e73df;
+        border-color: #4e73df;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 20px;
+        padding: 10px 20px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+        .btn-primary:hover {
+            background-color: #2e59d9;
+            border-color: #2653c3;
+        }
+
+    .back-link {
+        display: block;
+        margin-top: 20px;
+        text-align: center;
+        font-weight: bold;
+        color: #4e73df;
+        text-decoration: none;
+    }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+    .text-danger {
+        font-size: 0.9rem;
+        color: #e74a3b;
+    }
+</style>
+
+<div class="container">
+    <h1 class="form-title">Create Cause of Delay</h1>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <!-- Cause of Delay Field -->
+        <div class="form-group">
+            <label asp-for="CAUSE_OF_DELAY" class="control-label">CAUSE OF DELAY</label>
+            <input asp-for="CAUSE_OF_DELAY" class="form-control" />
+            <span asp-validation-for="CAUSE_OF_DELAY" class="text-danger"></span>
+        </div>
+
+        <!-- Remarks Field -->
+        <div class="form-group">
+            <label asp-for="REMARKS" class="control-label">GROUP</label>
+            <select asp-for="REMARKS" class="form-control">
+                <option value="">-- Select Group --</option>
+                <option value="Man">Man</option>
+                <option value="Machine">Machine</option>
+                <option value="Method">Method</option>
+                <option value="Material">Material</option>
+            </select>
+            <span asp-validation-for="REMARKS" class="text-danger"></span>
+        </div>
+
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+
+    <!-- Back to List Link -->
+    <a asp-action="Index" class="back-link">← Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function (e) {
+                const remarksSelect = document.getElementById("REMARKS");
+                const errorSpan = document.getElementById("remarksError");
+
+                if (!remarksSelect.value) {
+                    e.preventDefault(); // Prevents the default form submission
+                    e.stopPropagation(); // Stops the event from bubbling up
+                    remarksSelect.classList.add("is-invalid");
+                    errorSpan.textContent = "Please select a group.";
+                    errorSpan.style.display = "block";
+                    return false; // Also returns false for older browser compatibility and jQuery events
+                } else {
+                    remarksSelect.classList.remove("is-invalid");
+                    errorSpan.style.display = "none";
+                    errorSpan.textContent = "";
+                }
+                return true; // Allow submission if valid
+            });
+        });
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,271 @@
+﻿@model QCO.Models.TblLayoutMonitoringSheet
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center text-primary">Create Layout Monitoring Sheet</h1>
+<hr />
+
+<div class="container py-4" style="background-color: #F8F9FA;">
+    <form asp-action="SaveLayoutMonitoringSheet" class="p-4 shadow-sm bg-white rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <!-- Form Sections -->
+        <div class="row">
+            <!-- Company -->
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Company" class="form-label fw-bold text-dark">Company</label>
+                    <select asp-for="Company" class="form-select border-primary shadow-sm">
+                        <option value="">-- Select Company --</option>
+                        <option value="Tropical Knitex Ltd.">Tropical Knitex Ltd.</option>
+                        <option value="Cotton Club BD Ltd.">Cotton Club BD Ltd.</option>
+                        <option value="Cotton Club BD ltd [Extended Part]">Cotton Club BD ltd [Extended Part].</option>
+                        <option value="Cotton Clothing BD Ltd.">Cotton Clothing BD Ltd.</option>
+                    </select>
+                    <span asp-validation-for="Company" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Monitoring Date -->
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="MonitoringDate" class="form-label fw-bold text-dark">Monitoring Date</label>
+                    <input asp-for="MonitoringDate" class="form-control border-primary shadow-sm" type="datetime-local" />
+                    <span asp-validation-for="MonitoringDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- BookingNo Dropdown -->
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="BookingNo" class="form-label fw-bold text-dark">Booking No</label>
+                    <select asp-for="BookingNo" class="form-control select2 border-primary shadow-sm" id="BookingNo">
+                        <option value="">Select Booking No</option>
+                    </select>
+                    <span asp-validation-for="BookingNo" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Buyer Name -->
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label for="BuyerName" class="form-label fw-bold text-dark">Buyer Name</label>
+                    <input type="text" id="BuyerName" name="BuyerName" class="form-control bg-light" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Total SMV -->
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label for="totalSmv" class="form-label fw-bold text-dark">Total SMV</label>
+                    <input type="text" id="totalSmv" name="Total_SMV" class="form-control bg-light" readonly />
+                </div>
+            </div>
+
+            <!-- Line Number -->
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="LineNo" class="form-label fw-bold text-dark">Line Number</label>
+                    <input asp-for="LineNo" class="form-control border-primary shadow-sm" />
+                    <span asp-validation-for="LineNo" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Feed Start -->
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="FeedStart" class="form-label fw-bold text-dark">Feed Start</label>
+                    <input asp-for="FeedStart" class="form-control border-primary shadow-sm" type="datetime-local" />
+                    <span asp-validation-for="FeedStart" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Feed Finish -->
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="FeedFinish" class="form-label fw-bold text-dark">Feed Finish</label>
+                    <input asp-for="FeedFinish" class="form-control border-primary shadow-sm" type="datetime-local" />
+                    <span asp-validation-for="FeedFinish" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pre Style Finish -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="PreStyleFinish" class="form-label fw-bold text-dark">Pre Style Finish</label>
+                    <input asp-for="PreStyleFinish" class="form-control border-primary shadow-sm" type="datetime-local" />
+                    <span asp-validation-for="PreStyleFinish" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="NewStyleFinish" class="form-label fw-bold text-dark">New Style First Output</label>
+                    <input asp-for="NewStyleFinish" class="form-control border-primary shadow-sm" type="datetime-local" />
+                    <span asp-validation-for="NewStyleFinish" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <!-- Process Matrix -->
+        <div class="form-group mb-4">
+            <h4 class="text-primary mb-3">Process Monitoring</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="processMatrixContainer">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Seq. No</th>
+                            <th>Process Name</th>
+                            <th>Resource</th>
+                            <th>Operation Start</th>
+                            <th>Operation End</th>
+                            <th>Duration (min)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Process rows will be inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Submit Buttons -->
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-action="Index" class="btn btn-secondary btn-lg shadow-sm">Back to List</a>
+            <input type="submit" value="Create" class="btn btn-primary btn-lg shadow-sm" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <!-- Add Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Add Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize Select2 for BookingNo dropdown
+            $('#BookingNo').select2({
+                placeholder: "Select Booking No",
+                allowClear: true,
+                minimumInputLength: 3,
+                ajax: {
+                    url: '@Url.Action("GetBookingNos", "LayoutMonitoringSheets")',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return { term: params.term };
+                    },
+                    processResults: function (data) {
+                        return { results: data.results };
+                    },
+                    cache: true
+                }
+            });
+
+            // Handle selection changes
+            $('#BookingNo').on('select2:select', function (e) {
+                var data = e.params.data;
+                console.log(data);
+
+                // Update BuyerName and Total SMV fields
+                $('#BuyerName').val(data.buyerName || '');
+                $('#totalSmv').val(data.totalSmv || 0);
+
+                // Generate process fields dynamically
+                generateProcessFields(data.processes || []);
+            });
+        });
+
+        function generateProcessFields(processes) {
+            console.log(processes);
+            var tbody = $('#processMatrixContainer tbody');
+            tbody.empty();
+
+            if (!Array.isArray(processes) || processes.length === 0) {
+                tbody.append('<tr><td colspan="6" class="text-center">No processes available for this booking.</td></tr>');
+                return;
+            }
+
+            processes.forEach(function (process, index) {
+                var sanitizedProcessName = process.processName.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+                var processRow = `
+                                    <tr>
+                                        <td>
+                                            <input type="text" name="DetailRecords[${index}].SequenceNo"
+                                                   value="${process.sequenceNo}"
+                                                   class="form-control form-control-sm" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="DetailRecords[${index}].ProcessName"
+                                                   value="${process.processName}"
+                                                   class="form-control form-control-sm bg-light" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="DetailRecords[${index}].ResourceName"
+                                                   value="${process.resourceName}"
+                                                   class="form-control form-control-sm bg-light" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="time"
+                                                   name="DetailRecords[${index}].McSetupStart"
+                                                   class="form-control form-control-sm"
+                                                   onclick="this.value = new Date().toLocaleTimeString('en-US', { hour12: false }).substring(0, 5);
+                                                   setTimeout(() => $(this).trigger('change'), 10);"
+                                                   onchange="calculateDuration(this, ${index})" />
+                                        </td>
+                                        <td>
+                                            <input type="time"
+                                                   name="DetailRecords[${index}].McSetupFinish"
+                                                   class="form-control form-control-sm"
+                                                   onclick="this.value = new Date().toLocaleTimeString('en-US', { hour12: false }).substring(0, 5);
+                                                   setTimeout(() => $(this).trigger('change'), 10);"
+                                                   onchange="calculateDuration(this, ${index})" />
+                                        </td>
+                                        <td>
+                                            <input type="text"
+                                                   name="DetailRecords[${index}].McSetupDuration"
+                                                   class="form-control form-control-sm bg-light"
+                                                   readonly />
+                                        </td>
+                                    </tr>
+                                `;
+                tbody.append(processRow);
+            });
+        }
+
+        function calculateDuration(element, index) {
+            var row = $(element).closest('tr');
+            var startInput = row.find(`input[name="DetailRecords[${index}].McSetupStart"]`);
+            var finishInput = row.find(`input[name="DetailRecords[${index}].McSetupFinish"]`);
+            var durationInput = row.find(`input[name="DetailRecords[${index}].McSetupDuration"]`);
+
+            var start = startInput.val();
+            var finish = finishInput.val();
+
+            if (start && finish) {
+                var startTime = new Date("1970-01-01T" + start + "Z");
+                var finishTime = new Date("1970-01-01T" + finish + "Z");
+
+                var duration = finishTime - startTime;
+
+                if (duration < 0) {
+                    duration += 24 * 60 * 60 * 1000;
+                }
+
+                var totalMinutes = Math.floor(duration / (1000 * 60));
+                durationInput.val(totalMinutes);
+            } else {
+                durationInput.val('');
+            }
+        }
+    </script>
+}

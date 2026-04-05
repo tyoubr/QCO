@@ -1,0 +1,460 @@
+﻿@model LayoutMonitoringSheetViewModel
+
+<h2 class="text-center text-white p-3 mb-4" style="background: linear-gradient(45deg, #007bff, #6610f2); border-radius: 12px;">Edit Monitoring Sheet</h2>
+
+<form asp-action="Edit" method="post" class="p-4 border rounded shadow" style="background-color: #f8f9fa;">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Slno)
+
+    <!-- Master Record Section -->
+    <h3 class="text-white p-2 rounded" style="background: linear-gradient(45deg, #28a745, #20c997);">Master Record</h3>
+    <div class="row g-3">
+       <!-- Company -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="Company" class="form-label fw-bold text-primary">Company</label>
+                <select asp-for="Company" class="form-select border border-primary shadow-sm">
+                    <option value="">-- Select Company --</option>
+                    <option value="Tropical Knitex Ltd." selected="@(Model.Company == "Tropical Knitex Ltd." ? "selected" : null)">Tropical Knitex Ltd.</option>
+                    <option value="Cotton Club BD Ltd." selected="@(Model.Company == "Cotton Club BD Ltd." ? "selected" : null)">Cotton Club BD Ltd.</option>
+                    <option value="Cotton Club BD ltd [Extended Part]." selected="@(Model.Company == "Cotton Club BD ltd [Extended Part]." ? "selected" : null)">Cotton Club BD ltd [Extended Part].</option>
+                    <option value="Cotton Clothing BD Ltd." selected="@(Model.Company == "Cotton Clothing BD Ltd." ? "selected" : null)">Cotton Clothing BD Ltd.</option>
+                </select>
+                <span asp-validation-for="Company" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Monitoring Date -->
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="MonitoringDate" class="form-label fw-bold text-primary">Monitoring Date</label>
+                <input asp-for="MonitoringDate" class="form-control border border-primary shadow-sm" type="date" />
+                <span asp-validation-for="MonitoringDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Booking No -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="BookingNo" class="form-label fw-bold text-primary">Booking No</label>
+                <input asp-for="BookingNo" class="form-control border border-primary shadow-sm" type="text" />
+                <span asp-validation-for="BookingNo" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Buyer Name -->
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="BuyerName" class="form-label fw-bold text-primary">Buyer Name</label>
+                <input asp-for="BuyerName" class="form-control border border-primary shadow-sm" type="text" />
+                <span asp-validation-for="BuyerName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Line No -->
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="LineNo" class="form-label fw-bold text-primary">Line No</label>
+                <input asp-for="LineNo" class="form-control border border-primary shadow-sm" type="text" />
+                <span asp-validation-for="LineNo" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-2">
+        <!-- Total SMV -->
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="Total_SMV" class="form-label fw-bold text-primary">Total SMV</label>
+                <input asp-for="Total_SMV" class="form-control border border-primary shadow-sm" type="number" />
+                <span asp-validation-for="Total_SMV" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Feed Start -->
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="FeedStart" class="form-label fw-bold text-primary">Layout Start</label>
+                <input asp-for="FeedStart" class="form-control border border-primary shadow-sm" type="datetime-local" />
+                <span asp-validation-for="FeedStart" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Feed Finish -->
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="FeedFinish" class="form-label fw-bold text-primary">Layout Finish</label>
+                <input asp-for="FeedFinish" class="form-control border border-primary shadow-sm" type="datetime-local" />
+                <span asp-validation-for="FeedFinish" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Pre-Style Finish -->
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="PreStyleFinish" class="form-label fw-bold text-primary">Pre-Style Finish</label>
+                <input asp-for="PreStyleFinish" class="form-control border border-primary shadow-sm" type="datetime-local" />
+                <span asp-validation-for="PreStyleFinish" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="NewStyleFinish" class="form-label fw-bold text-primary">New-Style First Output</label>
+                <input asp-for="NewStyleFinish" class="form-control border border-primary shadow-sm" type="datetime-local" />
+                <span asp-validation-for="NewStyleFinish" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+                <div class="form-group">
+                    <label asp-for="Status" class="form-label fw-bold text-primary">Status</label>
+                    <select asp-for="Status" class="form-control border border-primary shadow-sm">
+                        <option value="">-- Select Status --</option>
+                        <option value="Planned">Planned</option>
+                        <option value="Unplanned">Unplanned</option>
+                        <option value="Sudden Planned">Sudden Planned</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+            </div>
+        
+    </div>
+
+    <!-- Detail Records Section -->
+    <h3 class="text-white p-2 mt-4 rounded" style="background: linear-gradient(45deg, #17a2b8, #6610f2);">Detail Records</h3>
+    <div id="details">
+        @for (int i = 0; i < Model.DetailRecords.Count; i++)
+        {
+            <input type="hidden" asp-for="DetailRecords[i].Trnsid" />
+            <div class="row border rounded p-3 mb-3" style="background-color: @(i % 2 == 0 ? "#e9ecef" : "#f8f9fa");">
+                <div class="col-md-1">
+                    <label asp-for="DetailRecords[i].SequenceNo" class="form-label fw-bold text-secondary">Seq. No.</label>
+                    <input asp-for="DetailRecords[i].SequenceNo" class="form-control border border-secondary shadow-sm" type="text" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="DetailRecords[i].ProcessName" class="form-label fw-bold text-secondary">Process Name</label>
+                    <input asp-for="DetailRecords[i].ProcessName" class="form-control border border-secondary shadow-sm" type="text" readonly="true" />
+                </div>
+                <div class="col-md-2">
+                    <label asp-for="DetailRecords[i].ResourceName" class="form-label fw-bold text-secondary">Resource Name</label>
+                    <input asp-for="DetailRecords[i].ResourceName" class="form-control border border-secondary shadow-sm" type="text" />
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group mb-3">
+                        <label asp-for="DetailRecords[i].McSetupStart" class="form-label fw-bold">Operation Starts</label>
+                        <input asp-for="DetailRecords[i].McSetupStart"
+                               class="form-control"
+                               type="time"
+                               data-role="start-time"
+                               onclick="setCurrentTime(this, 'start-time')" />
+                        <span asp-validation-for="DetailRecords[i].McSetupStart" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Finish Time -->
+                <div class="col-md-2">
+                    <div class="form-group mb-3">
+                        <label asp-for="DetailRecords[i].McSetupFinish" class="form-label fw-bold">Operation Ends</label>
+                        <input asp-for="DetailRecords[i].McSetupFinish"
+                               class="form-control"
+                               type="time"
+                               data-role="finish-time"
+                               onclick="setCurrentTime(this, 'finish-time')" />
+                        <span asp-validation-for="DetailRecords[i].McSetupFinish" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Duration -->
+                <div class="col-md-1">
+                    <div class="form-group mb-3">
+                        <label asp-for="DetailRecords[i].McSetupDuration" class="form-label fw-bold">Duration</label>
+                        <input asp-for="DetailRecords[i].McSetupDuration"
+                               class="form-control"
+                               type="text"
+                               data-role="duration" />
+                        <span asp-validation-for="DetailRecords[i].McSetupDuration" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-1 d-flex align-items-end">
+                    <!-- Triggering the modal here -->
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#causeModal_@i">Cause Of Delay</button>
+                </div>
+            </div>
+
+
+            @for (int j = 0; j < Model.DetailRecords[i].SelectedCauses.Count; j++)
+            {
+                <input type="hidden" name="DetailRecords[@i].SelectedCauses[@j]" value="@Model.DetailRecords[i].SelectedCauses[j]" />
+                <input type="hidden" name="DetailRecords[@i].CauseTimes[@j]" value="@Model.DetailRecords[i].CauseTimes[j]" />
+            }
+
+            <!-- Modal for selecting causes -->
+            <div class="modal fade" id="causeModal_@i" tabindex="-1" aria-labelledby="causeModalLabel_@i" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="causeModalLabel_@i">Select Causes for Transaction #@i</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Hidden Trnsid -->
+                            <input type="hidden" id="trnsid_@i" value="@Model.DetailRecords[i].Trnsid" />
+
+                            <!-- Cause Selection Dropdown -->
+                            <div class="form-group">
+                                <label for="causeDropdown_@i">Select Cause(s):</label>
+                                <select id="causeDropdown_@i" class="form-control">
+                                    <option value="">-- Select Cause --</option>
+                                    @foreach (var cause in Model.DetailRecords[i].Causes)
+                                    {
+                                        <option value="@cause.CAUSEID">@cause.CAUSE_OF_DELAY</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <!-- Time Input -->
+                            <div class="form-group mt-2">
+                                <label for="causeTime_@i">Time (Minutes):</label>
+                                <input type="number" id="causeTime_@i" class="form-control" min="1" placeholder="Enter time in minutes">
+                            </div>
+
+                            <!-- Add Button -->
+                            <button type="button" class="btn btn-primary mt-2 addCauseBtn" data-index="@i">Add Cause</button>
+
+                            <!-- Selected Causes Table -->
+                            <table id="selectedCausesTable_@i" class="table mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>Cause</th>
+                                        <th>Time (Min)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.DetailRecords[i].SelectedCauses != null && Model.DetailRecords[i].SelectedCauses.Any())
+                                    {
+                                        for (int j = 0; j < Model.DetailRecords[i].SelectedCauses.Count; j++)
+                                        {
+                                            var causeId = Model.DetailRecords[i].SelectedCauses[j];
+                                            var causeTime = Model.DetailRecords[i].CauseTimes[j];
+                                            var causeName = Model.DetailRecords[i].Causes.FirstOrDefault(c => c.CAUSEID == causeId)?.CAUSE_OF_DELAY;
+
+                                            <tr data-cause-id="@causeId">
+                                                <td>@causeName</td>
+                                                <td><input type="number" class="form-control cause-time" value="@causeTime" /></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger removeCauseBtn">Remove</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Save Button (Moved here) -->
+    <!-- Save Button (with spacing) -->
+    <div class="text-center mt-4 mb-5">
+        <button type="submit" class="btn btn-success btn-lg shadow">Save Changes</button>
+    </div>
+
+
+</form>
+@section Scripts {
+<script>
+        
+        $(document).ready(function () {
+            // Add Cause Button Click Event
+            $(".addCauseBtn").on("click", function () {
+                var index = $(this).data("index");
+
+                var causeId = $("#causeDropdown_" + index).val();
+                var causeTime = $("#causeTime_" + index).val();
+
+                // Validate cause and time inputs
+                if (!causeId || !causeTime) {
+                    alert("Please select a cause and enter time.");
+                    return;
+                }
+
+                var causeName = $("#causeDropdown_" + index + " option:selected").text();
+
+                // Check if the cause is already added
+                var isDuplicate = $("#selectedCausesTable_" + index + " tbody tr").toArray().some(function (row) {
+                    return $(row).data("cause-id") == causeId;
+                });
+
+                if (isDuplicate) {
+                    alert("This cause has already been added.");
+                    return;
+                }
+
+                // Add new cause row in table
+                var row = "<tr data-cause-id='" + causeId + "'>";
+                row += "<td>" + causeName + "</td>";
+                row += "<td><input type='number' class='form-control cause-time' value='" + causeTime + "' min='1' /></td>";
+                row += "<td><button type='button' class='btn btn-danger removeCauseBtn'>Remove</button></td>";
+                row += "</tr>";
+
+                $("#selectedCausesTable_" + index + " tbody").append(row);
+
+                // Update hidden fields for the specific process
+                updateHiddenFields(index);
+            });
+
+            // Handle removing causes
+            $(document).on("click", ".removeCauseBtn", function () {
+                $(this).closest("tr").remove();
+                var index = $(this).closest("table").attr("id").split("_")[1];
+                updateHiddenFields(index);
+            });
+
+            // Handle changes to cause-time inputs
+            $(document).on("change", ".cause-time", function () {
+                var index = $(this).closest("table").attr("id").split("_")[1];
+                updateHiddenFields(index);
+            });
+
+            // Update the hidden fields with the selected causes and times for a specific process
+            function updateHiddenFields(index) {
+                // Remove existing hidden inputs
+                $("input[name^='DetailRecords[" + index + "].SelectedCauses']").remove();
+                $("input[name^='DetailRecords[" + index + "].CauseTimes']").remove();
+
+                // Add new hidden inputs for each cause and time
+                $("#selectedCausesTable_" + index + " tbody tr").each(function (i) {
+                    var causeId = $(this).data("cause-id");
+                    var causeTime = $(this).find(".cause-time").val();
+
+                    $("<input>").attr({
+                        type: "hidden",
+                        name: "DetailRecords[" + index + "].SelectedCauses[" + i + "]",
+                        value: causeId
+                    }).appendTo("form");
+
+                    $("<input>").attr({
+                        type: "hidden",
+                        name: "DetailRecords[" + index + "].CauseTimes[" + i + "]",
+                        value: causeTime
+                    }).appendTo("form");
+                });
+            }
+        });
+
+
+
+        // Function to set the current time in the input field when clicked
+        function setCurrentTime(input, type) {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');  // Ensure two-digit hours
+            const minutes = String(now.getMinutes()).padStart(2, '0');  // Ensure two-digit minutes
+            const currentTime = hours + ":" + minutes;
+
+            // Set the current time in the appropriate input field
+            if (type === 'start-time') {
+                $(input).val(currentTime); // Set current time for start-time
+            } else if (type === 'finish-time') {
+                $(input).val(currentTime); // Set current time for finish-time
+            }
+
+            // Recalculate duration for the same row (parent row)
+            calculateDuration(input);
+        }
+
+        // Function to calculate duration in minutes
+        function calculateDuration(input) {
+            const container = $(input).closest('.row'); // Find the closest row
+            const startInput = container.find('input[data-role="start-time"]');
+            const finishInput = container.find('input[data-role="finish-time"]');
+            const durationInput = container.find('input[data-role="duration"]');
+
+            const start = startInput.val(); // Get start time value
+            const finish = finishInput.val(); // Get finish time value
+
+            if (start && finish) {
+                // Parse start and finish times with consideration for potential midnight crossover
+                const startTime = new Date("1970-01-01T" + start + "Z");
+                const finishTime = new Date("1970-01-01T" + finish + "Z");
+
+                let duration = finishTime - startTime;
+
+                // Handle cases where finish time is on the next day
+                if (duration < 0) {
+                    duration += 24 * 60 * 60 * 1000; // Add 24 hours in milliseconds
+                }
+
+                // Convert duration to total minutes
+                const totalMinutes = Math.floor(duration / (1000 * 60));
+
+                // Update duration input field with total minutes
+                durationInput.val(totalMinutes);
+            } else {
+                // Clear duration if inputs are incomplete
+                durationInput.val('');
+            }
+        }
+
+        // Trigger the duration calculation on time input changes
+        $(document).ready(function () {
+            $(document).on('change', 'input[data-role="start-time"], input[data-role="finish-time"]', function () {
+                calculateDuration(this);
+            });
+        });
+    </script>
+    <style>
+        .long-process {
+            background-color: #ffd700; /* Default color for long processes */
+            font-weight: 500;
+            border-radius: 4px;
+            padding: 2px 5px;
+        }
+    </style>
+
+    <script>
+        // Add unique colors for first 10 long process names
+        document.addEventListener('DOMContentLoaded', function () {
+            const colorPalette = [
+                '#FFE4E1', /* Misty Rose */
+                '#E0FFFF', /* Light Cyan */
+                '#F0FFF0', /* Honeydew */
+                '#FFF0F5', /* Lavender Blush */
+                '#F5F5DC', /* Beige */
+                '#FFF8DC', /* Cornsilk */
+                '#FAFAD2', /* Light Goldenrod Yellow */
+                '#F0F8FF', /* Alice Blue */
+                '#F8F8FF', /* Ghost White */
+                '#F5F5F5'  /* White Smoke */
+            ];
+
+            let colorIndex = 0;
+            let processedCount = 0;
+
+            document.querySelectorAll('input[id^="DetailRecords_"][id$="_ProcessName"]').forEach(input => {
+                if (input.value.length > 30 && processedCount < 10) {
+                    input.style.backgroundColor = colorPalette[colorIndex];
+                    input.style.border = '1px solid #ced4da';
+                    input.style.boxShadow = '0 0 4px rgba(0,0,0,0.1)';
+                    input.classList.add('long-process');
+
+                    colorIndex = (colorIndex + 1) % colorPalette.length;
+                    processedCount++;
+                }
+            });
+        });
+    </script>
+}
+
+
+
+
+
+

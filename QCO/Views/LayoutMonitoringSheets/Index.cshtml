@@ -1,0 +1,235 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<QCO.Models.TblLayoutMonitoringSheet>
+
+
+@{
+    ViewData["Title"] = "Layout Monitoring Sheets";
+}
+
+<!-- Inline Styles -->
+<style>
+    .container {
+        max-width: 2020px;
+        margin: 0 auto;
+    }
+
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: linear-gradient(to right, #4e73df, #1cc88a);
+        color: white;
+        padding: 15px;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    .table {
+        margin: 0;
+        width: 100%; /* Ensure table width is 100% */
+        table-layout: fixed; /* Prevent overflowing content */
+    }
+
+        .table thead th {
+            background-color: #f8f9fc;
+            color: #5a5c69;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            word-wrap: break-word;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f3f9;
+        }
+
+        .table td {
+            vertical-align: middle;
+            padding: 5px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+    .btn {
+        font-size: 0.85rem;
+        border-radius: 20px;
+        padding: 5px 10px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .btn-outline-warning {
+        color: #ffc107;
+        border-color: #ffc107;
+    }
+
+        .btn-outline-warning:hover {
+            background-color: #ffc107;
+            color: white;
+        }
+
+    .btn-outline-info {
+        color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+    .btn-outline-danger {
+        color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4e73df;
+        }
+
+    .rounded-pill {
+        border-radius: 50px;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Column for action buttons - Ensure horizontal alignment */
+    .actions-column {
+        display: flex;
+        justify-content: flex-start; /* Align buttons to the left */
+        gap: 10px; /* Space out the buttons */
+    }
+
+    /* Additional adjustments for table layout */
+    .table th, .table td {
+        word-wrap: break-word;
+        text-align: left;
+    }
+
+        .table td .btn {
+            white-space: nowrap; /* Prevent buttons from wrapping */
+        }
+</style>
+
+
+<div class="container mt-5">
+    <!-- Page Header -->
+    <div class="page-header d-flex justify-content-between align-items-center">
+        <h1 class="fw-bold">Layout Monitoring Sheets</h1>
+      
+    </div>
+
+    <!-- Live Search Input -->
+    <div class="mb-3 d-flex gap-2 align-items-center">
+        <input type="text" id="liveSearch" class="form-control w-25 shadow-sm" placeholder="Search Company / Booking / Buyer / Line No" />
+        <a asp-action="Create" class="btn btn-success btn-lg shadow-sm rounded-pill">
+            <i class="bi bi-plus-circle"></i> Create New
+        </a>
+    </div>
+
+    <!-- Table Card -->
+    <div class="card">
+        <div class="card-header">Monitoring Records</div>
+        <div class="card-body p-0">
+            <table class="table table-hover table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Monitoring Date</th>
+                        <th>Booking Number</th>
+                        <th>Buyer Name</th>
+                        <th>Line Number</th>
+                        <th>Total SMV</th>
+                        <th>Feed Start Time</th>
+                        <th>Feed Finish Time</th>
+                        <th>Pre-Style Finish Time</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="monitoringBody">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Company)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MonitoringDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.BookingNo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.BuyerName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LineNo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Total_SMV)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FeedStart)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FeedFinish)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PreStyleFinish)</td>
+                            <td class="text-center actions-column">
+                                <a asp-action="Edit" asp-route-id="@item.Slno" class="btn btn-outline-warning rounded-pill shadow-sm">
+                                    <i class="bi bi-pencil-fill"></i> Edit
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Slno" class="btn btn-outline-info rounded-pill shadow-sm">
+                                    <i class="bi bi-eye-fill"></i> Details
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Slno" class="btn btn-outline-danger rounded-pill shadow-sm">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = ViewBag.Search }),
+                         new PagedListRenderOptions
+                {
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                    MaximumPageNumbersToDisplay = 5,
+                    UlElementClasses = new[] { "pagination", "justify-content-center" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" }
+                })
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#liveSearch').on('keyup', function () {
+                var query = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("RawSearch")',
+                    type: 'GET',
+                    data: { term: query },
+                    success: function (data) {
+                        $('#monitoringBody').html(data);
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,730 @@
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\appsettings.Development.json
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\appsettings.json
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\bundleconfig.json
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\libman.json
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\package-lock.json
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\package.json
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\QCO.staticwebassets.runtime.json
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\QCO.exe
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\QCO.deps.json
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\QCO.runtimeconfig.json
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\QCO.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\QCO.pdb
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Azure.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Azure.Identity.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.AspNetCore.Common.v23.2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.AspNetCore.Core.v23.2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.AspNetCore.Reporting.v23.2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.XtraCharts.v23.2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Charts.v23.2.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.CodeParser.v23.2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Data.v23.2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.DataAccess.v23.2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.DataVisualization.v23.2.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Drawing.v23.2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.XtraGauges.v23.2.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Office.v23.2.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Pdf.v23.2.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Pdf.v23.2.Drawing.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.PivotGrid.v23.2.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Printing.v23.2.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.XtraReports.v23.2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.RichEdit.v23.2.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.RichEdit.v23.2.Export.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Sparkline.v23.2.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.XtraReports.v23.2.Web.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Web.Reporting.v23.2.Common.Services.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Web.Resources.v23.2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Xpo.v23.2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Humanizer.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Build.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Build.Framework.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Features.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.Elfie.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.Features.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.Razor.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.Scripting.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Data.Sqlite.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.DiaSymReader.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.DotNet.Scaffolding.Shared.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Sqlite.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.NET.StringTools.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\dotnet-aspnet-codegenerator-design.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Common.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Configuration.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.DependencyResolver.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Frameworks.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.LibraryModel.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Packaging.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.ProjectModel.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Protocol.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Versioning.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Oracle.EntityFrameworkCore.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\Oracle.ManagedDataAccess.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\SQLitePCLRaw.batteries_v2.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\SQLitePCLRaw.core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\SQLitePCLRaw.provider.e_sqlite3.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.ClientModel.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.CodeDom.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Data.SqlClient.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Diagnostics.PerformanceCounter.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.DirectoryServices.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.DirectoryServices.Protocols.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Formats.Asn1.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Memory.Data.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Private.ServiceModel.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Reflection.MetadataLoadContext.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.ServiceModel.Http.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.ServiceModel.NetTcp.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.ServiceModel.Primitives.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.ServiceModel.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.ServiceModel.Security.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Threading.AccessControl.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\X.PagedList.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\X.PagedList.Mvc.Core.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\af\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ar\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\az\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\bg\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\bn-BD\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\cs\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\da\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\de\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\el\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\es\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fa\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fi-FI\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fr\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fr-BE\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\he\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\hr\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\hu\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\hy\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\id\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\is\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\it\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ja\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ko-KR\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ku\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\lv\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ms-MY\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\mt\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\nb\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\nb-NO\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\nl\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pl\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pt\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ro\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ru\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\sk\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\sl\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\sr\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\sr-Latn\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\sv\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\th-TH\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\tr\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\uk\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\uz-Cyrl-UZ\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\uz-Latn-UZ\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\vi\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-CN\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Humanizer.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\cs\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\de\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\es\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\fr\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\it\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ja\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ko\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pl\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\ru\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\tr\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\System.Private.ServiceModel.resources.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-arm64\native\sni.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x64\native\sni.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x86\native\sni.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\browser-wasm\nativeassets\net8.0\e_sqlite3.a
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-arm\native\libe_sqlite3.so
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-arm64\native\libe_sqlite3.so
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-armel\native\libe_sqlite3.so
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-mips64\native\libe_sqlite3.so
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-musl-arm\native\libe_sqlite3.so
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-musl-arm64\native\libe_sqlite3.so
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-musl-x64\native\libe_sqlite3.so
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-ppc64le\native\libe_sqlite3.so
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-s390x\native\libe_sqlite3.so
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-x64\native\libe_sqlite3.so
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-x86\native\libe_sqlite3.so
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\maccatalyst-arm64\native\libe_sqlite3.dylib
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\maccatalyst-x64\native\libe_sqlite3.dylib
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\osx-arm64\native\libe_sqlite3.dylib
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\osx-x64\native\libe_sqlite3.dylib
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-arm\native\e_sqlite3.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Diagnostics.PerformanceCounter.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.DirectoryServices.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux\lib\net6.0\System.DirectoryServices.Protocols.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\osx\lib\net6.0\System.DirectoryServices.Protocols.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.DirectoryServices.Protocols.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\netstandard2.0\System.Threading.AccessControl.dll
+D:\New Project\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.csproj.AssemblyReference.cache
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.Reports.rptHitRate.resources
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.Reports.rptLayoutMonitoringSheet.resources
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.Reports.XtraReport2.resources
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.csproj.GenerateResource.cache
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.GeneratedMSBuildEditorConfig.editorconfig
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.AssemblyInfoInputs.cache
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.AssemblyInfo.cs
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.csproj.CoreCompileInputs.cache
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.MvcApplicationPartsAssemblyInfo.cs
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.MvcApplicationPartsAssemblyInfo.cache
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.RazorAssemblyInfo.cache
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.RazorAssemblyInfo.cs
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets.build.json
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets.development.json
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets\msbuild.QCO.Microsoft.AspNetCore.StaticWebAssets.props
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets\msbuild.build.QCO.props
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.QCO.props
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.QCO.props
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets.pack.json
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\scopedcss\bundle\QCO.styles.css
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\scopedcss\projectbundle\QCO.bundle.scp.css
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.csproj.Up2Date
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.dll
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\refint\QCO.dll
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.pdb
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\QCO.genruntimeconfig.cache
+D:\New Project\QCO\QCO\QCO\obj\Debug\net8.0\ref\QCO.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\appsettings.Development.json
+D:\QCO\QCO\QCO\bin\Debug\net8.0\appsettings.json
+D:\QCO\QCO\QCO\bin\Debug\net8.0\bundleconfig.json
+D:\QCO\QCO\QCO\bin\Debug\net8.0\libman.json
+D:\QCO\QCO\QCO\bin\Debug\net8.0\package-lock.json
+D:\QCO\QCO\QCO\bin\Debug\net8.0\package.json
+D:\QCO\QCO\QCO\bin\Debug\net8.0\QCO.staticwebassets.runtime.json
+D:\QCO\QCO\QCO\bin\Debug\net8.0\QCO.exe
+D:\QCO\QCO\QCO\bin\Debug\net8.0\QCO.deps.json
+D:\QCO\QCO\QCO\bin\Debug\net8.0\QCO.runtimeconfig.json
+D:\QCO\QCO\QCO\bin\Debug\net8.0\QCO.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\QCO.pdb
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Azure.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Azure.Identity.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.AspNetCore.Common.v23.2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.AspNetCore.Core.v23.2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.AspNetCore.Reporting.v23.2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.XtraCharts.v23.2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Charts.v23.2.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.CodeParser.v23.2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Data.v23.2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.DataAccess.v23.2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.DataVisualization.v23.2.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Drawing.v23.2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.XtraGauges.v23.2.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Office.v23.2.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Pdf.v23.2.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Pdf.v23.2.Drawing.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.PivotGrid.v23.2.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Printing.v23.2.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.XtraReports.v23.2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.RichEdit.v23.2.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.RichEdit.v23.2.Export.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Sparkline.v23.2.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.XtraReports.v23.2.Web.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Web.Reporting.v23.2.Common.Services.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Web.Resources.v23.2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\DevExpress.Xpo.v23.2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Humanizer.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Build.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Build.Framework.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Features.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.Elfie.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.Features.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.Razor.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.Scripting.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Data.Sqlite.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.DiaSymReader.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.DotNet.Scaffolding.Shared.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Sqlite.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.NET.StringTools.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\dotnet-aspnet-codegenerator-design.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Common.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Configuration.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.DependencyResolver.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Frameworks.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.LibraryModel.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Packaging.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.ProjectModel.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Protocol.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\NuGet.Versioning.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Oracle.EntityFrameworkCore.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\Oracle.ManagedDataAccess.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\SQLitePCLRaw.batteries_v2.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\SQLitePCLRaw.core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\SQLitePCLRaw.provider.e_sqlite3.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.ClientModel.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.CodeDom.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Data.SqlClient.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Diagnostics.PerformanceCounter.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.DirectoryServices.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.DirectoryServices.Protocols.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Formats.Asn1.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Memory.Data.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Private.ServiceModel.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Reflection.MetadataLoadContext.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.ServiceModel.Http.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.ServiceModel.NetTcp.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.ServiceModel.Primitives.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.ServiceModel.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.ServiceModel.Security.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Threading.AccessControl.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\X.PagedList.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\X.PagedList.Mvc.Core.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\af\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ar\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\az\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\bg\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\bn-BD\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\cs\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\da\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\de\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\el\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\es\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fa\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fi-FI\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fr\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fr-BE\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\he\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\hr\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\hu\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\hy\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\id\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\is\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\it\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ja\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ko-KR\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ku\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\lv\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ms-MY\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\mt\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\nb\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\nb-NO\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\nl\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pl\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pt\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ro\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ru\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\sk\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\sl\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\sr\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\sr-Latn\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\sv\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\th-TH\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\tr\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\uk\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\uz-Cyrl-UZ\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\uz-Latn-UZ\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\vi\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-CN\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Humanizer.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\cs\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\de\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\es\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\fr\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\it\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ja\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ko\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pl\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\pt-BR\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\ru\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\tr\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hans\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\zh-Hant\System.Private.ServiceModel.resources.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-arm64\native\sni.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x64\native\sni.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x86\native\sni.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\browser-wasm\nativeassets\net8.0\e_sqlite3.a
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-arm\native\libe_sqlite3.so
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-arm64\native\libe_sqlite3.so
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-armel\native\libe_sqlite3.so
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-mips64\native\libe_sqlite3.so
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-musl-arm\native\libe_sqlite3.so
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-musl-arm64\native\libe_sqlite3.so
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-musl-x64\native\libe_sqlite3.so
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-ppc64le\native\libe_sqlite3.so
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-s390x\native\libe_sqlite3.so
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-x64\native\libe_sqlite3.so
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux-x86\native\libe_sqlite3.so
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\maccatalyst-arm64\native\libe_sqlite3.dylib
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\maccatalyst-x64\native\libe_sqlite3.dylib
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\osx-arm64\native\libe_sqlite3.dylib
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\osx-x64\native\libe_sqlite3.dylib
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-arm\native\e_sqlite3.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Diagnostics.PerformanceCounter.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.DirectoryServices.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\linux\lib\net6.0\System.DirectoryServices.Protocols.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\osx\lib\net6.0\System.DirectoryServices.Protocols.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.DirectoryServices.Protocols.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\netstandard2.0\System.Threading.AccessControl.dll
+D:\QCO\QCO\QCO\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.csproj.AssemblyReference.cache
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.Reports.rptHitRate.resources
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.Reports.rptLayoutMonitoringSheet.resources
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.Reports.XtraReport2.resources
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.csproj.GenerateResource.cache
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.GeneratedMSBuildEditorConfig.editorconfig
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.AssemblyInfoInputs.cache
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.AssemblyInfo.cs
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.csproj.CoreCompileInputs.cache
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.MvcApplicationPartsAssemblyInfo.cs
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.MvcApplicationPartsAssemblyInfo.cache
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.RazorAssemblyInfo.cache
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.RazorAssemblyInfo.cs
+D:\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets.build.json
+D:\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets.development.json
+D:\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets\msbuild.QCO.Microsoft.AspNetCore.StaticWebAssets.props
+D:\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets\msbuild.build.QCO.props
+D:\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.QCO.props
+D:\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.QCO.props
+D:\QCO\QCO\QCO\obj\Debug\net8.0\staticwebassets.pack.json
+D:\QCO\QCO\QCO\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\QCO\QCO\QCO\obj\Debug\net8.0\scopedcss\bundle\QCO.styles.css
+D:\QCO\QCO\QCO\obj\Debug\net8.0\scopedcss\projectbundle\QCO.bundle.scp.css
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.csproj.Up2Date
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.dll
+D:\QCO\QCO\QCO\obj\Debug\net8.0\refint\QCO.dll
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.pdb
+D:\QCO\QCO\QCO\obj\Debug\net8.0\QCO.genruntimeconfig.cache
+D:\QCO\QCO\QCO\obj\Debug\net8.0\ref\QCO.dll

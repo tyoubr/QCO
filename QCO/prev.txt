@@ -1,0 +1,18 @@
+WITH RankedData AS (
+    SELECT *, 
+           ROW_NUMBER() OVER (PARTITION BY LINE_NO ORDER BY SLNO DESC) AS RowNum
+    FROM [tbl_LayoutMonitoringSheet] 
+)
+SELECT 
+    lastRow.LINE_NO,
+    lastRow.SLNO,
+    lastRow.BOOKING_NO,
+    lastRow.TOTAL_SMV,
+    secondLastRow.BOOKING_NO AS Previous_Booking_No,
+    secondLastRow.TOTAL_SMV AS Previous_Total_SMV
+FROM RankedData lastRow
+LEFT JOIN RankedData secondLastRow 
+    ON lastRow.LINE_NO = secondLastRow.LINE_NO 
+    AND lastRow.RowNum = 1 
+    AND secondLastRow.RowNum = 2
+WHERE lastRow.RowNum = 1;
