@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Build.Experimental.FileAccess;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using QCO.ViewModel;
 
 
 namespace QCO.Controllers
@@ -71,18 +72,84 @@ namespace QCO.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(TblLayoutMonitoringSheet tblLayoutMonitoringSheet)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(tblLayoutMonitoringSheet);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+
+        //    return View(tblLayoutMonitoringSheet);
+        //}
+
+        //[HttpPost]
+        //public IActionResult SaveLayoutMonitoringSheet(CadConsumptionViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+
+        //    // ✅ Save Master first
+        //    _context.TblCadConsMs.Add(model.Master);
+        //    _context.SaveChanges(); // important to get ID
+
+        //    // ✅ Save Details
+        //    if (model.Details != null && model.Details.Count > 0)
+        //    {
+        //        foreach (var item in model.Details)
+        //        {
+        //            item.Cadmid = model.Master.Cadmid; // FK
+        //            item.Transdate = DateTime.Now;
+
+        //            _context.TblCadConsDs.Add(item);
+        //        }
+
+        //        _context.SaveChanges();
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TblLayoutMonitoringSheet tblLayoutMonitoringSheet)
+        public IActionResult Create(CadConsumptionViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(tblLayoutMonitoringSheet);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // ✅ ADD THIS BLOCK HERE
+                foreach (var error in ModelState)
+                {
+                    foreach (var subError in error.Value.Errors)
+                    {
+                        Console.WriteLine($"{error.Key} : {subError.ErrorMessage}");
+                    }
+                }
+
+                return View(model);
             }
 
-            return View(tblLayoutMonitoringSheet);
+            // Save Master
+            _context.TblCadConsMs.Add(model.Master);
+            _context.SaveChanges();
+
+            // Save Details
+            if (model.Details != null && model.Details.Count > 0)
+            {
+                foreach (var item in model.Details)
+                {
+                    item.Cadmid = model.Master.Cadmid;
+                    item.Transdate = DateTime.Now;
+
+                    _context.TblCadConsDs.Add(item);
+                }
+
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

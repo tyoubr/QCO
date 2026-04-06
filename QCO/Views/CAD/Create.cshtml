@@ -137,7 +137,7 @@
 <hr />
 
 <div class="container py-4" style="background-color: #F8F9FA;">
-    <form asp-action="SaveLayoutMonitoringSheet" class="p-4 shadow-sm bg-white rounded">
+    <form asp-action="Create" class="p-4 shadow-sm bg-white rounded">
         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
         <!-- Form Sections -->
@@ -234,10 +234,17 @@
                     <span asp-validation-for="Master.Brand" class="text-danger"></span>
                 </div>
             </div>
-            <div class="col-md-3">
+            @* <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label for="Master.Season" class="form-label fw-bold text-dark">Season</label>
                     <input type="text" id="Season" name="Season" class="form-control bg-light" readonly />
+                </div>
+            </div> *@
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Master.Season" class="form-label fw-bold text-dark">Season</label>
+                    <input asp-for="Master.Season" id="Season" name="Season" class="form-control bg-light" readonly />
+                    <span asp-validation-for="Master.Season" class="text-danger"></span>
                 </div>
             </div>
             @* <!-- Feed Start -->
@@ -268,12 +275,20 @@
                     <span asp-validation-for="PreStyleFinish" class="text-danger"></span>
                 </div>
             </div> *@
-            <div class="col-md-3">
+            @* <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label for="Master.SeasonYear" class="form-label fw-bold text-dark">Season Year</label>
                     <input type="text" id="SeasonYear" name="SeasonYear" class="form-control bg-light" readonly />
                 </div>
+            </div> *@
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Master.Seasonyear" class="form-label fw-bold text-dark">Season Year</label>
+                    <input asp-for="Master.Seasonyear" id="Season" name="Season" class="form-control bg-light" readonly />
+                    <span asp-validation-for="Master.Seasonyear" class="text-danger"></span>
+                </div>
             </div>
+            
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Styledes" class="form-label fw-bold text-dark">Style Des.</label>
@@ -537,6 +552,16 @@
         // Initialize with one row
         document.addEventListener("DOMContentLoaded", function () {
             addRow();
+        });
+
+        document.querySelector("form").addEventListener("submit", function () {
+            const rows = document.querySelectorAll("#detailsBody tr");
+
+            rows.forEach((row, index) => {
+                row.querySelectorAll("input").forEach(input => {
+                    input.name = input.name.replace(/Details\[\d+\]/, `Details[${index}]`);
+                });
+            });
         });
     </script>
 }
