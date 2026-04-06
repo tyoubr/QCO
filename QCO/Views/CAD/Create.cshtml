@@ -1,8 +1,137 @@
-﻿@model QCO.Models.TblLayoutMonitoringSheet
+﻿@model QCO.ViewModel.CadConsumptionViewModel
+
+
 
 @{
     ViewData["Title"] = "Create";
 }
+
+<!-- Inline Styles -->
+<style>
+    .container {
+        max-width: 2020px;
+        margin: 0 auto;
+    }
+
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: linear-gradient(to right, #4e73df, #1cc88a);
+        color: white;
+        padding: 15px;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    .table {
+        margin: 0;
+        width: 100%; /* Ensure table width is 100% */
+        table-layout: fixed; /* Prevent overflowing content */
+    }
+
+        .table thead th {
+            background-color: #f8f9fc;
+            color: #5a5c69;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            word-wrap: break-word;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f3f9;
+        }
+
+        .table td {
+            vertical-align: middle;
+            padding: 5px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+    .btn {
+        font-size: 0.85rem;
+        border-radius: 20px;
+        padding: 5px 10px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .btn-outline-warning {
+        color: #ffc107;
+        border-color: #ffc107;
+    }
+
+        .btn-outline-warning:hover {
+            background-color: #ffc107;
+            color: white;
+        }
+
+    .btn-outline-info {
+        color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+    .btn-outline-danger {
+        color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4e73df;
+        }
+
+    .rounded-pill {
+        border-radius: 50px;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Column for action buttons - Ensure horizontal alignment */
+    .actions-column {
+        display: flex;
+        justify-content: flex-start; /* Align buttons to the left */
+        gap: 10px; /* Space out the buttons */
+    }
+
+    /* Additional adjustments for table layout */
+    .table th, .table td {
+        word-wrap: break-word;
+        text-align: left;
+    }
+
+        .table td .btn {
+            white-space: nowrap; /* Prevent buttons from wrapping */
+        }
+
+</style>
 
 <h1 class="text-center text-primary">Create CAD Consumption</h1>
 <hr />
@@ -13,69 +142,105 @@
 
         <!-- Form Sections -->
         <div class="row">
+
+            <!-- CAD Date -->
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Master.Caddate" class="form-label fw-bold text-dark">CAD Date</label>
+                    <input asp-for="Master.Caddate" class="form-control border-primary shadow-sm" type="datetime-local" />
+                    <span asp-validation-for="Master.Caddate" class="text-danger"></span>
+                </div>
+            </div>
             <!-- Company -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="Company" class="form-label fw-bold text-dark">Company</label>
-                    <select asp-for="Company" class="form-select border-primary shadow-sm">
-                        <option value="">-- Select Company --</option>
+                    <label asp-for="Master.Opt01" class="form-label fw-bold text-dark"> Working Company</label>
+                    <select asp-for="Master.Opt01" class="form-select border-primary shadow-sm">
+                        <option value="">Select Company</option>
                         <option value="Tropical Knitex Ltd.">Tropical Knitex Ltd.</option>
                         <option value="Cotton Club BD Ltd.">Cotton Club BD Ltd.</option>
                         <option value="Cotton Club BD ltd [Extended Part]">Cotton Club BD ltd [Extended Part].</option>
                         <option value="Cotton Clothing BD Ltd.">Cotton Clothing BD Ltd.</option>
                     </select>
-                    <span asp-validation-for="Company" class="text-danger"></span>
+                    <span asp-validation-for="Master.Opt01" class="text-danger"></span>
                 </div>
             </div>
-
-            <!-- Monitoring Date -->
-            <div class="col-md-3">
+            @* <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="MonitoringDate" class="form-label fw-bold text-dark">Monitoring Date</label>
-                    <input asp-for="MonitoringDate" class="form-control border-primary shadow-sm" type="datetime-local" />
-                    <span asp-validation-for="MonitoringDate" class="text-danger"></span>
+                    <label asp-for="Master.Styleref" class="form-label fw-bold text-dark">M. Style Ref.</label>
+                    <input asp-for="Master.Styleref" class="form-control border-primary shadow-sm" />
+                    <span asp-validation-for="Master.Styleref" class="text-danger"></span>
                 </div>
-            </div>
-
+            </div> *@
             <!-- BookingNo Dropdown -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="BookingNo" class="form-label fw-bold text-dark">Booking No</label>
-                    <select asp-for="BookingNo" class="form-control select2 border-primary shadow-sm" id="BookingNo">
+                    <label asp-for="Master.Styleref" class="form-label fw-bold text-dark">M. Style Ref.</label>
+                    <select asp-for="Master.Styleref" class="form-control select2 border-primary shadow-sm" id="BookingNo">
                         <option value="">Select Booking No</option>
                     </select>
-                    <span asp-validation-for="BookingNo" class="text-danger"></span>
+                    <span asp-validation-for="Master.Styleref" class="text-danger"></span>
                 </div>
             </div>
-
-            <!-- Buyer Name -->
+            <!-- JOB -->
             <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label for="Master.Job" class="form-label fw-bold text-dark">Job No.</label>
+                    <input type="text" id="Job" name="Job" class="form-control bg-light" readonly />
+                </div>
+            </div>
+            <!-- Buyer Name -->
+            @* <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label for="BuyerName" class="form-label fw-bold text-dark">Buyer Name</label>
                     <input type="text" id="BuyerName" name="BuyerName" class="form-control bg-light" readonly />
                 </div>
-            </div>
+            </div> *@
         </div>
 
         <div class="row">
             <!-- Total SMV -->
-            <div class="col-md-3">
+            @* <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label for="totalSmv" class="form-label fw-bold text-dark">Total SMV</label>
                     <input type="text" id="totalSmv" name="Total_SMV" class="form-control bg-light" readonly />
                 </div>
-            </div>
-
-            <!-- Line Number -->
+            </div> *@
+            <!-- IR/IB -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="LineNo" class="form-label fw-bold text-dark">Line Number</label>
-                    <input asp-for="LineNo" class="form-control border-primary shadow-sm" />
-                    <span asp-validation-for="LineNo" class="text-danger"></span>
+                    <label for="Master.Ir" class="form-label fw-bold text-dark">IR/IB</label>
+                    <input type="text" id="IR" name="IR" class="form-control bg-light" readonly />
                 </div>
             </div>
-
-            <!-- Feed Start -->
+            <!-- Buyer Name -->
+            @* <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label for="Master.Buyer" class="form-label fw-bold text-dark">Buyer Name</label>
+                    <input type="text" id="BuyerName" name="BuyerName" class="form-control bg-light" readonly />
+                </div>
+            </div> *@
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Master.Buyer" class="form-label fw-bold text-dark">Buyer Name</label>
+                    <input asp-for="Master.Buyer" id="BuyerName" name="BuyerName" class="form-control bg-light" readonly />
+                    <span asp-validation-for="Master.Buyer" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Master.Brand" class="form-label fw-bold text-dark">Brand</label>
+                    <input asp-for="Master.Brand" class="form-control border-primary shadow-sm" />
+                    <span asp-validation-for="Master.Brand" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label for="Master.Season" class="form-label fw-bold text-dark">Season</label>
+                    <input type="text" id="Season" name="Season" class="form-control bg-light" readonly />
+                </div>
+            </div>
+            @* <!-- Feed Start -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="FeedStart" class="form-label fw-bold text-dark">Feed Start</label>
@@ -91,47 +256,98 @@
                     <input asp-for="FeedFinish" class="form-control border-primary shadow-sm" type="datetime-local" />
                     <span asp-validation-for="FeedFinish" class="text-danger"></span>
                 </div>
-            </div>
+            </div> *@
         </div>
 
         <!-- Pre Style Finish -->
         <div class="row">
-            <div class="col-md-3">
+            @*  <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="PreStyleFinish" class="form-label fw-bold text-dark">Pre Style Finish</label>
                     <input asp-for="PreStyleFinish" class="form-control border-primary shadow-sm" type="datetime-local" />
                     <span asp-validation-for="PreStyleFinish" class="text-danger"></span>
                 </div>
+            </div> *@
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label for="Master.SeasonYear" class="form-label fw-bold text-dark">Season Year</label>
+                    <input type="text" id="SeasonYear" name="SeasonYear" class="form-control bg-light" readonly />
+                </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="NewStyleFinish" class="form-label fw-bold text-dark">New Style First Output</label>
-                    <input asp-for="NewStyleFinish" class="form-control border-primary shadow-sm" type="datetime-local" />
-                    <span asp-validation-for="NewStyleFinish" class="text-danger"></span>
+                    <label asp-for="Master.Styledes" class="form-label fw-bold text-dark">Style Des.</label>
+                    <input asp-for="Master.Styledes" class="form-control border-primary shadow-sm" />
+                    <span asp-validation-for="Master.Styledes" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Master.Patternmaster" class="form-label fw-bold text-dark">Pattern Master</label>
+                    <input asp-for="Master.Patternmaster" class="form-control border-primary shadow-sm" />
+                    <span asp-validation-for="Master.Patternmaster" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Master.Consfor" class="form-label fw-bold text-dark">Consumption For</label>
+                    <select asp-for="Master.Consfor" class="form-select border-primary shadow-sm">
+                        <option value="">Select</option>
+                        <option value="Marketting">Marketting</option>
+                        <option value="Budget">Budget</option>
+                        <option value="Production">Production</option>
+                    </select>
+                    <span asp-validation-for="Master.Opt01" class="text-danger"></span>
                 </div>
             </div>
         </div>
-        <!-- Process Matrix -->
-        <div class="form-group mb-4">
-            <h4 class="text-primary mb-3">Process Monitoring</h4>
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="processMatrixContainer">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>Seq. No</th>
-                            <th>Process Name</th>
-                            <th>Resource</th>
-                            <th>Operation Start</th>
-                            <th>Operation End</th>
-                            <th>Duration (min)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Process rows will be inserted here by JavaScript -->
-                    </tbody>
-                </table>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-4">
+                    <label asp-for="Master.Comments" class="form-label fw-bold text-dark">Comments</label>
+                    <input asp-for="Master.Comments" class="form-control border-primary shadow-sm" />
+                    <span asp-validation-for="Master.Comments" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label for="Master.Isapproved" class="form-label fw-bold text-dark">Approval Status</label>
+                    <input type="text" id="Isapproved" name="Isapproved" class="form-control bg-light" readonly />
+                </div>
             </div>
         </div>
+       
+    <div class="form-group mb-4">
+            <h4 class="text-primary mb-3">Marker Details</h4>
+            <hr />
+        <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th style="width: 80px;">Ptn No.</th>
+                    <th style="width: 150px;">Garments Item</th>
+                            <th style="width: 150px;">Garments Color</th>
+                    <th style="width: 150px;">Fab. Des.</th>
+                    <th style="width: 120px;">Fab. Usage</th>
+                    <th style="width: 60px;">GSM</th>
+                            <th style="width: 65px;">Full Width</th>
+                            <th style="width: 65px;">Cutt. Width</th>
+                            <th style="width: 95px;">Efficiency %</th>
+                            <th style="width: 60px;">Size Ratio</th>
+                            <th style="width: 75px;">Marker Qty</th>
+                            <th style="width: 60px;">Cons/Pcs</th>
+                            <th style="width: 60px;">Cons/Dzn</th>
+                            <th style="width: 85px;">Wastage %</th>
+                            <th style="width: 200px;">Comments</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="detailsBody">
+            </tbody>
+        </table>
+        </div>
+    </div>
 
         <!-- Submit Buttons -->
         <div class="d-flex justify-content-between mt-4">
@@ -140,6 +356,8 @@
         </div>
     </form>
 </div>
+
+
 
 @section Scripts {
     <!-- Add Select2 CSS -->
@@ -185,87 +403,140 @@
             });
         });
 
-        function generateProcessFields(processes) {
-            console.log(processes);
-            var tbody = $('#processMatrixContainer tbody');
-            tbody.empty();
+        // function generateProcessFields(processes) {
+        //     console.log(processes);
+        //     var tbody = $('#processMatrixContainer tbody');
+        //     tbody.empty();
 
-            if (!Array.isArray(processes) || processes.length === 0) {
-                tbody.append('<tr><td colspan="6" class="text-center">No processes available for this booking.</td></tr>');
-                return;
-            }
+        //     if (!Array.isArray(processes) || processes.length === 0) {
+        //         tbody.append('<tr><td colspan="6" class="text-center">No processes available for this booking.</td></tr>');
+        //         return;
+        //     }
 
-            processes.forEach(function (process, index) {
-                var sanitizedProcessName = process.processName.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
-                var processRow = `
-                                    <tr>
-                                        <td>
-                                            <input type="text" name="DetailRecords[${index}].SequenceNo"
-                                                   value="${process.sequenceNo}"
-                                                   class="form-control form-control-sm" />
-                                        </td>
-                                        <td>
-                                            <input type="text" name="DetailRecords[${index}].ProcessName"
-                                                   value="${process.processName}"
-                                                   class="form-control form-control-sm bg-light" readonly />
-                                        </td>
-                                        <td>
-                                            <input type="text" name="DetailRecords[${index}].ResourceName"
-                                                   value="${process.resourceName}"
-                                                   class="form-control form-control-sm bg-light" readonly />
-                                        </td>
-                                        <td>
-                                            <input type="time"
-                                                   name="DetailRecords[${index}].McSetupStart"
-                                                   class="form-control form-control-sm"
-                                                   onclick="this.value = new Date().toLocaleTimeString('en-US', { hour12: false }).substring(0, 5);
-                                                   setTimeout(() => $(this).trigger('change'), 10);"
-                                                   onchange="calculateDuration(this, ${index})" />
-                                        </td>
-                                        <td>
-                                            <input type="time"
-                                                   name="DetailRecords[${index}].McSetupFinish"
-                                                   class="form-control form-control-sm"
-                                                   onclick="this.value = new Date().toLocaleTimeString('en-US', { hour12: false }).substring(0, 5);
-                                                   setTimeout(() => $(this).trigger('change'), 10);"
-                                                   onchange="calculateDuration(this, ${index})" />
-                                        </td>
-                                        <td>
-                                            <input type="text"
-                                                   name="DetailRecords[${index}].McSetupDuration"
-                                                   class="form-control form-control-sm bg-light"
-                                                   readonly />
-                                        </td>
-                                    </tr>
-                                `;
-                tbody.append(processRow);
-            });
+        //     processes.forEach(function (process, index) {
+        //         var sanitizedProcessName = process.processName.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+        //         var processRow = `
+        //                             <tr>
+        //                                 <td>
+        //                                     <input type="text" name="DetailRecords[${index}].SequenceNo"
+        //                                            value="${process.sequenceNo}"
+        //                                            class="form-control form-control-sm" />
+        //                                 </td>
+        //                                 <td>
+        //                                     <input type="text" name="DetailRecords[${index}].ProcessName"
+        //                                            value="${process.processName}"
+        //                                            class="form-control form-control-sm bg-light" readonly />
+        //                                 </td>
+        //                                 <td>
+        //                                     <input type="text" name="DetailRecords[${index}].ResourceName"
+        //                                            value="${process.resourceName}"
+        //                                            class="form-control form-control-sm bg-light" readonly />
+        //                                 </td>
+        //                                 <td>
+        //                                     <input type="time"
+        //                                            name="DetailRecords[${index}].McSetupStart"
+        //                                            class="form-control form-control-sm"
+        //                                            onclick="this.value = new Date().toLocaleTimeString('en-US', { hour12: false }).substring(0, 5);
+        //                                            setTimeout(() => $(this).trigger('change'), 10);"
+        //                                            onchange="calculateDuration(this, ${index})" />
+        //                                 </td>
+        //                                 <td>
+        //                                     <input type="time"
+        //                                            name="DetailRecords[${index}].McSetupFinish"
+        //                                            class="form-control form-control-sm"
+        //                                            onclick="this.value = new Date().toLocaleTimeString('en-US', { hour12: false }).substring(0, 5);
+        //                                            setTimeout(() => $(this).trigger('change'), 10);"
+        //                                            onchange="calculateDuration(this, ${index})" />
+        //                                 </td>
+        //                                 <td>
+        //                                     <input type="text"
+        //                                            name="DetailRecords[${index}].McSetupDuration"
+        //                                            class="form-control form-control-sm bg-light"
+        //                                            readonly />
+        //                                 </td>
+        //                             </tr>
+        //                         `;
+        //         tbody.append(processRow);
+        //     });
+        // }
+
+        // function calculateDuration(element, index) {
+        //     var row = $(element).closest('tr');
+        //     var startInput = row.find(`input[name="DetailRecords[${index}].McSetupStart"]`);
+        //     var finishInput = row.find(`input[name="DetailRecords[${index}].McSetupFinish"]`);
+        //     var durationInput = row.find(`input[name="DetailRecords[${index}].McSetupDuration"]`);
+
+        //     var start = startInput.val();
+        //     var finish = finishInput.val();
+
+        //     if (start && finish) {
+        //         var startTime = new Date("1970-01-01T" + start + "Z");
+        //         var finishTime = new Date("1970-01-01T" + finish + "Z");
+
+        //         var duration = finishTime - startTime;
+
+        //         if (duration < 0) {
+        //             duration += 24 * 60 * 60 * 1000;
+        //         }
+
+        //         var totalMinutes = Math.floor(duration / (1000 * 60));
+        //         durationInput.val(totalMinutes);
+        //     } else {
+        //         durationInput.val('');
+        //     }
+        // }
+    </script>
+
+    <script>
+        let rowIndex = 0;
+
+        // Generate a new row HTML
+        function createRow(index) {
+            return `
+            <tr>
+                <td><input name="Details[${index}].Ptnnmbr" class="form-control" /></td>
+                <td><input name="Details[${index}].Gmntitem" class="form-control" /></td>
+                <td><input name="Details[${index}].Gmntcolor" class="form-control" /></td>
+                <td><input name="Details[${index}].Fabricdes" class="form-control" /></td>
+                <td><input name="Details[${index}].Fabricusage" class="form-control" /></td>
+                <td><input name="Details[${index}].Gsm" type="number" step="0.01" class="form-control" /></td>
+                <td><input name="Details[${index}].Fullwidth" type="number" step="0.01" class="form-control" /></td>
+                <td><input name="Details[${index}].Cutwidth" type="number" step="0.01" class="form-control" /></td>
+                <td><input name="Details[${index}].Efficiency" type="number" step="0.01" class="form-control" /></td>
+                <td><input name="Details[${index}].Sizeratio" class="form-control" /></td>
+                <td><input name="Details[${index}].Markerqty" type="number" step="0.01" class="form-control" /></td>
+                <td><input name="Details[${index}].Conspcs" type="number" step="0.01" class="form-control" /></td>
+                <td><input name="Details[${index}].Consdzn" type="number" step="0.01" class="form-control" /></td>
+                <td><input name="Details[${index}].Wastage" type="number" step="0.01" class="form-control" /></td>
+                <td><input name="Details[${index}].Comments" class="form-control" /></td>
+                <td class="text-center">
+                          <button type="button" class="btn btn-sm btn-outline-success" onclick="addRow()">➕</button>
+                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRow(this)">➖</button>
+                </td>
+            </tr>`;
         }
 
-        function calculateDuration(element, index) {
-            var row = $(element).closest('tr');
-            var startInput = row.find(`input[name="DetailRecords[${index}].McSetupStart"]`);
-            var finishInput = row.find(`input[name="DetailRecords[${index}].McSetupFinish"]`);
-            var durationInput = row.find(`input[name="DetailRecords[${index}].McSetupDuration"]`);
+        // Add new row
+        function addRow() {
+            const tbody = document.getElementById("detailsBody");
+            tbody.insertAdjacentHTML("beforeend", createRow(rowIndex));
+            rowIndex++;
+        }
 
-            var start = startInput.val();
-            var finish = finishInput.val();
+        // Remove row (keep at least one)
+        function removeRow(btn) {
+            const tbody = document.getElementById("detailsBody");
 
-            if (start && finish) {
-                var startTime = new Date("1970-01-01T" + start + "Z");
-                var finishTime = new Date("1970-01-01T" + finish + "Z");
-
-                var duration = finishTime - startTime;
-
-                if (duration < 0) {
-                    duration += 24 * 60 * 60 * 1000;
-                }
-
-                var totalMinutes = Math.floor(duration / (1000 * 60));
-                durationInput.val(totalMinutes);
+            if (tbody.rows.length > 1) {
+                btn.closest("tr").remove();
             } else {
-                durationInput.val('');
+                alert("At least one row is required.");
             }
         }
+
+        // Initialize with one row
+        document.addEventListener("DOMContentLoaded", function () {
+            addRow();
+        });
     </script>
 }

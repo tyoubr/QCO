@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 
 namespace QCO.Models;
 
@@ -26,6 +26,10 @@ public partial class QCOContext : DbContext
     public virtual DbSet<tbl_Cause_Of_Delay> tbl_Cause_Of_Delays { get; set; }
     public virtual DbSet<tbl_Cause_Detail> tbl_Cause_Details { get; set; }
     public DbSet<TblCauseLookup> tbl_Cause_Lookups { get; set; }
+
+    //RANA
+    public virtual DbSet<TblCadConsD> TblCadConsDs { get; set; }
+    public virtual DbSet<TblCadConsM> TblCadConsMs { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -202,6 +206,156 @@ public partial class QCOContext : DbContext
                   .WithMany(d => d.SavedCauses)  // Ensure this is the right navigation property
                   .HasForeignKey(e => e.TRNSID)
                   .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        //RANA
+        modelBuilder.Entity<TblCadConsD>(entity =>
+        {
+            entity.HasKey(e => e.Caddid);
+
+            entity.ToTable("TBL_CAD_CONS_D");
+
+            entity.Property(e => e.Caddid).HasColumnName("CADDID");
+            entity.Property(e => e.Cadmid).HasColumnName("CADMID");
+            entity.Property(e => e.Comments)
+                .IsUnicode(false)
+                .HasColumnName("COMMENTS");
+            entity.Property(e => e.Consdzn).HasColumnName("CONSDZN");
+            entity.Property(e => e.Conspcs).HasColumnName("CONSPCS");
+            entity.Property(e => e.Contenttype)
+                .HasMaxLength(50)
+                .HasColumnName("CONTENTTYPE");
+            entity.Property(e => e.Cutwidth).HasColumnName("CUTWIDTH");
+            entity.Property(e => e.Efficiency).HasColumnName("EFFICIENCY");
+            entity.Property(e => e.Fabricdes)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("FABRICDES");
+            entity.Property(e => e.Fabricusage)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("FABRICUSAGE");
+            entity.Property(e => e.Filename)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("FILENAME");
+            entity.Property(e => e.Filepath)
+                .HasMaxLength(50)
+                .HasColumnName("FILEPATH");
+            entity.Property(e => e.Filesize)
+                .HasMaxLength(50)
+                .HasColumnName("FILESIZE");
+            entity.Property(e => e.Fullwidth).HasColumnName("FULLWIDTH");
+            entity.Property(e => e.Gmntcolor)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("GMNTCOLOR");
+            entity.Property(e => e.Gmntitem)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("GMNTITEM");
+            entity.Property(e => e.Gsm).HasColumnName("GSM");
+            entity.Property(e => e.Markerqty).HasColumnName("MARKERQTY");
+            entity.Property(e => e.Opt01)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("OPT01");
+            entity.Property(e => e.Opt02)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("OPT02");
+            entity.Property(e => e.Opt03)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("OPT03");
+            entity.Property(e => e.Ptnnmbr)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("PTNNMBR");
+            entity.Property(e => e.Shrinkagel).HasColumnName("SHRINKAGEL");
+            entity.Property(e => e.Shrinkagew).HasColumnName("SHRINKAGEW");
+            entity.Property(e => e.Sizeratio)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("SIZERATIO");
+            entity.Property(e => e.Transdate)
+                .HasColumnType("datetime")
+                .HasColumnName("TRANSDATE");
+            entity.Property(e => e.Wastage).HasColumnName("WASTAGE");
+
+            entity.HasOne(d => d.Cadm).WithMany(p => p.TblCadConsDs)
+                .HasForeignKey(d => d.Cadmid)
+                .HasConstraintName("FK_TBL_CAD_CONS_D_TBL_CAD_CONS_D");
+        });
+
+        modelBuilder.Entity<TblCadConsM>(entity =>
+        {
+            entity.HasKey(e => e.Cadmid);
+
+            entity.ToTable("TBL_CAD_CONS_M");
+
+            entity.Property(e => e.Cadmid).HasColumnName("CADMID");
+            entity.Property(e => e.Brand)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("BRAND");
+            entity.Property(e => e.Buyer)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("BUYER");
+            entity.Property(e => e.Caddate)
+                .HasColumnType("datetime")
+                .HasColumnName("CADDATE");
+            entity.Property(e => e.Comments)
+                .IsUnicode(false)
+                .HasColumnName("COMMENTS");
+            entity.Property(e => e.Consfor)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("CONSFOR");
+            entity.Property(e => e.Ir)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("IR");
+            entity.Property(e => e.Isapproved).HasColumnName("ISAPPROVED");
+            entity.Property(e => e.Job)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("JOB");
+            entity.Property(e => e.Opt01)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("OPT01");
+            entity.Property(e => e.Opt02)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("OPT02");
+            entity.Property(e => e.Opt03)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("OPT03");
+            entity.Property(e => e.Patternmaster)
+                .HasMaxLength(50)
+                .HasColumnName("PATTERNMASTER");
+            entity.Property(e => e.Season)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("SEASON");
+            entity.Property(e => e.Seasonyear)
+                .HasColumnType("datetime")
+                .HasColumnName("SEASONYEAR");
+            entity.Property(e => e.Style)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("STYLE");
+            entity.Property(e => e.Styledes)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("STYLEDES");
+            entity.Property(e => e.Styleref)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("STYLEREF");
         });
 
         OnModelCreatingPartial(modelBuilder);
