@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QCO.Models;
 
@@ -47,7 +48,7 @@ public partial class TblCadConsD
 
     public string? Filepath { get; set; }
 
-    public string? Filesize { get; set; }
+    public long? Filesize { get; set; }
 
     public string? Contenttype { get; set; }
 
@@ -58,6 +59,10 @@ public partial class TblCadConsD
     public string? Opt02 { get; set; }
 
     public string? Opt03 { get; set; }
+
+    //For File Upload
+    [NotMapped]
+    public IFormFile File { get; set; }
 
     public virtual TblCadConsM? Cadm { get; set; }
 }

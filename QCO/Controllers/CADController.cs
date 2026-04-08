@@ -1,19 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DevExpress.XtraRichEdit.Import.Html;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Build.Experimental.FileAccess;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
 using QCO.Models;
-using X.PagedList;
-using X.PagedList.Extensions;
-using X.PagedList.Mvc.Core;
-
+using QCO.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Microsoft.Build.Experimental.FileAccess;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using QCO.ViewModel;
+using X.PagedList;
+using X.PagedList.Extensions;
+using X.PagedList.Mvc.Core;
+
+
 
 
 namespace QCO.Controllers
@@ -30,32 +32,75 @@ namespace QCO.Controllers
             _oracleContext = oracleContext;
 
         }
-        public async Task<IActionResult> Index(string search, int? page)
+        //public async Task<IActionResult> Index(string search, int? page)
+        //{
+        //    int pageSize = 16; // Number of records per page
+        //    int pageNumber = page ?? 1; // Default to page 1
+
+        //    var query = _context.TblLayoutMonitoringSheets.AsQueryable();
+
+        //    // Apply search filter
+        //    if (!string.IsNullOrEmpty(search))
+        //    {
+        //        query = query.Where(x => x.Company.Contains(search) ||
+        //                                 x.BookingNo.Contains(search) ||
+        //                                 x.BuyerName.Contains(search) ||
+        //                                 x.LineNo.Contains(search));
+        //    }
+
+        //    // Ensure the returned data is of type IPagedList
+        //    IPagedList<TblLayoutMonitoringSheet> data = query
+        //        .OrderByDescending(x => x.MonitoringDate)
+        //        .ToPagedList(pageNumber, pageSize);
+
+        //    ViewBag.Search = search; // Store search term in ViewBag
+
+        //    return View(data); // Ensure View receives an IPagedList<T>
+        //}
+
+        [HttpGet]
+        public IActionResult Index(string search, int? page)
         {
-            int pageSize = 16; // Number of records per page
-            int pageNumber = page ?? 1; // Default to page 1
+            int pageSize = 16;
+            int pageNumber = page ?? 1;
 
-            var query = _context.TblLayoutMonitoringSheets.AsQueryable();
+            var query = _context.TblCadConsMs
+                .GroupJoin(
+                    _context.TblCadConsDs,
+                    m => m.Cadmid,
+                    d => d.Cadmid,
+                    (m, details) => new CadConsumptionViewModel
+                    {
+                        Master = m,
+                        Details = details.ToList()
+                    }
+                );
 
-            // Apply search filter
+            // 🔍 Search
             if (!string.IsNullOrEmpty(search))
             {
-                query = query.Where(x => x.Company.Contains(search) ||
-                                         x.BookingNo.Contains(search) ||
-                                         x.BuyerName.Contains(search) ||
-                                         x.LineNo.Contains(search));
+                query = query.Where(x =>
+                    (x.Master.Opt01 != null && x.Master.Opt01.Contains(search)) ||
+                    (x.Master.Styleref != null && x.Master.Styleref.Contains(search)) ||
+                    (x.Master.Buyer != null && x.Master.Buyer.Contains(search)) ||
+                    x.Details.Any(d =>
+                        (d.Ptnnmbr != null && d.Ptnnmbr.Contains(search)) ||
+                        (d.Gmntitem != null && d.Gmntitem.Contains(search)) ||
+                        (d.Fabricdes != null && d.Fabricdes.Contains(search))
+                    )
+                );
             }
 
-            // Ensure the returned data is of type IPagedList
-            IPagedList<TblLayoutMonitoringSheet> data = query
-                .OrderByDescending(x => x.MonitoringDate)
-                .ToPagedList(pageNumber, pageSize);
+            // 📅 Order
+            query = query.OrderByDescending(x => x.Master.Caddate);
 
-            ViewBag.Search = search; // Store search term in ViewBag
+            // ❗ FIX HERE (no async)
+            var data = query.ToPagedList(pageNumber, pageSize);
 
-            return View(data); // Ensure View receives an IPagedList<T>
+            ViewBag.Search = search;
+
+            return View(data);
         }
-
         // GET: LayoutMonitoringSheets/Create
         public IActionResult Create()
         {

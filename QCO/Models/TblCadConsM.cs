@@ -27,7 +27,7 @@ public partial class TblCadConsM
 
     public string? Styledes { get; set; }
 
-    public byte[]? Patternmaster { get; set; }
+    public string? Patternmaster { get; set; }
 
     public string? Consfor { get; set; }
 

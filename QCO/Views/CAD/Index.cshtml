@@ -1,6 +1,6 @@
 ﻿@using X.PagedList
 @using X.PagedList.Mvc.Core
-@model IPagedList<QCO.Models.TblLayoutMonitoringSheet>
+@model IPagedList<QCO.ViewModel.CadConsumptionViewModel>
 
 
 @{
@@ -151,45 +151,49 @@
 
     <!-- Table Card -->
     <div class="card">
-        <div class="card-header">Monitoring Records</div>
+        <div class="card-header">CAD Consumption Records</div>
         <div class="card-body p-0">
             <table class="table table-hover table-striped align-middle">
                 <thead>
                     <tr>
-                        <th>Company</th>
-                        <th>Monitoring Date</th>
-                        <th>Booking Number</th>
+                        <th>CAD Date</th>
+                        <th style="width: 200px;">IR/IB</th>
                         <th>Buyer Name</th>
-                        <th>Line Number</th>
-                        <th>Total SMV</th>
-                        <th>Feed Start Time</th>
-                        <th>Feed Finish Time</th>
-                        <th>Pre-Style Finish Time</th>
-                        <th class="text-center">Actions</th>
+                        <th>Season</th>
+                        <th>Season Year</th>
+                        <th>Style</th>
+                        <th>Style Description</th>
+                        <th>Pattern Master</th>
+                        <th style="width: 160px;">Approve Status</th>
+                        <th class="text-center" style="width: 200px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="monitoringBody">
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Company)</td>
-                            <td>@Html.DisplayFor(modelItem => item.MonitoringDate)</td>
-                            <td>@Html.DisplayFor(modelItem => item.BookingNo)</td>
-                            <td>@Html.DisplayFor(modelItem => item.BuyerName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.LineNo)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Total_SMV)</td>
-                            <td>@Html.DisplayFor(modelItem => item.FeedStart)</td>
-                            <td>@Html.DisplayFor(modelItem => item.FeedFinish)</td>
-                            <td>@Html.DisplayFor(modelItem => item.PreStyleFinish)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Master.Caddate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Master.Styleref)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Master.Buyer)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Master.Season)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Master.Seasonyear)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Master.Style)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Master.Styledes)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Master.Patternmaster)</td>
+                            <td>@(item.Master.Isapproved == true ? "Approved" : "Waiting for approval")</td>
                             <td class="text-center actions-column">
-                                <a asp-action="Edit" asp-route-id="@item.Slno" class="btn btn-outline-warning rounded-pill shadow-sm">
-                                    <i class="bi bi-pencil-fill"></i> Edit
-                                </a>
-                                <a asp-action="Details" asp-route-id="@item.Slno" class="btn btn-outline-info rounded-pill shadow-sm">
+                                <!-- Only show action buttons if Isapproved is false -->
+                                @if (item.Master.Isapproved != true)
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Master.Cadmid" class="btn btn-outline-warning rounded-pill shadow-sm">
+                                        <i class="bi bi-pencil-fill"></i> Edit
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Master.Cadmid" class="btn btn-outline-danger rounded-pill shadow-sm">
+                                        <i class="bi bi-trash-fill"></i> Delete
+                                    </a>
+                                }
+                                <a asp-action="Details" asp-route-id="@item.Master.Cadmid" class="btn btn-outline-info rounded-pill shadow-sm">
                                     <i class="bi bi-eye-fill"></i> Details
-                                </a>
-                                <a asp-action="Delete" asp-route-id="@item.Slno" class="btn btn-outline-danger rounded-pill shadow-sm">
-                                    <i class="bi bi-trash-fill"></i> Delete
                                 </a>
                             </td>
                         </tr>

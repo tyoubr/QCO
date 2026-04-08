@@ -242,9 +242,7 @@ public partial class QCOContext : DbContext
             entity.Property(e => e.Filepath)
                 .HasMaxLength(50)
                 .HasColumnName("FILEPATH");
-            entity.Property(e => e.Filesize)
-                .HasMaxLength(50)
-                .HasColumnName("FILESIZE");
+            entity.Property(e => e.Filesize).HasColumnName("FILESIZE");
             entity.Property(e => e.Fullwidth).HasColumnName("FULLWIDTH");
             entity.Property(e => e.Gmntcolor)
                 .HasMaxLength(50)
