@@ -1,0 +1,138 @@
+﻿@model QCO.ViewModel.CadConsumptionViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2 class="text-primary text-center">CAD Consumption Details</h2>
+<hr />
+
+<div class="container bg-light p-4 rounded shadow-sm">
+
+    <!-- MASTER INFO -->
+    <h4 class="text-success">General Information</h4>
+    <table class="table table-bordered">
+        <tr>
+            <th>CAD Date</th>
+            <td>@Model.Master.Caddate</td>
+
+            <th>Company</th>
+            <td>@Model.Master.Opt01</td>
+        </tr>
+        <tr>
+            <th>Style Ref</th>
+            <td>@Model.Master.Styleref</td>
+
+            <th>Buyer</th>
+            <td>@Model.Master.Buyer</td>
+        </tr>
+        <tr>
+            <th>Brand</th>
+            <td>@Model.Master.Brand</td>
+
+            <th>Season</th>
+            <td>@Model.Master.Season</td>
+        </tr>
+        <tr>
+            <th>Season Year</th>
+            <td>@Model.Master.Seasonyear</td>
+
+            <th>Consumption For</th>
+            <td>@Model.Master.Consfor</td>
+        </tr>
+        <tr>
+            <th>Pattern Master</th>
+            <td>@Model.Master.Patternmaster</td>
+
+            <th>Approved</th>
+            <td>@((Model.Master.Isapproved ?? false) ? "Yes" : "No")</td>
+        </tr>
+        <tr>
+            <th>Comments</th>
+            <td colspan="3">@Model.Master.Comments</td>
+        </tr>
+    </table>
+
+    <!-- DETAILS TABLE -->
+    <h4 class="text-success mt-4">Marker Details</h4>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th>Ptn No</th>
+                    <th>Item</th>
+                    <th>Color</th>
+                    <th>Fabric</th>
+                    <th>Usage</th>
+                    <th>GSM</th>
+                    <th>Full W</th>
+                    <th>Cut W</th>
+                    <th>Eff %</th>
+                    <th>Size</th>
+                    <th>Qty</th>
+                    <th>Cons/Pcs</th>
+                    <th>Cons/Dzn</th>
+                    <th>Wastage</th>
+                    <th>Comments</th>
+                    <th>File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Details != null && Model.Details.Any())
+                {
+                    foreach (var item in Model.Details)
+                    {
+                        <tr>
+                            <td>@item.Ptnnmbr</td>
+                            <td>@item.Gmntitem</td>
+                            <td>@item.Gmntcolor</td>
+                            <td>@item.Fabricdes</td>
+                            <td>@item.Fabricusage</td>
+                            <td>@item.Gsm</td>
+                            <td>@item.Fullwidth</td>
+                            <td>@item.Cutwidth</td>
+                            <td>@item.Efficiency</td>
+                            <td>@item.Sizeratio</td>
+                            <td>@item.Markerqty</td>
+                            <td>@item.Conspcs</td>
+                            <td>@item.Consdzn</td>
+                            <td>@item.Wastage</td>
+                            <td>@item.Comments</td>
+
+                            <!-- FILE DOWNLOAD -->
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.Filepath))
+                                {
+                                    <a asp-action="DownloadFile"
+                                       asp-route-id="@item.Caddid"
+                                       class="btn btn-sm btn-outline-primary">
+                                        Download
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No File</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="16" class="text-center text-danger">
+                            No details found
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- BACK BUTTON -->
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
+
+</div>

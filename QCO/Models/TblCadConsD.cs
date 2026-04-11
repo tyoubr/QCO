@@ -45,6 +45,9 @@ public partial class TblCadConsD
     public double? Shrinkagew { get; set; }
 
     public string? Filename { get; set; }
+    //For File Upload
+    [NotMapped]
+    public IFormFile? File { get; set; }  // ✅ optional
 
     public string? Filepath { get; set; }
 
@@ -59,10 +62,6 @@ public partial class TblCadConsD
     public string? Opt02 { get; set; }
 
     public string? Opt03 { get; set; }
-
-    //For File Upload
-    [NotMapped]
-    public IFormFile File { get; set; }
 
     public virtual TblCadConsM? Cadm { get; set; }
 }

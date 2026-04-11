@@ -131,23 +131,18 @@
             white-space: nowrap; /* Prevent buttons from wrapping */
         }
 
-    label.required::after {
-        content: " *";
-        color: red;
-    }
-
 </style>
 
-<h1 class="text-center text-primary">Create CAD Consumption</h1>
+<h1 class="text-center text-primary">Update CAD Consumption</h1>
 <hr />
 
 <div class="container py-4" style="background-color: #F8F9FA;">
-    <form asp-action="Create" enctype="multipart/form-data" method="post" class="p-4 shadow-sm bg-white rounded ">
+    <form asp-action="Edit" enctype="multipart/form-data" method="post" class="p-4 shadow-sm bg-white rounded ">
         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
         <!-- Form Sections -->
         <div class="row">
-
+            <input type="hidden" asp-for="Master.Cadmid" />
             <!-- CAD Date -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
@@ -213,12 +208,6 @@
                 </div>
             </div> *@
             <!-- IR/IB -->
-            @* <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label for="Master.Ir" class="form-label fw-bold text-dark">IR/IB</label>
-                    <input type="text" id="Ir" name="Ir" class="form-control bg-light" readonly />
-                </div>
-            </div> *@
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Ir" class="form-label fw-bold text-dark">IR/IB</label>
@@ -301,6 +290,7 @@
                     <span asp-validation-for="Master.Seasonyear" class="text-danger"></span>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Styledes" class="form-label fw-bold text-dark">Style Description</label>
@@ -376,6 +366,46 @@
                         </tr>
                     </thead>
                     <tbody id="detailsBody">
+                        @if (Model.Details != null && Model.Details.Count > 0)
+                        {
+                            for (int i = 0; i < Model.Details.Count; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="hidden" asp-for="Details[@i].Caddid" />
+                                        <input asp-for="Details[@i].Ptnnmbr" class="form-control" />
+                                    </td>
+                                    <td><input asp-for="Details[@i].Gmntitem" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Gmntcolor" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Fabricdes" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Fabricusage" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Gsm" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Fullwidth" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Cutwidth" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Efficiency" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Sizeratio" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Markerqty" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Conspcs" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Consdzn" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Wastage" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Comments" class="form-control" /></td>
+
+                                    <td>
+                                        <!-- Existing file (optional preview) -->
+                                        @if (!string.IsNullOrEmpty(Model.Details[i].Filename))
+                                        {
+                                            <a href="@Model.Details[i].Filename" target="_blank">View</a>
+                                        }
+                                        <input type="file" name="Details[@i].File" class="form-control" />
+                                    </td>
+
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-success" onclick="addRow()">➕</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRow(this)">➖</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
                     </tbody>
                 </table>
             </div>
@@ -384,7 +414,7 @@
         <!-- Submit Buttons -->
         <div class="d-flex justify-content-between mt-4">
             <a asp-action="Index" class="btn btn-secondary btn-lg shadow-sm">Back to List</a>
-            <input type="submit" value="Create" class="btn btn-primary btn-lg shadow-sm" />
+            <input type="submit" value="Update" class="btn btn-primary btn-lg shadow-sm" />
         </div>
     </form>
 </div>
@@ -421,7 +451,7 @@
                 }
             });
 
-            // Handle selection changes
+           // Handle selection changes
             $('#BookingNo').on('select2:select', function (e) {
                 var data = e.params.data;
                 console.log(data);
@@ -525,7 +555,7 @@
     </script>
 
     <script>
-        let rowIndex = 0;
+        let rowIndex = @Model.Details?.Count ?? 0;
 
         // Generate a new row HTML
                 function createRow(index) {
@@ -574,8 +604,13 @@
         }
 
         // Initialize with one row
-        document.addEventListener("DOMContentLoaded", function () {
-            addRow();
+                document.addEventListener("DOMContentLoaded", function () {
+
+            let existingRows = document.querySelectorAll("#detailsBody tr").length;
+
+            if (existingRows === 0) {
+                addRow();   // only for Create page
+            }
         });
     </script>
 }

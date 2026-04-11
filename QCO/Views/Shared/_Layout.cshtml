@@ -8,13 +8,33 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/QCO.styles.css" asp-append-version="true" />
 
-
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/thirdparty.bundle.css" />
     <script src="~/js/thirdparty.bundle.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
-   
+    <style>
+        #toast-container > .toast {
+            opacity: 1;
+            color: #fff;
+        }
+
+        .toast-success {
+            background-color: #51A351 !important;
+        }
+
+        .toast-error {
+            background-color: #BD362F !important;
+        }
+
+        .toast-info {
+            background-color: #2F96B4 !important;
+        }
+
+        .toast-warning {
+            background-color: #F89406 !important;
+        }
+    </style>
 
 </head>
 <body>
@@ -68,15 +88,32 @@
         </div>
     </footer> *@
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Select2 JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        $(function () {
+
+            toastr.options = {
+                positionClass: "toast-top-right",
+                timeOut: "3000"
+            };
+
+            var success = @Html.Raw(Json.Serialize(TempData["Success"]));
+            var error = @Html.Raw(Json.Serialize(TempData["Error"]));
+
+            if (success) toastr.success(success);
+            if (error) toastr.error(error);
+        });
+    </script>
   
   
     @await RenderSectionAsync("Scripts", required: false) <!-- Optional section for additional scripts -->

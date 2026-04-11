@@ -135,28 +135,42 @@
 
 
 <div class="container mt-5">
+
     <!-- Page Header -->
     <div class="page-header d-flex justify-content-between align-items-center">
         <h1 class="fw-bold">CAD Info List</h1>
-
     </div>
 
-    <!-- Live Search Input -->
-    <div class="mb-3 d-flex gap-2 align-items-center">
-        <input type="text" id="liveSearch" class="form-control w-25 shadow-sm" placeholder="Search Company / Booking / Buyer / Line No" />
-        <a asp-action="Create" class="btn btn-success btn-lg shadow-sm rounded-pill">
+    <!-- ✅ SEARCH FORM -->
+    <form method="get" asp-action="Index" class="mb-3 d-flex gap-2 align-items-center">
+        <input type="text"
+               name="search"
+               value="@ViewBag.Search"
+               class="form-control w-25 shadow-sm"
+               placeholder="Search here..." />
+
+        <button type="submit" class="btn btn-primary shadow-sm">
+            <i class="bi bi-search"></i> Search
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary shadow-sm">
+            Reset
+        </a>
+
+        <a asp-action="Create" class="btn btn-success btn-lg shadow-sm rounded-pill ms-auto">
             <i class="bi bi-plus-circle"></i> Create New
         </a>
-    </div>
+    </form>
 
     <!-- Table Card -->
     <div class="card">
         <div class="card-header">CAD Consumption Records</div>
+
         <div class="card-body p-0">
             <table class="table table-hover table-striped align-middle">
                 <thead>
                     <tr>
-                        <th>CAD Date</th>
+                        <th style="width: 100px;">CAD Date</th>
                         <th style="width: 200px;">IR/IB</th>
                         <th>Buyer Name</th>
                         <th>Season</th>
@@ -168,59 +182,88 @@
                         <th class="text-center" style="width: 200px;">Actions</th>
                     </tr>
                 </thead>
-                <tbody id="monitoringBody">
-                    @foreach (var item in Model)
+
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Master?.Caddate.Value.ToString("dd-MM-yyyy")</td>
+                                <td>@item.Master?.Styleref</td>
+                                <td>@item.Master?.Buyer</td>
+                                <td>@item.Master?.Season</td>
+                                <td>@item.Master?.Seasonyear</td>
+                                <td>@item.Master?.Styleref</td>
+                                <td>@item.Master?.Styledes</td>
+                                <td>@item.Master?.Patternmaster</td>
+
+                                <td>
+                                    @(item.Master?.Isapproved == true
+                                                                ? "Approved"
+                                                                : "Waiting for approval")
+                        </td>
+
+                                <td class="text-center actions-column">
+                            @if (item.Master?.Isapproved != true)
+                                    {
+                                        <a asp-action="Edit"
+                                           asp-route-id="@item.Master.Cadmid"
+                                           class="btn btn-outline-warning rounded-pill shadow-sm">
+                                            Edit
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@item.Master.Cadmid"
+                                           class="btn btn-outline-danger rounded-pill shadow-sm">
+                                            Delete
+                                        </a>
+                                    }
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@item.Master.Cadmid"
+                                       class="btn btn-outline-info rounded-pill shadow-sm">
+                                        Details
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Master.Caddate)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Master.Styleref)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Master.Buyer)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Master.Season)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Master.Seasonyear)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Master.Style)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Master.Styledes)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Master.Patternmaster)</td>
-                            <td>@(item.Master.Isapproved == true ? "Approved" : "Waiting for approval")</td>
-                            <td class="text-center actions-column">
-                                <!-- Only show action buttons if Isapproved is false -->
-                                @if (item.Master.Isapproved != true)
-                                {
-                                    <a asp-action="Edit" asp-route-id="@item.Master.Cadmid" class="btn btn-outline-warning rounded-pill shadow-sm">
-                                        <i class="bi bi-pencil-fill"></i> Edit
-                                    </a>
-                                    <a asp-action="Delete" asp-route-id="@item.Master.Cadmid" class="btn btn-outline-danger rounded-pill shadow-sm">
-                                        <i class="bi bi-trash-fill"></i> Delete
-                                    </a>
-                                }
-                                <a asp-action="Details" asp-route-id="@item.Master.Cadmid" class="btn btn-outline-info rounded-pill shadow-sm">
-                                    <i class="bi bi-eye-fill"></i> Details
-                                </a>
+                            <td colspan="10" class="text-center text-muted">
+                                No data found
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
 
-            <!-- Pagination -->
-            <div class="d-flex justify-content-center">
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = ViewBag.Search }),
-                new PagedListRenderOptions
-                {
-                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
-                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
-                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
-                    MaximumPageNumbersToDisplay = 5,
-                    UlElementClasses = new[] { "pagination", "justify-content-center" },
-                    LiElementClasses = new[] { "page-item" },
-                    PageClasses = new[] { "page-link" }
-                })
+            <!-- ✅ PAGINATION -->
+            <div class="d-flex justify-content-center mt-3">
+                @Html.PagedListPager(
+                Model,
+                page => Url.Action("Index", new { page, search = ViewBag.Search }),
+                                new PagedListRenderOptions
+                                {
+                                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                                    MaximumPageNumbersToDisplay = 5,
+                                    UlElementClasses = new[] { "pagination", "justify-content-center" },
+                                    LiElementClasses = new[] { "page-item" },
+                                    PageClasses = new[] { "page-link" }
+                                }
+                                )
             </div>
+
         </div>
     </div>
 </div>
 
-@section Scripts {
+@* @section Scripts {
     <script>
         $(document).ready(function () {
             $('#liveSearch').on('keyup', function () {
@@ -236,4 +279,4 @@
             });
         });
     </script>
-}
+} *@

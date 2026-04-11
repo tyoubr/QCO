@@ -340,7 +340,8 @@ public partial class QCOContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("SEASON");
             entity.Property(e => e.Seasonyear)
-                .HasColumnType("datetime")
+                .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasColumnName("SEASONYEAR");
             entity.Property(e => e.Style)
                 .HasMaxLength(50)
