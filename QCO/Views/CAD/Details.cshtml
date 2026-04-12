@@ -14,7 +14,7 @@
     <table class="table table-bordered">
         <tr>
             <th>CAD Date</th>
-            <td>@Model.Master.Caddate</td>
+            <td>@Model.Master?.Caddate.Value.ToString("dd-MM-yyyy")</td>
 
             <th>Company</th>
             <td>@Model.Master.Opt01</td>
@@ -44,8 +44,8 @@
             <th>Pattern Master</th>
             <td>@Model.Master.Patternmaster</td>
 
-            <th>Approved</th>
-            <td>@((Model.Master.Isapproved ?? false) ? "Yes" : "No")</td>
+            <th>Approval Status</th>
+            <td>@((Model.Master.Isapproved ?? false) ? "Approved" : "Pending Approval")</td>
         </tr>
         <tr>
             <th>Comments</th>
@@ -66,6 +66,7 @@
                     <th>Fabric</th>
                     <th>Usage</th>
                     <th>GSM</th>
+                    <th>Marker Length</th>
                     <th>Full W</th>
                     <th>Cut W</th>
                     <th>Eff %</th>
@@ -90,6 +91,7 @@
                             <td>@item.Fabricdes</td>
                             <td>@item.Fabricusage</td>
                             <td>@item.Gsm</td>
+                            <td>@item.Opt01</td>
                             <td>@item.Fullwidth</td>
                             <td>@item.Cutwidth</td>
                             <td>@item.Efficiency</td>
@@ -101,9 +103,33 @@
                             <td>@item.Comments</td>
 
                             <!-- FILE DOWNLOAD -->
+                           @*  <td>
+                                @if (!string.IsNullOrEmpty(item.Filepath))
+                                {
+                                    <a asp-action="DownloadFile"
+                                       asp-route-id="@item.Caddid"
+                                       class="btn btn-sm btn-outline-primary">
+                                        Download
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No File</span>
+                                }
+                            </td> *@
                             <td>
                                 @if (!string.IsNullOrEmpty(item.Filepath))
                                 {
+                                    var file = System.IO.Path.GetFileName(item.Filepath);
+
+                                    var originalName = file.Contains("_")
+                                    ? file.Substring(file.IndexOf("_") + 1)
+                                    : file;
+
+                                    <div class="small text-dark mb-1">
+                                        📄 @originalName
+                                    </div>
+
                                     <a asp-action="DownloadFile"
                                        asp-route-id="@item.Caddid"
                                        class="btn btn-sm btn-outline-primary">

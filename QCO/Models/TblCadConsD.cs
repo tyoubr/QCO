@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QCO.Models;
@@ -56,12 +57,15 @@ public partial class TblCadConsD
     public string? Contenttype { get; set; }
 
     public string? Comments { get; set; }
-
-    public string? Opt01 { get; set; }
+    [DisplayName("Marker Length")]
+    public double? Opt01 { get; set; }//Marker Length
 
     public string? Opt02 { get; set; }
 
     public string? Opt03 { get; set; }
+    //Only For showing in UI
+    [NotMapped]
+    public string? OriginalFilename { get; set; }
 
     public virtual TblCadConsM? Cadm { get; set; }
 }

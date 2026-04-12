@@ -352,17 +352,18 @@
                             <th style="width: 150px;">Fab. Des.</th>
                             <th style="width: 120px;">Fab. Usage</th>
                             <th style="width: 75px;">GSM</th>
-                            <th style="width: 75px;">Full Width</th>
-                            <th style="width: 75px;">Cutt. Width</th>
+                            <th style="width: 85px;">Marker Length</th>
+                            <th style="width: 85px;">Full Width</th>
+                            <th style="width: 85px;">Cutt. Width</th>
                             <th style="width: 95px;">Efficiency %</th>
-                            <th style="width: 60px;">Size Ratio</th>
-                            <th style="width: 75px;">Marker Qty</th>
-                            <th style="width: 70px;">Cons/Pcs</th>
-                            <th style="width: 70px;">Cons/Dzn</th>
+                            <th style="width: 85px;">Size Ratio</th>
+                            <th style="width: 85px;">Marker Qty</th>
                             <th style="width: 85px;">Wastage %</th>
-                            <th style="width: 125px;">Comments</th>
-                            <th style="width: 80px;">Upload File</th>
-                            <th>Action</th>
+                            <th style="width: 95px;">Cons/Pcs</th>
+                            <th style="width: 95px;">Cons/Dzn</th>
+                            <th style="width: 300px;">Comments</th>
+                            <th style="width: 275px;">Upload File</th>
+                            <th style="width: 150px;">Action</th>
                         </tr>
                     </thead>
                     <tbody id="detailsBody">
@@ -379,23 +380,32 @@
                                     <td><input asp-for="Details[@i].Gmntcolor" class="form-control" /></td>
                                     <td><input asp-for="Details[@i].Fabricdes" class="form-control" /></td>
                                     <td><input asp-for="Details[@i].Fabricusage" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Gsm" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Fullwidth" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Gsm" class="gsm form-control" /></td>
+                                    <td><input asp-for="Details[@i].Opt01" class="length form-control" /></td>
+                                    <td><input asp-for="Details[@i].Fullwidth" class="width form-control" /></td>
                                     <td><input asp-for="Details[@i].Cutwidth" class="form-control" /></td>
                                     <td><input asp-for="Details[@i].Efficiency" class="form-control" /></td>
                                     <td><input asp-for="Details[@i].Sizeratio" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Markerqty" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Conspcs" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Consdzn" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Wastage" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Markerqty" class="pcs form-control" /></td>
+                                    <td><input asp-for="Details[@i].Wastage" class="allowance form-control" /></td>
+                                    <td><input asp-for="Details[@i].Conspcs" class="conspcs form-control" readonly /></td>
+                                    <td><input asp-for="Details[@i].Consdzn" class="consdzn form-control" readonly /></td>
                                     <td><input asp-for="Details[@i].Comments" class="form-control" /></td>
-
                                     <td>
                                         <!-- Existing file (optional preview) -->
                                         @if (!string.IsNullOrEmpty(Model.Details[i].Filename))
                                         {
-                                            <a href="@Model.Details[i].Filename" target="_blank">View</a>
+                                            var file = System.IO.Path.GetFileName(Model.Details[i].Filename);
+
+                                            var originalName = file.Contains("_")
+                                            ? file.Substring(file.IndexOf("_") + 1)
+                                            : file;
+
+                                            <div>
+                                                <span>@originalName</span><br />
+                                            </div>
                                         }
+
                                         <input type="file" name="Details[@i].File" class="form-control" />
                                     </td>
 
@@ -464,94 +474,9 @@
                 $('#Ir').val(data.irIb || '');
                 $('#Brand').val(data.brand || 'N/A');
                 $('#Styledes').val(data.styleDescription || 'N/A');
-
-                // Generate process fields dynamically
-                // generateProcessFields(data.processes || []);
             });
         });
 
-        // function generateProcessFields(processes) {
-        //     console.log(processes);
-        //     var tbody = $('#processMatrixContainer tbody');
-        //     tbody.empty();
-
-        //     if (!Array.isArray(processes) || processes.length === 0) {
-        //         tbody.append('<tr><td colspan="6" class="text-center">No processes available for this booking.</td></tr>');
-        //         return;
-        //     }
-
-        //     processes.forEach(function (process, index) {
-        //         var sanitizedProcessName = process.processName.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
-        //         var processRow = `
-        //                             <tr>
-        //                                 <td>
-        //                                     <input type="text" name="DetailRecords[${index}].SequenceNo"
-        //                                            value="${process.sequenceNo}"
-        //                                            class="form-control form-control-sm" />
-        //                                 </td>
-        //                                 <td>
-        //                                     <input type="text" name="DetailRecords[${index}].ProcessName"
-        //                                            value="${process.processName}"
-        //                                            class="form-control form-control-sm bg-light" readonly />
-        //                                 </td>
-        //                                 <td>
-        //                                     <input type="text" name="DetailRecords[${index}].ResourceName"
-        //                                            value="${process.resourceName}"
-        //                                            class="form-control form-control-sm bg-light" readonly />
-        //                                 </td>
-        //                                 <td>
-        //                                     <input type="time"
-        //                                            name="DetailRecords[${index}].McSetupStart"
-        //                                            class="form-control form-control-sm"
-        //                                            onclick="this.value = new Date().toLocaleTimeString('en-US', { hour12: false }).substring(0, 5);
-        //                                            setTimeout(() => $(this).trigger('change'), 10);"
-        //                                            onchange="calculateDuration(this, ${index})" />
-        //                                 </td>
-        //                                 <td>
-        //                                     <input type="time"
-        //                                            name="DetailRecords[${index}].McSetupFinish"
-        //                                            class="form-control form-control-sm"
-        //                                            onclick="this.value = new Date().toLocaleTimeString('en-US', { hour12: false }).substring(0, 5);
-        //                                            setTimeout(() => $(this).trigger('change'), 10);"
-        //                                            onchange="calculateDuration(this, ${index})" />
-        //                                 </td>
-        //                                 <td>
-        //                                     <input type="text"
-        //                                            name="DetailRecords[${index}].McSetupDuration"
-        //                                            class="form-control form-control-sm bg-light"
-        //                                            readonly />
-        //                                 </td>
-        //                             </tr>
-        //                         `;
-        //         tbody.append(processRow);
-        //     });
-        // }
-
-        // function calculateDuration(element, index) {
-        //     var row = $(element).closest('tr');
-        //     var startInput = row.find(`input[name="DetailRecords[${index}].McSetupStart"]`);
-        //     var finishInput = row.find(`input[name="DetailRecords[${index}].McSetupFinish"]`);
-        //     var durationInput = row.find(`input[name="DetailRecords[${index}].McSetupDuration"]`);
-
-        //     var start = startInput.val();
-        //     var finish = finishInput.val();
-
-        //     if (start && finish) {
-        //         var startTime = new Date("1970-01-01T" + start + "Z");
-        //         var finishTime = new Date("1970-01-01T" + finish + "Z");
-
-        //         var duration = finishTime - startTime;
-
-        //         if (duration < 0) {
-        //             duration += 24 * 60 * 60 * 1000;
-        //         }
-
-        //         var totalMinutes = Math.floor(duration / (1000 * 60));
-        //         durationInput.val(totalMinutes);
-        //     } else {
-        //         durationInput.val('');
-        //     }
-        // }
     </script>
 
     <script>
@@ -561,22 +486,23 @@
                 function createRow(index) {
             return `
                 <tr>
-                    <td><input name="Details[${index}].Ptnnmbr" class="form-control" /></td>
-                    <td><input name="Details[${index}].Gmntitem" class="form-control" /></td>
-                    <td><input name="Details[${index}].Gmntcolor" class="form-control" /></td>
-                    <td><input name="Details[${index}].Fabricdes" class="form-control" /></td>
-                    <td><input name="Details[${index}].Fabricusage" class="form-control" /></td>
-                    <td><input name="Details[${index}].Gsm" type="number" step="0.01" class="form-control" /></td>
-                    <td><input name="Details[${index}].Fullwidth" type="number" step="0.01" class="form-control" /></td>
-                    <td><input name="Details[${index}].Cutwidth" type="number" step="0.01" class="form-control" /></td>
-                    <td><input name="Details[${index}].Efficiency" type="number" step="0.01" class="form-control" /></td>
-                    <td><input name="Details[${index}].Sizeratio" class="form-control" /></td>
-                    <td><input name="Details[${index}].Markerqty" type="number" step="0.01" class="form-control" /></td>
-                    <td><input name="Details[${index}].Conspcs" type="number" step="0.01" class="form-control" /></td>
-                    <td><input name="Details[${index}].Consdzn" type="number" step="0.01" class="form-control" /></td>
-                    <td><input name="Details[${index}].Wastage" type="number" step="0.01" class="form-control" /></td>
-                    <td><input name="Details[${index}].Comments" class="form-control" /></td>
-                    <td><input type="file" name="Details[${index}].File" class="form-control" /></td>
+                 <td><input name="Details[${index}].Ptnnmbr" class="form-control" /></td>
+                 <td><input name="Details[${index}].Gmntitem" class="form-control" /></td>
+                <td><input name="Details[${index}].Gmntcolor" class="form-control" /></td>
+                <td><input name="Details[${index}].Fabricdes" class="form-control" /></td>
+                <td><input name="Details[${index}].Fabricusage" class="form-control" /></td>
+                <td><input name="Details[${index}].Gsm" class="gsm form-control" /></td>
+                <td><input name="Details[${index}].Opt01" class="length form-control" /></td>
+                <td><input name="Details[${index}].Fullwidth" class="width form-control" /></td>
+                <td><input name="Details[${index}].Cutwidth" class="form-control" /></td>
+                <td><input name="Details[${index}].Efficiency" class="form-control" /></td>
+                <td><input name="Details[${index}].Sizeratio" class="form-control" /></td>
+                <td><input name="Details[${index}].Markerqty" class="pcs form-control" /></td>
+                <td><input name="Details[${index}].Wastage" class="allowance form-control" /></td>
+                <td><input name="Details[${index}].Conspcs" class="conspcs form-control bg-light" readonly /></td>
+                <td><input name="Details[${index}].Consdzn" class="consdzn form-control bg-light" readonly /></td>
+                <td><input name="Details[${index}].Comments" class="form-control" /></td>
+                <td><input type="file" name="Details[${index}].File" class="form-control" /></td>
                     <td class="text-center">
                         <button type="button" class="btn btn-sm btn-outline-success" onclick="addRow()">➕</button>
                         <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRow(this)">➖</button>
@@ -602,6 +528,34 @@
                 alert("At least one row is required.");
             }
         }
+
+         // ✅ Auto calculation (per row)
+        $(document).on('input', '.length, .width, .gsm, .pcs, .allowance', function () {
+
+            let row = $(this).closest('tr');
+
+            let length = parseFloat(row.find('.length').val()) || 0;
+            let width = parseFloat(row.find('.width').val()) || 0;
+            let gsm = parseFloat(row.find('.gsm').val()) || 0;
+            let pcs = parseFloat(row.find('.pcs').val()) || 0;
+
+            // 👉 If wastage is %, convert it
+            let allowance = (parseFloat(row.find('.allowance').val()) || 0) / 100;
+
+            if (length > 0 && width > 0 && gsm > 0 && pcs > 0) {
+
+                let base = (length * width * gsm) / 1550 / 1000 / pcs;
+
+                let consPcs = base + (base * allowance);
+                let consDzn = consPcs * 12;
+
+                row.find('.conspcs').val(consPcs.toFixed(2));
+                row.find('.consdzn').val(consDzn.toFixed(2));
+            } else {
+                row.find('.conspcs').val('');
+                row.find('.consdzn').val('');
+            }
+        });
 
         // Initialize with one row
                 document.addEventListener("DOMContentLoaded", function () {

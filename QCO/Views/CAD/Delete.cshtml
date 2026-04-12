@@ -1,0 +1,86 @@
+﻿@model QCO.ViewModel.CadConsumptionViewModel
+
+@{
+    ViewData["Title"] = "Delete CAD Consumption";
+}
+
+<h3 class="text-danger">Delete Confirmation</h3>
+<hr />
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5>Are you sure you want to delete this record?</h5>
+
+        <dl class="row mt-3">
+            <dt class="col-sm-3">CAD Date</dt>
+            <dd class="col-sm-9">@Model.Master?.Caddate?.ToString("yyyy-MM-dd")</dd>
+
+            <dt class="col-sm-3">IR/IB</dt>
+            <dd class="col-sm-9">@Model.Master?.Ir</dd>
+
+            <dt class="col-sm-3">Buyer</dt>
+            <dd class="col-sm-9">@Model.Master?.Buyer</dd>
+
+            
+        </dl>
+    </div>
+</div>
+
+@if (Model.Details != null && Model.Details.Count > 0)
+{
+    <h5>Details</h5>
+
+    <table class="table table-bordered table-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Item</th>
+                <th>Color</th>
+                <th>Fabric Description</th>
+                <th>GSM</th>
+                <th>Marker Length</th>
+                <th>Marker Width</th>
+                <th>Marker Qty</th>
+                <th>Wastage %</th>
+                <th>Consumption (pcs)</th>
+                <th>Consumption (dzn)</th>
+                <th>File</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Details)
+            {
+                <tr>
+                    <td>@item.Gmntitem</td>
+                    <td>@item.Gmntcolor</td>
+                    <td>@item.Fabricdes</td>
+                    <td>@item.Gsm</td>
+                    <td>@item.Opt01</td>
+                    <td>@item.Fullwidth</td>
+                    <td>@item.Markerqty</td>
+                    <td>@item.Wastage</td>
+                    <td>@item.Conspcs</td>
+                    <td>@item.Consdzn</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Filepath))
+                        {
+                            <span>@System.IO.Path.GetFileName(item.Filepath)</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.Master.Cadmid" />
+
+    <button type="submit" class="btn btn-danger">
+        Yes, Delete
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Cancel
+    </a>
+</form>
