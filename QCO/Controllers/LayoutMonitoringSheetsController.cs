@@ -516,7 +516,6 @@ namespace QCO.Controllers
                 {
                     x.BOOKING_NO,
                     x.BUYER_NAME,
-                    x.SEASON,
                     x.TOTAL_SMV
                 })
                 .Distinct()

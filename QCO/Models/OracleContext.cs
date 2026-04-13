@@ -32,7 +32,6 @@ namespace QCO.Models
     {
         public string BOOKING_NO { get; set; }
         public string BUYER_NAME { get; set; }
-        public string SEASON { get; set; }
         public int ROW_SEQUENCE_NO {  get; set; }
         public string OPERATION_NAME { get; set; }
         public string RESOURCE_NAME { get; set; }

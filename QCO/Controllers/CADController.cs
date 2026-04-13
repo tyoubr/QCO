@@ -145,6 +145,65 @@ namespace QCO.Controllers
             return Json(new { results = bookingData });
         }
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(CadConsumptionViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            // Save Master
+        //            _context.TblCadConsMs.Add(model.Master);
+        //            await _context.SaveChangesAsync();
+
+        //            var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+        //            if (!Directory.Exists(folderPath))
+        //                Directory.CreateDirectory(folderPath);
+
+        //            if (model.Details != null && model.Details.Count > 0)
+        //            {
+        //                foreach (var item in model.Details)
+        //                {
+        //                    item.Cadmid = model.Master.Cadmid;
+        //                    item.Transdate = DateTime.Now;
+
+        //                    if (item.File != null && item.File.Length > 0)
+        //                    {
+        //                        var fileName = Path.GetFileName(item.File.FileName);
+        //                        var filePath = Path.Combine(folderPath, fileName);
+
+        //                        using (var stream = new FileStream(filePath, FileMode.Create))
+        //                        {
+        //                            await item.File.CopyToAsync(stream);
+        //                        }
+
+        //                        item.Filename = fileName;
+        //                        item.Filepath = $"/uploads/{fileName}";
+        //                        item.Filesize = item.File.Length;
+        //                        item.Contenttype = item.File.ContentType;
+        //                    }
+
+        //                    _context.TblCadConsDs.Add(item);
+        //                }
+
+        //                await _context.SaveChangesAsync();
+        //            }
+
+        //            TempData["Success"] = "Data saved successfully!";
+        //            return RedirectToAction("Index");
+        //        }
+        //        catch (Exception)
+        //        {
+        //            TempData["Error"] = "Something went wrong while saving data!";
+        //            return View(model);
+        //        }
+        //    }
+
+        //    TempData["Error"] = "Validation failed!";
+        //    return View(model);
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CadConsumptionViewModel model)
@@ -157,7 +216,10 @@ namespace QCO.Controllers
                     _context.TblCadConsMs.Add(model.Master);
                     await _context.SaveChangesAsync();
 
-                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                    // 🔁 Use network shared folder (UNC path)
+                    var folderPath = @"\\103.9.134.216\UploadFiles";
+
+                    // Ensure directory exists
                     if (!Directory.Exists(folderPath))
                         Directory.CreateDirectory(folderPath);
 
@@ -170,7 +232,9 @@ namespace QCO.Controllers
 
                             if (item.File != null && item.File.Length > 0)
                             {
-                                var fileName = Path.GetFileName(item.File.FileName);
+                                // Optional: make filename unique (recommended)
+                                var fileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(item.File.FileName);
+
                                 var filePath = Path.Combine(folderPath, fileName);
 
                                 using (var stream = new FileStream(filePath, FileMode.Create))
@@ -179,7 +243,10 @@ namespace QCO.Controllers
                                 }
 
                                 item.Filename = fileName;
-                                item.Filepath = $"/uploads/{fileName}";
+
+                                // ⚠️ This is NOT a physical path anymore, just reference
+                                item.Filepath = filePath;
+
                                 item.Filesize = item.File.Length;
                                 item.Contenttype = item.File.ContentType;
                             }
@@ -193,7 +260,7 @@ namespace QCO.Controllers
                     TempData["Success"] = "Data saved successfully!";
                     return RedirectToAction("Index");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     TempData["Error"] = "Something went wrong while saving data!";
                     return View(model);
@@ -328,9 +395,9 @@ namespace QCO.Controllers
                 await _context.SaveChangesAsync();
 
                 // =========================
-                // UPLOAD FOLDER
+                // NETWORK FOLDER PATH
                 // =========================
-                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                var folderPath = @"\\103.9.134.216\UploadFiles";
 
                 if (!Directory.Exists(folderPath))
                     Directory.CreateDirectory(folderPath);
@@ -348,7 +415,7 @@ namespace QCO.Controllers
                         if (existingDetail != null)
                         {
                             // =========================
-                            // UPDATE NORMAL FIELDS ONLY (NO FILE FIELDS)
+                            // UPDATE FIELDS
                             // =========================
                             existingDetail.Cadmid = model.Master.Cadmid;
                             existingDetail.Transdate = DateTime.Now;
@@ -371,21 +438,10 @@ namespace QCO.Controllers
                             existingDetail.Comments = item.Comments;
 
                             // =========================
-                            // FILE HANDLING
+                            // FILE UPDATE
                             // =========================
                             if (item.File != null && item.File.Length > 0)
                             {
-                                // OPTIONAL: delete old file
-                                // if (!string.IsNullOrEmpty(existingDetail.Filepath))
-                                // {
-                                //     var oldPath = Path.Combine(Directory.GetCurrentDirectory(),
-                                //         "wwwroot", existingDetail.Filepath.TrimStart('/'));
-                                //
-                                //     if (System.IO.File.Exists(oldPath))
-                                //         System.IO.File.Delete(oldPath);
-                                // }
-
-                                //var fileName = Guid.NewGuid() + Path.GetExtension(item.File.FileName);
                                 var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(item.File.FileName)}";
                                 var filePath = Path.Combine(folderPath, fileName);
 
@@ -395,33 +451,32 @@ namespace QCO.Controllers
                                 }
 
                                 existingDetail.Filename = fileName;
-                                existingDetail.Filepath = $"/uploads/{fileName}";
+                                existingDetail.Filepath = filePath; // full network path
                                 existingDetail.Filesize = item.File.Length;
                                 existingDetail.Contenttype = item.File.ContentType;
                             }
-                            // else → KEEP OLD FILE DATA (DO NOTHING)
+                            // else → keep old file
                         }
                         else
                         {
                             // =========================
-                            // NEW ROW INSERT
+                            // INSERT NEW ROW
                             // =========================
                             item.Cadmid = model.Master.Cadmid;
                             item.Transdate = DateTime.Now;
 
                             if (item.File != null && item.File.Length > 0)
                             {
-                                var originalFileName = Path.GetFileName(item.File.FileName);
-                                var fileName = Guid.NewGuid() + Path.GetExtension(item.File.FileName);
+                                var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(item.File.FileName)}";
                                 var filePath = Path.Combine(folderPath, fileName);
 
                                 using (var stream = new FileStream(filePath, FileMode.Create))
                                 {
                                     await item.File.CopyToAsync(stream);
                                 }
-                                item.OriginalFilename = originalFileName;
+
                                 item.Filename = fileName;
-                                item.Filepath = $"/uploads/{fileName}";
+                                item.Filepath = filePath; // full network path
                                 item.Filesize = item.File.Length;
                                 item.Contenttype = item.File.ContentType;
                             }
@@ -465,20 +520,24 @@ namespace QCO.Controllers
         [HttpGet]
         public IActionResult DownloadFile(int id)
         {
-            // Find the detail record by its ID
+            // Find the detail record
             var fileRecord = _context.TblCadConsDs.FirstOrDefault(d => d.Caddid == id);
 
             if (fileRecord == null)
                 return NotFound("File not found.");
 
-            // Map relative path (/uploads/filename) to physical path
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileRecord.Filename);
+            // =========================
+            // NETWORK FILE PATH
+            // =========================
+            var folderPath = @"\\103.9.134.216\UploadFiles";
+            var filePath = Path.Combine(folderPath, fileRecord.Filename);
 
             if (!System.IO.File.Exists(filePath))
                 return NotFound("File does not exist on server.");
 
             // Return file for download
             var fileBytes = System.IO.File.ReadAllBytes(filePath);
+
             return File(fileBytes, fileRecord.Contenttype, fileRecord.Filename);
         }
 
