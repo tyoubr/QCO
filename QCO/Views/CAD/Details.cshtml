@@ -56,105 +56,127 @@
     <!-- DETAILS TABLE -->
     <h4 class="text-success mt-4">Marker Details</h4>
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead class="table-primary">
-                <tr>
-                    <th>Ptn No</th>
-                    <th>Item</th>
-                    <th>Color</th>
-                    <th>Fabric</th>
-                    <th>Usage</th>
-                    <th>GSM</th>
-                    <th>Marker Length</th>
-                    <th>Full W</th>
-                    <th>Cut W</th>
-                    <th>Eff %</th>
-                    <th>Size</th>
-                    <th>Qty</th>
-                    <th>Cons/Pcs</th>
-                    <th>Cons/Dzn</th>
-                    <th>Wastage</th>
-                    <th>Comments</th>
-                    <th>File</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Details != null && Model.Details.Any())
-                {
-                    foreach (var item in Model.Details)
-                    {
-                        <tr>
-                            <td>@item.Ptnnmbr</td>
-                            <td>@item.Gmntitem</td>
-                            <td>@item.Gmntcolor</td>
-                            <td>@item.Fabricdes</td>
-                            <td>@item.Fabricusage</td>
-                            <td>@item.Gsm</td>
-                            <td>@item.Opt01</td>
-                            <td>@item.Fullwidth</td>
-                            <td>@item.Cutwidth</td>
-                            <td>@item.Efficiency</td>
-                            <td>@item.Sizeratio</td>
-                            <td>@item.Markerqty</td>
-                            <td>@item.Conspcs</td>
-                            <td>@item.Consdzn</td>
-                            <td>@item.Wastage</td>
-                            <td>@item.Comments</td>
+    @if (Model.Details != null && Model.Details.Any())
+    {
+        foreach (var item in Model.Details)
+        {
+            <div class="border rounded p-3 mb-3 bg-light">
 
-                            <!-- FILE DOWNLOAD -->
-                           @*  <td>
-                                @if (!string.IsNullOrEmpty(item.Filepath))
-                                {
-                                    <a asp-action="DownloadFile"
-                                       asp-route-id="@item.Caddid"
-                                       class="btn btn-sm btn-outline-primary">
-                                        Download
-                                    </a>
-                                }
-                                else
-                                {
-                                    <span class="text-muted">No File</span>
-                                }
-                            </td> *@
-                            <td>
-                                @if (!string.IsNullOrEmpty(item.Filepath))
-                                {
-                                    var file = System.IO.Path.GetFileName(item.Filepath);
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Ptn No</div>
+                    <div class="col-7">: @item.Ptnnmbr</div>
+                </div>
 
-                                    var originalName = file.Contains("_")
-                                    ? file.Substring(file.IndexOf("_") + 1)
-                                    : file;
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Item</div>
+                    <div class="col-7">: @item.Gmntitem</div>
+                </div>
 
-                                    <div class="small text-dark mb-1">
-                                        📄 @originalName
-                                    </div>
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Color</div>
+                    <div class="col-7">: @item.Gmntcolor</div>
+                </div>
 
-                                    <a asp-action="DownloadFile"
-                                       asp-route-id="@item.Caddid"
-                                       class="btn btn-sm btn-outline-primary">
-                                        Download
-                                    </a>
-                                }
-                                else
-                                {
-                                    <span class="text-muted">No File</span>
-                                }
-                            </td>
-                        </tr>
-                    }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="16" class="text-center text-danger">
-                            No details found
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Fabric</div>
+                    <div class="col-7">: @item.Fabricdes</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Usage</div>
+                    <div class="col-7">: @item.Fabricusage</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">GSM</div>
+                    <div class="col-7">: @item.Gsm</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Marker Length</div>
+                    <div class="col-7">: @item.Opt01</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Full W</div>
+                    <div class="col-7">: @item.Fullwidth</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Cut W</div>
+                    <div class="col-7">: @item.Cutwidth</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Eff %</div>
+                    <div class="col-7">: @item.Efficiency</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Size</div>
+                    <div class="col-7">: @item.Sizeratio</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Qty</div>
+                    <div class="col-7">: @item.Markerqty</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Cons/Pcs</div>
+                    <div class="col-7">: @item.Conspcs</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Cons/Dzn</div>
+                    <div class="col-7">: @item.Consdzn</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Wastage</div>
+                    <div class="col-7">: @item.Wastage</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">Comments</div>
+                    <div class="col-7">: @item.Comments</div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-5 fw-bold">File</div>
+                    <div class="col-7">
+                        @if (!string.IsNullOrEmpty(item.Filepath))
+                        {
+                            var file = System.IO.Path.GetFileName(item.Filepath);
+
+                            var originalName = file.Contains("_")
+                            ? file.Substring(file.IndexOf("_") + 1)
+                            : file;
+
+                            <div class="mb-1">📄 @originalName</div>
+
+                            <a asp-action="DownloadFile"
+                               asp-route-id="@item.Caddid"
+                               class="btn btn-sm btn-outline-primary">
+                                Download
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No File</span>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        }
+    }
+    else
+    {
+        <div class="text-center text-danger">
+            No details found
+        </div>
+    }
 
     <!-- BACK BUTTON -->
     <div class="mt-3">

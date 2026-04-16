@@ -228,7 +228,7 @@ public partial class QCOContext : DbContext
             entity.Property(e => e.Cutwidth).HasColumnName("CUTWIDTH");
             entity.Property(e => e.Efficiency).HasColumnName("EFFICIENCY");
             entity.Property(e => e.Fabricdes)
-                .HasMaxLength(50)
+                .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasColumnName("FABRICDES");
             entity.Property(e => e.Fabricusage)

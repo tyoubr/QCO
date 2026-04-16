@@ -147,12 +147,12 @@
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Caddate" class="form-label fw-bold text-dark">CAD Date<span class="text-danger">*</span></label>
-                    <input asp-for="Master.Caddate" class="form-control border-primary shadow-sm" type="datetime-local" />
+                    <input asp-for="Master.Caddate" class="form-control border-primary shadow-sm" type="date" bg-light" readonly />
                     <span asp-validation-for="Master.Caddate" class="text-danger"></span>
                 </div>
             </div>
             <!-- Company -->
-            <div class="col-md-3">
+            @* <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Opt01" class="form-label fw-bold text-dark"> Working Company<span class="text-danger">*</span></label>
                     <select asp-for="Master.Opt01" class="form-select border-primary shadow-sm">
@@ -164,21 +164,28 @@
                     </select>
                     <span asp-validation-for="Master.Opt01" class="text-danger"></span>
                 </div>
-            </div>
-            @* <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label asp-for="Master.Styleref" class="form-label fw-bold text-dark">M. Style Ref.</label>
-                    <input asp-for="Master.Styleref" class="form-control border-primary shadow-sm" />
-                    <span asp-validation-for="Master.Styleref" class="text-danger"></span>
-                </div>
             </div> *@
-            <!-- BookingNo Dropdown -->
             <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Master.Opt01" class="form-label fw-bold text-dark">Working Company<span class="text-danger">*</span></label>
+                    <input asp-for="Master.Opt01" class="form-control border-primary shadow-sm bg-light" readonly />
+                    <span asp-validation-for="Master.Opt01" class="text-danger"></span>
+                </div>
+            </div>
+            <!-- BookingNo Dropdown -->
+            @* <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Styleref" class="form-label fw-bold text-dark">M. Style Ref.<span class="text-danger">*</span></label>
                     <select asp-for="Master.Styleref" class="form-control select2 border-primary shadow-sm" id="BookingNo">
                         <option value="">Select Booking No</option>
                     </select>
+                    <span asp-validation-for="Master.Styleref" class="text-danger"></span>
+                </div>
+            </div> *@
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Master.Styleref" class="form-label fw-bold text-dark">M. Style Ref.<span class="text-danger">*</span></label>
+                    <input asp-for="Master.Styleref" id="Buyer" class="form-control border-primary shadow-sm bg-light" readonly />
                     <span asp-validation-for="Master.Styleref" class="text-danger"></span>
                 </div>
             </div>
@@ -190,23 +197,9 @@
                     <span asp-validation-for="Master.Job" class="text-danger"></span>
                 </div>
             </div>
-            <!-- Buyer Name -->
-            @* <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label for="BuyerName" class="form-label fw-bold text-dark">Buyer Name</label>
-                    <input type="text" id="BuyerName" name="BuyerName" class="form-control bg-light" readonly />
-                </div>
-            </div> *@
         </div>
 
         <div class="row">
-            <!-- Total SMV -->
-            @* <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label for="totalSmv" class="form-label fw-bold text-dark">Total SMV</label>
-                    <input type="text" id="totalSmv" name="Total_SMV" class="form-control bg-light" readonly />
-                </div>
-            </div> *@
             <!-- IR/IB -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
@@ -215,13 +208,6 @@
                     <span asp-validation-for="Master.Ir" class="text-danger"></span>
                 </div>
             </div>
-            <!-- Buyer Name -->
-            @* <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label for="Master.Buyer" class="form-label fw-bold text-dark">Buyer Name</label>
-                    <input type="text" id="BuyerName" name="BuyerName" class="form-control bg-light" readonly />
-                </div>
-            </div> *@
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Buyer" class="form-label fw-bold text-dark">Buyer Name</label>
@@ -236,12 +222,6 @@
                     <span asp-validation-for="Master.Brand" class="text-danger"></span>
                 </div>
             </div>
-            @* <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label for="Master.Season" class="form-label fw-bold text-dark">Season</label>
-                    <input type="text" id="Season" name="Season" class="form-control bg-light" readonly />
-                </div>
-            </div> *@
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Season" class="form-label fw-bold text-dark">Season</label>
@@ -249,40 +229,10 @@
                     <span asp-validation-for="Master.Season" class="text-danger"></span>
                 </div>
             </div>
-            @* <!-- Feed Start -->
-            <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label asp-for="FeedStart" class="form-label fw-bold text-dark">Feed Start</label>
-                    <input asp-for="FeedStart" class="form-control border-primary shadow-sm" type="datetime-local" />
-                    <span asp-validation-for="FeedStart" class="text-danger"></span>
-                </div>
-            </div>
-
-            <!-- Feed Finish -->
-            <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label asp-for="FeedFinish" class="form-label fw-bold text-dark">Feed Finish</label>
-                    <input asp-for="FeedFinish" class="form-control border-primary shadow-sm" type="datetime-local" />
-                    <span asp-validation-for="FeedFinish" class="text-danger"></span>
-                </div>
-            </div> *@
         </div>
 
         <!-- Pre Style Finish -->
         <div class="row">
-            @*  <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label asp-for="PreStyleFinish" class="form-label fw-bold text-dark">Pre Style Finish</label>
-                    <input asp-for="PreStyleFinish" class="form-control border-primary shadow-sm" type="datetime-local" />
-                    <span asp-validation-for="PreStyleFinish" class="text-danger"></span>
-                </div>
-            </div> *@
-            @* <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label for="Master.SeasonYear" class="form-label fw-bold text-dark">Season Year</label>
-                    <input type="text" id="SeasonYear" name="SeasonYear" class="form-control bg-light" readonly />
-                </div>
-            </div> *@
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Seasonyear" class="form-label fw-bold text-dark">Season Year</label>
@@ -347,10 +297,10 @@
                     <thead class="table-primary">
                         <tr>
                             <th style="width: 80px;">Ptn No.</th>
-                            <th style="width: 125px;">Garments Item</th>
-                            <th style="width: 130px;">Garments Color</th>
-                            <th style="width: 150px;">Fab. Des.</th>
-                            <th style="width: 120px;">Fab. Usage</th>
+                            <th style="width: 150px;">Garments Item</th>
+                            <th style="width: 200px;">Garments Color</th>
+                            <th style="width: 300px;">Fab. Des.</th>
+                            <th style="width: 150px;">Fab. Usage</th>
                             <th style="width: 75px;">GSM</th>
                             <th style="width: 85px;">Marker Length</th>
                             <th style="width: 85px;">Full Width</th>
@@ -376,12 +326,12 @@
                                         <input type="hidden" asp-for="Details[@i].Caddid" />
                                         <input asp-for="Details[@i].Ptnnmbr" class="form-control" />
                                     </td>
-                                    <td><input asp-for="Details[@i].Gmntitem" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Gmntcolor" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Fabricdes" class="form-control" /></td>
+                                    <td><input asp-for="Details[@i].Gmntitem" class="form-control" readonly /></td>
+                                    <td><input asp-for="Details[@i].Gmntcolor" class="form-control" readonly /></td>
+                                    <td><input asp-for="Details[@i].Fabricdes" class="form-control" readonly /></td>
                                     <td><input asp-for="Details[@i].Fabricusage" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Gsm" class="gsm form-control" /></td>
-                                    <td><input asp-for="Details[@i].Opt01" class="length form-control" /></td>
+                                    <td><input asp-for="Details[@i].Gsm" class="gsm form-control" readonly /></td>
+                                    <td><input asp-for="Details[@i].Opt01" class="length form-control" /></td> @* Marker Length *@
                                     <td><input asp-for="Details[@i].Fullwidth" class="width form-control" /></td>
                                     <td><input asp-for="Details[@i].Cutwidth" class="form-control" /></td>
                                     <td><input asp-for="Details[@i].Efficiency" class="form-control" /></td>

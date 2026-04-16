@@ -8,6 +8,7 @@ namespace QCO.Models
 
         public DbSet<NewView3> NewView3 { get; set; }
         public DbSet<ViewCAD> VW_CAD { get; set; }
+        public DbSet<VW_BOOKING_DETAILS> VW_BOOKING_DETAILS { get; set; }
               protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -24,6 +25,11 @@ namespace QCO.Models
             {
                 entity.HasNoKey();
                 entity.ToView("VW_CAD"); // Optional: Specify the view name if applicable
+            });
+            modelBuilder.Entity<VW_BOOKING_DETAILS>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("VW_BOOKING_DETAILS"); // Optional: Specify the view name if applicable
             });
         }
     }
@@ -51,5 +57,18 @@ namespace QCO.Models
         public string SEASON_YEAR { get; set; }
         public string BUYER_NAME { get; set; }
         public string BRAND_NAME { get; set; }
+    }
+
+    public class VW_BOOKING_DETAILS
+    {
+        public string JOB_NO { get; set; }
+
+        public string GARMENTS_ITEM { get; set; }
+
+        public string COLOR_NAME { get; set; }
+
+        public string FABRIC_DESCRIPTION { get; set; }
+
+        public decimal? GSM_WEIGHT { get; set; }
     }
 }

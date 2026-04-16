@@ -171,14 +171,14 @@
                 <thead>
                     <tr>
                         <th style="width: 100px;">CAD Date</th>
-                        <th style="width: 200px;">IR/IB</th>
+                        <th style="width: 350px;">IR/IB / Job No. / Style Ref.</th>
                         <th>Buyer Name</th>
-                        <th>Season</th>
-                        <th>Season Year</th>
-                        <th>Style</th>
-                        <th>Style Description</th>
+                        @* <th>Season</th>
+                        <th>Season Year</th> *@
+                        @* <th>Style</th> *@
+                        <th style ="width: 350px;">Style Description</th>
                         <th>Pattern Master</th>
-                        <th style="width: 160px;">Approve Status</th>
+                        <th style="width: 160px;">Approval Status</th>
                         <th class="text-center" style="width: 200px;">Actions</th>
                     </tr>
                 </thead>
@@ -192,9 +192,9 @@
                                 <td>@item.Master?.Caddate.Value.ToString("dd-MM-yyyy")</td>
                                 <td>@item.Master?.Styleref</td>
                                 <td>@item.Master?.Buyer</td>
-                                <td>@item.Master?.Season</td>
+                                @* <td>@item.Master?.Season</td>
                                 <td>@item.Master?.Seasonyear</td>
-                                <td>@item.Master?.Styleref</td>
+                                <td>@item.Master?.Styleref</td> *@
                                 <td>@item.Master?.Styledes</td>
                                 <td>@item.Master?.Patternmaster</td>
 

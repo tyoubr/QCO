@@ -68,8 +68,8 @@ namespace QCO.Controllers
                     (x.Master.Styledes?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
                     (x.Master.Buyer?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
                     (x.Master.Patternmaster?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
-                    (x.Master.Season?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
-                    (x.Master.Seasonyear?.ToString().Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
+                    //(x.Master.Season?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
+                    //(x.Master.Seasonyear?.ToString().Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
                     (x.Master.Caddate.ToString().Contains(search, StringComparison.OrdinalIgnoreCase)) ||
                     // ✅ convert Isapproved to string
                     (("Approved").Contains(search, StringComparison.OrdinalIgnoreCase) && x.Master.Isapproved == true) ||
@@ -143,6 +143,23 @@ namespace QCO.Controllers
             .ToList();
 
             return Json(new { results = bookingData });
+        }
+
+        [HttpGet]
+        public IActionResult GetBookingDetails(string jobNo)
+        {
+            var data = _oracleContext.VW_BOOKING_DETAILS
+                        .Where(x => x.JOB_NO == jobNo)
+                        .Select(x => new
+                        {
+                            garmentsItem = x.GARMENTS_ITEM,
+                            color = x.COLOR_NAME,
+                            fabricDescription = x.FABRIC_DESCRIPTION,
+                            gsm = x.GSM_WEIGHT
+                        })
+                        .ToList();
+
+            return Json(data);
         }
 
         //[HttpPost]

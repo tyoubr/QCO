@@ -152,7 +152,7 @@
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Caddate" class="form-label fw-bold text-dark">CAD Date<span class="text-danger">*</span></label>
-                    <input asp-for="Master.Caddate" class="form-control border-primary shadow-sm" type="datetime-local" />
+                    <input asp-for="Master.Caddate" class="form-control border-primary shadow-sm" type="date" />
                     <span asp-validation-for="Master.Caddate" class="text-danger"></span>
                 </div>
             </div>
@@ -286,10 +286,10 @@
                     <thead class="table-primary">
                         <tr>
                             <th style="width: 80px;">Ptn No.</th>
-                            <th style="width: 125px;">Garments Item</th>
-                            <th style="width: 130px;">Garments Color</th>
-                            <th style="width: 150px;">Fab. Des.</th>
-                            <th style="width: 120px;">Fab. Usage</th>
+                            <th style="width: 150px;">Garments Item</th>
+                            <th style="width: 200px;">Garments Color</th>
+                            <th style="width: 300px;">Fab. Des.</th>
+                            <th style="width: 150px;">Fab. Usage</th>
                             <th style="width: 75px;">GSM</th>
                             <th style="width: 85px;">Marker Length</th>
                             <th style="width: 85px;">Full Width</th>
@@ -332,7 +332,7 @@
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script>
+ @*    <script>
         let rowIndex = 0;
 
         $(document).ready(function () {
@@ -451,6 +451,150 @@
             } else {
                 row.find('.conspcs').val('');
                 row.find('.consdzn').val('');
+            }
+        });
+
+    </script> *@
+    <script>
+        let rowIndex = 0;
+
+        $(document).ready(function () {
+
+            // 🔹 Select2 Init
+            $('#BookingNo').select2({
+                placeholder: "Select Booking No",
+                allowClear: true,
+                minimumInputLength: 3,
+                ajax: {
+                    url: '@Url.Action("GetBookingNos", "CAD")',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return { term: params.term };
+                    },
+                    processResults: function (data) {
+                        return { results: data.results };
+                    },
+                    cache: true
+                }
+            });
+
+            // 🔥 On Booking Select
+            $('#BookingNo').on('select2:select', function (e) {
+
+                let data = e.params.data;
+
+                // Header Fill
+                $('#Buyer').val(data.buyerName || '');
+                $('#Season').val(data.season || 'N/A');
+                $('#Seasonyear').val(data.seasonYear || 'N/A');
+                $('#Job').val(data.jobNo || '');
+                $('#Ir').val(data.irIb || '');
+                $('#Brand').val(data.brand || 'N/A');
+                $('#Styledes').val(data.styleDescription || 'N/A');
+
+                // 🔹 Get Details (Multiple Color ভিত্তিক)
+                $.ajax({
+                    url: '@Url.Action("GetBookingDetails", "CAD")',
+                    type: 'GET',
+                    data: { jobNo: data.jobNo },
+                    success: function (res) {
+
+                        $('#detailsBody').empty();
+                        rowIndex = 0;
+
+                        res.forEach(item => {
+
+                            addRow();
+
+                            let row = $('#detailsBody tr').last();
+
+                            // ✅ Auto Fill Only Required Fields
+                            row.find(`[name="Details[${rowIndex - 1}].Gmntitem"]`).val(item.garmentsItem).prop('readonly', true);
+                            row.find(`[name="Details[${rowIndex - 1}].Gmntcolor"]`).val(item.color).prop('readonly', true);
+                            row.find(`[name="Details[${rowIndex - 1}].Fabricdes"]`).val(item.fabricDescription).prop('readonly', true);
+                            row.find(`[name="Details[${rowIndex - 1}].Gsm"]`).val(item.gsm).prop('readonly', true);
+                        });
+                    }
+                });
+            });
+
+            // 🔹 Default 1 Row
+            addRow();
+        });
+
+        // 🔹 Create Row
+        function createRow(index) {
+            return `
+            <tr>
+                <td><input name="Details[${index}].Ptnnmbr" class="form-control" /></td>
+                <td><input name="Details[${index}].Gmntitem" class="form-control" /></td>
+                <td><input name="Details[${index}].Gmntcolor" class="form-control" /></td>
+                <td><input name="Details[${index}].Fabricdes" class="form-control" /></td>
+                <td><input name="Details[${index}].Fabricusage" class="form-control" /></td>
+
+                <td><input name="Details[${index}].Gsm" class="gsm form-control" /></td>
+                <td><input name="Details[${index}].Opt01" class="length form-control" /></td>
+                <td><input name="Details[${index}].Fullwidth" class="width form-control" /></td>
+                <td><input name="Details[${index}].Cutwidth" class="form-control" /></td>
+
+                <td><input name="Details[${index}].Efficiency" class="form-control" /></td>
+                <td><input name="Details[${index}].Sizeratio" class="form-control" /></td>
+
+                <td><input name="Details[${index}].Markerqty" class="pcs form-control" /></td>
+                <td><input name="Details[${index}].Wastage" class="allowance form-control" /></td>
+
+                <td><input name="Details[${index}].Conspcs" class="conspcs form-control bg-light" readonly /></td>
+                <td><input name="Details[${index}].Consdzn" class="consdzn form-control bg-light" readonly /></td>
+
+                <td><input name="Details[${index}].Comments" class="form-control" /></td>
+                <td><input type="file" name="Details[${index}].File" class="form-control" /></td>
+
+                <td class="text-center">
+                    <button type="button" class="btn btn-sm btn-outline-success" onclick="addRow()">➕</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRow(this)">➖</button>
+                </td>
+            </tr>`;
+        }
+
+        // 🔹 Add Row
+        function addRow() {
+            $('#detailsBody').append(createRow(rowIndex));
+            rowIndex++;
+        }
+
+        // 🔹 Remove Row
+        function removeRow(btn) {
+            if ($('#detailsBody tr').length > 1) {
+                $(btn).closest('tr').remove();
+            } else {
+                alert("At least one row is required.");
+            }
+        }
+
+        // 🔥 Auto Calculation
+        $(document).on('input', '.length, .width, .gsm, .pcs, .allowance', function () {
+
+            let row = $(this).closest('tr');
+
+            let length = parseFloat(row.find('.length').val()) || 0;
+            let width = parseFloat(row.find('.width').val()) || 0;
+            let gsm = parseFloat(row.find('.gsm').val()) || 0;
+            let pcs = parseFloat(row.find('.pcs').val()) || 0;
+            let allowance = (parseFloat(row.find('.allowance').val()) || 0) / 100;
+
+            if (length && width && gsm && pcs) {
+
+                let base = (length * width * gsm) / 1550 / 1000 / pcs;
+
+                let consPcs = base + (base * allowance);
+                let consDzn = consPcs * 12;
+
+                row.find('.conspcs').val(consPcs.toFixed(2));
+                row.find('.consdzn').val(consDzn.toFixed(2));
+
+            } else {
+                row.find('.conspcs, .consdzn').val('');
             }
         });
 
