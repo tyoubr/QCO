@@ -10,6 +10,7 @@ public partial class TblCadConsM
 
     [Required]
     public DateTime? Caddate { get; set; }
+    public DateTime? UpdatedAt { get; set; }
     [Required]
 
     public string? Styleref { get; set; }
@@ -43,6 +44,7 @@ public partial class TblCadConsM
     public string? Opt02 { get; set; }
 
     public string? Opt03 { get; set; }
+    public string? UpdatedBy { get; set; }
 
     public virtual ICollection<TblCadConsD> TblCadConsDs { get; set; } = new List<TblCadConsD>();
 }

@@ -171,7 +171,7 @@
                 <thead>
                     <tr>
                         <th style="width: 100px;">CAD Date</th>
-                        <th style="width: 350px;">IR/IB / Job No. / Style Ref.</th>
+                        <th style="width: 400px;">IR/IB / Job No. / Style Ref.</th>
                         <th>Buyer Name</th>
                         @* <th>Season</th>
                         <th>Season Year</th> *@
@@ -198,11 +198,16 @@
                                 <td>@item.Master?.Styledes</td>
                                 <td>@item.Master?.Patternmaster</td>
 
-                                <td>
+                                @* <td>
                                     @(item.Master?.Isapproved == true
                                                                 ? "Approved"
                                                                 : "Pending Approval")
-                        </td>
+                                </td> *@
+                                <td>
+                                    <span class="fw-bold @(item.Master?.Isapproved == true ? "text-success" : "text-warning")">
+                                        @(item.Master?.Isapproved == true ? "Approved" : "Pending Approval")
+                                    </span>
+                                </td>
 
                                 <td class="text-center actions-column">
                             @if (item.Master?.Isapproved != true)

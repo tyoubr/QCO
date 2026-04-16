@@ -301,6 +301,9 @@ public partial class QCOContext : DbContext
             entity.Property(e => e.Caddate)
                 .HasColumnType("datetime")
                 .HasColumnName("CADDATE");
+            entity.Property(e => e.UpdatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("UPDATEDAT");
             entity.Property(e => e.Comments)
                 .IsUnicode(false)
                 .HasColumnName("COMMENTS");
@@ -352,6 +355,10 @@ public partial class QCOContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("STYLEREF");
+            entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("UPDATEDBY");
         });
 
         OnModelCreatingPartial(modelBuilder);

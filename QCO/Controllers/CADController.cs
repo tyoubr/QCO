@@ -435,7 +435,10 @@ namespace QCO.Controllers
                             // UPDATE FIELDS
                             // =========================
                             existingDetail.Cadmid = model.Master.Cadmid;
+                            existingDetail.Transdate = DateTime.Now;//Update Date
                             existingDetail.Transdate = DateTime.Now;
+                            model.Master.UpdatedAt = DateTime.Now;
+                            model.Master.UpdatedBy = User.Identity?.Name ?? "System";
 
                             existingDetail.Ptnnmbr = item.Ptnnmbr;
                             existingDetail.Gmntitem = item.Gmntitem;
