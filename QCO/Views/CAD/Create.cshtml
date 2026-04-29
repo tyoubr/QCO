@@ -150,10 +150,25 @@
 
             <!-- CAD Date -->
             <div class="col-md-3">
-                <div class="form-group mb-4">
+                @*  <div class="form-group mb-4">
                     <label asp-for="Master.Caddate" class="form-label fw-bold text-dark">CAD Date<span class="text-danger">*</span></label>
                     <input asp-for="Master.Caddate" class="form-control border-primary shadow-sm" type="datetime-local" />
                     <span asp-validation-for="Master.Caddate" class="text-danger"></span>
+                </div> *@
+                <div class="form-group mb-4">
+                    <label class="form-label fw-bold text-dark">
+                        CAD Date<span class="text-danger">*</span>
+                    </label>
+
+                    <!-- ✅ Real datetime (DB save হবে) -->
+                    <input asp-for="Master.Caddate"
+                           type="hidden"
+                           value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")" />
+
+                    <!-- ✅ Only date show UI -->
+                    <input value="@DateTime.Now.ToString("dd-MM-yyyy")"
+                           class="form-control border-primary shadow-sm"
+                           readonly />
                 </div>
             </div>
             <!-- Company -->
@@ -285,12 +300,12 @@
                 <table class="table table-bordered table-hover">
                     <thead class="table-primary">
                         <tr>
-                            <th style="width: 80px;">Ptn No.</th>
-                            <th style="width: 150px;">Garments Item</th>
-                            <th style="width: 200px;">Garments Color</th>
-                            <th style="width: 300px;">Fab. Des.</th>
-                            <th style="width: 150px;">Fab. Usage</th>
-                            <th style="width: 75px;">GSM</th>
+                            <th style="width: 250px;">Garments Item</th>
+                            <th style="width: 500px;">Garments Color</th>
+                            <th style="width: 400px;">Fabric Description</th>
+                            <th style="width: 65px;">GSM</th>
+                            <th style="width: 300px;">Body Parts</th>
+                            <th style="width: 100px;">Ptn No.</th>
                             <th style="width: 85px;">Marker Length</th>
                             <th style="width: 85px;">Full Width</th>
                             <th style="width: 85px;">Cutt. Width</th>
@@ -332,7 +347,7 @@
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
- @*    <script>
+    @*    <script>
         let rowIndex = 0;
 
         $(document).ready(function () {
@@ -514,6 +529,7 @@
                             row.find(`[name="Details[${rowIndex - 1}].Gmntcolor"]`).val(item.color).prop('readonly', true);
                             row.find(`[name="Details[${rowIndex - 1}].Fabricdes"]`).val(item.fabricDescription).prop('readonly', true);
                             row.find(`[name="Details[${rowIndex - 1}].Gsm"]`).val(item.gsm).prop('readonly', true);
+                            row.find(`[name="Details[${rowIndex - 1}].Fabricusage"]`).val(item.fabricUsage).prop('readonly', true);
                         });
                     }
                 });
@@ -527,13 +543,12 @@
         function createRow(index) {
             return `
             <tr>
+                <td><input name="Details[${index}].Gmntitem" class="form-control" readonly /></td>
+                <td><input name="Details[${index}].Gmntcolor" class="form-control" readonly /></td>
+                <td><input name="Details[${index}].Fabricdes" class="form-control" readonly /></td>
+                <td><input name="Details[${index}].Gsm" class="gsm form-control" readonly /></td>
+                <td><input name="Details[${index}].Fabricusage" class=" fabricUsage form-control" readonly /></td>
                 <td><input name="Details[${index}].Ptnnmbr" class="form-control" /></td>
-                <td><input name="Details[${index}].Gmntitem" class="form-control" /></td>
-                <td><input name="Details[${index}].Gmntcolor" class="form-control" /></td>
-                <td><input name="Details[${index}].Fabricdes" class="form-control" /></td>
-                <td><input name="Details[${index}].Fabricusage" class="form-control" /></td>
-
-                <td><input name="Details[${index}].Gsm" class="gsm form-control" /></td>
                 <td><input name="Details[${index}].Opt01" class="length form-control" /></td>
                 <td><input name="Details[${index}].Fullwidth" class="width form-control" /></td>
                 <td><input name="Details[${index}].Cutwidth" class="form-control" /></td>

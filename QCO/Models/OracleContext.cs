@@ -62,12 +62,14 @@ namespace QCO.Models
     public class VW_BOOKING_DETAILS
     {
         public string JOB_NO { get; set; }
+        public string STYLE_REF_NO { get; set; }
 
-        public string GARMENTS_ITEM { get; set; }
+        public string? GARMENTS_ITEM { get; set; }
 
-        public string COLOR_NAME { get; set; }
+        public string? COLOR_NAME { get; set; }
 
-        public string FABRIC_DESCRIPTION { get; set; }
+        public string? FABRIC_DESCRIPTION { get; set; }
+        public string? BODY_PARTS { get; set; }
 
         public decimal? GSM_WEIGHT { get; set; }
     }

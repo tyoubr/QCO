@@ -145,10 +145,22 @@
             <input type="hidden" asp-for="Master.Cadmid" />
             <!-- CAD Date -->
             <div class="col-md-3">
-                <div class="form-group mb-4">
+                @*  <div class="form-group mb-4">
                     <label asp-for="Master.Caddate" class="form-label fw-bold text-dark">CAD Date<span class="text-danger">*</span></label>
                     <input asp-for="Master.Caddate" class="form-control border-primary shadow-sm" type="datetime-local" bg-light" readonly />
                     <span asp-validation-for="Master.Caddate" class="text-danger"></span>
+                </div> *@
+                <div class="form-group mb-4">
+                    <label class="form-label fw-bold text-dark">
+                        CAD Date<span class="text-danger">*</span>
+                    </label>
+
+                    <input value="@(Model.Master.Caddate.HasValue
+                               ? Model.Master.Caddate.Value.ToString("dd-MM-yyyy")
+                               : "")"
+                           class="form-control border-primary shadow-sm"
+                           readonly />
+
                 </div>
             </div>
             <!-- Company -->
@@ -296,12 +308,12 @@
                 <table class="table table-bordered table-hover">
                     <thead class="table-primary">
                         <tr>
-                            <th style="width: 80px;">Ptn No.</th>
-                            <th style="width: 150px;">Garments Item</th>
-                            <th style="width: 200px;">Garments Color</th>
-                            <th style="width: 300px;">Fab. Des.</th>
-                            <th style="width: 150px;">Fab. Usage</th>
-                            <th style="width: 75px;">GSM</th>
+                            <th style="width: 250px;">Garments Item</th>
+                            <th style="width: 500px;">Garments Color</th>
+                            <th style="width: 400px;">Fabric Description</th>
+                            <th style="width: 65px;">GSM</th>
+                            <th style="width: 300px;">Body Parts</th>
+                            <th style="width: 100px;">Ptn No.</th>
                             <th style="width: 85px;">Marker Length</th>
                             <th style="width: 85px;">Full Width</th>
                             <th style="width: 85px;">Cutt. Width</th>
@@ -322,15 +334,16 @@
                             for (int i = 0; i < Model.Details.Count; i++)
                             {
                                 <tr>
+                                    <td><input asp-for="Details[@i].Gmntitem" class="form-control" readonly /></td>
+                                    <td><input asp-for="Details[@i].Gmntcolor" class="form-control" readonly /></td>
+                                    <td><input asp-for="Details[@i].Fabricdes" class="form-control" readonly /></td>
+                                    <td><input asp-for="Details[@i].Gsm" class="gsm form-control" readonly /></td>
+                                    <td><input asp-for="Details[@i].Fabricusage" class="form-control" readonly /></td>
                                     <td>
                                         <input type="hidden" asp-for="Details[@i].Caddid" />
                                         <input asp-for="Details[@i].Ptnnmbr" class="form-control" />
                                     </td>
-                                    <td><input asp-for="Details[@i].Gmntitem" class="form-control" readonly /></td>
-                                    <td><input asp-for="Details[@i].Gmntcolor" class="form-control" readonly /></td>
-                                    <td><input asp-for="Details[@i].Fabricdes" class="form-control" readonly /></td>
-                                    <td><input asp-for="Details[@i].Fabricusage" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Gsm" class="gsm form-control" readonly /></td>
+
                                     <td><input asp-for="Details[@i].Opt01" class="length form-control" /></td> @* Marker Length *@
                                     <td><input asp-for="Details[@i].Fullwidth" class="width form-control" /></td>
                                     <td><input asp-for="Details[@i].Cutwidth" class="form-control" /></td>

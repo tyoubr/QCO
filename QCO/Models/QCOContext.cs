@@ -232,7 +232,7 @@ public partial class QCOContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("FABRICDES");
             entity.Property(e => e.Fabricusage)
-                .HasMaxLength(50)
+                .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasColumnName("FABRICUSAGE");
             entity.Property(e => e.Filename)
@@ -245,11 +245,11 @@ public partial class QCOContext : DbContext
             entity.Property(e => e.Filesize).HasColumnName("FILESIZE");
             entity.Property(e => e.Fullwidth).HasColumnName("FULLWIDTH");
             entity.Property(e => e.Gmntcolor)
-                .HasMaxLength(50)
+                .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasColumnName("GMNTCOLOR");
             entity.Property(e => e.Gmntitem)
-                .HasMaxLength(50)
+                .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasColumnName("GMNTITEM");
             entity.Property(e => e.Gsm).HasColumnName("GSM");

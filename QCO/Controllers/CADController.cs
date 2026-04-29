@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraPrinting.Native;
 using DevExpress.XtraRichEdit.Import.Html;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Experimental.FileAccess;
@@ -25,13 +26,14 @@ namespace QCO.Controllers
     {
         private readonly QCOContext _context;
         private readonly OracleContext _oracleContext;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         //private readonly ILogger<LayoutMonitoringSheetsController> _logger;
 
-        public CADController(QCOContext context, OracleContext oracleContext)
+        public CADController(QCOContext context, OracleContext oracleContext, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _oracleContext = oracleContext;
-
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -96,6 +98,7 @@ namespace QCO.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+
             // Fetch distinct booking numbers
             var bookingNos = _oracleContext.NewView3
                                            .Where(b => !string.IsNullOrEmpty(b.BOOKING_NO)) // Exclude null or empty values
@@ -155,7 +158,9 @@ namespace QCO.Controllers
                             garmentsItem = x.GARMENTS_ITEM,
                             color = x.COLOR_NAME,
                             fabricDescription = x.FABRIC_DESCRIPTION,
-                            gsm = x.GSM_WEIGHT
+                            gsm = x.GSM_WEIGHT,
+                            fabricUsage = x.BODY_PARTS
+
                         })
                         .ToList();
 
@@ -233,8 +238,8 @@ namespace QCO.Controllers
                     _context.TblCadConsMs.Add(model.Master);
                     await _context.SaveChangesAsync();
 
-                    // 🔁 Use network shared folder (UNC path)
-                    var folderPath = @"\\103.9.134.216\UploadFiles";
+                    // ✅ Use wwwroot/UploadFiles instead of network path
+                    var folderPath = Path.Combine(_webHostEnvironment.WebRootPath, "UploadFiles");
 
                     // Ensure directory exists
                     if (!Directory.Exists(folderPath))
@@ -249,7 +254,7 @@ namespace QCO.Controllers
 
                             if (item.File != null && item.File.Length > 0)
                             {
-                                // Optional: make filename unique (recommended)
+                                // Make filename unique
                                 var fileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(item.File.FileName);
 
                                 var filePath = Path.Combine(folderPath, fileName);
@@ -261,8 +266,8 @@ namespace QCO.Controllers
 
                                 item.Filename = fileName;
 
-                                // ⚠️ This is NOT a physical path anymore, just reference
-                                item.Filepath = filePath;
+                                // ✅ Store relative path (better for web access)
+                                item.Filepath = "/UploadFiles/" + fileName;
 
                                 item.Filesize = item.File.Length;
                                 item.Contenttype = item.File.ContentType;
@@ -277,7 +282,7 @@ namespace QCO.Controllers
                     TempData["Success"] = "Data saved successfully!";
                     return RedirectToAction("Index");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     TempData["Error"] = "Something went wrong while saving data!";
                     return View(model);
@@ -408,13 +413,16 @@ namespace QCO.Controllers
                 // =========================
                 // UPDATE MASTER
                 // =========================
+                model.Master.UpdatedAt = DateTime.Now;
+                model.Master.UpdatedBy = User.Identity?.Name ?? "System";
+
                 _context.TblCadConsMs.Update(model.Master);
                 await _context.SaveChangesAsync();
 
                 // =========================
-                // NETWORK FOLDER PATH
+                // LOCAL wwwroot PATH
                 // =========================
-                var folderPath = @"\\103.9.134.216\UploadFiles";
+                var folderPath = Path.Combine(_webHostEnvironment.WebRootPath, "UploadFiles");
 
                 if (!Directory.Exists(folderPath))
                     Directory.CreateDirectory(folderPath);
@@ -435,10 +443,7 @@ namespace QCO.Controllers
                             // UPDATE FIELDS
                             // =========================
                             existingDetail.Cadmid = model.Master.Cadmid;
-                            existingDetail.Transdate = DateTime.Now;//Update Date
                             existingDetail.Transdate = DateTime.Now;
-                            model.Master.UpdatedAt = DateTime.Now;
-                            model.Master.UpdatedBy = User.Identity?.Name ?? "System";
 
                             existingDetail.Ptnnmbr = item.Ptnnmbr;
                             existingDetail.Gmntitem = item.Gmntitem;
@@ -471,11 +476,14 @@ namespace QCO.Controllers
                                 }
 
                                 existingDetail.Filename = fileName;
-                                existingDetail.Filepath = filePath; // full network path
+
+                                // ✅ Store relative path
+                                existingDetail.Filepath = "/UploadFiles/" + fileName;
+
                                 existingDetail.Filesize = item.File.Length;
                                 existingDetail.Contenttype = item.File.ContentType;
                             }
-                            // else → keep old file
+                            // else → old file থাকবে
                         }
                         else
                         {
@@ -496,7 +504,10 @@ namespace QCO.Controllers
                                 }
 
                                 item.Filename = fileName;
-                                item.Filepath = filePath; // full network path
+
+                                // ✅ Store relative path
+                                item.Filepath = "/UploadFiles/" + fileName;
+
                                 item.Filesize = item.File.Length;
                                 item.Contenttype = item.File.ContentType;
                             }

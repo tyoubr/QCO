@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QCO.Models;
@@ -20,8 +21,8 @@ public partial class TblCadConsD
     public string? Gmntcolor { get; set; }
 
     public string? Fabricdes { get; set; }
-
-    public string? Fabricusage { get; set; }
+    [Display(Name ="Body Parts")]
+    public string? Fabricusage { get; set; }//Body Part
 
     public double? Gsm { get; set; }
 
