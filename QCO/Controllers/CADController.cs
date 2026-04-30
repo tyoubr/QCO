@@ -39,7 +39,7 @@ namespace QCO.Controllers
         [HttpGet]
         public IActionResult Index(string search, int? page)
         {
-            int pageSize = 16;
+            int pageSize = 10;
             int pageNumber = page ?? 1;
 
             // Fetch masters with their details from database

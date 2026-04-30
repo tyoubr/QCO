@@ -144,6 +144,15 @@
 <div class="container py-4" style="background-color: #F8F9FA;">
     <form asp-action="Create" enctype="multipart/form-data" method="post" class="p-4 shadow-sm bg-white rounded ">
         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        @* CheckBox *@
+        <div class="text-center mb-3">
+            <div class="form-check d-inline-block">
+                <input class="form-check-input" type="checkbox" id="independentChk">
+                <label class="form-check-label fw-bold text-dark" for="independentChk">
+                    Independent
+                </label>
+            </div>
+        </div>
 
         <!-- Form Sections -->
         <div class="row">
@@ -186,7 +195,7 @@
                 </div>
             </div>
             <!-- BookingNo Dropdown -->
-            <div class="col-md-3">
+            @* <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Styleref" class="form-label fw-bold text-dark">M. Style Ref.<span class="text-danger">*</span></label>
                     <select asp-for="Master.Styleref" class="form-control select2 border-primary shadow-sm" id="BookingNo">
@@ -194,12 +203,38 @@
                     </select>
                     <span asp-validation-for="Master.Styleref" class="text-danger"></span>
                 </div>
+            </div> *@
+            <div class="col-md-3">
+                <div class="form-group mb-4" id="stylerefWrapper">
+
+                    <label asp-for="Master.Styleref" class="form-label fw-bold text-dark">
+                        M. Style Ref.<span class="text-danger">*</span>
+                    </label>
+
+                    <!-- Dropdown -->
+                    <select asp-for="Master.Styleref"
+                            class="form-control select2 border-primary shadow-sm"
+                            id="BookingNo">
+                        <option value="">Select Booking No</option>
+                    </select>
+
+                    <!-- Input -->
+                    <input type="text"
+                           name="Master.Styleref"
+                           id="StylerefInput"
+                           class="form-control border-primary shadow-sm d-none"
+                           placeholder="Enter Style Ref" />
+
+                </div>
             </div>
             <!-- JOB -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Job" class="form-label fw-bold text-dark">Job No.</label>
-                    <input asp-for="Master.Job" id="Job" class="form-control bg-light" readonly />
+                    <input asp-for="Master.Job"
+                           id="Job"
+                           class="form-control bg-light"
+                           readonly />
                     <span asp-validation-for="Master.Job" class="text-danger"></span>
                 </div>
             </div>
@@ -209,7 +244,7 @@
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Ir" class="form-label fw-bold text-dark">IR/IB</label>
-                    <input asp-for="Master.Ir" " id="Ir" class="form-control bg-light" readonly />
+                    <input asp-for="Master.Ir" id="Ir" class="form-control bg-light" readonly />
                     <span asp-validation-for="Master.Ir" class="text-danger"></span>
                 </div>
             </div>
@@ -543,11 +578,11 @@
         function createRow(index) {
             return `
             <tr>
-                <td><input name="Details[${index}].Gmntitem" class="form-control" readonly /></td>
-                <td><input name="Details[${index}].Gmntcolor" class="form-control" readonly /></td>
-                <td><input name="Details[${index}].Fabricdes" class="form-control" readonly /></td>
+                <td><input name="Details[${index}].Gmntitem" class="gmntitem form-control" readonly /></td>
+                <td><input name="Details[${index}].Gmntcolor" class="gmntcolor form-control" readonly /></td>
+                <td><input name="Details[${index}].Fabricdes" class="fabricdes form-control" readonly /></td>
                 <td><input name="Details[${index}].Gsm" class="gsm form-control" readonly /></td>
-                <td><input name="Details[${index}].Fabricusage" class=" fabricUsage form-control" readonly /></td>
+                <td><input name="Details[${index}].Fabricusage" class="fabricUsage form-control" readonly /></td>
                 <td><input name="Details[${index}].Ptnnmbr" class="form-control" /></td>
                 <td><input name="Details[${index}].Opt01" class="length form-control" /></td>
                 <td><input name="Details[${index}].Fullwidth" class="width form-control" /></td>
@@ -613,5 +648,88 @@
             }
         });
 
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const chk = document.getElementById("independentChk");
+            const select = $("#BookingNo");
+            const input = document.getElementById("StylerefInput");
+            const jobInput = document.getElementById("Job");
+            const irInput = document.getElementById("Ir");
+            const buyerInput = document.getElementById("Buyer");
+            const brandInput = document.getElementById("Brand");
+            const seasonInput = document.getElementById("Season");
+            const seasonyearInput = document.getElementById("Seasonyear");
+            const styledesInput = document.getElementById("Styledes");
+
+            chk.addEventListener("change", function () {
+
+                if (this.checked) {
+
+                    // hide select2 UI properly
+                    select.next(".select2").hide();
+                    select.val(null).trigger("change");
+
+                    // show input
+                    input.classList.remove("d-none");
+
+                    // 🔥 Job editable
+                    jobInput.removeAttribute("readonly");
+                    jobInput.classList.remove("bg-light");
+
+                    //IR/this.ATTRIBUTE_NODE editable
+                    irInput.removeAttribute("readonly");
+                    irInput.classList.remove("bg-light");
+
+                    buyerInput.removeAttribute("readonly");
+                    buyerInput.classList.remove("bg-light");
+
+                    brandInput.removeAttribute("readonly");
+                    brandInput.classList.remove("bg-light");
+
+                    seasonInput.removeAttribute("readonly");
+                    seasonInput.classList.remove("bg-light");
+
+                    seasonyearInput.removeAttribute("readonly");
+                    seasonyearInput.classList.remove("bg-light");
+
+                    styledesInput.removeAttribute("readonly");
+                    styledesInput.classList.remove("bg-light");
+
+                } else {
+
+                    // show select2 UI
+                    select.next(".select2").show();
+
+                    // hide input
+                    input.classList.add("d-none");
+
+                    // 🔥 Job readonly again
+                    jobInput.setAttribute("readonly", true);
+                    jobInput.classList.add("bg-light");
+                    // 🔥 IR/IB readonly again
+                    irInput.setAttribute("readonly", true);
+                    irInput.classList.add("bg-light");
+
+                    buyerInput.setAttribute("readonly", true);
+                    buyerInput.classList.add("bg-light");
+
+                    brandInput.setAttribute("readonly", true);
+                    brandInput.classList.add("bg-light");
+
+                    seasonInput.setAttribute("readonly", true);
+                    seasonInput.classList.add("bg-light");
+
+                    seasonyearInput.setAttribute("readonly", true);
+                    seasonyearInput.classList.add("bg-light");
+
+                    styledesInput.setAttribute("readonly", true);
+                    styledesInput.classList.add("bg-light");
+
+                }
+            });
+
+        });
     </script>
 }
