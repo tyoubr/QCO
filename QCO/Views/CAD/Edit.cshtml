@@ -155,12 +155,15 @@
                         CAD Date<span class="text-danger">*</span>
                     </label>
 
+                    <!-- 🔥 Hidden (this goes to controller) -->
+                    <input asp-for="Master.Caddate" type="hidden" />
+
+                    <!-- 🔥 Display فقط -->
                     <input value="@(Model.Master.Caddate.HasValue
-                               ? Model.Master.Caddate.Value.ToString("dd-MM-yyyy")
-                               : "")"
+                                       ? Model.Master.Caddate.Value.ToString("dd-MM-yyyy")
+                                       : "")"
                            class="form-control border-primary shadow-sm"
                            readonly />
-
                 </div>
             </div>
             <!-- Company -->

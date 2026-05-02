@@ -207,20 +207,21 @@
             <div class="col-md-3">
                 <div class="form-group mb-4" id="stylerefWrapper">
 
-                    <label asp-for="Master.Styleref" class="form-label fw-bold text-dark">
+                    <label class="form-label fw-bold text-dark">
                         M. Style Ref.<span class="text-danger">*</span>
                     </label>
 
-                    <!-- Dropdown -->
-                    <select asp-for="Master.Styleref"
-                            class="form-control select2 border-primary shadow-sm"
-                            id="BookingNo">
+                    <!-- 🔹 Hidden (ONLY this will be submitted) -->
+                    <input type="hidden" id="StylerefHidden" name="Master.Styleref" />
+
+                    <!-- 🔹 Dropdown -->
+                    <select id="BookingNo"
+                            class="form-control select2 border-primary shadow-sm">
                         <option value="">Select Booking No</option>
                     </select>
 
-                    <!-- Input -->
+                    <!-- 🔹 Manual Input -->
                     <input type="text"
-                           name="Master.Styleref"
                            id="StylerefInput"
                            class="form-control border-primary shadow-sm d-none"
                            placeholder="Enter Style Ref" />
@@ -506,12 +507,19 @@
 
     </script> *@
     <script>
-        let rowIndex = 0;
+              let rowIndex = 0;
 
         $(document).ready(function () {
 
-            // 🔹 Select2 Init
-            $('#BookingNo').select2({
+            const chk = $('#independentChk');
+            const booking = $('#BookingNo');
+            const input = $('#StylerefInput');
+            const hidden = $('#StylerefHidden');
+
+            // =========================
+            // 🔹 SELECT2 INIT
+            // =========================
+            booking.select2({
                 placeholder: "Select Booking No",
                 allowClear: true,
                 minimumInputLength: 3,
@@ -519,62 +527,151 @@
                     url: '@Url.Action("GetBookingNos", "CAD")',
                     dataType: 'json',
                     delay: 250,
-                    data: function (params) {
-                        return { term: params.term };
-                    },
-                    processResults: function (data) {
-                        return { results: data.results };
-                    },
+                    data: params => ({ term: params.term }),
+                    processResults: data => ({ results: data.results }),
                     cache: true
                 }
             });
 
-            // 🔥 On Booking Select
-            $('#BookingNo').on('select2:select', function (e) {
+            // =========================
+            // 🔹 DROPDOWN CHANGE
+            // =========================
+            booking.on('select2:select', function (e) {
 
                 let data = e.params.data;
 
-                // Header Fill
-                $('#Buyer').val(data.buyerName || '');
-                $('#Season').val(data.season || 'N/A');
-                $('#Seasonyear').val(data.seasonYear || 'N/A');
-                $('#Job').val(data.jobNo || '');
-                $('#Ir').val(data.irIb || '');
-                $('#Brand').val(data.brand || 'N/A');
-                $('#Styledes').val(data.styleDescription || 'N/A');
+                // 🔸 Sync hidden
+                hidden.val(data.id);
 
-                // 🔹 Get Details (Multiple Color ভিত্তিক)
-                $.ajax({
-                    url: '@Url.Action("GetBookingDetails", "CAD")',
-                    type: 'GET',
-                    data: { jobNo: data.jobNo },
-                    success: function (res) {
+                // 🔸 Header Fill
+                setHeader(data);
 
-                        $('#detailsBody').empty();
-                        rowIndex = 0;
-
-                        res.forEach(item => {
-
-                            addRow();
-
-                            let row = $('#detailsBody tr').last();
-
-                            // ✅ Auto Fill Only Required Fields
-                            row.find(`[name="Details[${rowIndex - 1}].Gmntitem"]`).val(item.garmentsItem).prop('readonly', true);
-                            row.find(`[name="Details[${rowIndex - 1}].Gmntcolor"]`).val(item.color).prop('readonly', true);
-                            row.find(`[name="Details[${rowIndex - 1}].Fabricdes"]`).val(item.fabricDescription).prop('readonly', true);
-                            row.find(`[name="Details[${rowIndex - 1}].Gsm"]`).val(item.gsm).prop('readonly', true);
-                            row.find(`[name="Details[${rowIndex - 1}].Fabricusage"]`).val(item.fabricUsage).prop('readonly', true);
-                        });
-                    }
-                });
+                // 🔸 Load Details
+                loadDetails(data.jobNo);
             });
 
-            // 🔹 Default 1 Row
+            // =========================
+            // 🔹 INPUT CHANGE
+            // =========================
+            input.on('input', function () {
+                hidden.val($(this).val());
+            });
+
+            // =========================
+            // 🔹 CHECKBOX TOGGLE
+            // =========================
+            chk.on('change', function () {
+
+                let isChecked = this.checked;
+
+                toggleStylerefMode(isChecked);
+                toggleHeaderFields(isChecked);
+                toggleDetailFields(isChecked);
+            });
+
+            // 🔹 Default row
             addRow();
         });
 
-        // 🔹 Create Row
+
+        // =========================
+        // 🔥 FUNCTIONS
+        // =========================
+
+        // 🔹 Header Fill
+        function setHeader(data) {
+            $('#Buyer').val(data.buyerName || '');
+            $('#Season').val(data.season || 'N/A');
+            $('#Seasonyear').val(data.seasonYear || 'N/A');
+            $('#Job').val(data.jobNo || '');
+            $('#Ir').val(data.irIb || '');
+            $('#Brand').val(data.brand || 'N/A');
+            $('#Styledes').val(data.styleDescription || 'N/A');
+        }
+
+        // 🔹 Load Details
+        function loadDetails(jobNo) {
+
+            $.ajax({
+                url: '@Url.Action("GetBookingDetails", "CAD")',
+                type: 'GET',
+                data: { jobNo: jobNo },
+                success: function (res) {
+
+                    $('#detailsBody').empty();
+                    rowIndex = 0;
+
+                    res.forEach(item => {
+
+                        addRow();
+
+                        let row = $('#detailsBody tr').last();
+                        let i = rowIndex - 1;
+
+                        row.find(`[name="Details[${i}].Gmntitem"]`).val(item.garmentsItem);
+                        row.find(`[name="Details[${i}].Gmntcolor"]`).val(item.color);
+                        row.find(`[name="Details[${i}].Fabricdes"]`).val(item.fabricDescription);
+                        row.find(`[name="Details[${i}].Gsm"]`).val(item.gsm);
+                        row.find(`[name="Details[${i}].Fabricusage"]`).val(item.fabricUsage);
+                    });
+
+                    // Apply readonly based on checkbox
+                    toggleDetailFields($('#independentChk').is(':checked'));
+                }
+            });
+        }
+
+        // 🔹 Toggle StyleRef Mode
+        function toggleStylerefMode(isChecked) {
+
+            const booking = $('#BookingNo');
+            const input = $('#StylerefInput');
+            const hidden = $('#StylerefHidden');
+
+            if (isChecked) {
+                booking.next(".select2").hide();
+                booking.val(null).trigger("change");
+
+                input.removeClass('d-none');
+                hidden.val(input.val());
+
+            } else {
+                booking.next(".select2").show();
+                input.addClass('d-none');
+
+                hidden.val(booking.val());
+            }
+        }
+
+        // 🔹 Toggle Header Fields
+        function toggleHeaderFields(isEditable) {
+
+            const fields = [
+                '#Job', '#Ir', '#Buyer',
+                '#Brand', '#Season',
+                '#Seasonyear', '#Styledes'
+            ];
+
+            fields.forEach(f => {
+                $(f).prop('readonly', !isEditable)
+                    .toggleClass('bg-light', !isEditable);
+            });
+        }
+
+        // 🔹 Toggle Detail Fields
+        function toggleDetailFields(isEditable) {
+
+            $('#detailsBody')
+                .find('.gmntitem, .gmntcolor, .fabricdes, .gsm, .fabricusage')
+                .prop('readonly', !isEditable)
+                .toggleClass('bg-light', !isEditable);
+        }
+
+
+        // =========================
+        // 🔹 ROW FUNCTIONS
+        // =========================
+
         function createRow(index) {
             return `
             <tr>
@@ -582,7 +679,8 @@
                 <td><input name="Details[${index}].Gmntcolor" class="gmntcolor form-control" readonly /></td>
                 <td><input name="Details[${index}].Fabricdes" class="fabricdes form-control" readonly /></td>
                 <td><input name="Details[${index}].Gsm" class="gsm form-control" readonly /></td>
-                <td><input name="Details[${index}].Fabricusage" class="fabricUsage form-control" readonly /></td>
+                <td><input name="Details[${index}].Fabricusage" class="fabricusage form-control" readonly /></td>
+
                 <td><input name="Details[${index}].Ptnnmbr" class="form-control" /></td>
                 <td><input name="Details[${index}].Opt01" class="length form-control" /></td>
                 <td><input name="Details[${index}].Fullwidth" class="width form-control" /></td>
@@ -607,13 +705,15 @@
             </tr>`;
         }
 
-        // 🔹 Add Row
         function addRow() {
             $('#detailsBody').append(createRow(rowIndex));
+
+            // 🔥 Apply checkbox state to new row
+            toggleDetailFields($('#independentChk').is(':checked'));
+
             rowIndex++;
         }
 
-        // 🔹 Remove Row
         function removeRow(btn) {
             if ($('#detailsBody tr').length > 1) {
                 $(btn).closest('tr').remove();
@@ -622,7 +722,10 @@
             }
         }
 
-        // 🔥 Auto Calculation
+
+        // =========================
+        // 🔥 AUTO CALCULATION
+        // =========================
         $(document).on('input', '.length, .width, .gsm, .pcs, .allowance', function () {
 
             let row = $(this).closest('tr');
@@ -697,6 +800,13 @@
                     styledesInput.removeAttribute("readonly");
                     styledesInput.classList.remove("bg-light");
 
+                    styledesInput.removeAttribute("readonly");
+                    styledesInput.classList.remove("bg-light");
+                     // 🔓 Make details editable
+                    $('#detailsBody').find('.gmntitem, .gmntcolor, .fabricdes, .gsm, .fabricusage')
+                    .prop('readonly', false)
+                    .removeClass('bg-light');
+
                 } else {
 
                     // show select2 UI
@@ -727,6 +837,10 @@
                     styledesInput.setAttribute("readonly", true);
                     styledesInput.classList.add("bg-light");
 
+                     // 🔒 Make details readonly again
+                    $('#detailsBody').find('.gmntitem, .gmntcolor, .fabricdes, .gsm, .fabricusage')
+                    .prop('readonly', true)
+                    .addClass('bg-light');
                 }
             });
 
