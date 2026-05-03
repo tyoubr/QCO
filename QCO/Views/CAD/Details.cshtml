@@ -153,13 +153,28 @@
                             ? file.Substring(file.IndexOf("_") + 1)
                             : file;
 
-                            <div class="mb-1">📄 @originalName</div>
+                            @* <div class="mb-1">📄 @originalName</div>
 
                             <a asp-action="DownloadFile"
                                asp-route-id="@item.Caddid"
                                class="btn btn-sm btn-outline-primary">
                                 Download
+                            </a> *@
+                            <div class="mb-1">📄 @originalName</div>
+
+                            <a asp-controller="CAD"
+                               asp-action="ViewFile"
+                               asp-route-id="@item.Caddid"
+                               target="_blank"
+                               class="btn btn-sm btn-outline-success me-2">
+                                View
                             </a>
+
+                            @* <a asp-action="DownloadFile"
+                               asp-route-id="@item.Caddid"
+                               class="btn btn-sm btn-outline-primary">
+                                Download
+                            </a> *@
                         }
                         else
                         {

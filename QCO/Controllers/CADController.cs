@@ -167,65 +167,6 @@ namespace QCO.Controllers
             return Json(data);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(CadConsumptionViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            // Save Master
-        //            _context.TblCadConsMs.Add(model.Master);
-        //            await _context.SaveChangesAsync();
-
-        //            var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-        //            if (!Directory.Exists(folderPath))
-        //                Directory.CreateDirectory(folderPath);
-
-        //            if (model.Details != null && model.Details.Count > 0)
-        //            {
-        //                foreach (var item in model.Details)
-        //                {
-        //                    item.Cadmid = model.Master.Cadmid;
-        //                    item.Transdate = DateTime.Now;
-
-        //                    if (item.File != null && item.File.Length > 0)
-        //                    {
-        //                        var fileName = Path.GetFileName(item.File.FileName);
-        //                        var filePath = Path.Combine(folderPath, fileName);
-
-        //                        using (var stream = new FileStream(filePath, FileMode.Create))
-        //                        {
-        //                            await item.File.CopyToAsync(stream);
-        //                        }
-
-        //                        item.Filename = fileName;
-        //                        item.Filepath = $"/uploads/{fileName}";
-        //                        item.Filesize = item.File.Length;
-        //                        item.Contenttype = item.File.ContentType;
-        //                    }
-
-        //                    _context.TblCadConsDs.Add(item);
-        //                }
-
-        //                await _context.SaveChangesAsync();
-        //            }
-
-        //            TempData["Success"] = "Data saved successfully!";
-        //            return RedirectToAction("Index");
-        //        }
-        //        catch (Exception)
-        //        {
-        //            TempData["Error"] = "Something went wrong while saving data!";
-        //            return View(model);
-        //        }
-        //    }
-
-        //    TempData["Error"] = "Validation failed!";
-        //    return View(model);
-        //}
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CadConsumptionViewModel model)
@@ -322,81 +263,6 @@ namespace QCO.Controllers
 
             return View(model);
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(CadConsumptionViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        TempData["error"] = "Please fix validation errors!";
-        //        return View(model);
-        //    }
-
-        //    try
-        //    {
-        //        // Update Master
-        //        _context.TblCadConsMs.Update(model.Master);
-        //        await _context.SaveChangesAsync();
-
-        //        // Folder for uploaded files
-        //        var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-        //        if (!Directory.Exists(folderPath))
-        //            Directory.CreateDirectory(folderPath);
-
-        //        // Update Details
-        //        if (model.Details != null && model.Details.Count > 0)
-        //        {
-        //            foreach (var item in model.Details)
-        //            {
-        //                item.Cadmid = model.Master.Cadmid;
-        //                item.Transdate = DateTime.Now;
-
-        //                // File Upload
-        //                if (item.File != null && item.File.Length > 0)
-        //                {
-        //                    var fileName = Guid.NewGuid() + Path.GetExtension(item.File.FileName);
-        //                    var filePath = Path.Combine(folderPath, fileName);
-
-        //                    using (var stream = new FileStream(filePath, FileMode.Create))
-        //                    {
-        //                        await item.File.CopyToAsync(stream);
-        //                    }
-
-        //                    item.Filename = fileName;
-        //                    item.Filepath = $"/uploads/{fileName}";
-        //                    item.Filesize = item.File.Length;
-        //                    item.Contenttype = item.File.ContentType;
-        //                }
-
-        //                var existingDetail = _context.TblCadConsDs
-        //                                            .FirstOrDefault(d => d.Caddid == item.Caddid);
-
-        //                if (existingDetail != null)
-        //                {
-        //                    _context.Entry(existingDetail).CurrentValues.SetValues(item);
-        //                }
-        //                else
-        //                {
-        //                    _context.TblCadConsDs.Add(item);
-        //                }
-        //            }
-
-        //            await _context.SaveChangesAsync();
-        //        }
-
-        //        TempData["success"] = "Data updated successfully!";
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TempData["error"] = "Something went wrong!";
-        //        // Optional debug
-        //        Console.WriteLine(ex.Message);
-
-        //        return View(model);
-        //    }
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -547,6 +413,90 @@ namespace QCO.Controllers
 
             return View(data);
         }
+
+
+        [HttpGet]
+        public IActionResult ViewFile(int id)
+        {
+            try
+            {
+                var item = _context.TblCadConsDs.FirstOrDefault(x => x.Caddid == id);
+
+                if (item == null || string.IsNullOrEmpty(item.Filepath))
+                    return NotFound();
+
+                var relativePath = item.Filepath.TrimStart('/', '\\');
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, relativePath);
+
+                if (!System.IO.File.Exists(path))
+                    return NotFound();
+
+                var fileName = Path.GetFileName(path);
+                var ext = Path.GetExtension(path).ToLower();
+
+                string contentType = "application/octet-stream";
+
+                if (ext == ".pdf") contentType = "application/pdf";
+                if (ext == ".jpg" || ext == ".jpeg") contentType = "image/jpeg";
+                if (ext == ".png") contentType = "image/png";
+
+                Response.Headers["Content-Disposition"] = $"inline; filename=\"{fileName}\"";
+
+                return PhysicalFile(path, contentType);
+            }
+            catch (Exception ex)
+            {
+                return Content("ERROR: " + ex.Message);
+            }
+        }
+
+
+
+        //public IActionResult ViewFile(int id)
+        //{
+        //    var item = _context.TblCadConsDs.FirstOrDefault(x => x.Caddid == id);
+
+        //    if (item == null || string.IsNullOrEmpty(item.Filepath))
+        //        return NotFound();
+
+        //    var relativePath = item.Filepath.TrimStart('/', '\\');
+        //    var path = Path.Combine(_webHostEnvironment.WebRootPath, relativePath);
+
+        //    if (!System.IO.File.Exists(path))
+        //        return NotFound();
+
+        //    // ✅ Get original file name
+        //    var fileName = Path.GetFileName(path);
+
+        //    // (Optional: remove prefix like "123_abc.pdf" → "abc.pdf")
+        //    if (fileName.Contains("_"))
+        //    {
+        //        fileName = fileName.Substring(fileName.IndexOf("_") + 1);
+        //    }
+
+        //    // Detect content type
+        //    var ext = Path.GetExtension(path).ToLower();
+        //    string contentType = "application/octet-stream";
+
+        //    switch (ext)
+        //    {
+        //        case ".pdf":
+        //            contentType = "application/pdf";
+        //            break;
+        //        case ".jpg":
+        //        case ".jpeg":
+        //            contentType = "image/jpeg";
+        //            break;
+        //        case ".png":
+        //            contentType = "image/png";
+        //            break;
+        //    }
+
+        //    // ✅ KEY LINE: set download name (even for preview)
+        //    Response.Headers["Content-Disposition"] = $"inline; filename=\"{fileName}\"";
+
+        //    return PhysicalFile(path, contentType);
+        //}
 
         [HttpGet]
         public IActionResult DownloadFile(int id)
