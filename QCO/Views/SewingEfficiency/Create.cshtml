@@ -1,0 +1,264 @@
+﻿@model SewingEfficiencyViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center text-primary">Create Sewing Eff. Monitoring Sheet</h1>
+<hr />
+
+<div class="container-fluid" style="background-color:#F8F9FA;">
+
+    <form method="post">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+
+        <!-- Header Section -->
+        <div class="row">
+
+
+            <!-- Company -->
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+
+                    <label asp-for="Header.Company"
+                           class="form-label fw-bold text-dark">
+                        Company
+                    </label>
+
+                    <select asp-for="Header.Company"
+                            class="form-select border-primary shadow-sm">
+
+                        <option value="">-- Select Company --</option>
+
+                        <option value="Tropical Knitex Ltd.">
+                            Tropical Knitex Ltd.
+                        </option>
+
+                        <option value="Cotton Club BD Ltd.">
+                            Cotton Club BD Ltd.
+                        </option>
+
+                        <option value="Cotton Club BD ltd [Extended Part]">
+                            Cotton Club BD ltd [Extended Part]
+                        </option>
+
+                        <option value="Cotton Clothing BD Ltd.">
+                            Cotton Clothing BD Ltd.
+                        </option>
+
+                    </select>
+
+                    <span asp-validation-for="Header.Company"
+                          class="text-danger"></span>
+
+                </div>
+            </div>
+
+
+
+            <!-- Floor -->
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+
+                    <label asp-for="Header.Floor"
+                           class="form-label fw-bold text-dark">
+                        Floor
+                    </label>
+
+                    <select asp-for="Header.Floor"
+                            asp-items="ViewBag.FloorList"
+                            class="form-select border-primary shadow-sm">
+
+                        <option value="">
+                            -- Select Floor --
+                        </option>
+
+                    </select>
+
+                    <span asp-validation-for="Header.Floor"
+                          class="text-danger"></span>
+
+                </div>
+            </div>
+
+
+
+            <!-- Line No -->
+            <div class="col-md-1">
+                <div class="form-group mb-4">
+
+                    <label asp-for="Header.LineNo"
+                           class="form-label fw-bold text-dark">
+                        Line No.
+                    </label>
+
+                    <input asp-for="Header.LineNo"
+                           class="form-control border-primary shadow-sm"
+                           placeholder="Enter Line No." />
+
+                    <span asp-validation-for="Header.LineNo"
+                          class="text-danger"></span>
+
+                </div>
+            </div>
+
+
+
+            <!-- Date -->
+            <div class="col-md-2">
+                <div class="form-group mb-4">
+
+                    <label asp-for="Header.SwDate"
+                           class="form-label fw-bold text-dark">
+                        Date
+                    </label>
+
+                    <input asp-for="Header.SwDate"
+                           type="date"
+                           class="form-control border-primary shadow-sm" />
+
+                    <span asp-validation-for="Header.SwDate"
+                          class="text-danger"></span>
+
+                </div>
+            </div>
+
+
+
+            <!-- Show Button -->
+            <div class="col-md-3 d-flex align-items-end">
+
+                <div class="mb-4">
+
+                    <button type="submit"
+                            formaction="@Url.Action("Show")"
+                            class="btn btn-sm btn-primary">
+
+                        <i class="bi bi-search"></i>
+                        Show
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- Efficiency Table -->
+
+        <div class="form-group mb-4">
+            <h4 class="text-primary mb-3">Efficiency Monitoring</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Line No.</th>
+                            <th>Booking No.</th>
+                            <th>Style</th>
+                            <th>Item</th>
+                            <th>Operator</th>
+                            <th>Helper</th>
+                            <th>Manpower</th>
+                            <th>G.W.Hr</th>
+                            <th>6 PM</th>
+                            <th>7 PM</th>
+                            <th>8 PM</th>
+                            <th>9 PM</th>
+                            <th>10 PM</th>
+                            <th>11 PM</th>
+                            <th>12 AM</th>
+                            <th>SMV</th>
+                            <th>Eff.%</th>
+                            <th>Line Trgt</th>
+                            @* <th>Ind. Man</th> *@
+                            @* <th>Style Trgt</th>
+                            <th>A.W. Prod.</th> *@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Details != null && Model.Details.Count > 0)
+                        {
+                            for (int i = 0; i < Model.Details.Count; i++)
+                            {
+                                <tr>
+                                    <td><input asp-for="Details[i].LineNo" class="form-control form-control-sm" /></td>
+                                    <td><input asp-for="Details[i].BookingNo" class="form-control form-control-sm" /></td>
+                                    <td><input asp-for="Details[i].Style" class="form-control form-control-sm" /></td>
+                                    <td><input asp-for="Details[i].Item" class="form-control form-control-sm" /></td>
+                                    <td><input asp-for="Details[i].Operator"readonly class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].Helper" readonly class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].ManPower" readonly class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].GenWorkingHr" readonly class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].SixPm" class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].SevenPm" class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].EightPm" class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].NinePm" class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].TenPm" class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].ElevenPm" class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].TwelveAm" class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].Smv" readonly class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].EfficiencyPercent" readonly class="form-control form-control-sm bg-light" /></td>
+                                    <td><input asp-for="Details[i].LineTarget" readonly class="form-control form-control-sm bg-light" /></td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="21"
+                                    class="text-center text-danger">
+                                    Please select Company, Floor and Date then click Show.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+        <!-- Buttons -->
+
+        <div class="d-flex justify-content-between mt-4">
+
+
+            <a asp-action="SewingEfficiencyList"
+               class="btn btn-sm btn-secondary btn-lg">
+                Back to List
+            </a>
+
+
+
+            <button type="submit"
+                    formaction="@Url.Action("Create")"
+                    class="btn btn-sm btn-primary btn-lg">
+
+                Save
+
+            </button>
+
+
+        </div>
+
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <!-- Add Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Add Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+}

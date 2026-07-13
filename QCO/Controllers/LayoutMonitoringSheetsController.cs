@@ -499,7 +499,7 @@ namespace QCO.Controllers
 
         [HttpGet]
         public IActionResult GetBookingNos(string term)
-        {
+       {
             var searchTerm = term?.Trim().ToUpper();
 
             if (string.IsNullOrEmpty(searchTerm))

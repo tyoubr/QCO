@@ -1,0 +1,413 @@
+﻿@model SewingEfficiencyViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="text-center text-primary">Edit Sewing Eff. Monitoring Sheet</h1>
+<hr />
+
+<div class="container-fluid" style="background-color:#F8F9FA;">
+
+    <form asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <!-- Header -->
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Header.Company" class="form-label fw-bold"></label>
+                    <input asp-for="Header.Company" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group mb-4">
+                    <label asp-for="Header.Floor" class="form-label fw-bold"></label>
+                    <input asp-for="Header.Floor" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group mb-4">
+                    <label asp-for="Header.LineNo" class="form-label fw-bold"></label>
+                    <input asp-for="Header.LineNo" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group mb-4">
+                    <label asp-for="Header.SwDate" class="form-label fw-bold"></label>
+                    <input asp-for="Header.SwDate"
+                           type="date"
+                           class="form-control"
+                           readonly />
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-primary">
+
+                    <tr>
+
+                        <th>Line</th>
+                        <th>Booking</th>
+                        <th>Style</th>
+                        <th>Item</th>
+                        <th>Operator</th>
+                        <th>Helper</th>
+                        <th>Manpower</th>
+                        <th>GW Hr</th>
+                        <th>6 PM</th>
+                        <th>7 PM</th>
+                        <th>8 PM</th>
+                        <th>9 PM</th>
+                        <th>10 PM</th>
+                        <th>11 PM</th>
+                        <th>12 AM</th>
+                        <th>SMV</th>
+                        <th>Eff%</th>
+                        <th>Line Target</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @for (int i = 0; i < Model.EditDetails.Count; i++)
+                    {
+                        <tr>
+                            <input type="hidden" asp-for="EditDetails[i].Trid" />
+                            <td>
+                                <input asp-for="EditDetails[i].LineNo" class="form-control form-control-sm" readonly />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].BookingNo" class="form-control form-control-sm" readonly />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].Style" class="form-control form-control-sm" readonly />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].Item" class="form-control form-control-sm" readonly />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].Operator" class="form-control form-control-sm" />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].Helper" class="form-control form-control-sm" />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].ManPower" class="form-control form-control-sm" />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].GenWorkingHr" class="form-control form-control-sm" />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].SixPm" class="form-control form-control-sm" />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].SevenPm" class="form-control form-control-sm" />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].EightPm" class="form-control form-control-sm" />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].NinePm" class="form-control form-control-sm" />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].TenPm" class="form-control form-control-sm" />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].ElevenPm" class="form-control form-control-sm" />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].TwelveAm" class="form-control form-control-sm" />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].Smv" class="form-control form-control-sm" readonly />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].EfficiencyPercent" class="form-control form-control-sm" readonly />
+                            </td>
+
+                            <td>
+                                <input asp-for="EditDetails[i].LineTarget" class="form-control form-control-sm" readonly />
+                            </td>
+
+                            <td>
+
+                                <button type="button"
+                                        class="btn btn-primary btn-sm btnIndirect"
+                                        data-trid="@Model.EditDetails[i].Trid">
+                                    Ind.Manpow.
+                                </button>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-action="SewingEfficiencyList" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back
+            </a>
+
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-circle"></i> Update
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="indirectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Indirect Manpower
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="Trid" />
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <label>Pregnant</label>
+                        <input type="number" id="pregnentNo" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label>Size Set Sample</label>
+                        <input type="number" id="sizeSetSample" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label>Auto Elastic Make</label>
+                        <input type="number" id="autoElasticMake" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label>Medical Leave</label>
+                        <input type="number" id="medicalLeave" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label>Trainee Supervisor</label>
+                        <input type="number" id="traineeSupervisor" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label>Reporter</label>
+                        <input type="number" id="reporterNo" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label>Others</label>
+                        <input type="number" id="othersNo" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label>Total</label>
+                        <input type="number" id="totalNo" class="form-control" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"id="btnSaveIndirect">
+                    Close
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            // =====================================
+            // Open Indirect Manpower Modal
+            // =====================================
+            $(document).on("click", ".btnIndirect", function () {
+
+                var trid = $(this).data("trid");
+                $("#Trid").val(trid);
+
+                $.ajax({
+                    url: '@Url.Action("GetIndirectManpower", "SewingEfficiency")',
+                    type: 'GET',
+                    data: { trid: trid },
+
+                    success: function (data) {
+
+                        if (data) {
+
+                            $("#pregnentNo").val(data.pregnent ?? 0);
+                            $("#sizeSetSample").val(data.sizeSetSample ?? 0);
+                            $("#autoElasticMake").val(data.autoElasticMake ?? 0);
+                            $("#medicalLeave").val(data.medicalLeave ?? 0);
+                            $("#traineeSupervisor").val(data.traineeSupervisor ?? 0);
+                            $("#reporterNo").val(data.repoter ?? 0);
+                            $("#othersNo").val(data.others ?? 0);
+                            $("#totalNo").val(data.total ?? 0);
+
+                        } else {
+
+                            clearIndirectModal();
+
+                        }
+
+                        $("#indirectModal").modal("show");
+                    },
+
+                    error: function (xhr) {
+
+                        console.log(xhr);
+                        alert("Unable to load indirect manpower data.");
+
+                    }
+
+                });
+
+            });
+
+            // =====================================
+            // Save Indirect Manpower
+            // =====================================
+            $("#btnSaveIndirect").on("click", function () {
+
+                $.ajax({
+
+                    url: '@Url.Action("SaveIndirectManpower", "SewingEfficiency")',
+                    type: 'POST',
+
+                    data: {
+
+                        Trid: $("#Trid").val(),
+                        Pregnent: $("#pregnentNo").val(),
+                        SizeSetSample: $("#sizeSetSample").val(),
+                        AutoElasticMake: $("#autoElasticMake").val(),
+                        MedicalLeave: $("#medicalLeave").val(),
+                        TraineeSupervisor: $("#traineeSupervisor").val(),
+                        Repoter: $("#reporterNo").val(),
+                        Others: $("#othersNo").val(),
+                        Total: $("#totalNo").val()
+
+                    },
+
+                    success: function (response) {
+
+                        if (response.success) {
+
+                            $("#indirectModal").modal("hide");
+
+                        } else {
+
+                            alert(response.message);
+
+                        }
+
+                    },
+
+                    error: function () {
+
+                        alert("Error while saving data.");
+
+                    }
+
+                });
+
+            });
+
+            // =====================================
+            // Total Calculation
+            // =====================================
+            $(document).on("keyup change",
+                "#pregnentNo,#sizeSetSample,#autoElasticMake,#medicalLeave,#traineeSupervisor,#reporterNo,#othersNo",
+                function () {
+
+                    calculateTotal();
+
+                });
+
+        });
+
+        // =====================================
+        // Clear Modal
+        // =====================================
+        function clearIndirectModal() {
+
+            $("#pregnentNo").val(0);
+            $("#sizeSetSample").val(0);
+            $("#autoElasticMake").val(0);
+            $("#medicalLeave").val(0);
+            $("#traineeSupervisor").val(0);
+            $("#reporterNo").val(0);
+            $("#othersNo").val(0);
+            $("#totalNo").val(0);
+
+        }
+
+        // =====================================
+        // Calculate Total
+        // =====================================
+        function calculateTotal() {
+
+            var pregnant = parseInt($("#pregnentNo").val()) || 0;
+            var sizeSet = parseInt($("#sizeSetSample").val()) || 0;
+            var autoElastic = parseInt($("#autoElasticMake").val()) || 0;
+            var medical = parseInt($("#medicalLeave").val()) || 0;
+            var trainee = parseInt($("#traineeSupervisor").val()) || 0;
+            var reporter = parseInt($("#reporterNo").val()) || 0;
+            var others = parseInt($("#othersNo").val()) || 0;
+
+            var total =
+                pregnant +
+                sizeSet +
+                autoElastic +
+                medical +
+                trainee +
+                reporter +
+                others;
+
+            $("#totalNo").val(total);
+
+        }
+    </script>
+}

@@ -30,7 +30,10 @@ public partial class QCOContext : DbContext
     //RANA
     public virtual DbSet<TblCadConsD> TblCadConsDs { get; set; }
     public virtual DbSet<TblCadConsM> TblCadConsMs { get; set; }
-
+    public virtual DbSet<TblSewingEfficiency> TblSewingEfficiency { get; set; }
+    public DbSet<FloorDropdown> FloorDropdown { get; set; }
+    public DbSet<SewingEfficiencyDetailModel> SewingEfficiencyDetail { get; set; }
+    public virtual DbSet<TblInderectManpower> TblInderectManpower { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect sensitive information, use a configuration file for your connection string.
@@ -38,6 +41,11 @@ public partial class QCOContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //Floor DropDown
+        modelBuilder.Entity<FloorDropdown>().HasNoKey();
+        //SewingEfficiencyDetailModel
+        modelBuilder.Entity<SewingEfficiencyDetailModel>().HasNoKey();
+
         // AspNetRole entity configuration
         modelBuilder.Entity<AspNetRole>(entity =>
         {
@@ -360,6 +368,82 @@ public partial class QCOContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("UPDATEDBY");
         });
+
+        //TblSewingEfficiency
+        modelBuilder.Entity<TblSewingEfficiency>(entity =>
+        {
+            entity.HasKey(e => e.Trid);
+
+            entity.ToTable("TBL_SEWING_EFFICIENCY");
+
+            entity.Property(e => e.Trid).HasColumnName("TRID");
+            entity.Property(e => e.AfterWashProduction).HasColumnName("AFTER_WASH_PRODUCTION");
+            entity.Property(e => e.BookingNo)
+                .HasMaxLength(50)
+                .HasColumnName("BOOKING_NO");
+            entity.Property(e => e.Company)
+                .HasMaxLength(50)
+                .HasColumnName("COMPANY");
+            entity.Property(e => e.EfficiencyPercent).HasColumnName("EFFICIENCY_PERCENT");
+            entity.Property(e => e.EightPm).HasColumnName("EIGHT_PM");
+            entity.Property(e => e.ElevenPm).HasColumnName("ELEVEN_PM");
+            entity.Property(e => e.Floor).HasColumnName("FLOOR");
+            entity.Property(e => e.GenWorkingHr).HasColumnName("GEN_WORKING_HR");
+            entity.Property(e => e.Helper).HasColumnName("HELPER");
+            entity.Property(e => e.InderectMan).HasColumnName("INDERECT_MAN");
+            entity.Property(e => e.Item)
+                .HasMaxLength(50)
+                .HasColumnName("ITEM");
+            entity.Property(e => e.LineNo)
+                .HasMaxLength(50)
+                .HasColumnName("LINE_NO");
+            entity.Property(e => e.LineTarget).HasColumnName("LINE_TARGET");
+            entity.Property(e => e.ManPower).HasColumnName("MAN_POWER");
+            entity.Property(e => e.NinePm).HasColumnName("NINE_PM");
+            entity.Property(e => e.Operator).HasColumnName("OPERATOR");
+            entity.Property(e => e.SevenPm).HasColumnName("SEVEN_PM");
+            entity.Property(e => e.SixPm).HasColumnName("SIX_PM");
+            entity.Property(e => e.Smv).HasColumnName("SMV");
+            entity.Property(e => e.Style)
+                .HasMaxLength(50)
+                .HasColumnName("STYLE");
+            entity.Property(e => e.StyleTarget).HasColumnName("STYLE_TARGET");
+            entity.Property(e => e.SwDate)
+                .HasColumnType("datetime")
+                .HasColumnName("SW_DATE");
+            entity.Property(e => e.TenPm).HasColumnName("TEN_PM");
+            entity.Property(e => e.Trdate)
+                .HasColumnType("datetime")
+                .HasColumnName("TRDATE");
+            entity.Property(e => e.TwelveAm).HasColumnName("TWELVE_AM");
+        });
+        //TblInderectManpower
+        modelBuilder.Entity<TblInderectManpower>(entity =>
+        {
+            entity.HasKey(e => e.Impid);
+
+            entity.ToTable("TBL_INDERECT_MANPOWER");
+
+            entity.Property(e => e.Impid).HasColumnName("IMPID");
+            entity.Property(e => e.AutoElasticMake).HasColumnName("AUTO_ELASTIC_MAKE");
+            entity.Property(e => e.MedicalLeave).HasColumnName("MEDICAL_LEAVE");
+            entity.Property(e => e.Others).HasColumnName("OTHERS");
+            entity.Property(e => e.Pregnent).HasColumnName("PREGNENT");
+            entity.Property(e => e.Remarks)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("REMARKS");
+            entity.Property(e => e.Repoter).HasColumnName("REPOTER");
+            entity.Property(e => e.SizeSetSample).HasColumnName("SIZE_SET_SAMPLE");
+            entity.Property(e => e.Total).HasColumnName("TOTAL");
+            entity.Property(e => e.TraineeSupervisor).HasColumnName("TRAINEE_SUPERVISOR");
+            entity.Property(e => e.Trid).HasColumnName("TRID");
+
+            entity.HasOne(d => d.Tr).WithMany(p => p.TblInderectManpowers)
+                .HasForeignKey(d => d.Trid)
+                .HasConstraintName("FK_TBL_INDERECT_MANPOWER_TBL_SEWING_EFFICIENCY");
+        });
+
 
         OnModelCreatingPartial(modelBuilder);
     }
