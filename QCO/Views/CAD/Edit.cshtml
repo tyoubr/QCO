@@ -476,14 +476,12 @@
                 </tr>
             `;
         }
-
         // Add new row
         function addRow() {
             const tbody = document.getElementById("detailsBody");
             tbody.insertAdjacentHTML("beforeend", createRow(rowIndex));
             rowIndex++;
         }
-
         // Remove row (keep at least one)
         function removeRow(btn) {
             const tbody = document.getElementById("detailsBody");
@@ -494,7 +492,6 @@
                 alert("At least one row is required.");
             }
         }
-
          // ✅ Auto calculation (per row)
         $(document).on('input', '.length, .width, .gsm, .pcs, .allowance', function () {
 
