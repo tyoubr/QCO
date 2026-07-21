@@ -3,7 +3,7 @@
 
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
 <!-- Inline Styles -->
@@ -133,7 +133,7 @@
 
 </style>
 
-<h1 class="text-center text-primary">Update CAD Consumption</h1>
+<h1 class="text-center text-primary">Edit CAD Consumption</h1>
 <hr />
 
 <div class="container py-4" style="background-color: #F8F9FA;">
@@ -219,7 +219,7 @@
             <div class="col-md-3">
                 <div class="form-group mb-4">
                     <label asp-for="Master.Ir" class="form-label fw-bold text-dark">IR/IB</label>
-                    <input asp-for="Master.Ir" " id="Ir" class="form-control bg-light" readonly />
+                    <input asp-for="Master.Ir" id="Ir" class="form-control bg-light" readonly />
                     <span asp-validation-for="Master.Ir" class="text-danger"></span>
                 </div>
             </div>
@@ -337,26 +337,26 @@
                             for (int i = 0; i < Model.Details.Count; i++)
                             {
                                 <tr>
-                                    <td><input asp-for="Details[@i].Gmntitem" class="form-control" readonly /></td>
-                                    <td><input asp-for="Details[@i].Gmntcolor" class="form-control" readonly /></td>
-                                    <td><input asp-for="Details[@i].Fabricdes" class="form-control" readonly /></td>
-                                    <td><input asp-for="Details[@i].Gsm" class="gsm form-control" readonly /></td>
-                                    <td><input asp-for="Details[@i].Fabricusage" class="form-control" readonly /></td>
+                                    <td><input asp-for="Details[i].Gmntitem" class="form-control" readonly /></td>
+                                    <td><input asp-for="Details[i].Gmntcolor" class="form-control" readonly /></td>
+                                    <td><input asp-for="Details[i].Fabricdes" class="form-control" readonly /></td>
+                                    <td><input asp-for="Details[i].Gsm" class="gsm form-control" readonly /></td>
+                                    <td><input asp-for="Details[i].Fabricusage" class="form-control" readonly /></td>
                                     <td>
-                                        <input type="hidden" asp-for="Details[@i].Caddid" />
-                                        <input asp-for="Details[@i].Ptnnmbr" class="form-control" />
+                                        <input type="hidden" asp-for="Details[i].Caddid" />
+                                        <input asp-for="Details[i].Ptnnmbr" class="form-control" />
                                     </td>
 
-                                    <td><input asp-for="Details[@i].Opt01" class="length form-control" /></td> @* Marker Length *@
-                                    <td><input asp-for="Details[@i].Fullwidth" class="width form-control" /></td>
-                                    <td><input asp-for="Details[@i].Cutwidth" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Efficiency" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Sizeratio" class="form-control" /></td>
-                                    <td><input asp-for="Details[@i].Markerqty" class="pcs form-control" /></td>
-                                    <td><input asp-for="Details[@i].Wastage" class="allowance form-control" /></td>
-                                    <td><input asp-for="Details[@i].Conspcs" class="conspcs form-control" readonly /></td>
-                                    <td><input asp-for="Details[@i].Consdzn" class="consdzn form-control" readonly /></td>
-                                    <td><input asp-for="Details[@i].Comments" class="form-control" /></td>
+                                    <td><input asp-for="Details[i].Opt01" class="length form-control" /></td> @* Marker Length *@
+                                    <td><input asp-for="Details[i].Fullwidth" class="width form-control" /></td>
+                                    <td><input asp-for="Details[i].Cutwidth" class="form-control" /></td>
+                                    <td><input asp-for="Details[i].Efficiency" class="form-control" /></td>
+                                    <td><input asp-for="Details[i].Sizeratio" class="form-control" /></td>
+                                    <td><input asp-for="Details[i].Markerqty" class="pcs form-control" /></td>
+                                    <td><input asp-for="Details[i].Wastage" class="allowance form-control" /></td>
+                                    <td><input asp-for="Details[i].Conspcs" class="conspcs form-control" readonly /></td>
+                                    <td><input asp-for="Details[i].Consdzn" class="consdzn form-control" readonly /></td>
+                                    <td><input asp-for="Details[i].Comments" class="form-control" /></td>
                                     <td>
                                         <!-- Existing file (optional preview) -->
                                         @if (!string.IsNullOrEmpty(Model.Details[i].Filename))
@@ -372,7 +372,7 @@
                                             </div>
                                         }
 
-                                        <input type="file" name="Details[@i].File" class="form-control" />
+                                        <input type="file" name="Details[i].File" class="form-control" />
                                     </td>
 
                                     <td>
