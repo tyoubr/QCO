@@ -34,6 +34,7 @@ public partial class QCOContext : DbContext
     public DbSet<FloorDropdown> FloorDropdown { get; set; }
     public DbSet<SewingEfficiencyDetailModel> SewingEfficiencyDetail { get; set; }
     public virtual DbSet<TblInderectManpower> TblInderectManpower { get; set; }
+    public virtual DbSet<TblRecapeInfo> TblRecapeInfo { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect sensitive information, use a configuration file for your connection string.
@@ -444,7 +445,30 @@ public partial class QCOContext : DbContext
                 .HasConstraintName("FK_TBL_INDERECT_MANPOWER_TBL_SEWING_EFFICIENCY");
         });
 
-
+        modelBuilder.Entity<TblRecapeInfo>(entity =>
+        {
+            entity.HasKey(e => e.Trid);
+            entity.ToTable("TBL_RECAPE_INFO");
+            entity.Property(e => e.Trid).ValueGeneratedOnAdd().HasColumnName("TRID");
+            entity.Property(e => e.BuyerName).HasMaxLength(50).HasColumnName("BUYER_NAME");
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime").HasColumnName("CREATED_AT");
+            entity.Property(e => e.CreatedBy).HasMaxLength(50).HasColumnName("CREATED_BY");
+            entity.Property(e => e.E1).HasMaxLength(50);
+            entity.Property(e => e.E2).HasMaxLength(50);
+            entity.Property(e => e.E3).HasMaxLength(50);
+            entity.Property(e => e.E4).HasMaxLength(50);
+            entity.Property(e => e.E5).HasMaxLength(50);
+            entity.Property(e => e.OfferdQty).HasColumnName("OFFERD_QTY");
+            entity.Property(e => e.QuotedPrice).HasColumnName("QUOTED_PRICE");
+            entity.Property(e => e.SeasonName).HasMaxLength(50).HasColumnName("SEASON_NAME");
+            entity.Property(e => e.SeasonYear).HasColumnName("SEASON_YEAR");
+            entity.Property(e => e.StyleRef).HasMaxLength(50).HasColumnName("STYLE_REF");
+            entity.Property(e => e.TeamLeaderName).HasMaxLength(50).HasColumnName("TEAM_LEADER_NAME");
+            entity.Property(e => e.TgtPrice).HasColumnName("TGT_PRICE");
+            entity.Property(e => e.Trdate).HasColumnType("datetime").HasColumnName("TRDATE");
+            entity.Property(e => e.UpdatedAt).HasColumnType("datetime").HasColumnName("UPDATED_AT");
+            entity.Property(e => e.UpdatedBy).HasMaxLength(50).HasColumnName("UPDATED_BY");
+        });
         OnModelCreatingPartial(modelBuilder);
     }
 

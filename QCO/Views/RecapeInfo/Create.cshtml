@@ -1,0 +1,418 @@
+﻿@model QCO.Models.TblRecapeInfo
+
+@{
+    ViewData["Title"] = "Create Recap Info";
+}
+
+<div class="container mt-4">
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Add New Recap Info</h5>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form asp-controller="RecapeInfo" asp-action="Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3">
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           id="Individual">
+
+                                    <label class="form-check-label" for="Individual">
+                                        Individual
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+@* 
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           id="Individual">
+
+                                    <label class="form-check-label" for="Individual">
+                                        Individual
+                                    </label>
+                                </div> *@
+
+                                <label class="form-label">
+                                    Style Ref.
+                                </label>
+
+                                <!-- Dropdown Mode -->
+                                <select asp-for="StyleRef"
+                                        id="StyleRefDropdown"
+                                        class="form-control">
+                                    <option value="">-- Select Style Ref --</option>
+
+                                    @if (ViewBag.StyleRefList != null)
+                                    {
+                                        foreach (var item in ViewBag.StyleRefList)
+                                        {
+                                            <option value="@item.StyleRef">
+                                                @item.StyleRef - @item.SeasonName
+                                            </option>
+                                        }
+                                    }
+
+                                </select>
+
+
+                                <!-- Individual Input Mode -->
+                                <input asp-for="StyleRef"
+                                       id="StyleRefInput"
+                                       class="form-control"
+                                       style="display:none;" />
+
+                            </div>
+
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label class="form-label">
+                                    Season Name 
+                                    @* <span class="text-danger">*</span> *@
+                                </label>
+                                <input asp-for="SeasonName" class="form-control individual-field" readonly />
+                                @* <span asp-validation-for="SeasonName" class="text-danger"></span> *@
+                            </div>
+
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label class="form-label">
+                                    Quoted Price 
+                                    @* <span class="text-danger">*</span> *@
+                                </label>
+                                <input asp-for="QuotedPrice" class="form-control individual-field" readonly />
+                                @* <span asp-validation-for="QuotedPrice" class="text-danger"></span> *@
+                            </div>
+
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label class="form-label">
+                                    TGT Price 
+                                    @* <span class="text-danger">*</span> *@
+                                </label>
+                                <input asp-for="TgtPrice" class="form-control individual-field" readonly />
+                                @* <span asp-validation-for="TgtPrice" class="text-danger"></span> *@
+                            </div>
+
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label class="form-label">
+                                    Season Year 
+                                    @* <span class="text-danger">*</span> *@
+                                </label>
+                                <input asp-for="SeasonYear" class="form-control individual-field" readonly />
+                                @* <span asp-validation-for="SeasonYear" class="text-danger"></span> *@
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label class="form-label">
+                                    Buyer Name 
+                                    @* <span class="text-danger">*</span> *@
+                                </label>
+                                <input asp-for="BuyerName" class="form-control individual-field" readonly />
+                                @* <span asp-validation-for="BuyerName" class="text-danger"></span> *@
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label class="form-label">
+                                    Team Leader Name 
+                                    @* <span class="text-danger">*</span> *@
+                                </label>
+                                <input asp-for="TeamLeaderName" class="form-control individual-field" readonly />
+                                @* <span asp-validation-for="TeamLeaderName" class="text-danger"></span> *@
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label class="form-label">
+                                    Dyeing Factory
+                                    @* <span class="text-danger">*</span> *@
+                                </label>
+                                <input asp-for="E1" class="form-control individual-field" />
+                                @* <span asp-validation-for="E1" class="text-danger"></span> *@
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label class="form-label">
+                                    Sewing Factory
+                                   @*  <span class="text-danger">*</span> *@
+                                </label>
+                                <input asp-for="E2" class="form-control individual-field" />
+                                @* <span asp-validation-for="E2" class="text-danger"></span> *@
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label class="form-label">
+                                    Option-03 
+                                    @* <span class="text-danger">*</span> *@
+                                </label>
+                                <input asp-for="E3" class="form-control individual-field" />
+                                @* <span asp-validation-for="E3" class="text-danger"></span> *@
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label class="form-label">
+                                    Option-04 
+                                    @* <span class="text-danger">*</span> *@
+                                </label>
+                                <input asp-for="E4" class="form-control individual-field" />
+                                @* <span asp-validation-for="E4" class="text-danger"></span> *@
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label class="form-label">
+                                    Option-05 
+                                    @* <span class="text-danger">*</span> *@
+                                </label>
+                                <input asp-for="E5" class="form-control individual-field" />
+                                @* <span asp-validation-for="E5" class="text-danger"></span> *@
+                            </div>
+@*                             <div class="col-lg-3 col-md-4 col-sm-6">
+                                <label asp-for="InstallDate" class="form-label">
+                                    Installation Date <span class="text-danger">*</span>
+                                </label>
+                                <input asp-for="InstallDate" type="date" class="form-control required-field" readonly="@(!isAdmin)" />
+                                <span asp-validation-for="InstallDate" class="text-danger"></span>
+                            </div> *@
+
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+
+                            <a asp-action="RecapeInfoList"
+                               class="btn btn-outline-secondary">
+                                ← Back
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary px-4">
+                                Save
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        $(document).ready(function () {
+
+
+            // Initial state
+            setNormalMode();
+
+
+
+            // Individual checkbox change
+            $('#Individual').change(function () {
+
+
+                if ($(this).is(':checked')) {
+
+
+                    // Clear existing data
+                    clearRecapeData();
+
+
+                    // Individual mode
+                    $('#StyleRefDropdown').hide();
+
+                    $('#StyleRefInput').show();
+
+
+                    // Make fields editable
+                    makeFieldsEditable();
+
+
+                }
+                else {
+
+
+                    // Normal mode
+                    $('#StyleRefDropdown').show();
+
+                    $('#StyleRefInput').hide();
+
+
+                    // Clear manual style ref
+                    $('#StyleRefInput').val('');
+
+
+                    // Make fields readonly
+                    makeFieldsReadonly();
+
+
+                }
+
+
+            });
+
+
+
+            // Style Ref dropdown change
+            $('#StyleRefDropdown').change(function () {
+
+
+                var styleRef = $(this).val();
+
+
+                if (styleRef !== '') {
+
+
+                    $.ajax({
+
+                        url: '@Url.Action("GetRecapeInfo", "RecapeInfo")',
+
+                        type: 'GET',
+
+                        data: {
+                            styleRef: styleRef
+                        },
+
+
+                        success: function (data) {
+
+
+                            $('#SeasonName').val(data.seasonName);
+
+                            $('#QuotedPrice').val(data.quotedPrice);
+
+                            $('#TgtPrice').val(data.tgtPrice);
+
+                            $('#SeasonYear').val(data.seasonYear);
+
+                            $('#BuyerName').val(data.buyerName);
+
+                            $('#TeamLeaderName').val(data.teamLeaderName);
+
+
+                        },
+
+
+                        error: function () {
+
+                            alert('Unable to load recape information.');
+
+                        }
+
+
+                    });
+
+
+                }
+                else {
+
+                    clearRecapeData();
+
+                }
+
+
+            });
+
+
+
+            // Clear all data
+            function clearRecapeData() {
+
+
+                $('#StyleRefDropdown').val('');
+
+                $('#StyleRefInput').val('');
+
+                $('#SeasonName').val('');
+
+                $('#QuotedPrice').val('');
+
+                $('#TgtPrice').val('');
+
+                $('#SeasonYear').val('');
+
+                $('#BuyerName').val('');
+
+                $('#TeamLeaderName').val('');
+
+            }
+
+
+
+            // Make readonly fields editable
+            function makeFieldsEditable() {
+
+
+                $('#SeasonName').prop('readonly', false);
+
+                $('#QuotedPrice').prop('readonly', false);
+
+                $('#TgtPrice').prop('readonly', false);
+
+                $('#SeasonYear').prop('readonly', false);
+
+                $('#BuyerName').prop('readonly', false);
+
+                $('#TeamLeaderName').prop('readonly', false);
+
+
+            }
+
+
+
+            // Make fields readonly
+            function makeFieldsReadonly() {
+
+
+                $('#SeasonName').prop('readonly', true);
+
+                $('#QuotedPrice').prop('readonly', true);
+
+                $('#TgtPrice').prop('readonly', true);
+
+                $('#SeasonYear').prop('readonly', true);
+
+                $('#BuyerName').prop('readonly', true);
+
+                $('#TeamLeaderName').prop('readonly', true);
+
+
+            }
+
+
+
+            // Normal initial mode
+            function setNormalMode() {
+
+
+                $('#StyleRefDropdown').show();
+
+                $('#StyleRefInput').hide();
+
+
+                makeFieldsReadonly();
+
+
+            }
+
+
+
+        });
+
+
+    </script>
+}
