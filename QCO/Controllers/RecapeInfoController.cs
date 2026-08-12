@@ -19,20 +19,11 @@ public class RecapeInfoController : Controller
         _context = context;
         _userManager = userManager;
     }
-
-    // =========================================================
-    // INDEX
-    // =========================================================
-
     [HttpGet]
     public IActionResult Index()
     {
         return View();
     }
-
-    // =========================================================
-    // MASTER LIST
-    // =========================================================
 
     [HttpGet]
     public async Task<IActionResult> RecapeInfoList(
@@ -90,10 +81,6 @@ public class RecapeInfoController : Controller
         return View(data);
     }
 
-    // =========================================================
-    // CREATE - GET
-    // =========================================================
-
     [HttpGet]
     public async Task<IActionResult> Create()
     {
@@ -135,12 +122,8 @@ public class RecapeInfoController : Controller
             return View(new RecapViewModel());
         }
     }
-
-    // =========================================================
     // CREATE - POST
     // MASTER + RECAP DETAILS + ITEM DETAILS
-    // =========================================================
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(RecapViewModel recapViewModel)
@@ -156,27 +139,26 @@ public class RecapeInfoController : Controller
 
             if (recapViewModel == null)
             {
-                TempData["Error"] = "Invalid recap information.";
+                TempData["Error"] =
+                    "Invalid recap information.";
 
                 return RedirectToAction(nameof(Create));
             }
 
             if (recapViewModel.Master == null)
             {
-                TempData["Error"] = "Master information is required.";
+                TempData["Error"] =
+                    "Master information is required.";
 
                 return RedirectToAction(nameof(Create));
             }
 
-
-            // =================================================
-            // CURRENT USER
-            // =================================================
-
             var now = DateTime.Now;
+            var currentUser =User.Identity?.Name ?? "System";
 
-            var currentUser =
-                User.Identity?.Name ?? "System";
+            var bookingNo = recapViewModel.Master.BookingNo;
+
+            var hasInternalRef = !string.IsNullOrWhiteSpace(bookingNo);
 
 
             // =================================================
@@ -186,33 +168,80 @@ public class RecapeInfoController : Controller
             if (recapViewModel.PhotoFile != null &&
                 recapViewModel.PhotoFile.Length > 0)
             {
-                using var memoryStream = new MemoryStream();
+                using var memoryStream =
+                    new MemoryStream();
 
-                await recapViewModel.PhotoFile.CopyToAsync(
-                    memoryStream
-                );
+                await recapViewModel.PhotoFile
+                    .CopyToAsync(memoryStream);
 
                 recapViewModel.Master.Photo =
                     memoryStream.ToArray();
+
+                recapViewModel.Master.PhotoContentType =
+                    recapViewModel.PhotoFile.ContentType;
+            }
+
+            recapViewModel.Master.CreatedAt = now;
+            recapViewModel.Master.CreatedBy = currentUser;
+            recapViewModel.Master.Remarks =
+                hasInternalRef
+                    ? "Tagged"
+                    : "Pending";
+
+            // GET RECAP DETAILS
+            var validDetails =
+                recapViewModel.Details?
+                    .Where(x => x != null)
+                    .ToList()
+                ?? new List<TblRecapDetails>();
+
+            // GET ITEM DETAILS
+            var validItemDetails =
+                recapViewModel.ItemDetails?
+                    .Where(x => x != null)
+                    .ToList()
+                ?? new List<TblRecapItemDetails>();
+
+
+            // =================================================
+            // VALIDATION BEFORE SAVE
+            // =================================================
+            //
+            // Internal Ref exists:
+            //     Recap Details required
+            //
+            // Internal Ref does NOT exist:
+            //     Recap Details optional
+            //
+            // Item Details:
+            //     Always required
+            //
+            // =================================================
+
+            if (hasInternalRef &&
+                validDetails.Count == 0)
+            {
+                throw new Exception(
+                    "At least one Recap Detail is required when Internal Ref is selected."
+                );
+            }
+
+
+            if (validItemDetails.Count == 0)
+            {
+                throw new Exception(
+                    "At least one Item Detail is required."
+                );
             }
 
 
             // =================================================
-            // MASTER AUDIT
-            // =================================================
-
-            recapViewModel.Master.CreatedAt = now;
-            recapViewModel.Master.CreatedBy = currentUser;
-            recapViewModel.Master.Remarks = recapViewModel.Master.BookingNo != null ? "Tagged" : "Pending";
-
-
-            // =================================================
-            // SAVE MASTER FIRST
+            // SAVE MASTER
             // =================================================
 
             _context.TblRecapMasters.Add(
-                    recapViewModel.Master
-                );
+                recapViewModel.Master
+            );
 
             await _context.SaveChangesAsync();
 
@@ -229,23 +258,16 @@ public class RecapeInfoController : Controller
             // SAVE RECAP DETAILS
             // =================================================
 
-            var validDetails =
-                recapViewModel.Details?
-                    .Where(x => x != null)
-                    .ToList()
-                ?? new List<TblRecapDetails>();
-
-
             if (validDetails.Count > 0)
             {
                 foreach (var detail in validDetails)
                 {
-                    detail.Rcmid = masterId;
+                    detail.Rcmid =
+                        masterId;
                 }
 
-                await _context.TblRecapDetails.AddRangeAsync(
-                    validDetails
-                );
+                await _context.TblRecapDetails
+                    .AddRangeAsync(validDetails);
 
                 await _context.SaveChangesAsync();
             }
@@ -255,58 +277,26 @@ public class RecapeInfoController : Controller
             // SAVE ITEM DETAILS
             // =================================================
 
-            var validItemDetails =
-                recapViewModel.ItemDetails?
-                    .Where(x => x != null)
-                    .ToList()
-                ?? new List<TblRecapItemDetails>();
-
-
             if (validItemDetails.Count > 0)
             {
                 foreach (var itemDetail in validItemDetails)
                 {
-                    itemDetail.Rcmid = masterId;
+                    itemDetail.Rcmid =
+                        masterId;
                 }
 
-                await _context.TblRecapItemDetails.AddRangeAsync(
-                    validItemDetails
-                );
+                await _context.TblRecapItemDetails
+                    .AddRangeAsync(validItemDetails);
 
                 await _context.SaveChangesAsync();
             }
 
 
             // =================================================
-            // IMPORTANT VALIDATION
-            // =================================================
-
-            if (validDetails.Count == 0)
-            {
-                throw new Exception(
-                    "At least one Recap Detail is required."
-                );
-            }
-
-            if (validItemDetails.Count == 0)
-            {
-                throw new Exception(
-                    "At least one Item Detail is required."
-                );
-            }
-
-
-            // =================================================
-            // COMMIT
+            // COMMIT TRANSACTION
             // =================================================
 
             await transaction.CommitAsync();
-
-
-            // =================================================
-            // SUCCESS
-            // =================================================
-
             TempData["Success"] =
                 "Recap created successfully.";
 
@@ -406,69 +396,65 @@ public class RecapeInfoController : Controller
         return Json(recap);
     }
 
-    // =========================================================
-    // DELETE
-    // =========================================================
+    //[HttpPost]
+    //[ValidateAntiForgeryToken]
+    //public async Task<IActionResult> Delete(int id)
+    //{
+    //    try
+    //    {
+    //        var master =
+    //            await _context.TblRecapMasters
+    //                .Include(x => x.TblRecapDetails)
+    //                .FirstOrDefaultAsync(
+    //                    x => x.Rcmid == id
+    //                );
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Delete(int id)
-    {
-        try
-        {
-            var master =
-                await _context.TblRecapMasters
-                    .Include(x => x.TblRecapDetails)
-                    .FirstOrDefaultAsync(
-                        x => x.Rcmid == id
-                    );
+    //        if (master == null)
+    //        {
+    //            TempData["Error"] =
+    //                "Recap not found.";
 
-            if (master == null)
-            {
-                TempData["Error"] =
-                    "Recap not found.";
+    //            return RedirectToAction(
+    //                nameof(RecapeInfoList)
+    //            );
+    //        }
 
-                return RedirectToAction(
-                    nameof(RecapeInfoList)
-                );
-            }
+    //        // -------------------------------------------------
+    //        // DELETE DETAILS
+    //        // -------------------------------------------------
 
-            // -------------------------------------------------
-            // DELETE DETAILS
-            // -------------------------------------------------
+    //        if (master.TblRecapDetails != null &&
+    //            master.TblRecapDetails.Any())
+    //        {
+    //            _context.TblRecapDetails
+    //                .RemoveRange(
+    //                    master.TblRecapDetails
+    //                );
+    //        }
 
-            if (master.TblRecapDetails != null &&
-                master.TblRecapDetails.Any())
-            {
-                _context.TblRecapDetails
-                    .RemoveRange(
-                        master.TblRecapDetails
-                    );
-            }
+    //        // -------------------------------------------------
+    //        // DELETE MASTER
+    //        // -------------------------------------------------
 
-            // -------------------------------------------------
-            // DELETE MASTER
-            // -------------------------------------------------
+    //        _context.TblRecapMasters
+    //            .Remove(master);
 
-            _context.TblRecapMasters
-                .Remove(master);
+    //        await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
+    //        TempData["Success"] =
+    //            "Recap deleted successfully.";
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        TempData["Error"] =
+    //            "Failed to delete recap. " +
+    //            ex.Message;
+    //    }
 
-            TempData["Success"] =
-                "Recap deleted successfully.";
-        }
-        catch (Exception ex)
-        {
-            TempData["Error"] =
-                "Failed to delete recap. " +
-                ex.Message;
-        }
-
-        return RedirectToAction(
-            nameof(RecapeInfoList)
-        );
-    }
+    //    return RedirectToAction(
+    //        nameof(RecapeInfoList)
+    //    );
+    //}
 
     // =========================================================
     // PHOTO
@@ -734,17 +720,8 @@ public class RecapeInfoController : Controller
             }
         }
 
-
-        // =====================================================
-        // RETURN RESULT
-        // =====================================================
-
         return bookingNoList;
     }
-
-    // =========================================================
-    // GET STYLE NAME LIST
-    // =========================================================
 
     private async Task<List<StyleNameDropdown>>
         GetStyleNameList()
@@ -820,10 +797,6 @@ public class RecapeInfoController : Controller
 
         return styleNameList;
     }
-
-    // =========================================================
-    // GET ITEM NAME LIST
-    // =========================================================
     [HttpGet]
     private async Task<List<ItemNameDropdown>>
         GetItemNameList()
@@ -963,12 +936,8 @@ public class RecapeInfoController : Controller
         return teamLeaderList;
     }
 
-    // =========================================================
-    // GET FABRICATION LIST
-    // =========================================================
-
-    private async Task<List<FabricationDropdown>>
-        GetFabricationList()
+    [HttpGet]
+    private async Task<List<FabricationDropdown>>GetFabricationList()
     {
         var list =
             new List<FabricationDropdown>();
@@ -1034,13 +1003,8 @@ public class RecapeInfoController : Controller
         return list;
     }
 
-    // =========================================================
-    // GET BUYER BY STYLE
-    // =========================================================
-
     [HttpGet]
-    public async Task<IActionResult>
-        GetBuyerByStyle(string styleName)
+    public async Task<IActionResult>GetBuyerByStyle(string styleName)
     {
         string buyerName = string.Empty;
 
@@ -1127,9 +1091,6 @@ public class RecapeInfoController : Controller
         });
     }
 
-    // =========================================================
-    // GET RECAP DETAILS BY INTERNAL REF / BOOKING NO
-    // =========================================================
 
     [HttpGet]
     public async Task<IActionResult> GetDetailsByBookingNo(
@@ -1209,11 +1170,6 @@ public class RecapeInfoController : Controller
                         !string.IsNullOrWhiteSpace(x)
                     )
                 ?? string.Empty;
-
-            // -------------------------------------------------
-            // SUCCESS
-            // -------------------------------------------------
-
             return Json(new
             {
                 success = true,
@@ -1231,5 +1187,387 @@ public class RecapeInfoController : Controller
                 data = new List<object>()
             });
         }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        // FIND MASTER
+
+        var master = await _context.TblRecapMasters
+            .FirstOrDefaultAsync(x => x.Rcmid == id);
+
+        if (master == null)
+        {
+            return NotFound();
+        }
+        // FIND ITEM DETAILS
+        var itemDetails = await _context.TblRecapItemDetails
+            .Where(x => x.Rcmid == id)
+            .OrderBy(x => x.Itemid)
+            .ToListAsync();
+
+        // FIND RECAP DETAILS
+        var details = await _context.TblRecapDetails
+            .Where(x => x.Rcmid == id)
+            .OrderBy(x => x.Rcdid)
+            .ToListAsync();
+
+        // CREATE VIEW MODEL
+
+        var viewModel = new RecapViewModel
+        {
+            Master = master,
+
+            ItemDetails = itemDetails,
+
+            Details = details
+        };
+        // LOAD DROPDOWNS
+        ViewBag.StyleNameList = await GetStyleNameList();
+        ViewBag.FabricationList = await GetFabricationList();
+        ViewBag.ItemNameList = await GetItemNameList();
+        ViewBag.BookingNoList = await GetBookingNoList();
+        ViewBag.TeamLeaderList = await GetTeamLeaderList();
+
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(
+        int id,
+        RecapViewModel recapViewModel)
+    {
+        await using var transaction =
+            await _context.Database.BeginTransactionAsync();
+
+        try
+        {
+            // BASIC VALIDATION
+
+            if (recapViewModel == null)
+            {
+                TempData["Error"] =
+                    "Invalid recap information.";
+
+                return RedirectToAction(
+                    nameof(RecapeInfoList)
+                );
+            }
+            if (recapViewModel.Master == null)
+            {
+                TempData["Error"] =
+                    "Master information is required.";
+
+                return RedirectToAction(
+                    nameof(RecapeInfoList)
+                );
+            }
+
+            // FIND EXISTING MASTER
+
+            var existingMaster = await _context.TblRecapMasters
+                    .FirstOrDefaultAsync(
+                        x => x.Rcmid == id
+                    );
+
+            if (existingMaster == null)
+            {
+                return NotFound();
+            }
+
+            // CURRENT USER
+            var now = DateTime.Now;
+            var currentUser = User.Identity?.Name ?? "System";
+
+            // UPDATE MASTER
+            existingMaster.StyleName = recapViewModel.Master.StyleName;
+            existingMaster.BuyerName = recapViewModel.Master.BuyerName;
+            existingMaster.BookingNo = recapViewModel.Master.BookingNo;
+            existingMaster.PoNo = recapViewModel.Master.PoNo;
+            existingMaster.TeamLeaderName = recapViewModel.Master.TeamLeaderName;
+            existingMaster.RecapMonth = recapViewModel.Master.RecapMonth;
+            existingMaster.RecapeYear = recapViewModel.Master.RecapeYear;
+            existingMaster.FacShipmentDate = recapViewModel.Master.FacShipmentDate;
+            existingMaster.ActShipmentDate = recapViewModel.Master.ActShipmentDate;
+            existingMaster.SubmissionDate = recapViewModel.Master.SubmissionDate;
+            existingMaster.SewingFactory = recapViewModel.Master.SewingFactory;
+            existingMaster.DyeingFactory = recapViewModel.Master.DyeingFactory;
+            existingMaster.Remarks =
+                string.IsNullOrWhiteSpace(
+                    recapViewModel.Master.BookingNo
+                )
+                    ? "Pending"
+                    : "Tagged";
+            existingMaster.UpdatedAt =now;
+            existingMaster.UpdatedBy =currentUser;
+
+            if (recapViewModel.PhotoFile != null &&
+                recapViewModel.PhotoFile.Length > 0)
+            {
+                using var memoryStream =
+                    new MemoryStream();
+
+                await recapViewModel.PhotoFile
+                    .CopyToAsync(memoryStream);
+
+
+                existingMaster.Photo =
+                    memoryStream.ToArray();
+
+
+                existingMaster.PhotoContentType =
+                    recapViewModel.PhotoFile.ContentType;
+            }
+
+            await _context.SaveChangesAsync();
+
+            int masterId =
+                existingMaster.Rcmid;
+            var oldItemDetails =
+                await _context.TblRecapItemDetails
+                    .Where(x => x.Rcmid == masterId)
+                    .ToListAsync();
+
+
+            if (oldItemDetails.Count > 0)
+            {
+                _context.TblRecapItemDetails
+                    .RemoveRange(oldItemDetails);
+
+                await _context.SaveChangesAsync();
+            }
+
+            var oldRecapDetails =
+                await _context.TblRecapDetails
+                    .Where(x => x.Rcmid == masterId)
+                    .ToListAsync();
+
+
+            if (oldRecapDetails.Count > 0)
+            {
+                _context.TblRecapDetails
+                    .RemoveRange(oldRecapDetails);
+
+                await _context.SaveChangesAsync();
+            }
+
+            var validItemDetails =
+                recapViewModel.ItemDetails?
+                    .Where(x => x != null)
+                    .ToList()
+                ?? new List<TblRecapItemDetails>();
+
+
+            if (validItemDetails.Count > 0)
+            {
+                foreach (var itemDetail in validItemDetails)
+                {
+                    // IMPORTANT:
+                    // Correct property is Rcmid
+                    // NOT Rcid
+
+                    itemDetail.Itemid = 0;
+
+                    itemDetail.Rcmid =
+                        masterId;
+                }
+                await _context.TblRecapItemDetails
+                    .AddRangeAsync(validItemDetails);
+
+                await _context.SaveChangesAsync();
+            }
+
+            var validDetails =
+                recapViewModel.Details?
+                    .Where(x => x != null)
+                    .ToList()
+                ?? new List<TblRecapDetails>();
+
+
+            if (validDetails.Count > 0)
+            {
+                foreach (var detail in validDetails)
+                {
+                    // IMPORTANT:
+                    // Correct property is Rcmid
+
+                    detail.Rcdid = 0;
+
+                    detail.Rcmid =
+                        masterId;
+                }
+                await _context.TblRecapDetails
+                    .AddRangeAsync(validDetails);
+
+                await _context.SaveChangesAsync();
+            }
+
+            await transaction.CommitAsync();
+
+            TempData["Success"] =
+                "Recap updated successfully.";
+
+
+            return RedirectToAction(
+                nameof(RecapeInfoList)
+            );
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+            TempData["Error"] =
+                "Failed to update recap. " +
+                ex.Message;
+
+            try
+            {
+                ViewBag.StyleNameList =
+                    await GetStyleNameList();
+
+                ViewBag.FabricationList =
+                    await GetFabricationList();
+
+                ViewBag.ItemNameList =
+                    await GetItemNameList();
+
+                ViewBag.BookingNoList =
+                    await GetBookingNoList();
+
+                ViewBag.TeamLeaderList =
+                    await GetTeamLeaderList();
+            }
+            catch
+            {
+                // Ignore dropdown reload errors
+            }
+
+            return View(recapViewModel);
+        }
+    }
+
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var master = await _context.TblRecapMasters
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Rcmid == id);
+
+        if (master == null)
+        {
+            TempData["Error"] =
+                "Recap information was not found.";
+
+            return RedirectToAction(
+                nameof(RecapeInfoList)
+            );
+        }
+
+        // IMPORTANT:
+        // Delete view expects RecapViewModel
+        var viewModel = new RecapViewModel
+        {
+            Master = master
+        };
+
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    [ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        await using var transaction =
+            await _context.Database.BeginTransactionAsync();
+
+        try
+        {
+            var master =
+                await _context.TblRecapMasters
+                    .FirstOrDefaultAsync(
+                        x => x.Rcmid == id
+                    );
+
+            if (master == null)
+            {
+                TempData["Error"] =
+                    "Recap information was not found.";
+
+                return RedirectToAction(
+                    nameof(RecapeInfoList)
+                );
+            }
+
+            var itemDetails =
+                await _context.TblRecapItemDetails
+                    .Where(x => x.Rcmid == id)
+                    .ToListAsync();
+
+            if (itemDetails.Count > 0)
+            {
+                _context.TblRecapItemDetails
+                    .RemoveRange(itemDetails);
+            }
+
+            var recapDetails =
+                await _context.TblRecapDetails
+                    .Where(x => x.Rcmid == id)
+                    .ToListAsync();
+
+            if (recapDetails.Count > 0)
+            {
+                _context.TblRecapDetails
+                    .RemoveRange(recapDetails);
+            }
+
+            _context.TblRecapMasters
+                .Remove(master);
+
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+
+
+            TempData["Success"] =
+                "Recap deleted successfully.";
+
+            return RedirectToAction(
+                nameof(RecapeInfoList)
+            );
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+
+            TempData["Error"] =
+                "Failed to delete recap. " +
+                ex.Message;
+
+            return RedirectToAction(
+                nameof(RecapeInfoList)
+            );
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> ViewPhoto(int id)
+    {
+        var master = await _context.TblRecapMasters
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Rcmid == id);
+
+        if (master == null ||
+            master.Photo == null ||
+            master.Photo.Length == 0)
+        {
+            return NotFound();
+        }
+
+        return File(
+            master.Photo,
+            master.PhotoContentType ?? "image/jpeg"
+        );
     }
 }

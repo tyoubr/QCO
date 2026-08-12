@@ -503,6 +503,7 @@ public partial class QCOContext : DbContext
             entity.Property(e => e.CreatedBy).HasMaxLength(50).HasColumnName("CREATED_BY");
             entity.Property(e => e.FacShipmentDate).HasColumnName("FAC_SHIPMENT_DATE");
             entity.Property(e => e.Photo).HasColumnName("PHOTO");
+            entity.Property(e => e.PhotoContentType).HasMaxLength(50).HasColumnName("PHOTO_CONTENT_TYPE");
             entity.Property(e => e.PoNo).HasMaxLength(50).HasColumnName("PO_NO");
             entity.Property(e => e.TeamLeaderName).HasMaxLength(50).HasColumnName("TEAM_LEADER_NAME");
             entity.Property(e => e.RecapMonth).HasMaxLength(50).HasColumnName("RECAP_MONTH");

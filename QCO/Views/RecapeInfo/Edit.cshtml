@@ -1,5 +1,1211 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model QCO.ViewModels.RecapViewModel
+
 @{
+    ViewData["Title"] = "Edit Recap Info.";
+}
+
+<link href="~/css/recapinfo/recapinfo.css"
+      rel="stylesheet" />
+
+<form asp-action="Edit"
+      asp-controller="RecapeInfo"
+      method="post"
+      enctype="multipart/form-data"
+      id="recapForm">
+
+    @Html.AntiForgeryToken()
+
+    <!-- =====================================================
+         HIDDEN MASTER ID
+         ===================================================== -->
+
+    <input type="hidden"
+           asp-for="Master.Rcmid" />
+
+
+    <!-- =====================================================
+         VALIDATION
+         ===================================================== -->
+
+    <div asp-validation-summary="ModelOnly"
+         class="text-danger mb-3">
+    </div>
+
+
+    <!-- =====================================================
+         STEPPER
+         ===================================================== -->
+
+    <div class="recap-stepper">
+
+        <!-- STEP 1 -->
+
+        <div id="step1Wrapper"
+             class="step-wrapper active">
+
+            <div id="step1Circle"
+                 class="step-circle">
+                1
+            </div>
+
+            <div class="step-label">
+                Recap Master
+            </div>
+
+        </div>
+
+
+        <div id="stepLine1"
+             class="step-line">
+        </div>
+
+
+        <!-- STEP 2 -->
+
+        <div id="step2Wrapper"
+             class="step-wrapper">
+
+            <div id="step2Circle"
+                 class="step-circle">
+                2
+            </div>
+
+            <div class="step-label">
+                Recap Details
+            </div>
+
+        </div>
+
+
+        <div id="stepLine2"
+             class="step-line">
+        </div>
+
+
+        <!-- STEP 3 -->
+
+        <div id="step3Wrapper"
+             class="step-wrapper">
+
+            <div id="step3Circle"
+                 class="step-circle">
+                3
+            </div>
+
+            <div class="step-label">
+                Assign Factory
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STEP 1
+         ===================================================== -->
+
+    <div id="step1"
+         class="step-content">
+
+        <h6 class="section-title">
+            Master Information
+        </h6>
+
+
+        <div class="row g-3">
+
+            <!-- STYLE NAME -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.StyleName"
+                       class="form-label">
+                    Style Name
+                </label>
+
+                <select asp-for="Master.StyleName"
+                        id="StyleName"
+                        class="form-select">
+
+                    <option value="">
+                        -- Select Style Name --
+                    </option>
+
+                    @if (ViewBag.StyleNameList != null)
+                    {
+                        foreach (var item in ViewBag.StyleNameList)
+                        {
+                            <option value="@item.StyleName"
+                                    data-buyer="@item.BuyerName">
+
+                                @item.StyleName
+
+                            </option>
+                        }
+                    }
+
+                </select>
+
+                <span asp-validation-for="Master.StyleName"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- BUYER -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.BuyerName"
+                       class="form-label">
+                    Buyer Name
+                </label>
+
+                <input asp-for="Master.BuyerName"
+                       id="BuyerName"
+                       class="form-control readonly-field"
+                       readonly />
+
+            </div>
+
+
+            <!-- RECAP MONTH -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.RecapMonth"
+                       class="form-label">
+                    Recap Month
+                </label>
+
+                <select asp-for="Master.RecapMonth"
+                        class="form-select">
+
+                    <option value="">
+                        -- Select Month --
+                    </option>
+
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- RECAP YEAR -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.RecapeYear"
+                       class="form-label">
+                    Recap Year
+                </label>
+
+                <select asp-for="Master.RecapeYear"
+                        class="form-select">
+
+                    <option value="0">
+                        -- Select Year --
+                    </option>
+
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- TEAM LEADER -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.TeamLeaderName"
+                       class="form-label">
+                    Team Leader Name
+                </label>
+
+                <select asp-for="Master.TeamLeaderName"
+                        id="TeamLeaderName"
+                        class="form-select">
+
+                    <option value="">
+                        -- Select Team Leader --
+                    </option>
+
+                    @if (ViewBag.TeamLeaderList != null)
+                    {
+                        foreach (var item in ViewBag.TeamLeaderList)
+                        {
+                            <option value="@item.TeamLeaderName">
+
+                                @item.TeamLeaderName
+
+                            </option>
+                        }
+                    }
+
+                </select>
+
+            </div>
+
+
+            <!-- FACTORY SHIPMENT -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.FacShipmentDate"
+                       class="form-label">
+                    Factory Shipment Date
+                </label>
+
+                <input asp-for="Master.FacShipmentDate"
+                       type="date"
+                       class="form-control" />
+
+            </div>
+
+
+            <!-- ACTUAL SHIPMENT -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.ActShipmentDate"
+                       class="form-label">
+                    Actual Shipment Date
+                </label>
+
+                <input asp-for="Master.ActShipmentDate"
+                       type="date"
+                       class="form-control" />
+
+            </div>
+
+
+            <!-- SUBMISSION DATE -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.SubmissionDate"
+                       class="form-label">
+                    Submission Date
+                </label>
+
+                <input asp-for="Master.SubmissionDate"
+                       type="date"
+                       class="form-control" />
+
+            </div>
+
+
+            <!-- =================================================
+                 PHOTO
+                 ================================================= -->
+
+            <div class="col-lg-2 col-md-4 col-sm-12">
+
+                <label asp-for="PhotoFile"
+                       class="form-label fw-semibold">
+
+                    Photo
+
+                </label>
+
+                <div class="row g-2 align-items-start">
+
+                    <!-- FILE -->
+
+                    <div class="col-9">
+
+                        <input asp-for="PhotoFile"
+                               type="file"
+                               class="form-control"
+                               accept="image/*"
+                               id="PhotoFile" />
+
+                    </div>
+
+
+                    <!-- PREVIEW -->
+
+                    <div class="col-3 d-flex justify-content-center align-items-start">
+
+                        <div class="photo-preview-wrapper">
+
+                            @if (Model.Master.Photo != null &&
+                                                        Model.Master.Photo.Length > 0)
+                            {
+                                <img id="photoPreview"
+                                     src="@Url.Action("GetPhoto", "RecapeInfo", new { id = Model.Master.Rcmid })"
+                                     alt="Photo"
+                                     class="photo-preview"
+                                     style="display:block;" />
+
+                                <span id="noPhotoText"
+                                      class="no-photo-text"
+                                      style="display:none;">
+                                    No Photo
+                                </span>
+                            }
+                            else
+                            {
+                                <img id="photoPreview"
+                                     src=""
+                                     alt="Photo Preview"
+                                     class="photo-preview" />
+
+                                <span id="noPhotoText"
+                                      class="no-photo-text">
+                                    No Photo
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <style>
+
+            .photo-preview-wrapper {
+                width: 80px;
+                height: 80px;
+                border: 1px solid #adb5bd;
+                background-color: #f8f9fa;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                border-radius: 0;
+                margin-top: -20px;
+            }
+
+            .photo-preview {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: none;
+            }
+
+            .no-photo-text {
+                font-size: 10px;
+                color: #8a9299;
+                text-align: center;
+            }
+
+        </style>
+
+
+        <!-- =================================================
+             ITEM INFORMATION
+             ================================================= -->
+
+        <h6 class="section-title mt-4">
+            Item Information
+        </h6>
+
+
+        <div class="card recap-card border mb-4">
+
+            <div class="card-body">
+
+                <div class="row g-3 align-items-end">
+
+                    <!-- ITEM NAME -->
+
+                    <div class="col-lg-3 col-md-6">
+
+                        <label class="form-label">
+                            Item Name
+                        </label>
+
+                        <select id="itemNameInput"
+                                class="form-select">
+
+                            <option value="">
+                                -- Select Item Name --
+                            </option>
+
+                            @if (ViewBag.ItemNameList != null)
+                            {
+                                foreach (var item in ViewBag.ItemNameList)
+                                {
+                                    <option value="@item.ItemName">
+                                        @item.ItemName
+                                    </option>
+                                }
+                            }
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- OFFERED QTY -->
+
+                    <div class="col-lg-2 col-md-6">
+
+                        <label class="form-label">
+                            Offered Qty.
+                        </label>
+
+                        <input type="number"
+                               id="offeredQtyInput"
+                               class="form-control"
+                               step="0.01" />
+
+                    </div>
+
+
+                    <!-- QUOTED PRICE -->
+
+                    <div class="col-lg-2 col-md-6">
+
+                        <label class="form-label">
+                            Quoted Price
+                        </label>
+
+                        <input type="number"
+                               id="quotedPriceInput"
+                               class="form-control"
+                               step="0.01" />
+
+                    </div>
+
+
+                    <!-- PRINT -->
+
+                    <div class="col-lg-1 col-md-4">
+
+                        <label class="form-label">
+                            Is Print?
+                        </label>
+
+                        <div class="form-check form-switch mt-1">
+
+                            <input type="checkbox"
+                                   id="isPrintInput"
+                                   class="form-check-input"
+                                   role="switch" />
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WASH -->
+
+                    <div class="col-lg-1 col-md-4">
+
+                        <label class="form-label">
+                            Is Wash?
+                        </label>
+
+                        <div class="form-check form-switch mt-1">
+
+                            <input type="checkbox"
+                                   id="isWashInput"
+                                   class="form-check-input"
+                                   role="switch" />
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMBROIDERY -->
+
+                    <div class="col-lg-1 col-md-4">
+
+                        <label class="form-label">
+                            Is Embroidery?
+                        </label>
+
+                        <div class="form-check form-switch mt-1">
+
+                            <input type="checkbox"
+                                   id="isEmbInput"
+                                   class="form-check-input"
+                                   role="switch" />
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADD ITEM -->
+
+                    <div class="col-lg-1 col-md-2">
+
+                        <button type="button"
+                                id="addItem"
+                                class="btn btn-primary w-100">
+
+                            + Add Item
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ITEM TABLE
+             ================================================= -->
+
+        <div class="table-responsive">
+
+            <table class="table table-hover item-table"
+                   id="itemsTable">
+
+                <thead class="table-info text-center">
+
+                    <tr>
+
+                        <th>SL</th>
+                        <th>Item Name</th>
+                        <th>Offered Qty.</th>
+                        <th>Quoted Price</th>
+                        <th>Print</th>
+                        <th>Wash</th>
+                        <th>Embroidery</th>
+                        <th style="width:100px;">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="itemsBody">
+
+                    @if (Model.ItemDetails != null)
+                    {
+                        var itemIndex = 1;
+
+                        foreach (var item in Model.ItemDetails)
+                        {
+                            <tr data-item-id="@item.Itemid"
+                                data-item-name="@item.ItemName"
+                                data-offered-qty="@item.OfferedQty"
+                                data-quoted-price="@item.QuoatedPrice"
+                                data-is-print="@(item.IsPrint ?? 0)"
+                                data-is-wash="@(item.IsWash ?? 0)"
+                                data-is-emb="@(item.IsEmb ?? 0)">
+
+                                <td>
+                                    @itemIndex
+                                </td>
+
+                                <td>
+                                    @item.ItemName
+                                </td>
+
+                                <td>
+                                    @item.OfferedQty
+                                </td>
+
+                                <td>
+                                    @item.QuoatedPrice
+                                </td>
+
+                                <td>
+                                    @(item.IsPrint == 1 ? "Yes" : "No")
+                                </td>
+
+                                <td>
+                                    @(item.IsWash == 1 ? "Yes" : "No")
+                                </td>
+
+                                <td>
+                                    @(item.IsEmb == 1 ? "Yes" : "No")
+                                </td>
+
+                                <td>
+
+                                    <button type="button"
+                                            class="btn btn-sm btn-danger delete-item">
+
+                                        Remove
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                            itemIndex++;
+                        }
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ITEM HIDDEN INPUTS -->
+
+        <div id="itemDetailsInputs">
+
+            @if (Model.ItemDetails != null)
+            {
+                for (var i = 0; i < Model.ItemDetails.Count; i++)
+                {
+                    <input type="hidden"
+                           name="ItemDetails[@i].Itemid"
+                           value="@Model.ItemDetails[i].Itemid" />
+
+                    <input type="hidden"
+                           name="ItemDetails[@i].ItemName"
+                           value="@Model.ItemDetails[i].ItemName" />
+
+                    <input type="hidden"
+                           name="ItemDetails[@i].OfferedQty"
+                           value="@Model.ItemDetails[i].OfferedQty" />
+
+                    <input type="hidden"
+                           name="ItemDetails[@i].QuoatedPrice"
+                           value="@Model.ItemDetails[i].QuoatedPrice" />
+
+                    <input type="hidden"
+                           name="ItemDetails[@i].IsPrint"
+                           value="@(Model.ItemDetails[i].IsPrint ?? 0)" />
+
+                    <input type="hidden"
+                           name="ItemDetails[@i].IsWash"
+                           value="@(Model.ItemDetails[i].IsWash ?? 0)" />
+
+                    <input type="hidden"
+                           name="ItemDetails[@i].IsEmb"
+                           value="@(Model.ItemDetails[i].IsEmb ?? 0)" />
+                }
+            }
+
+        </div>
+
+
+        <!-- STEP 1 BUTTONS -->
+
+        <div class="d-flex justify-content-between mt-4">
+
+            <a asp-action="RecapeInfoList"
+               class="btn btn-outline-secondary">
+
+                ← Back
+
+            </a>
+
+            <button type="button"
+                    id="nextStep1"
+                    class="btn btn-primary px-4">
+
+                Next →
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STEP 2
+         ===================================================== -->
+
+    <div id="step2"
+         class="step-content"
+         style="display:none;">
+
+        <h6 class="section-title">
+            Recap Details
+        </h6>
+
+
+        <!-- INTERNAL REF -->
+
+        <div class="booking-info-card">
+
+            <div class="booking-info-title">
+                Internal Reference Information
+            </div>
+
+
+            <div class="row g-3">
+
+                <div class="col-lg-3 col-md-4 col-sm-6">
+
+                    <label asp-for="Master.BookingNo"
+                           class="form-label">
+
+                        Internal Ref.
+
+                    </label>
+
+                    <select asp-for="Master.BookingNo"
+                            id="BookingNo"
+                            class="form-select">
+
+                        <option value="">
+                            -- Select Internal Ref. --
+                        </option>
+
+                        @if (ViewBag.BookingNoList != null)
+                        {
+                            foreach (var item in ViewBag.BookingNoList)
+                            {
+                                <option value="@item.BookingNo"
+                                        data-po="@item.PoNo">
+
+                                    @item.BookingNo
+
+                                </option>
+                            }
+                        }
+
+                    </select>
+
+                </div>
+
+
+                <!-- PO -->
+
+                <div class="col-lg-3 col-md-4 col-sm-6">
+
+                    <label asp-for="Master.PoNo"
+                           class="form-label">
+
+                        PO No.
+
+                    </label>
+
+                    <input asp-for="Master.PoNo"
+                           id="PoNo"
+                           class="form-control readonly-field"
+                           readonly />
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="alert alert-info py-2 mb-3">
+
+            Recap details are automatically loaded from the
+            selected Internal Ref.
+
+        </div>
+
+
+        <!-- =================================================
+             DETAILS TABLE
+             ================================================= -->
+
+        <div class="table-responsive">
+
+            <table class="table table-hover details-table"
+                   id="detailsTable">
+
+                <thead class="table-info">
+
+                    <tr>
+
+                        <th>SL</th>
+                        <th>Item Name</th>
+                        <th>Body Part</th>
+                        <th>Fabrication</th>
+                        <th>GSM</th>
+                        <th>Color</th>
+                        <th>Cons / Pcs</th>
+                        <th>Total Qty</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="detailsBody">
+
+                    @if (Model.Details != null)
+                    {
+                        var detailIndex = 1;
+
+                        foreach (var detail in Model.Details)
+                        {
+                            <tr>
+
+                                <td>
+                                    @detailIndex
+                                </td>
+
+                                <td>
+                                    @detail.ItemName
+                                </td>
+
+                                <td>
+                                    @detail.BodyPart
+                                </td>
+
+                                <td>
+                                    @detail.Fabrication
+                                </td>
+
+                                <td>
+                                    @detail.Gsm
+                                </td>
+
+                                <td>
+                                    @detail.ColorName
+                                </td>
+
+                                <td>
+                                    @detail.ConsPerUnit
+                                </td>
+
+                                <td>
+                                    @detail.TotalQty
+                                </td>
+
+                            </tr>
+
+                            detailIndex++;
+                        }
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- =================================================
+             DETAILS HIDDEN INPUTS
+             ================================================= -->
+
+        <div id="recapDetailsInputs">
+
+            @if (Model.Details != null)
+            {
+                for (var i = 0; i < Model.Details.Count; i++)
+                {
+                    <input type="hidden"
+                           name="Details[@i].Rcdid"
+                           value="@Model.Details[i].Rcdid" />
+
+                    <input type="hidden"
+                           name="Details[@i].Rcmid"
+                           value="@Model.Details[i].Rcmid" />
+
+                    <input type="hidden"
+                           name="Details[@i].ItemName"
+                           value="@Model.Details[i].ItemName" />
+
+                    <input type="hidden"
+                           name="Details[@i].BodyPart"
+                           value="@Model.Details[i].BodyPart" />
+
+                    <input type="hidden"
+                           name="Details[@i].Fabrication"
+                           value="@Model.Details[i].Fabrication" />
+
+                    <input type="hidden"
+                           name="Details[@i].Gsm"
+                           value="@Model.Details[i].Gsm" />
+
+                    <input type="hidden"
+                           name="Details[@i].ColorName"
+                           value="@Model.Details[i].ColorName" />
+
+                    <input type="hidden"
+                           name="Details[@i].ConsPerUnit"
+                           value="@Model.Details[i].ConsPerUnit" />
+
+                    <input type="hidden"
+                           name="Details[@i].TotalQty"
+                           value="@Model.Details[i].TotalQty" />
+                }
+            }
+
+        </div>
+
+
+        <!-- NO DETAILS -->
+
+        <div id="noDetailsMessage"
+             class="alert alert-warning"
+             style="display:none;">
+
+            No recap details found.
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="d-flex justify-content-between mt-4">
+
+            <button type="button"
+                    id="previousStep2"
+                    class="btn btn-outline-secondary">
+
+                ← Previous
+
+            </button>
+
+
+            <button type="button"
+                    id="nextStep2"
+                    class="btn btn-primary px-4">
+
+                Next →
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STEP 3
+         ===================================================== -->
+
+    <div id="step3"
+         class="step-content"
+         style="display:none;">
+
+        <h6 class="section-title">
+            Assign Factory
+        </h6>
+
+
+        <div class="card recap-card border mb-4">
+
+            <div class="card-body">
+
+                <div class="row g-3">
+
+                    <!-- SEWING -->
+
+                    <div class="col-lg-3 col-md-6">
+
+                        <label asp-for="Master.SewingFactory"
+                               class="form-label">
+
+                            Sewing Factory
+
+                        </label>
+
+                        <select asp-for="Master.SewingFactory"
+                                class="form-select">
+
+                            <option value="">
+                                -- Select Sewing Factory --
+                            </option>
+
+                            <option value="Cotton Clothing BD Ltd.">
+                                Cotton Clothing BD Ltd.
+                            </option>
+
+                            <option value="Tropical Knitex Ltd.">
+                                Tropical Knitex Ltd.
+                            </option>
+
+                            <option value="Cotton Clout [BD] ltd">
+                                Cotton Clout [BD] ltd
+                            </option>
+
+                            <option value="Cotton Club BD ltd [Extended Part].">
+                                Cotton Club BD ltd [Extended Part].
+                            </option>
+
+                            <option value="Noor Checks & Stripes Ltd.">
+                                Noor Checks & Stripes Ltd.
+                            </option>
+
+                            <option value="Cotton Club BD Ltd.">
+                                Cotton Club BD Ltd.
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- DYEING -->
+
+                    <div class="col-lg-3 col-md-6">
+
+                        <label asp-for="Master.DyeingFactory"
+                               class="form-label">
+
+                            Dyeing Factory
+
+                        </label>
+
+                        <select asp-for="Master.DyeingFactory"
+                                class="form-select">
+
+                            <option value="">
+                                -- Select Dyeing Factory --
+                            </option>
+
+                            <option value="Tropical Knitex Ltd.">
+                                Tropical Knitex Ltd.
+                            </option>
+
+                            <option value="Cotton Club BD Ltd.">
+                                Cotton Club BD Ltd.
+                            </option>
+
+                            <option value="Noor Checks & Stripes Ltd.">
+                                Noor Checks & Stripes Ltd.
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="d-flex justify-content-between mt-4">
+
+            <button type="button"
+                    id="previousStep3"
+                    class="btn btn-outline-secondary">
+
+                ← Previous
+
+            </button>
+
+
+            <button type="submit"
+                    id="saveRecap"
+                    class="btn btn-success px-5">
+
+                Update Recap
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+    <!-- SELECT2 CSS -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+
+
+    <!-- SELECT2 JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+    <!-- EDIT JS -->
+    <script src="~/js/recapinfo/recapinfo.js"></script>
+
+    <!-- PHOTO PREVIEW -->
+
+    <script>
+
+        document
+            .getElementById("PhotoFile")
+            .addEventListener("change", function () {
+
+                const file = this.files[0];
+
+                const preview =
+                    document.getElementById("photoPreview");
+
+                const noPhotoText =
+                    document.getElementById("noPhotoText");
+
+
+                if (file &&
+                    file.type.startsWith("image/")) {
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function (e) {
+
+                            preview.src =
+                                e.target.result;
+
+                            preview.style.display =
+                                "block";
+
+                            noPhotoText.style.display =
+                                "none";
+                        };
+
+
+                    reader.readAsDataURL(file);
+
+                }
+                else {
+
+                    preview.src = "";
+
+                    preview.style.display =
+                        "none";
+
+                    noPhotoText.style.display =
+                        "block";
+                }
+
+            });
+
+    </script>
+
 }

@@ -69,7 +69,9 @@ $(document).ready(function () {
             .removeClass("active");
 
 
+        // =================================================
         // STEP 1
+        // =================================================
 
         if (step >= 1) {
 
@@ -81,7 +83,9 @@ $(document).ready(function () {
         }
 
 
+        // =================================================
         // STEP 2
+        // =================================================
 
         if (step >= 2) {
 
@@ -96,7 +100,9 @@ $(document).ready(function () {
         }
 
 
+        // =================================================
         // STEP 3
+        // =================================================
 
         if (step >= 3) {
 
@@ -158,8 +164,7 @@ $(document).ready(function () {
 
 
             // =================================================
-            // IMPORTANT
-            // Model:
+            // MODEL:
             // TblRecapItemDetails
             //
             // IsPrint
@@ -441,7 +446,7 @@ $(document).ready(function () {
 
 
                     // =================================================
-                    // GET DATA DIRECTLY FROM HTML DATA ATTRIBUTES
+                    // GET DATA FROM HTML DATA ATTRIBUTES
                     // =================================================
 
                     const itemName =
@@ -474,15 +479,6 @@ $(document).ready(function () {
 
                     // =================================================
                     // MODEL MATCH
-                    //
-                    // TblRecapItemDetails
-                    //
-                    // ItemName
-                    // OfferedQty
-                    // QuoatedPrice
-                    // IsPrint
-                    // IsWash
-                    // IsEmb
                     // =================================================
 
                     appendHiddenInput(
@@ -526,7 +522,6 @@ $(document).ready(function () {
 
                     // IMPORTANT:
                     // Model property is IsEmb
-                    // NOT IsEmbroidery
 
                     appendHiddenInput(
                         $container,
@@ -632,7 +627,6 @@ $(document).ready(function () {
 
 
             // ---------------------------------------------
-            // IMPORTANT
             // Rebuild before next step
             // ---------------------------------------------
 
@@ -679,9 +673,16 @@ $(document).ready(function () {
 
             // ---------------------------------------------
             // No booking selected
+            //
+            // IMPORTANT:
+            // Internal Ref is OPTIONAL.
             // ---------------------------------------------
 
             if (!bookingNo) {
+
+                console.log(
+                    "Internal Ref cleared. Recap Details are optional."
+                );
 
                 return;
             }
@@ -838,7 +839,7 @@ $(document).ready(function () {
                                         <td colspan="8"
                                             class="text-center text-muted">
 
-                                            No recap details found.
+                                            No recap details found for this Internal Ref.
 
                                         </td>
 
@@ -861,17 +862,7 @@ $(document).ready(function () {
                             ) {
 
                                 // =================================
-                                // IMPORTANT MAPPING
-                                //
-                                // Controller returns:
-                                //
-                                // color
-                                // consPcs
-                                //
-                                // Model needs:
-                                //
-                                // ColorName
-                                // ConsPerUnit
+                                // CONTROLLER RESPONSE
                                 // =================================
 
                                 const itemName =
@@ -1075,14 +1066,6 @@ $(document).ready(function () {
 
                 // =========================================
                 // CONTROLLER RESPONSE
-                //
-                // itemName
-                // bodyPart
-                // fabrication
-                // gsm
-                // color
-                // consPcs
-                // totalQty
                 // =========================================
 
                 const itemName =
@@ -1110,14 +1093,6 @@ $(document).ready(function () {
                 // =========================================
                 // MODEL:
                 // TblRecapDetails
-                //
-                // ItemName
-                // BodyPart
-                // Fabrication
-                // Gsm
-                // ColorName
-                // ConsPerUnit
-                // TotalQty
                 // =========================================
 
                 appendHiddenInput(
@@ -1150,7 +1125,6 @@ $(document).ready(function () {
 
                 // IMPORTANT:
                 // Model property is ColorName
-                // NOT Color
 
                 appendHiddenInput(
                     $container,
@@ -1161,7 +1135,6 @@ $(document).ready(function () {
 
                 // IMPORTANT:
                 // Model property is ConsPerUnit
-                // NOT ConsPcs
 
                 appendHiddenInput(
                     $container,
@@ -1237,22 +1210,39 @@ $(document).ready(function () {
                 $("#BookingNo").val();
 
 
+            // =================================================
+            // INTERNAL REF IS OPTIONAL
+            // =================================================
+            //
+            // If Internal Ref is EMPTY:
+            //     No warning
+            //     No detail validation
+            //     Go directly to Step 3
+            //
+            // If Internal Ref EXISTS:
+            //     Details must exist
+            //
+            // =================================================
+
+
             // ---------------------------------------------
-            // Validate booking
+            // NO INTERNAL REF
             // ---------------------------------------------
 
             if (!bookingNo) {
 
-                alert(
-                    "Please select Internal Ref."
+                console.log(
+                    "No Internal Ref selected. Skipping Recap Detail validation."
                 );
+
+                showStep(3);
 
                 return;
             }
 
 
             // ---------------------------------------------
-            // Count Details
+            // INTERNAL REF EXISTS
             // ---------------------------------------------
 
             const detailCount =
@@ -1270,13 +1260,14 @@ $(document).ready(function () {
 
 
             // ---------------------------------------------
-            // Validate details
+            // VALIDATE DETAILS
+            // ONLY WHEN INTERNAL REF EXISTS
             // ---------------------------------------------
 
             if (detailCount === 0) {
 
                 alert(
-                    "Please load at least one Recap Detail."
+                    "No Recap Detail found for the selected Internal Ref."
                 );
 
                 return;
@@ -1284,7 +1275,7 @@ $(document).ready(function () {
 
 
             // ---------------------------------------------
-            // Go Step 3
+            // GO STEP 3
             // ---------------------------------------------
 
             showStep(3);
@@ -1334,18 +1325,15 @@ $(document).ready(function () {
 
 
             // =================================================
-            // REBUILD RECAP DETAILS IF TABLE EXISTS
+            // RECAP DETAILS
             // =================================================
-
-            /*
-             * Normally recap details are already generated
-             * during BookingNo change.
-             *
-             * We DO NOT rebuild from table here because
-             * the table does not store all raw values safely.
-             *
-             * Existing hidden inputs remain untouched.
-             */
+            //
+            // Normally generated during BookingNo change.
+            //
+            // If BookingNo is empty:
+            //     Details can remain empty.
+            //
+            // =================================================
 
 
             // =================================================
@@ -1403,15 +1391,28 @@ $(document).ready(function () {
 
 
             // =================================================
-            // VALIDATE RECAP DETAILS
+            // INTERNAL REF
             // =================================================
 
-            if (detailCount === 0) {
+            const bookingNo =
+                $("#BookingNo").val();
+
+
+            // =================================================
+            // VALIDATE RECAP DETAILS
+            //
+            // ONLY IF INTERNAL REF EXISTS
+            // =================================================
+
+            if (
+                bookingNo &&
+                detailCount === 0
+            ) {
 
                 e.preventDefault();
 
                 alert(
-                    "Please load at least one Recap Detail."
+                    "No Recap Detail found for the selected Internal Ref."
                 );
 
                 showStep(2);

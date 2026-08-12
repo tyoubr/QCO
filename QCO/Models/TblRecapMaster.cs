@@ -15,6 +15,7 @@ public partial class TblRecapMaster
     public string? BookingNo { get; set; }
 
     public string? PoNo { get; set; }
+
     public string? TeamLeaderName { get; set; }
 
     public string? RecapMonth { get; set; }
@@ -28,6 +29,7 @@ public partial class TblRecapMaster
     public DateOnly? SubmissionDate { get; set; }
 
     public byte[]? Photo { get; set; }
+    public string? PhotoContentType { get; set; }
     public string? SewingFactory { get; set; }
     public string? DyeingFactory { get; set; }
 

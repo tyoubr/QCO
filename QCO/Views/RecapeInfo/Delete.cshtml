@@ -1,5 +1,80 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model QCO.ViewModels.RecapViewModel
+
 @{
+    ViewData["Title"] = "Delete Recap";
 }
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+
+            <div class="card shadow border-danger">
+
+                <!-- HEADER -->
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">
+                        Delete Confirmation
+                    </h5>
+                </div>
+
+                <!-- BODY -->
+                <div class="card-body">
+
+                    <div class="text-center py-3">
+
+                        <!-- WARNING ICON -->
+                        <i class="bi bi-exclamation-triangle-fill text-danger fs-1"></i>
+
+                        <h5 class="text-danger mt-3">
+                            Are you sure you want to delete this recap?
+                        </h5>
+
+                    </div>
+
+
+                    <!-- DELETE FORM -->
+                    <form asp-action="Delete"
+                          asp-controller="RecapeInfo"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <!-- MASTER ID -->
+                        <input type="hidden"
+                               asp-for="Master.Rcmid" />
+
+
+                        <!-- BUTTONS -->
+                        <div class="d-flex justify-content-between mt-4">
+
+                            <!-- NO -->
+                            <a asp-action="RecapeInfoList"
+                               asp-controller="RecapeInfo"
+                               class="btn btn-secondary">
+
+                                No
+
+                            </a>
+
+
+                            <!-- YES -->
+                            <button type="submit"
+                                    class="btn btn-danger">
+
+                                Yes
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
