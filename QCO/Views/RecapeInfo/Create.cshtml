@@ -1,209 +1,895 @@
-﻿@model QCO.Models.TblRecapeInfo
+﻿@model QCO.ViewModels.RecapViewModel
 
 @{
-    ViewData["Title"] = "Create Recap Info";
+    ViewData["Title"] = "Create Recap Info.";
 }
+<link href="~/css/recapinfo/recapinfo.css" rel="stylesheet" />
+<form asp-action="Create"
+      asp-controller="RecapeInfo"
+      method="post"
+      enctype="multipart/form-data"
+      id="recapForm">
 
-<div class="container mt-4">
+    @Html.AntiForgeryToken()
 
-    <div class="row justify-content-center">
-        <div class="col-md-10">
+    <!-- =====================================================
+         VALIDATION
+         ===================================================== -->
 
-            <div class="card shadow-lg border-0">
+    <div asp-validation-summary="ModelOnly"
+         class="text-danger mb-3">
+    </div>
 
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Add New Recap Info</h5>
-                </div>
 
-                <div class="card-body p-4">
+    <!-- =====================================================
+         STEPPER
+         ===================================================== -->
 
-                    <form asp-controller="RecapeInfo" asp-action="Create" method="post">
-                        @Html.AntiForgeryToken()
-                        <div asp-validation-summary="ModelOnly"
-                             class="text-danger mb-3">
+    <div class="recap-stepper">
+
+        <!-- STEP 1 -->
+
+        <div id="step1Wrapper"
+             class="step-wrapper active">
+
+            <div id="step1Circle"
+                 class="step-circle">
+                1
+            </div>
+
+            <div class="step-label">
+                Master &amp; Item
+            </div>
+
+        </div>
+
+
+        <!-- LINE -->
+
+        <div id="stepLine1"
+             class="step-line">
+        </div>
+
+
+        <!-- STEP 2 -->
+
+        <div id="step2Wrapper"
+             class="step-wrapper">
+
+            <div id="step2Circle"
+                 class="step-circle">
+                2
+            </div>
+
+            <div class="step-label">
+                Recap Details
+            </div>
+
+        </div>
+
+
+        <!-- LINE -->
+
+        <div id="stepLine2"
+             class="step-line">
+        </div>
+
+
+        <!-- STEP 3 -->
+
+        <div id="step3Wrapper"
+             class="step-wrapper">
+
+            <div id="step3Circle"
+                 class="step-circle">
+                3
+            </div>
+
+            <div class="step-label">
+                Assign Factory
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STEP 1
+         MASTER + ITEM
+         ===================================================== -->
+
+    <div id="step1"
+         class="step-content">
+
+        <!-- =================================================
+             MASTER INFORMATION
+             ================================================= -->
+
+        <h6 class="section-title">
+            Master Information
+        </h6>
+
+
+        <div class="row g-3">
+
+            <!-- STYLE NAME -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.StyleName"
+                       class="form-label">
+                    Style Name
+                </label>
+
+                <select asp-for="Master.StyleName"
+                        id="StyleName"
+                        class="form-select">
+
+                    <option value="">
+                        -- Select Style Name --
+                    </option>
+
+                    @if (ViewBag.StyleNameList != null)
+                    {
+                        foreach (var item in ViewBag.StyleNameList)
+                        {
+                            <option value="@item.StyleName"
+                                    data-buyer="@item.BuyerName">
+
+                                @item.StyleName
+
+                            </option>
+                        }
+                    }
+
+                </select>
+
+                <span asp-validation-for="Master.StyleName"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- BUYER -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.BuyerName"
+                       class="form-label">
+                    Buyer Name
+                </label>
+
+                <input asp-for="Master.BuyerName"
+                       id="BuyerName"
+                       class="form-control readonly-field"
+                       readonly />
+
+            </div>
+
+
+            <!-- RECAP MONTH -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.RecapMonth"
+                       class="form-label">
+                    Recap Month
+                </label>
+
+                <select asp-for="Master.RecapMonth"
+                        class="form-select">
+
+                    <option value="">
+                        -- Select Month --
+                    </option>
+
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- RECAP YEAR -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.RecapeYear"
+                       class="form-label">
+                    Recap Year
+                </label>
+
+                <select asp-for="Master.RecapeYear"
+                        class="form-select">
+
+                    <option value="0">
+                        -- Select Year --
+                    </option>
+
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- TEAM LEADER -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.TeamLeaderName"
+                       class="form-label">
+                    Team Leader Name
+                </label>
+
+                <select asp-for="Master.TeamLeaderName"
+                        id="TeamLeaderName"
+                        class="form-select">
+
+                    <option value="">
+                        -- Select Team Leader --
+                    </option>
+
+                    @if (ViewBag.TeamLeaderList != null)
+                    {
+                        foreach (var item in ViewBag.TeamLeaderList)
+                        {
+                            <option value="@item.TeamLeaderName">
+
+                                @item.TeamLeaderName
+
+                            </option>
+                        }
+                    }
+
+                </select>
+
+            </div>
+
+
+            <!-- FACTORY SHIPMENT -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.FacShipmentDate"
+                       class="form-label">
+                    Factory Shipment Date
+                </label>
+
+                <input asp-for="Master.FacShipmentDate"
+                       type="date"
+                       class="form-control" />
+
+            </div>
+
+
+            <!-- ACTUAL SHIPMENT -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.ActShipmentDate"
+                       class="form-label">
+                    Actual Shipment Date
+                </label>
+
+                <input asp-for="Master.ActShipmentDate"
+                       type="date"
+                       class="form-control" />
+
+            </div>
+
+
+            <!-- SUBMISSION DATE -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="Master.SubmissionDate"
+                       class="form-label">
+                    Submission Date
+                </label>
+
+                <input asp-for="Master.SubmissionDate"
+                       type="date"
+                       class="form-control" />
+
+            </div>
+
+
+            <!-- PHOTO -->
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+
+                <label asp-for="PhotoFile"
+                       class="form-label">
+                    Photo
+                </label>
+
+                <input asp-for="PhotoFile"
+                       type="file"
+                       class="form-control"
+                       accept="image/*" />
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ITEM INFORMATION
+             ================================================= -->
+
+        <h6 class="section-title mt-4">
+            Item Information
+        </h6>
+
+
+        <div class="card recap-card border mb-4">
+
+            <div class="card-body">
+
+                <div class="row g-3 align-items-end">
+
+                    <!-- ITEM NAME -->
+
+                    <div class="col-lg-3 col-md-6">
+
+                        <label class="form-label">
+                            Item Name
+                        </label>
+
+                        <select id="itemNameInput"
+                                class="form-select">
+
+                            <option value="">
+                                -- Select Item Name --
+                            </option>
+
+                            @if (ViewBag.ItemNameList != null)
+                            {
+                                foreach (var item in ViewBag.ItemNameList)
+                                {
+                                    <option value="@item.ItemName">
+
+                                        @item.ItemName
+
+                                    </option>
+                                }
+                            }
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- OFFERED QTY -->
+
+                    <div class="col-lg-2 col-md-6">
+
+                        <label class="form-label">
+                            Offered Qty.
+                        </label>
+
+                        <input type="number"
+                               id="offeredQtyInput"
+                               class="form-control"
+                               step="0.01" />
+
+                    </div>
+
+
+                    <!-- QUOTED PRICE -->
+
+                    <div class="col-lg-2 col-md-6">
+
+                        <label class="form-label">
+                            Quoted Price
+                        </label>
+
+                        <input type="number"
+                               id="quotedPriceInput"
+                               class="form-control"
+                               step="0.01" />
+
+                    </div>
+
+
+                    <!-- PRINT -->
+
+                    <div class="col-lg-1 col-md-4">
+
+                        <label class="form-label">
+                            Is Print?
+                        </label>
+
+                        <div class="form-check form-switch mt-1">
+
+                            <input type="checkbox"
+                                   id="isPrintInput"
+                                   class="form-check-input"
+                                   role="switch" />
+
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-3">
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox"
-                                           id="Individual">
 
-                                    <label class="form-check-label" for="Individual">
-                                        Individual
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-@* 
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input"
-                                           type="checkbox"
-                                           id="Individual">
-
-                                    <label class="form-check-label" for="Individual">
-                                        Individual
-                                    </label>
-                                </div> *@
-
-                                <label class="form-label">
-                                    Style Ref.
-                                </label>
-
-                                <!-- Dropdown Mode -->
-                                <select asp-for="StyleRef"
-                                        id="StyleRefDropdown"
-                                        class="form-control">
-                                    <option value="">-- Select Style Ref --</option>
-
-                                    @if (ViewBag.StyleRefList != null)
-                                    {
-                                        foreach (var item in ViewBag.StyleRefList)
-                                        {
-                                            <option value="@item.StyleRef">
-                                                @item.StyleRef - @item.SeasonName
-                                            </option>
-                                        }
-                                    }
-
-                                </select>
+                    </div>
 
 
-                                <!-- Individual Input Mode -->
-                                <input asp-for="StyleRef"
-                                       id="StyleRefInput"
-                                       class="form-control"
-                                       style="display:none;" />
+                    <!-- WASH -->
 
-                            </div>
+                    <div class="col-lg-1 col-md-4">
 
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label class="form-label">
-                                    Season Name 
-                                    @* <span class="text-danger">*</span> *@
-                                </label>
-                                <input asp-for="SeasonName" class="form-control individual-field" readonly />
-                                @* <span asp-validation-for="SeasonName" class="text-danger"></span> *@
-                            </div>
+                        <label class="form-label">
+                            Is Wash?
+                        </label>
 
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label class="form-label">
-                                    Quoted Price 
-                                    @* <span class="text-danger">*</span> *@
-                                </label>
-                                <input asp-for="QuotedPrice" class="form-control individual-field" readonly />
-                                @* <span asp-validation-for="QuotedPrice" class="text-danger"></span> *@
-                            </div>
+                        <div class="form-check form-switch mt-1">
 
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label class="form-label">
-                                    TGT Price 
-                                    @* <span class="text-danger">*</span> *@
-                                </label>
-                                <input asp-for="TgtPrice" class="form-control individual-field" readonly />
-                                @* <span asp-validation-for="TgtPrice" class="text-danger"></span> *@
-                            </div>
-
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label class="form-label">
-                                    Season Year 
-                                    @* <span class="text-danger">*</span> *@
-                                </label>
-                                <input asp-for="SeasonYear" class="form-control individual-field" readonly />
-                                @* <span asp-validation-for="SeasonYear" class="text-danger"></span> *@
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label class="form-label">
-                                    Buyer Name 
-                                    @* <span class="text-danger">*</span> *@
-                                </label>
-                                <input asp-for="BuyerName" class="form-control individual-field" readonly />
-                                @* <span asp-validation-for="BuyerName" class="text-danger"></span> *@
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label class="form-label">
-                                    Team Leader Name 
-                                    @* <span class="text-danger">*</span> *@
-                                </label>
-                                <input asp-for="TeamLeaderName" class="form-control individual-field" readonly />
-                                @* <span asp-validation-for="TeamLeaderName" class="text-danger"></span> *@
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label class="form-label">
-                                    Dyeing Factory
-                                    @* <span class="text-danger">*</span> *@
-                                </label>
-                                <input asp-for="E1" class="form-control individual-field" />
-                                @* <span asp-validation-for="E1" class="text-danger"></span> *@
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label class="form-label">
-                                    Sewing Factory
-                                   @*  <span class="text-danger">*</span> *@
-                                </label>
-                                <input asp-for="E2" class="form-control individual-field" />
-                                @* <span asp-validation-for="E2" class="text-danger"></span> *@
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label class="form-label">
-                                    Option-03 
-                                    @* <span class="text-danger">*</span> *@
-                                </label>
-                                <input asp-for="E3" class="form-control individual-field" />
-                                @* <span asp-validation-for="E3" class="text-danger"></span> *@
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label class="form-label">
-                                    Option-04 
-                                    @* <span class="text-danger">*</span> *@
-                                </label>
-                                <input asp-for="E4" class="form-control individual-field" />
-                                @* <span asp-validation-for="E4" class="text-danger"></span> *@
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label class="form-label">
-                                    Option-05 
-                                    @* <span class="text-danger">*</span> *@
-                                </label>
-                                <input asp-for="E5" class="form-control individual-field" />
-                                @* <span asp-validation-for="E5" class="text-danger"></span> *@
-                            </div>
-@*                             <div class="col-lg-3 col-md-4 col-sm-6">
-                                <label asp-for="InstallDate" class="form-label">
-                                    Installation Date <span class="text-danger">*</span>
-                                </label>
-                                <input asp-for="InstallDate" type="date" class="form-control required-field" readonly="@(!isAdmin)" />
-                                <span asp-validation-for="InstallDate" class="text-danger"></span>
-                            </div> *@
+                            <input type="checkbox"
+                                   id="isWashInput"
+                                   class="form-check-input"
+                                   role="switch" />
 
                         </div>
 
-                        <div class="d-flex justify-content-between mt-4">
+                    </div>
 
-                            <a asp-action="RecapeInfoList"
-                               class="btn btn-outline-secondary">
-                                ← Back
-                            </a>
 
-                            <button type="submit"
-                                    class="btn btn-primary px-4">
-                                Save
-                            </button>
+                    <!-- EMBROIDERY -->
+
+                    <div class="col-lg-1 col-md-4">
+
+                        <label class="form-label">
+                            Is Embroidery?
+                        </label>
+
+                        <div class="form-check form-switch mt-1">
+
+                            <input type="checkbox"
+                                   id="isEmbInput"
+                                   class="form-check-input"
+                                   role="switch" />
 
                         </div>
 
-                    </form>
+                    </div>
+
+
+                    <!-- ADD ITEM -->
+
+                    <div class="col-lg-1 col-md-2">
+
+                        <button type="button"
+                                id="addItem"
+                                class="btn btn-primary w-100">
+
+                            + Add Item
+
+                        </button>
+
+                    </div>
 
                 </div>
 
             </div>
 
         </div>
+
+
+        <!-- =================================================
+             ITEM TABLE
+             ================================================= -->
+
+        <div class="table-responsive">
+
+            <table class="table table-hover item-table"
+                   id="itemsTable">
+
+                <thead class="table-light text-center">
+
+                    <tr>
+
+                        <th>SL</th>
+                        <th>Item Name</th>
+                        <th>Offered Qty.</th>
+                        <th>Quoted Price</th>
+                        <th>Print</th>
+                        <th>Wash</th>
+                        <th>Embroidery</th>
+                        <th style="width: 100px;">Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="itemsBody">
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- =================================================
+             ITEM DETAILS HIDDEN INPUTS
+
+             IMPORTANT:
+             These MUST be:
+
+             ItemDetails[0].ItemName
+             ItemDetails[0].OfferedQty
+             ItemDetails[0].QuotedPrice
+             ItemDetails[0].IsPrint
+             ItemDetails[0].IsWash
+             ItemDetails[0].IsEmbroidery
+             ================================================= -->
+
+        <div id="itemDetailsInputs">
+        </div>
+
+
+        <!-- STEP 1 BUTTONS -->
+
+        <div class="d-flex justify-content-between mt-4">
+
+            <a asp-action="RecapeInfoList"
+               class="btn btn-outline-secondary">
+
+                ← Back
+
+            </a>
+
+
+            <button type="button"
+                    id="nextStep1"
+                    class="btn btn-primary px-4">
+
+                Next →
+
+            </button>
+
+        </div>
+
     </div>
 
-</div>
+
+    <!-- =====================================================
+         STEP 2
+         RECAP DETAILS
+         ===================================================== -->
+
+    <div id="step2"
+         class="step-content"
+         style="display:none;">
+
+        <h6 class="section-title">
+            Recap Details
+        </h6>
+
+
+        <!-- INTERNAL REF + PO -->
+
+        <div class="booking-info-card">
+
+            <div class="booking-info-title">
+                Internal Reference Information
+            </div>
+
+
+            <div class="row g-3">
+
+                <!-- INTERNAL REF -->
+
+                <div class="col-lg-3 col-md-4 col-sm-6">
+
+                    <label asp-for="Master.BookingNo"
+                           class="form-label">
+
+                        Internal Ref.
+
+                    </label>
+
+                    <select asp-for="Master.BookingNo"
+                            id="BookingNo"
+                            class="form-select">
+
+                        <option value="">
+                            -- Select Internal Ref. --
+                        </option>
+
+                        @if (ViewBag.BookingNoList != null)
+                        {
+                            foreach (var item in ViewBag.BookingNoList)
+                            {
+                                <option value="@item.BookingNo"
+                                        data-po="@item.PoNo">
+
+                                    @item.BookingNo
+
+                                </option>
+                            }
+                        }
+
+                    </select>
+
+                </div>
+
+
+                <!-- PO NO -->
+
+                <div class="col-lg-3 col-md-4 col-sm-6">
+
+                    <label asp-for="Master.PoNo"
+                           class="form-label">
+
+                        PO No.
+
+                    </label>
+
+                    <input asp-for="Master.PoNo"
+                           id="PoNo"
+                           class="form-control readonly-field"
+                           readonly />
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="alert alert-info py-2 mb-3">
+
+            Recap details are automatically loaded from the
+            selected Internal Ref.
+
+        </div>
+
+
+        <!-- =================================================
+             RECAP DETAILS TABLE
+             ================================================= -->
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover details-table"
+                   id="detailsTable">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>SL</th>
+                        <th>Item Name</th>
+                        <th>Body Part</th>
+                        <th>Fabrication</th>
+                        <th>GSM</th>
+                        <th>Color</th>
+                        <th>Cons / Pcs</th>
+                        <th>Total Qty</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="detailsBody">
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- =================================================
+             RECAP DETAILS HIDDEN INPUTS
+
+             IMPORTANT:
+
+             Details[0].ItemName
+             Details[0].BodyPart
+             Details[0].Fabrication
+             Details[0].Gsm
+             Details[0].Color
+             Details[0].ConsPcs
+             Details[0].TotalQty
+
+             These match:
+
+             public List<TblRecapDetails> Details { get; set; }
+             ================================================= -->
+
+        <div id="recapDetailsInputs">
+        </div>
+
+
+        <!-- NO DETAILS MESSAGE -->
+
+        <div id="noDetailsMessage"
+             class="alert alert-warning"
+             style="display:none;">
+
+            No recap details found for the selected
+            Internal Ref.
+
+        </div>
+
+
+        <!-- STEP 2 BUTTONS -->
+
+        <div class="d-flex justify-content-between mt-4">
+
+            <button type="button"
+                    id="previousStep2"
+                    class="btn btn-outline-secondary">
+
+                ← Previous
+
+            </button>
+
+
+            <button type="button"
+                    id="nextStep2"
+                    class="btn btn-primary px-4">
+
+                Next →
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STEP 3
+         ASSIGN FACTORY
+         ===================================================== -->
+
+    <div id="step3"
+         class="step-content"
+         style="display:none;">
+
+        <h6 class="section-title">
+            Assign Factory
+        </h6>
+
+
+        <div class="card recap-card border mb-4">
+
+            <div class="card-body">
+
+                <div class="row g-3">
+
+                    <!-- SEWING FACTORY -->
+
+                    <div class="col-lg-3 col-md-6">
+
+                        <label asp-for="Master.SewingFactory"
+                               class="form-label">
+
+                            Sewing Factory
+
+                        </label>
+
+                        <select asp-for="Master.SewingFactory"
+                                class="form-select">
+
+                            <option value="">
+                                -- Select Sewing Factory --
+                            </option>
+
+                            <option value="Cotton Clothing BD Ltd.">
+                                Cotton Clothing BD Ltd.
+                            </option>
+
+                            <option value="Tropical Knitex Ltd.">
+                                Tropical Knitex Ltd.
+                            </option>
+
+                            <option value="Cotton Clout [BD] ltd">
+                                Cotton Clout [BD] ltd
+                            </option>
+
+                            <option value="Cotton Club BD ltd [Extended Part].">
+                                Cotton Club BD ltd [Extended Part].
+                            </option>
+
+                            <option value="Noor Checks & Stripes Ltd.">
+                                Noor Checks & Stripes Ltd.
+                            </option>
+
+                            <option value="Cotton Club BD Ltd.">
+                                Cotton Club BD Ltd.
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- DYEING FACTORY -->
+
+                    <div class="col-lg-3 col-md-6">
+
+                        <label asp-for="Master.DyeingFactory"
+                               class="form-label">
+
+                            Dyeing Factory
+
+                        </label>
+
+                        <select asp-for="Master.DyeingFactory"
+                                class="form-select">
+
+                            <option value="">
+                                -- Select Dyeing Factory --
+                            </option>
+
+                            <option value="Tropical Knitex Ltd.">
+                                Tropical Knitex Ltd.
+                            </option>
+
+                            <option value="Cotton Club BD Ltd.">
+                                Cotton Club BD Ltd.
+                            </option>
+
+                            <option value="Noor Checks & Stripes Ltd.">
+                                Noor Checks & Stripes Ltd.
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 3 BUTTONS -->
+
+        <div class="d-flex justify-content-between mt-4">
+
+            <button type="button"
+                    id="previousStep3"
+                    class="btn btn-outline-secondary">
+
+                ← Previous
+
+            </button>
+
+
+            <button type="submit"
+                    id="saveRecap"
+                    class="btn btn-success px-5">
+
+                Save Recap
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
 
 @section Scripts {
 
@@ -211,208 +897,21 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-    <script>
 
-        $(document).ready(function () {
+    <!-- SELECT2 CSS -->
 
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
 
-            // Initial state
-            setNormalMode();
 
+    <!-- SELECT2 JS -->
 
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-            // Individual checkbox change
-            $('#Individual').change(function () {
 
+    <!-- RECAP INFO JS -->
 
-                if ($(this).is(':checked')) {
+    <script src="~/js/recapinfo/recapinfo.js"
+            asp-append-version="true"></script>
 
-
-                    // Clear existing data
-                    clearRecapeData();
-
-
-                    // Individual mode
-                    $('#StyleRefDropdown').hide();
-
-                    $('#StyleRefInput').show();
-
-
-                    // Make fields editable
-                    makeFieldsEditable();
-
-
-                }
-                else {
-
-
-                    // Normal mode
-                    $('#StyleRefDropdown').show();
-
-                    $('#StyleRefInput').hide();
-
-
-                    // Clear manual style ref
-                    $('#StyleRefInput').val('');
-
-
-                    // Make fields readonly
-                    makeFieldsReadonly();
-
-
-                }
-
-
-            });
-
-
-
-            // Style Ref dropdown change
-            $('#StyleRefDropdown').change(function () {
-
-
-                var styleRef = $(this).val();
-
-
-                if (styleRef !== '') {
-
-
-                    $.ajax({
-
-                        url: '@Url.Action("GetRecapeInfo", "RecapeInfo")',
-
-                        type: 'GET',
-
-                        data: {
-                            styleRef: styleRef
-                        },
-
-
-                        success: function (data) {
-
-
-                            $('#SeasonName').val(data.seasonName);
-
-                            $('#QuotedPrice').val(data.quotedPrice);
-
-                            $('#TgtPrice').val(data.tgtPrice);
-
-                            $('#SeasonYear').val(data.seasonYear);
-
-                            $('#BuyerName').val(data.buyerName);
-
-                            $('#TeamLeaderName').val(data.teamLeaderName);
-
-
-                        },
-
-
-                        error: function () {
-
-                            alert('Unable to load recape information.');
-
-                        }
-
-
-                    });
-
-
-                }
-                else {
-
-                    clearRecapeData();
-
-                }
-
-
-            });
-
-
-
-            // Clear all data
-            function clearRecapeData() {
-
-
-                $('#StyleRefDropdown').val('');
-
-                $('#StyleRefInput').val('');
-
-                $('#SeasonName').val('');
-
-                $('#QuotedPrice').val('');
-
-                $('#TgtPrice').val('');
-
-                $('#SeasonYear').val('');
-
-                $('#BuyerName').val('');
-
-                $('#TeamLeaderName').val('');
-
-            }
-
-
-
-            // Make readonly fields editable
-            function makeFieldsEditable() {
-
-
-                $('#SeasonName').prop('readonly', false);
-
-                $('#QuotedPrice').prop('readonly', false);
-
-                $('#TgtPrice').prop('readonly', false);
-
-                $('#SeasonYear').prop('readonly', false);
-
-                $('#BuyerName').prop('readonly', false);
-
-                $('#TeamLeaderName').prop('readonly', false);
-
-
-            }
-
-
-
-            // Make fields readonly
-            function makeFieldsReadonly() {
-
-
-                $('#SeasonName').prop('readonly', true);
-
-                $('#QuotedPrice').prop('readonly', true);
-
-                $('#TgtPrice').prop('readonly', true);
-
-                $('#SeasonYear').prop('readonly', true);
-
-                $('#BuyerName').prop('readonly', true);
-
-                $('#TeamLeaderName').prop('readonly', true);
-
-
-            }
-
-
-
-            // Normal initial mode
-            function setNormalMode() {
-
-
-                $('#StyleRefDropdown').show();
-
-                $('#StyleRefInput').hide();
-
-
-                makeFieldsReadonly();
-
-
-            }
-
-
-
-        });
-
-
-    </script>
 }

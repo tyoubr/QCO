@@ -35,6 +35,9 @@ public partial class QCOContext : DbContext
     public DbSet<SewingEfficiencyDetailModel> SewingEfficiencyDetail { get; set; }
     public virtual DbSet<TblInderectManpower> TblInderectManpower { get; set; }
     public virtual DbSet<TblRecapeInfo> TblRecapeInfo { get; set; }
+    public virtual DbSet<TblRecapDetails> TblRecapDetails { get; set; }
+    public virtual DbSet<TblRecapMaster> TblRecapMasters { get; set; }
+    public virtual DbSet<TblRecapItemDetails> TblRecapItemDetails { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect sensitive information, use a configuration file for your connection string.
@@ -468,6 +471,66 @@ public partial class QCOContext : DbContext
             entity.Property(e => e.Trdate).HasColumnType("datetime").HasColumnName("TRDATE");
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime").HasColumnName("UPDATED_AT");
             entity.Property(e => e.UpdatedBy).HasMaxLength(50).HasColumnName("UPDATED_BY");
+        });
+        modelBuilder.Entity<TblRecapDetails>(entity =>
+        {
+            entity.HasKey(e => e.Rcdid);
+
+            entity.ToTable("TBL_RECAP_DETAILS");
+
+            entity.Property(e => e.Rcdid).HasColumnName("RCDID");
+            entity.Property(e => e.ConsPerUnit).HasColumnName("CONS_PER_UNIT");
+            entity.Property(e => e.Fabrication).HasMaxLength(250).HasColumnName("FABRICATION");
+            entity.Property(e => e.Gsm).HasColumnName("GSM");
+            entity.Property(e => e.ItemName).HasMaxLength(50).HasColumnName("ITEM_NAME");
+            entity.Property(e => e.BodyPart).HasMaxLength(50).HasColumnName("BODY_PART");
+            entity.Property(e => e.ColorName).HasMaxLength(50).HasColumnName("COLOR_NAME");
+            entity.Property(e => e.Rcmid).HasColumnName("RCMID");
+            entity.Property(e => e.TotalQty).HasColumnName("TOTAL_QTY");
+            entity.HasOne(d => d.Rcm).WithMany(p => p.TblRecapDetails).HasForeignKey(d => d.Rcmid)
+                .HasConstraintName("FK_TBL_RECAP_DETAILS_TBL_RECAP_MASTER");
+        });
+
+        modelBuilder.Entity<TblRecapMaster>(entity =>
+        {
+            entity.HasKey(e => e.Rcmid);
+            entity.ToTable("TBL_RECAP_MASTER");
+            entity.Property(e => e.Rcmid).HasColumnName("RCMID");
+            entity.Property(e => e.ActShipmentDate).HasColumnName("ACT_SHIPMENT_DATE");
+            entity.Property(e => e.BookingNo).HasMaxLength(50).HasColumnName("BOOKING_NO");
+            entity.Property(e => e.BuyerName).HasMaxLength(50).HasColumnName("BUYER_NAME");
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime").HasColumnName("CREATED_AT");
+            entity.Property(e => e.CreatedBy).HasMaxLength(50).HasColumnName("CREATED_BY");
+            entity.Property(e => e.FacShipmentDate).HasColumnName("FAC_SHIPMENT_DATE");
+            entity.Property(e => e.Photo).HasColumnName("PHOTO");
+            entity.Property(e => e.PoNo).HasMaxLength(50).HasColumnName("PO_NO");
+            entity.Property(e => e.TeamLeaderName).HasMaxLength(50).HasColumnName("TEAM_LEADER_NAME");
+            entity.Property(e => e.RecapMonth).HasMaxLength(50).HasColumnName("RECAP_MONTH");
+            entity.Property(e => e.RecapeYear).HasColumnName("RECAPE_YEAR");
+            entity.Property(e => e.SewingFactory).HasMaxLength(50).HasColumnName("SEWING_FACTORY");
+            entity.Property(e => e.DyeingFactory).HasMaxLength(50).HasColumnName("DYEING_FACTORY");
+            entity.Property(e => e.StyleName).HasMaxLength(50).HasColumnName("STYLE_NAME");
+            entity.Property(e => e.Remarks).HasMaxLength(50).HasColumnName("REMARKS");
+            entity.Property(e => e.SubmissionDate).HasColumnName("SUBMISSION_DATE");
+            entity.Property(e => e.UpdatedAt).HasColumnType("datetime").HasColumnName("UPDATED_AT");
+            entity.Property(e => e.UpdatedBy).HasMaxLength(50).HasColumnName("UPDATED_BY");
+        });
+
+        modelBuilder.Entity<TblRecapItemDetails>(entity =>
+        {
+            entity.HasKey(e => e.Itemid);
+            entity.ToTable("TBL_RECAP_ITEM_DETAILS");
+            entity.Property(e => e.Itemid).HasColumnName("ITEMID");
+            entity.Property(e => e.IsEmb).HasColumnName("IS_EMB");
+            entity.Property(e => e.IsPrint).HasColumnName("IS_PRINT");
+            entity.Property(e => e.IsWash).HasColumnName("IS_WASH");
+            entity.Property(e => e.ItemName).HasMaxLength(50).HasColumnName("ITEM_NAME");
+            entity.Property(e => e.OfferedQty).HasColumnName("OFFERED_QTY");
+            entity.Property(e => e.QuoatedPrice).HasColumnName("QUOATED_PRICE");
+            entity.Property(e => e.Rcmid).HasColumnName("RCMID");
+            entity.HasOne(d => d.Rcm).WithMany(p => p.TblRecapItemDetails)
+                .HasForeignKey(d => d.Rcmid)
+                .HasConstraintName("FK_TBL_RECAP_ITEM_DETAILS_TBL_RECAP_ITEM_DETAILS");
         });
         OnModelCreatingPartial(modelBuilder);
     }
