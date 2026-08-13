@@ -20,6 +20,7 @@ public partial class TblRecapItemDetails
     public int? IsWash { get; set; }
 
     public int? IsEmb { get; set; }
+    public string? Remarks { get; set; }
 
     public virtual TblRecapMaster? Rcm { get; set; }
 }

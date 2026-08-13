@@ -156,3 +156,20 @@
         min-width: 100px;
     }
 }
+
+#itemsBody td {
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+
+    #itemsBody .item-name-cell {
+        min-width: 180px;
+        width: 220px;
+        white-space: normal;
+    }
+
+    #itemsBody .remarks-cell {
+        min-width: 180px;
+        width: 220px;
+        white-space: normal;
+    }

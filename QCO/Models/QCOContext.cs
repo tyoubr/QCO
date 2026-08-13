@@ -526,6 +526,7 @@ public partial class QCOContext : DbContext
             entity.Property(e => e.IsPrint).HasColumnName("IS_PRINT");
             entity.Property(e => e.IsWash).HasColumnName("IS_WASH");
             entity.Property(e => e.ItemName).HasMaxLength(50).HasColumnName("ITEM_NAME");
+            entity.Property(e => e.Remarks).HasMaxLength(100).HasColumnName("REMARKS");
             entity.Property(e => e.OfferedQty).HasColumnName("OFFERED_QTY");
             entity.Property(e => e.QuoatedPrice).HasColumnName("QUOATED_PRICE");
             entity.Property(e => e.Rcmid).HasColumnName("RCMID");

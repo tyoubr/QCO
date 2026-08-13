@@ -1,5 +1,5 @@
 ﻿// =========================================================
-// RECAP INFO - CREATE PAGE JS
+// RECAP INFO - 4 STEP CREATE / EDIT PAGE JS
 // =========================================================
 
 $(document).ready(function () {
@@ -42,6 +42,8 @@ $(document).ready(function () {
 
     let currentStep = 1;
 
+    const totalSteps = 4;
+
 
     // =====================================================
     // SHOW STEP
@@ -49,17 +51,38 @@ $(document).ready(function () {
 
     function showStep(step) {
 
+        // ---------------------------------------------
+        // Safety
+        // ---------------------------------------------
+
+        if (step < 1) {
+            step = 1;
+        }
+
+        if (step > totalSteps) {
+            step = totalSteps;
+        }
+
+
         currentStep = step;
 
-        $("#step1").hide();
-        $("#step2").hide();
-        $("#step3").hide();
+
+        // =================================================
+        // HIDE ALL STEP CONTENT
+        // =================================================
+
+        $(".step-content").hide();
+
+
+        // =================================================
+        // SHOW CURRENT STEP
+        // =================================================
 
         $("#step" + step).show();
 
 
         // =================================================
-        // STEPPER UI
+        // RESET STEPPER
         // =================================================
 
         $(".step-wrapper")
@@ -73,13 +96,18 @@ $(document).ready(function () {
         // STEP 1
         // =================================================
 
-        if (step >= 1) {
+        if (step === 1) {
 
-            $("#step1Wrapper").addClass(
-                step === 1
-                    ? "active"
-                    : "completed"
-            );
+            $("#step1Wrapper")
+                .addClass("active");
+        }
+        else {
+
+            $("#step1Wrapper")
+                .addClass("completed");
+
+            $("#stepLine1")
+                .addClass("active");
         }
 
 
@@ -87,16 +115,18 @@ $(document).ready(function () {
         // STEP 2
         // =================================================
 
-        if (step >= 2) {
+        if (step === 2) {
 
-            $("#stepLine1")
+            $("#step2Wrapper")
                 .addClass("active");
+        }
+        else if (step > 2) {
 
-            $("#step2Wrapper").addClass(
-                step === 2
-                    ? "active"
-                    : "completed"
-            );
+            $("#step2Wrapper")
+                .addClass("completed");
+
+            $("#stepLine2")
+                .addClass("active");
         }
 
 
@@ -104,17 +134,40 @@ $(document).ready(function () {
         // STEP 3
         // =================================================
 
-        if (step >= 3) {
+        if (step === 3) {
 
-            $("#stepLine2")
+            $("#step3Wrapper")
                 .addClass("active");
-
-            $("#step3Wrapper").addClass(
-                step === 3
-                    ? "active"
-                    : "completed"
-            );
         }
+        else if (step > 3) {
+
+            $("#step3Wrapper")
+                .addClass("completed");
+
+            $("#stepLine3")
+                .addClass("active");
+        }
+
+
+        // =================================================
+        // STEP 4
+        // =================================================
+
+        if (step === 4) {
+
+            $("#step4Wrapper")
+                .addClass("active");
+        }
+
+
+        // =================================================
+        // DEBUG
+        // =================================================
+
+        console.log(
+            "Current Step:",
+            currentStep
+        );
     }
 
 
@@ -162,14 +215,12 @@ $(document).ready(function () {
             const quotedPrice =
                 $("#quotedPriceInput").val();
 
+            const remarks =
+                $("#remarksInput").val();
+
 
             // =================================================
-            // MODEL:
-            // TblRecapItemDetails
-            //
-            // IsPrint
-            // IsWash
-            // IsEmb
+            // CHECKBOX VALUES
             // =================================================
 
             const isPrint =
@@ -239,7 +290,7 @@ $(document).ready(function () {
 
 
             // =================================================
-            // DISPLAY
+            // DISPLAY TEXT
             // =================================================
 
             const printText =
@@ -263,7 +314,6 @@ $(document).ready(function () {
             // =================================================
 
             const row = `
-
                 <tr
                     data-item-name="${escapeHtmlAttribute(itemName)}"
                     data-offered-qty="${escapeHtmlAttribute(offeredQty)}"
@@ -271,37 +321,42 @@ $(document).ready(function () {
                     data-is-print="${isPrint}"
                     data-is-wash="${isWash}"
                     data-is-emb="${isEmb}"
+                    data-remarks="${escapeHtmlAttribute(remarks)}"
                 >
 
-                    <td>
+                    <td class="text-center align-middle">
                         ${serial}
                     </td>
 
-                    <td>
+                    <td class="text-center align-middle item-name-cell">
                         ${escapeHtml(itemName)}
                     </td>
 
-                    <td>
+                    <td class="text-center align-middle">
                         ${escapeHtml(offeredQty)}
                     </td>
 
-                    <td>
+                    <td class="text-center align-middle">
                         ${escapeHtml(quotedPrice)}
                     </td>
 
-                    <td>
+                    <td class="text-center align-middle">
                         ${printText}
                     </td>
 
-                    <td>
+                    <td class="text-center align-middle">
                         ${washText}
                     </td>
 
-                    <td>
+                    <td class="text-center align-middle">
                         ${embText}
                     </td>
 
-                    <td>
+                    <td class="text-center align-middle remarks-cell">
+                        ${escapeHtml(remarks)}
+                    </td>
+
+                    <td class="text-center align-middle">
 
                         <button
                             type="button"
@@ -316,6 +371,10 @@ $(document).ready(function () {
                 </tr>
             `;
 
+
+            // =================================================
+            // ADD ROW
+            // =================================================
 
             $("#itemsBody")
                 .append(row);
@@ -335,31 +394,29 @@ $(document).ready(function () {
             $("#quotedPriceInput")
                 .val("");
 
+            $("#remarksInput")
+                .val("");
+
             $("#isPrintInput")
-                .prop(
-                    "checked",
-                    false
-                );
+                .prop("checked", false);
 
             $("#isWashInput")
-                .prop(
-                    "checked",
-                    false
-                );
+                .prop("checked", false);
 
             $("#isEmbInput")
-                .prop(
-                    "checked",
-                    false
-                );
+                .prop("checked", false);
 
 
             // =================================================
-            // BUILD HIDDEN INPUTS
+            // HIDDEN INPUTS
             // =================================================
 
             buildItemHiddenInputs();
 
+
+            // =================================================
+            // RENUMBER
+            // =================================================
 
             renumberItems();
         }
@@ -379,9 +436,7 @@ $(document).ready(function () {
                 .closest("tr")
                 .remove();
 
-
             renumberItems();
-
 
             buildItemHiddenInputs();
         }
@@ -426,16 +481,8 @@ $(document).ready(function () {
         }
 
 
-        // -------------------------------------------------
-        // REMOVE OLD INPUTS
-        // -------------------------------------------------
-
         $container.empty();
 
-
-        // -------------------------------------------------
-        // LOOP ITEM ROWS
-        // -------------------------------------------------
 
         $("#itemsBody tr")
             .each(
@@ -445,10 +492,6 @@ $(document).ready(function () {
                         $(this);
 
 
-                    // =================================================
-                    // GET DATA FROM HTML DATA ATTRIBUTES
-                    // =================================================
-
                     const itemName =
                         $row.attr("data-item-name") || "";
 
@@ -457,6 +500,9 @@ $(document).ready(function () {
 
                     const quotedPrice =
                         $row.attr("data-quoted-price") || "";
+
+                    const remarks =
+                        $row.attr("data-remarks") || "";
 
                     const isPrint =
                         parseInt(
@@ -478,7 +524,7 @@ $(document).ready(function () {
 
 
                     // =================================================
-                    // MODEL MATCH
+                    // ITEM NAME
                     // =================================================
 
                     appendHiddenInput(
@@ -488,6 +534,10 @@ $(document).ready(function () {
                     );
 
 
+                    // =================================================
+                    // OFFERED QTY
+                    // =================================================
+
                     appendHiddenInput(
                         $container,
                         `ItemDetails[${index}].OfferedQty`,
@@ -495,9 +545,11 @@ $(document).ready(function () {
                     );
 
 
+                    // =================================================
+                    // QUOTED PRICE
                     // IMPORTANT:
-                    // Model property is QuoatedPrice
-                    // NOT QuotedPrice
+                    // Model property = QuoatedPrice
+                    // =================================================
 
                     appendHiddenInput(
                         $container,
@@ -506,12 +558,31 @@ $(document).ready(function () {
                     );
 
 
+                    // =================================================
+                    // REMARKS
+                    // =================================================
+
+                    appendHiddenInput(
+                        $container,
+                        `ItemDetails[${index}].Remarks`,
+                        remarks
+                    );
+
+
+                    // =================================================
+                    // PRINT
+                    // =================================================
+
                     appendHiddenInput(
                         $container,
                         `ItemDetails[${index}].IsPrint`,
                         isPrint
                     );
 
+
+                    // =================================================
+                    // WASH
+                    // =================================================
 
                     appendHiddenInput(
                         $container,
@@ -520,8 +591,9 @@ $(document).ready(function () {
                     );
 
 
-                    // IMPORTANT:
-                    // Model property is IsEmb
+                    // =================================================
+                    // EMBROIDERY
+                    // =================================================
 
                     appendHiddenInput(
                         $container,
@@ -530,37 +602,11 @@ $(document).ready(function () {
                     );
                 }
             );
-
-
-        // =================================================
-        // DEBUG
-        // =================================================
-
-        console.log(
-            "========== ITEM DETAILS =========="
-        );
-
-        console.log(
-            "ItemDetails rows:",
-            $("#itemsBody tr").length
-        );
-
-        console.log(
-            "ItemDetails hidden inputs:",
-            $container.find(
-                "input[name^='ItemDetails[']"
-            ).length
-        );
-
-        console.log(
-            "ItemDetails HTML:",
-            $container.html()
-        );
     }
 
 
     // =====================================================
-    // HELPER - APPEND HIDDEN INPUT
+    // APPEND HIDDEN INPUT
     // =====================================================
 
     function appendHiddenInput(
@@ -570,13 +616,17 @@ $(document).ready(function () {
     ) {
 
         $("<input>", {
+
             type: "hidden",
+
             name: name,
+
             value:
                 value === null ||
                     value === undefined
                     ? ""
                     : value
+
         })
             .appendTo($container);
     }
@@ -590,13 +640,13 @@ $(document).ready(function () {
         "click",
         function () {
 
-            // ---------------------------------------------
-            // Validate Style
-            // ---------------------------------------------
-
             const styleName =
                 $("#StyleName").val();
 
+
+            // ---------------------------------------------
+            // STYLE VALIDATION
+            // ---------------------------------------------
 
             if (!styleName) {
 
@@ -609,7 +659,7 @@ $(document).ready(function () {
 
 
             // ---------------------------------------------
-            // Validate Item
+            // ITEM VALIDATION
             // ---------------------------------------------
 
             const itemCount =
@@ -627,14 +677,14 @@ $(document).ready(function () {
 
 
             // ---------------------------------------------
-            // Rebuild before next step
+            // REBUILD
             // ---------------------------------------------
 
             buildItemHiddenInputs();
 
 
             // ---------------------------------------------
-            // Go Step 2
+            // STEP 2
             // ---------------------------------------------
 
             showStep(2);
@@ -654,9 +704,9 @@ $(document).ready(function () {
                 $(this).val();
 
 
-            // ---------------------------------------------
-            // Clear old data
-            // ---------------------------------------------
+            // =================================================
+            // CLEAR OLD DATA
+            // =================================================
 
             $("#PoNo")
                 .val("");
@@ -671,48 +721,43 @@ $(document).ready(function () {
                 .hide();
 
 
-            // ---------------------------------------------
-            // No booking selected
-            //
-            // IMPORTANT:
-            // Internal Ref is OPTIONAL.
-            // ---------------------------------------------
+            // =================================================
+            // NO BOOKING
+            // =================================================
 
             if (!bookingNo) {
 
                 console.log(
-                    "Internal Ref cleared. Recap Details are optional."
+                    "Internal Ref cleared."
                 );
 
                 return;
             }
 
 
-            // ---------------------------------------------
-            // Loading
-            // ---------------------------------------------
+            // =================================================
+            // LOADING
+            // =================================================
 
-            $("#detailsBody").html(`
+            $("#detailsBody")
+                .html(`
 
-                <tr>
+                    <tr>
 
-                    <td colspan="8"
-                        class="text-center">
+                        <td colspan="9"
+                            class="text-center">
 
-                        Loading Recap Details...
+                            Loading Recap Details...
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
 
-            `);
+                `);
 
 
             $("#BookingNo")
-                .prop(
-                    "disabled",
-                    true
-                );
+                .prop("disabled", true);
 
 
             // =================================================
@@ -750,10 +795,6 @@ $(document).ready(function () {
                         );
 
 
-                        // -----------------------------------------
-                        // Clear
-                        // -----------------------------------------
-
                         $("#detailsBody")
                             .empty();
 
@@ -765,7 +806,7 @@ $(document).ready(function () {
 
 
                         // -----------------------------------------
-                        // Response validation
+                        // RESPONSE VALIDATION
                         // -----------------------------------------
 
                         if (!response) {
@@ -806,26 +847,16 @@ $(document).ready(function () {
                         // -----------------------------------------
 
                         const data =
-                            Array.isArray(
-                                response.data
-                            )
+                            Array.isArray(response.data)
                                 ? response.data
                                 : [];
-
-
-                        console.log(
-                            "Recap Detail Count:",
-                            data.length
-                        );
 
 
                         // -----------------------------------------
                         // NO DATA
                         // -----------------------------------------
 
-                        if (
-                            data.length === 0
-                        ) {
+                        if (data.length === 0) {
 
                             $("#noDetailsMessage")
                                 .show();
@@ -836,7 +867,7 @@ $(document).ready(function () {
 
                                     <tr>
 
-                                        <td colspan="8"
+                                        <td colspan="9"
                                             class="text-center text-muted">
 
                                             No recap details found for this Internal Ref.
@@ -856,14 +887,7 @@ $(document).ready(function () {
                         // -----------------------------------------
 
                         data.forEach(
-                            function (
-                                item,
-                                index
-                            ) {
-
-                                // =================================
-                                // CONTROLLER RESPONSE
-                                // =================================
+                            function (item, index) {
 
                                 const itemName =
                                     item.itemName ?? "";
@@ -889,52 +913,66 @@ $(document).ready(function () {
 
                                 const row = `
 
-                                    <tr>
+                                    <tr
 
-                                        <td>
+                                        data-item-name="${escapeHtmlAttribute(itemName)}"
+
+                                        data-body-part="${escapeHtmlAttribute(bodyPart)}"
+
+                                        data-fabrication="${escapeHtmlAttribute(fabrication)}"
+
+                                        data-gsm="${escapeHtmlAttribute(gsm)}"
+
+                                        data-color="${escapeHtmlAttribute(color)}"
+
+                                        data-cons-pcs="${escapeHtmlAttribute(consPcs)}"
+
+                                        data-total-qty="${escapeHtmlAttribute(totalQty)}"
+
+                                    >
+
+                                        <td class="text-center align-middle">
                                             ${index + 1}
                                         </td>
 
-                                        <td>
-                                            ${escapeHtml(
-                                    itemName
-                                )}
+                                        <td class="text-center align-middle">
+                                            ${escapeHtml(itemName)}
                                         </td>
 
-                                        <td>
-                                            ${escapeHtml(
-                                    bodyPart
-                                )}
+                                        <td class="text-center align-middle">
+                                            ${escapeHtml(bodyPart)}
                                         </td>
 
-                                        <td>
-                                            ${escapeHtml(
-                                    fabrication
-                                )}
+                                        <td class="text-center align-middle">
+                                            ${escapeHtml(fabrication)}
                                         </td>
 
-                                        <td>
-                                            ${escapeHtml(
-                                    gsm
-                                )}
+                                        <td class="text-center align-middle">
+                                            ${escapeHtml(gsm)}
                                         </td>
 
-                                        <td>
-                                            ${escapeHtml(
-                                    color
-                                )}
+                                        <td class="text-center align-middle">
+                                            ${escapeHtml(color)}
                                         </td>
 
-                                        <td>
-                                            ${escapeHtml(
-                                    consPcs
-                                )}
+                                        <td class="text-center align-middle">
+                                            ${escapeHtml(consPcs)}
                                         </td>
 
-                                        <td>
-                                            ${escapeHtml(
-                                    totalQty
-                                )}
+                                        <td class="text-center align-middle">
+                                            ${escapeHtml(totalQty)}
+                                        </td>
+
+                                        <td class="text-center align-middle">
+
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-danger delete-recap-detail">
+
+                                                Remove
+
+                                            </button>
+
                                         </td>
 
                                     </tr>
@@ -949,12 +987,10 @@ $(document).ready(function () {
 
 
                         // -----------------------------------------
-                        // Generate hidden inputs
+                        // HIDDEN INPUTS
                         // -----------------------------------------
 
-                        buildRecapDetailHiddenInputs(
-                            data
-                        );
+                        buildRecapDetailHiddenInputsFromTable();
                     },
 
 
@@ -1013,12 +1049,90 @@ $(document).ready(function () {
 
 
     // =====================================================
+    // DELETE RECAP DETAIL
+    // =====================================================
+
+    $(document).on(
+        "click",
+        ".delete-recap-detail",
+        function () {
+
+            $(this)
+                .closest("tr")
+                .remove();
+
+
+            renumberRecapDetails();
+
+
+            buildRecapDetailHiddenInputsFromTable();
+
+
+            const remainingRows =
+                $("#detailsBody tr")
+                    .filter(function () {
+
+                        return $(this)
+                            .find(".delete-recap-detail")
+                            .length > 0;
+
+                    })
+                    .length;
+
+
+            if (remainingRows === 0) {
+
+                $("#noDetailsMessage")
+                    .show();
+
+
+                $("#detailsBody")
+                    .html(`
+
+                        <tr>
+
+                            <td colspan="9"
+                                class="text-center text-muted">
+
+                                No Recap Details available.
+
+                            </td>
+
+                        </tr>
+
+                    `);
+
+
+                $("#recapDetailsInputs")
+                    .empty();
+            }
+        }
+    );
+
+
+    // =====================================================
+    // RENUMBER RECAP DETAILS
+    // =====================================================
+
+    function renumberRecapDetails() {
+
+        $("#detailsBody tr")
+            .each(
+                function (index) {
+
+                    $(this)
+                        .find("td:first")
+                        .text(index + 1);
+                }
+            );
+    }
+
+
+    // =====================================================
     // BUILD RECAP DETAIL HIDDEN INPUTS
     // =====================================================
 
-    function buildRecapDetailHiddenInputs(
-        data
-    ) {
+    function buildRecapDetailHiddenInputsFromTable() {
 
         const $container =
             $("#recapDetailsInputs");
@@ -1034,9 +1148,122 @@ $(document).ready(function () {
         }
 
 
-        // ---------------------------------------------
-        // CLEAR OLD INPUTS
-        // ---------------------------------------------
+        $container.empty();
+
+
+        $("#detailsBody tr")
+            .each(
+                function (index) {
+
+                    const $row =
+                        $(this);
+
+
+                    // -----------------------------------------
+                    // Ignore message row
+                    // -----------------------------------------
+
+                    if (
+                        !$row.find(
+                            ".delete-recap-detail"
+                        ).length
+                    ) {
+
+                        return;
+                    }
+
+
+                    const itemName =
+                        $row.attr("data-item-name") || "";
+
+                    const bodyPart =
+                        $row.attr("data-body-part") || "";
+
+                    const fabrication =
+                        $row.attr("data-fabrication") || "";
+
+                    const gsm =
+                        $row.attr("data-gsm") || "";
+
+                    const color =
+                        $row.attr("data-color") || "";
+
+                    const consPcs =
+                        $row.attr("data-cons-pcs") || "";
+
+                    const totalQty =
+                        $row.attr("data-total-qty") || "";
+
+
+                    // =================================================
+                    // MODEL FIELDS
+                    // =================================================
+
+                    appendHiddenInput(
+                        $container,
+                        `Details[${index}].ItemName`,
+                        itemName
+                    );
+
+                    appendHiddenInput(
+                        $container,
+                        `Details[${index}].BodyPart`,
+                        bodyPart
+                    );
+
+                    appendHiddenInput(
+                        $container,
+                        `Details[${index}].Fabrication`,
+                        fabrication
+                    );
+
+                    appendHiddenInput(
+                        $container,
+                        `Details[${index}].Gsm`,
+                        gsm
+                    );
+
+                    appendHiddenInput(
+                        $container,
+                        `Details[${index}].ColorName`,
+                        color
+                    );
+
+                    appendHiddenInput(
+                        $container,
+                        `Details[${index}].ConsPerUnit`,
+                        consPcs
+                    );
+
+                    appendHiddenInput(
+                        $container,
+                        `Details[${index}].TotalQty`,
+                        totalQty
+                    );
+                }
+            );
+    }
+
+
+    // =====================================================
+    // OLD FUNCTION SUPPORT
+    // =====================================================
+
+    function buildRecapDetailHiddenInputs(data) {
+
+        const $container =
+            $("#recapDetailsInputs");
+
+
+        if (!$container.length) {
+
+            console.error(
+                "#recapDetailsInputs not found."
+            );
+
+            return;
+        }
+
 
         $container.empty();
 
@@ -1046,27 +1273,12 @@ $(document).ready(function () {
             data.length === 0
         ) {
 
-            console.warn(
-                "No recap details to generate."
-            );
-
             return;
         }
 
 
-        // ---------------------------------------------
-        // Generate Details[index]
-        // ---------------------------------------------
-
         data.forEach(
-            function (
-                item,
-                index
-            ) {
-
-                // =========================================
-                // CONTROLLER RESPONSE
-                // =========================================
+            function (item, index) {
 
                 const itemName =
                     item.itemName ?? "";
@@ -1090,17 +1302,11 @@ $(document).ready(function () {
                     item.totalQty ?? "";
 
 
-                // =========================================
-                // MODEL:
-                // TblRecapDetails
-                // =========================================
-
                 appendHiddenInput(
                     $container,
                     `Details[${index}].ItemName`,
                     itemName
                 );
-
 
                 appendHiddenInput(
                     $container,
@@ -1108,13 +1314,11 @@ $(document).ready(function () {
                     bodyPart
                 );
 
-
                 appendHiddenInput(
                     $container,
                     `Details[${index}].Fabrication`,
                     fabrication
                 );
-
 
                 appendHiddenInput(
                     $container,
@@ -1122,19 +1326,11 @@ $(document).ready(function () {
                     gsm
                 );
 
-
-                // IMPORTANT:
-                // Model property is ColorName
-
                 appendHiddenInput(
                     $container,
                     `Details[${index}].ColorName`,
                     color
                 );
-
-
-                // IMPORTANT:
-                // Model property is ConsPerUnit
 
                 appendHiddenInput(
                     $container,
@@ -1142,45 +1338,12 @@ $(document).ready(function () {
                     consPcs
                 );
 
-
                 appendHiddenInput(
                     $container,
                     `Details[${index}].TotalQty`,
                     totalQty
                 );
             }
-        );
-
-
-        // =================================================
-        // DEBUG
-        // =================================================
-
-        const detailCount =
-            $container
-                .find(
-                    "input[name^='Details[']"
-                )
-                .length;
-
-
-        console.log(
-            "========== RECAP DETAILS =========="
-        );
-
-        console.log(
-            "Generated Details input count:",
-            detailCount
-        );
-
-        console.log(
-            "Generated Details row count:",
-            data.length
-        );
-
-        console.log(
-            "Details HTML:",
-            $container.html()
         );
     }
 
@@ -1211,28 +1374,13 @@ $(document).ready(function () {
 
 
             // =================================================
-            // INTERNAL REF IS OPTIONAL
+            // OPTIONAL INTERNAL REF
             // =================================================
-            //
-            // If Internal Ref is EMPTY:
-            //     No warning
-            //     No detail validation
-            //     Go directly to Step 3
-            //
-            // If Internal Ref EXISTS:
-            //     Details must exist
-            //
-            // =================================================
-
-
-            // ---------------------------------------------
-            // NO INTERNAL REF
-            // ---------------------------------------------
 
             if (!bookingNo) {
 
                 console.log(
-                    "No Internal Ref selected. Skipping Recap Detail validation."
+                    "No Internal Ref selected."
                 );
 
                 showStep(3);
@@ -1241,28 +1389,28 @@ $(document).ready(function () {
             }
 
 
-            // ---------------------------------------------
-            // INTERNAL REF EXISTS
-            // ---------------------------------------------
+            // =================================================
+            // REBUILD DETAILS
+            // =================================================
+
+            buildRecapDetailHiddenInputsFromTable();
+
+
+            // =================================================
+            // COUNT REAL DETAILS
+            // =================================================
 
             const detailCount =
-                $("#recapDetailsInputs")
-                    .find(
-                        "input[name^='Details['][name$='.ItemName']"
-                    )
+                $("#detailsBody tr")
+                    .filter(function () {
+
+                        return $(this)
+                            .find(".delete-recap-detail")
+                            .length > 0;
+
+                    })
                     .length;
 
-
-            console.log(
-                "Details count before Step 3:",
-                detailCount
-            );
-
-
-            // ---------------------------------------------
-            // VALIDATE DETAILS
-            // ONLY WHEN INTERNAL REF EXISTS
-            // ---------------------------------------------
 
             if (detailCount === 0) {
 
@@ -1274,9 +1422,9 @@ $(document).ready(function () {
             }
 
 
-            // ---------------------------------------------
-            // GO STEP 3
-            // ---------------------------------------------
+            // =================================================
+            // STEP 3
+            // =================================================
 
             showStep(3);
         }
@@ -1292,6 +1440,64 @@ $(document).ready(function () {
         function () {
 
             showStep(2);
+        }
+    );
+
+
+    // =====================================================
+    // STEP 3 -> STEP 4
+    // =====================================================
+
+    $(document).on(
+        "click",
+        "#nextStep3",
+        function () {
+
+            console.log(
+                "STEP 3 -> STEP 4"
+            );
+
+
+            // =================================================
+            // OPTIONAL FACTORY VALIDATION
+            // =================================================
+
+            // If you want factory selection required,
+            // uncomment this section.
+            //
+            // const sewingFactory =
+            //     $("#SewingFactory").val();
+            //
+            // if (!sewingFactory) {
+            //
+            //     alert("Please select Sewing Factory.");
+            //     return;
+            // }
+
+
+            // =================================================
+            // GO STEP 4
+            // =================================================
+
+            showStep(4);
+        }
+    );
+
+
+    // =====================================================
+    // STEP 4 -> STEP 3
+    // =====================================================
+
+    $(document).on(
+        "click",
+        "#previousStep4",
+        function () {
+
+            console.log(
+                "STEP 4 -> STEP 3"
+            );
+
+            showStep(3);
         }
     );
 
@@ -1325,15 +1531,23 @@ $(document).ready(function () {
 
 
             // =================================================
-            // RECAP DETAILS
+            // REBUILD RECAP DETAILS
             // =================================================
-            //
-            // Normally generated during BookingNo change.
-            //
-            // If BookingNo is empty:
-            //     Details can remain empty.
-            //
-            // =================================================
+
+            const bookingNo =
+                $("#BookingNo").val();
+
+
+            if (bookingNo) {
+
+                buildRecapDetailHiddenInputsFromTable();
+
+            }
+            else {
+
+                $("#recapDetailsInputs")
+                    .empty();
+            }
 
 
             // =================================================
@@ -1373,35 +1587,28 @@ $(document).ready(function () {
 
 
             // =================================================
-            // VALIDATE ITEM DETAILS
+            // ITEM VALIDATION
             // =================================================
 
             if (itemCount === 0) {
 
                 e.preventDefault();
 
+
                 alert(
                     "Please add at least one Item."
                 );
 
+
                 showStep(1);
+
 
                 return false;
             }
 
 
             // =================================================
-            // INTERNAL REF
-            // =================================================
-
-            const bookingNo =
-                $("#BookingNo").val();
-
-
-            // =================================================
-            // VALIDATE RECAP DETAILS
-            //
-            // ONLY IF INTERNAL REF EXISTS
+            // DETAIL VALIDATION
             // =================================================
 
             if (
@@ -1411,18 +1618,21 @@ $(document).ready(function () {
 
                 e.preventDefault();
 
+
                 alert(
                     "No Recap Detail found for the selected Internal Ref."
                 );
 
+
                 showStep(2);
+
 
                 return false;
             }
 
 
             // =================================================
-            // DEBUG MASTER
+            // FINAL DEBUG
             // =================================================
 
             console.log(
@@ -1441,13 +1651,10 @@ $(document).ready(function () {
             );
 
 
-            // =================================================
-            // DEBUG ITEM DETAILS
-            // =================================================
-
             console.log(
-                "----- ITEM DETAILS FIELDS -----"
+                "----- ITEM DETAILS -----"
             );
+
 
             $("#itemDetailsInputs input")
                 .each(
@@ -1462,13 +1669,10 @@ $(document).ready(function () {
                 );
 
 
-            // =================================================
-            // DEBUG RECAP DETAILS
-            // =================================================
-
             console.log(
-                "----- RECAP DETAILS FIELDS -----"
+                "----- RECAP DETAILS -----"
             );
+
 
             $("#recapDetailsInputs input")
                 .each(
@@ -1484,13 +1688,11 @@ $(document).ready(function () {
 
 
             // =================================================
-            // FINAL FORM DATA DEBUG
+            // FINAL FORM DATA
             // =================================================
 
             const formData =
-                new FormData(
-                    this
-                );
+                new FormData(this);
 
 
             console.log(
@@ -1536,26 +1738,11 @@ $(document).ready(function () {
 
 
         return String(value)
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-            .replace(
-                /</g,
-                "&lt;"
-            )
-            .replace(
-                />/g,
-                "&gt;"
-            )
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-            .replace(
-                /'/g,
-                "&#039;"
-            );
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     }
 
 
@@ -1575,28 +1762,15 @@ $(document).ready(function () {
 
 
         return String(value)
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-            .replace(
-                /</g,
-                "&lt;"
-            )
-            .replace(
-                />/g,
-                "&gt;"
-            );
+            .replace(/&/g, "&amp;")
+            .replace(/"/g, "&quot;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
     }
 
 
     // =====================================================
-    // OPTIONAL:
-    // HANDLE EXISTING ITEM ROWS ON PAGE LOAD
+    // EXISTING ITEM ROWS
     // =====================================================
 
     if (
@@ -1607,5 +1781,28 @@ $(document).ready(function () {
 
         buildItemHiddenInputs();
     }
+
+
+    // =====================================================
+    // EXISTING RECAP DETAIL ROWS
+    // =====================================================
+
+    if (
+        $("#detailsBody tr").length > 0
+    ) {
+
+        renumberRecapDetails();
+
+        buildRecapDetailHiddenInputsFromTable();
+    }
+
+
+    // =====================================================
+    // FINAL
+    // =====================================================
+
+    console.log(
+        "Recap Info 4-Step JS loaded successfully."
+    );
 
 });
