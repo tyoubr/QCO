@@ -5,6 +5,36 @@
 $(document).ready(function () {
 
     // =====================================================
+    // VARIABLES
+    // =====================================================
+
+    let currentStep = 1;
+
+    const totalSteps = 4;
+
+
+    // =====================================================
+    // SEWING FACTORIES
+    // =====================================================
+
+    const sewingFactories = [
+
+        "Cotton Clothing BD Ltd.",
+
+        "Tropical Knitex Ltd.",
+
+        "Cotton Clout [BD] ltd",
+
+        "Cotton Club BD ltd [Extended Part].",
+
+        "Noor Checks & Stripes Ltd.",
+
+        "Cotton Club BD Ltd."
+
+    ];
+
+
+    // =====================================================
     // SELECT2
     // =====================================================
 
@@ -16,11 +46,13 @@ $(document).ready(function () {
             allowClear: true
         });
 
+
         $("#TeamLeaderName").select2({
             width: "100%",
             placeholder: "-- Select Team Leader --",
             allowClear: true
         });
+
 
         $("#BookingNo").select2({
             width: "100%",
@@ -28,21 +60,14 @@ $(document).ready(function () {
             allowClear: true
         });
 
+
         $("#itemNameInput").select2({
             width: "100%",
             placeholder: "-- Select Item Name --",
             allowClear: true
         });
+
     }
-
-
-    // =====================================================
-    // VARIABLES
-    // =====================================================
-
-    let currentStep = 1;
-
-    const totalSteps = 4;
 
 
     // =====================================================
@@ -51,9 +76,9 @@ $(document).ready(function () {
 
     function showStep(step) {
 
-        // ---------------------------------------------
+        // -------------------------------------------------
         // Safety
-        // ---------------------------------------------
+        // -------------------------------------------------
 
         if (step < 1) {
             step = 1;
@@ -67,39 +92,41 @@ $(document).ready(function () {
         currentStep = step;
 
 
-        // =================================================
-        // HIDE ALL STEP CONTENT
-        // =================================================
+        // -------------------------------------------------
+        // Hide all
+        // -------------------------------------------------
 
         $(".step-content").hide();
 
 
-        // =================================================
-        // SHOW CURRENT STEP
-        // =================================================
+        // -------------------------------------------------
+        // Show current
+        // -------------------------------------------------
 
         $("#step" + step).show();
 
 
-        // =================================================
-        // RESET STEPPER
-        // =================================================
+        // -------------------------------------------------
+        // Reset stepper
+        // -------------------------------------------------
 
         $(".step-wrapper")
             .removeClass("active completed");
+
 
         $(".step-line")
             .removeClass("active");
 
 
-        // =================================================
-        // STEP 1
-        // =================================================
+        // -------------------------------------------------
+        // Step 1
+        // -------------------------------------------------
 
         if (step === 1) {
 
             $("#step1Wrapper")
                 .addClass("active");
+
         }
         else {
 
@@ -111,14 +138,15 @@ $(document).ready(function () {
         }
 
 
-        // =================================================
-        // STEP 2
-        // =================================================
+        // -------------------------------------------------
+        // Step 2
+        // -------------------------------------------------
 
         if (step === 2) {
 
             $("#step2Wrapper")
                 .addClass("active");
+
         }
         else if (step > 2) {
 
@@ -130,14 +158,25 @@ $(document).ready(function () {
         }
 
 
-        // =================================================
-        // STEP 3
-        // =================================================
+        // -------------------------------------------------
+        // Step 3
+        // -------------------------------------------------
 
         if (step === 3) {
 
             $("#step3Wrapper")
                 .addClass("active");
+
+            $("#stepLine2")
+                .addClass("active");
+
+
+            // ---------------------------------------------
+            // Load sewing assignment
+            // ---------------------------------------------
+
+            loadSewingAssignmentItems();
+
         }
         else if (step > 3) {
 
@@ -149,9 +188,9 @@ $(document).ready(function () {
         }
 
 
-        // =================================================
-        // STEP 4
-        // =================================================
+        // -------------------------------------------------
+        // Step 4
+        // -------------------------------------------------
 
         if (step === 4) {
 
@@ -160,14 +199,11 @@ $(document).ready(function () {
         }
 
 
-        // =================================================
-        // DEBUG
-        // =================================================
-
         console.log(
             "Current Step:",
             currentStep
         );
+
     }
 
 
@@ -192,8 +228,10 @@ $(document).ready(function () {
                     .find("option:selected")
                     .data("buyer") || "";
 
+
             $("#BuyerName")
                 .val(buyerName);
+
         }
     );
 
@@ -209,29 +247,30 @@ $(document).ready(function () {
             const itemName =
                 $("#itemNameInput").val();
 
+
             const offeredQty =
                 $("#offeredQtyInput").val();
+
 
             const quotedPrice =
                 $("#quotedPriceInput").val();
 
+
             const remarks =
                 $("#remarksInput").val();
 
-
-            // =================================================
-            // CHECKBOX VALUES
-            // =================================================
 
             const isPrint =
                 $("#isPrintInput").is(":checked")
                     ? 1
                     : 0;
 
+
             const isWash =
                 $("#isWashInput").is(":checked")
                     ? 1
                     : 0;
+
 
             const isEmb =
                 $("#isEmbInput").is(":checked")
@@ -239,9 +278,9 @@ $(document).ready(function () {
                     : 0;
 
 
-            // =================================================
-            // VALIDATION
-            // =================================================
+            // -------------------------------------------------
+            // Validation
+            // -------------------------------------------------
 
             if (!itemName) {
 
@@ -260,7 +299,17 @@ $(document).ready(function () {
             ) {
 
                 alert(
-                    "Please enter Offered Qty."
+                    "Please enter Order Qty."
+                );
+
+                return;
+            }
+
+
+            if (parseFloat(offeredQty) <= 0) {
+
+                alert(
+                    "Order Qty. must be greater than 0."
                 );
 
                 return;
@@ -281,27 +330,29 @@ $(document).ready(function () {
             }
 
 
-            // =================================================
-            // SERIAL
-            // =================================================
+            // -------------------------------------------------
+            // Serial
+            // -------------------------------------------------
 
             const serial =
                 $("#itemsBody tr").length + 1;
 
 
-            // =================================================
-            // DISPLAY TEXT
-            // =================================================
+            // -------------------------------------------------
+            // Display
+            // -------------------------------------------------
 
             const printText =
                 isPrint === 1
                     ? "Yes"
                     : "No";
 
+
             const washText =
                 isWash === 1
                     ? "Yes"
                     : "No";
+
 
             const embText =
                 isEmb === 1
@@ -309,52 +360,69 @@ $(document).ready(function () {
                     : "No";
 
 
-            // =================================================
-            // TABLE ROW
-            // =================================================
+            // -------------------------------------------------
+            // Row
+            // -------------------------------------------------
 
             const row = `
+
                 <tr
+
                     data-item-name="${escapeHtmlAttribute(itemName)}"
+
                     data-offered-qty="${escapeHtmlAttribute(offeredQty)}"
+
                     data-quoted-price="${escapeHtmlAttribute(quotedPrice)}"
+
                     data-is-print="${isPrint}"
+
                     data-is-wash="${isWash}"
+
                     data-is-emb="${isEmb}"
+
                     data-remarks="${escapeHtmlAttribute(remarks)}"
+
                 >
 
                     <td class="text-center align-middle">
                         ${serial}
                     </td>
 
+
                     <td class="text-center align-middle item-name-cell">
                         ${escapeHtml(itemName)}
                     </td>
+
 
                     <td class="text-center align-middle">
                         ${escapeHtml(offeredQty)}
                     </td>
 
+
                     <td class="text-center align-middle">
                         ${escapeHtml(quotedPrice)}
                     </td>
+
 
                     <td class="text-center align-middle">
                         ${printText}
                     </td>
 
+
                     <td class="text-center align-middle">
                         ${washText}
                     </td>
+
 
                     <td class="text-center align-middle">
                         ${embText}
                     </td>
 
+
                     <td class="text-center align-middle remarks-cell">
                         ${escapeHtml(remarks)}
                     </td>
+
 
                     <td class="text-center align-middle">
 
@@ -369,56 +437,60 @@ $(document).ready(function () {
                     </td>
 
                 </tr>
+
             `;
 
-
-            // =================================================
-            // ADD ROW
-            // =================================================
 
             $("#itemsBody")
                 .append(row);
 
 
-            // =================================================
-            // CLEAR INPUTS
-            // =================================================
+            // -------------------------------------------------
+            // Clear inputs
+            // -------------------------------------------------
 
             $("#itemNameInput")
                 .val("")
                 .trigger("change");
 
+
             $("#offeredQtyInput")
                 .val("");
+
 
             $("#quotedPriceInput")
                 .val("");
 
+
             $("#remarksInput")
                 .val("");
+
 
             $("#isPrintInput")
                 .prop("checked", false);
 
+
             $("#isWashInput")
                 .prop("checked", false);
+
 
             $("#isEmbInput")
                 .prop("checked", false);
 
 
-            // =================================================
-            // HIDDEN INPUTS
-            // =================================================
+            // -------------------------------------------------
+            // Hidden inputs
+            // -------------------------------------------------
 
             buildItemHiddenInputs();
 
 
-            // =================================================
-            // RENUMBER
-            // =================================================
+            // -------------------------------------------------
+            // Renumber
+            // -------------------------------------------------
 
             renumberItems();
+
         }
     );
 
@@ -436,9 +508,12 @@ $(document).ready(function () {
                 .closest("tr")
                 .remove();
 
+
             renumberItems();
 
+
             buildItemHiddenInputs();
+
         }
     );
 
@@ -456,8 +531,10 @@ $(document).ready(function () {
                     $(this)
                         .find("td:first")
                         .text(index + 1);
+
                 }
             );
+
     }
 
 
@@ -495,14 +572,18 @@ $(document).ready(function () {
                     const itemName =
                         $row.attr("data-item-name") || "";
 
+
                     const offeredQty =
                         $row.attr("data-offered-qty") || "";
+
 
                     const quotedPrice =
                         $row.attr("data-quoted-price") || "";
 
+
                     const remarks =
                         $row.attr("data-remarks") || "";
+
 
                     const isPrint =
                         parseInt(
@@ -510,11 +591,13 @@ $(document).ready(function () {
                             10
                         );
 
+
                     const isWash =
                         parseInt(
                             $row.attr("data-is-wash") || "0",
                             10
                         );
+
 
                     const isEmb =
                         parseInt(
@@ -523,20 +606,12 @@ $(document).ready(function () {
                         );
 
 
-                    // =================================================
-                    // ITEM NAME
-                    // =================================================
-
                     appendHiddenInput(
                         $container,
                         `ItemDetails[${index}].ItemName`,
                         itemName
                     );
 
-
-                    // =================================================
-                    // OFFERED QTY
-                    // =================================================
 
                     appendHiddenInput(
                         $container,
@@ -545,22 +620,12 @@ $(document).ready(function () {
                     );
 
 
-                    // =================================================
-                    // QUOTED PRICE
-                    // IMPORTANT:
-                    // Model property = QuoatedPrice
-                    // =================================================
-
                     appendHiddenInput(
                         $container,
                         `ItemDetails[${index}].QuoatedPrice`,
                         quotedPrice
                     );
 
-
-                    // =================================================
-                    // REMARKS
-                    // =================================================
 
                     appendHiddenInput(
                         $container,
@@ -569,20 +634,12 @@ $(document).ready(function () {
                     );
 
 
-                    // =================================================
-                    // PRINT
-                    // =================================================
-
                     appendHiddenInput(
                         $container,
                         `ItemDetails[${index}].IsPrint`,
                         isPrint
                     );
 
-
-                    // =================================================
-                    // WASH
-                    // =================================================
 
                     appendHiddenInput(
                         $container,
@@ -591,17 +648,15 @@ $(document).ready(function () {
                     );
 
 
-                    // =================================================
-                    // EMBROIDERY
-                    // =================================================
-
                     appendHiddenInput(
                         $container,
                         `ItemDetails[${index}].IsEmb`,
                         isEmb
                     );
+
                 }
             );
+
     }
 
 
@@ -629,6 +684,7 @@ $(document).ready(function () {
 
         })
             .appendTo($container);
+
     }
 
 
@@ -644,10 +700,6 @@ $(document).ready(function () {
                 $("#StyleName").val();
 
 
-            // ---------------------------------------------
-            // STYLE VALIDATION
-            // ---------------------------------------------
-
             if (!styleName) {
 
                 alert(
@@ -657,10 +709,6 @@ $(document).ready(function () {
                 return;
             }
 
-
-            // ---------------------------------------------
-            // ITEM VALIDATION
-            // ---------------------------------------------
 
             const itemCount =
                 $("#itemsBody tr").length;
@@ -676,18 +724,11 @@ $(document).ready(function () {
             }
 
 
-            // ---------------------------------------------
-            // REBUILD
-            // ---------------------------------------------
-
             buildItemHiddenInputs();
 
 
-            // ---------------------------------------------
-            // STEP 2
-            // ---------------------------------------------
-
             showStep(2);
+
         }
     );
 
@@ -704,40 +745,27 @@ $(document).ready(function () {
                 $(this).val();
 
 
-            // =================================================
-            // CLEAR OLD DATA
-            // =================================================
-
             $("#PoNo")
                 .val("");
+
 
             $("#detailsBody")
                 .empty();
 
+
             $("#recapDetailsInputs")
                 .empty();
+
 
             $("#noDetailsMessage")
                 .hide();
 
 
-            // =================================================
-            // NO BOOKING
-            // =================================================
-
             if (!bookingNo) {
-
-                console.log(
-                    "Internal Ref cleared."
-                );
 
                 return;
             }
 
-
-            // =================================================
-            // LOADING
-            // =================================================
 
             $("#detailsBody")
                 .html(`
@@ -760,10 +788,6 @@ $(document).ready(function () {
                 .prop("disabled", true);
 
 
-            // =================================================
-            // AJAX
-            // =================================================
-
             $.ajax({
 
                 url:
@@ -782,10 +806,6 @@ $(document).ready(function () {
                     "json",
 
 
-                // =================================================
-                // SUCCESS
-                // =================================================
-
                 success:
                     function (response) {
 
@@ -798,16 +818,14 @@ $(document).ready(function () {
                         $("#detailsBody")
                             .empty();
 
+
                         $("#recapDetailsInputs")
                             .empty();
+
 
                         $("#noDetailsMessage")
                             .hide();
 
-
-                        // -----------------------------------------
-                        // RESPONSE VALIDATION
-                        // -----------------------------------------
 
                         if (!response) {
 
@@ -832,29 +850,17 @@ $(document).ready(function () {
                         }
 
 
-                        // -----------------------------------------
-                        // PO NUMBER
-                        // -----------------------------------------
-
                         $("#PoNo")
                             .val(
                                 response.poNo || ""
                             );
 
 
-                        // -----------------------------------------
-                        // DATA
-                        // -----------------------------------------
-
                         const data =
                             Array.isArray(response.data)
                                 ? response.data
                                 : [];
 
-
-                        // -----------------------------------------
-                        // NO DATA
-                        // -----------------------------------------
 
                         if (data.length === 0) {
 
@@ -882,30 +888,32 @@ $(document).ready(function () {
                         }
 
 
-                        // -----------------------------------------
-                        // BUILD TABLE
-                        // -----------------------------------------
-
                         data.forEach(
                             function (item, index) {
 
                                 const itemName =
                                     item.itemName ?? "";
 
+
                                 const bodyPart =
                                     item.bodyPart ?? "";
+
 
                                 const fabrication =
                                     item.fabrication ?? "";
 
+
                                 const gsm =
                                     item.gsm ?? "";
+
 
                                 const color =
                                     item.color ?? "";
 
+
                                 const consPcs =
                                     item.consPcs ?? "";
+
 
                                 const totalQty =
                                     item.totalQty ?? "";
@@ -935,33 +943,41 @@ $(document).ready(function () {
                                             ${index + 1}
                                         </td>
 
+
                                         <td class="text-center align-middle">
                                             ${escapeHtml(itemName)}
                                         </td>
+
 
                                         <td class="text-center align-middle">
                                             ${escapeHtml(bodyPart)}
                                         </td>
 
+
                                         <td class="text-center align-middle">
                                             ${escapeHtml(fabrication)}
                                         </td>
+
 
                                         <td class="text-center align-middle">
                                             ${escapeHtml(gsm)}
                                         </td>
 
+
                                         <td class="text-center align-middle">
                                             ${escapeHtml(color)}
                                         </td>
+
 
                                         <td class="text-center align-middle">
                                             ${escapeHtml(consPcs)}
                                         </td>
 
+
                                         <td class="text-center align-middle">
                                             ${escapeHtml(totalQty)}
                                         </td>
+
 
                                         <td class="text-center align-middle">
 
@@ -982,21 +998,15 @@ $(document).ready(function () {
 
                                 $("#detailsBody")
                                     .append(row);
+
                             }
                         );
 
 
-                        // -----------------------------------------
-                        // HIDDEN INPUTS
-                        // -----------------------------------------
-
                         buildRecapDetailHiddenInputsFromTable();
+
                     },
 
-
-                // =================================================
-                // ERROR
-                // =================================================
 
                 error:
                     function (xhr) {
@@ -1006,31 +1016,21 @@ $(document).ready(function () {
                             xhr
                         );
 
-                        console.error(
-                            "Response:",
-                            xhr.responseText
-                        );
-
 
                         $("#detailsBody")
                             .empty();
 
+
                         $("#recapDetailsInputs")
                             .empty();
-
-                        $("#noDetailsMessage")
-                            .hide();
 
 
                         alert(
                             "Failed to load Recap Details."
                         );
+
                     },
 
-
-                // =================================================
-                // COMPLETE
-                // =================================================
 
                 complete:
                     function () {
@@ -1040,6 +1040,7 @@ $(document).ready(function () {
                                 "disabled",
                                 false
                             );
+
                     }
 
             });
@@ -1105,7 +1106,9 @@ $(document).ready(function () {
 
                 $("#recapDetailsInputs")
                     .empty();
+
             }
+
         }
     );
 
@@ -1123,8 +1126,10 @@ $(document).ready(function () {
                     $(this)
                         .find("td:first")
                         .text(index + 1);
+
                 }
             );
+
     }
 
 
@@ -1139,11 +1144,6 @@ $(document).ready(function () {
 
 
         if (!$container.length) {
-
-            console.error(
-                "#recapDetailsInputs not found."
-            );
-
             return;
         }
 
@@ -1151,17 +1151,16 @@ $(document).ready(function () {
         $container.empty();
 
 
+        let realIndex = 0;
+
+
         $("#detailsBody tr")
             .each(
-                function (index) {
+                function () {
 
                     const $row =
                         $(this);
 
-
-                    // -----------------------------------------
-                    // Ignore message row
-                    // -----------------------------------------
 
                     if (
                         !$row.find(
@@ -1176,189 +1175,86 @@ $(document).ready(function () {
                     const itemName =
                         $row.attr("data-item-name") || "";
 
+
                     const bodyPart =
                         $row.attr("data-body-part") || "";
+
 
                     const fabrication =
                         $row.attr("data-fabrication") || "";
 
+
                     const gsm =
                         $row.attr("data-gsm") || "";
+
 
                     const color =
                         $row.attr("data-color") || "";
 
+
                     const consPcs =
                         $row.attr("data-cons-pcs") || "";
+
 
                     const totalQty =
                         $row.attr("data-total-qty") || "";
 
 
-                    // =================================================
-                    // MODEL FIELDS
-                    // =================================================
-
                     appendHiddenInput(
                         $container,
-                        `Details[${index}].ItemName`,
+                        `Details[${realIndex}].ItemName`,
                         itemName
                     );
 
+
                     appendHiddenInput(
                         $container,
-                        `Details[${index}].BodyPart`,
+                        `Details[${realIndex}].BodyPart`,
                         bodyPart
                     );
 
+
                     appendHiddenInput(
                         $container,
-                        `Details[${index}].Fabrication`,
+                        `Details[${realIndex}].Fabrication`,
                         fabrication
                     );
 
+
                     appendHiddenInput(
                         $container,
-                        `Details[${index}].Gsm`,
+                        `Details[${realIndex}].Gsm`,
                         gsm
                     );
 
+
                     appendHiddenInput(
                         $container,
-                        `Details[${index}].ColorName`,
+                        `Details[${realIndex}].ColorName`,
                         color
                     );
 
+
                     appendHiddenInput(
                         $container,
-                        `Details[${index}].ConsPerUnit`,
+                        `Details[${realIndex}].ConsPerUnit`,
                         consPcs
                     );
 
+
                     appendHiddenInput(
                         $container,
-                        `Details[${index}].TotalQty`,
+                        `Details[${realIndex}].TotalQty`,
                         totalQty
                     );
+
+
+                    realIndex++;
+
                 }
             );
+
     }
-
-
-    // =====================================================
-    // OLD FUNCTION SUPPORT
-    // =====================================================
-
-    function buildRecapDetailHiddenInputs(data) {
-
-        const $container =
-            $("#recapDetailsInputs");
-
-
-        if (!$container.length) {
-
-            console.error(
-                "#recapDetailsInputs not found."
-            );
-
-            return;
-        }
-
-
-        $container.empty();
-
-
-        if (
-            !Array.isArray(data) ||
-            data.length === 0
-        ) {
-
-            return;
-        }
-
-
-        data.forEach(
-            function (item, index) {
-
-                const itemName =
-                    item.itemName ?? "";
-
-                const bodyPart =
-                    item.bodyPart ?? "";
-
-                const fabrication =
-                    item.fabrication ?? "";
-
-                const gsm =
-                    item.gsm ?? "";
-
-                const color =
-                    item.color ?? "";
-
-                const consPcs =
-                    item.consPcs ?? "";
-
-                const totalQty =
-                    item.totalQty ?? "";
-
-
-                appendHiddenInput(
-                    $container,
-                    `Details[${index}].ItemName`,
-                    itemName
-                );
-
-                appendHiddenInput(
-                    $container,
-                    `Details[${index}].BodyPart`,
-                    bodyPart
-                );
-
-                appendHiddenInput(
-                    $container,
-                    `Details[${index}].Fabrication`,
-                    fabrication
-                );
-
-                appendHiddenInput(
-                    $container,
-                    `Details[${index}].Gsm`,
-                    gsm
-                );
-
-                appendHiddenInput(
-                    $container,
-                    `Details[${index}].ColorName`,
-                    color
-                );
-
-                appendHiddenInput(
-                    $container,
-                    `Details[${index}].ConsPerUnit`,
-                    consPcs
-                );
-
-                appendHiddenInput(
-                    $container,
-                    `Details[${index}].TotalQty`,
-                    totalQty
-                );
-            }
-        );
-    }
-
-
-    // =====================================================
-    // STEP 2 -> STEP 1
-    // =====================================================
-
-    $("#previousStep2").on(
-        "click",
-        function () {
-
-            showStep(1);
-        }
-    );
 
 
     // =====================================================
@@ -1373,60 +1269,55 @@ $(document).ready(function () {
                 $("#BookingNo").val();
 
 
-            // =================================================
-            // OPTIONAL INTERNAL REF
-            // =================================================
+            if (bookingNo) {
 
-            if (!bookingNo) {
+                buildRecapDetailHiddenInputsFromTable();
 
-                console.log(
-                    "No Internal Ref selected."
-                );
 
-                showStep(3);
+                const detailCount =
+                    $("#detailsBody tr")
+                        .filter(function () {
 
-                return;
+                            return $(this)
+                                .find(".delete-recap-detail")
+                                .length > 0;
+
+                        })
+                        .length;
+
+
+                if (detailCount === 0) {
+
+                    alert(
+                        "No Recap Detail found for the selected Internal Ref."
+                    );
+
+                    return;
+                }
+
             }
 
 
-            // =================================================
-            // REBUILD DETAILS
-            // =================================================
-
-            buildRecapDetailHiddenInputsFromTable();
-
-
-            // =================================================
-            // COUNT REAL DETAILS
-            // =================================================
-
-            const detailCount =
-                $("#detailsBody tr")
-                    .filter(function () {
-
-                        return $(this)
-                            .find(".delete-recap-detail")
-                            .length > 0;
-
-                    })
-                    .length;
-
-
-            if (detailCount === 0) {
-
-                alert(
-                    "No Recap Detail found for the selected Internal Ref."
-                );
-
-                return;
-            }
-
-
-            // =================================================
-            // STEP 3
-            // =================================================
+            // -------------------------------------------------
+            // Go Step 3
+            // -------------------------------------------------
 
             showStep(3);
+
+        }
+    );
+
+
+    // =====================================================
+    // STEP 2 -> STEP 1
+    // =====================================================
+
+    $("#previousStep2").on(
+        "click",
+        function () {
+
+            showStep(1);
+
         }
     );
 
@@ -1440,64 +1331,1421 @@ $(document).ready(function () {
         function () {
 
             showStep(2);
+
         }
     );
+
+
+    // =====================================================
+    // LOAD SEWING ASSIGNMENT ITEMS
+    // =====================================================
+
+    function loadSewingAssignmentItems() {
+
+        const container =
+            document.getElementById(
+                "sewingAssignmentContainer"
+            );
+
+
+        const itemsBody =
+            document.getElementById(
+                "itemsBody"
+            );
+
+
+        if (!container || !itemsBody) {
+
+            console.error(
+                "Sewing assignment container/items body not found."
+            );
+
+            return;
+        }
+
+
+        container.innerHTML = "";
+
+
+        const rows =
+            itemsBody.querySelectorAll("tr");
+
+
+        if (rows.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="alert alert-warning">
+
+                    No items found from Step 1.
+
+                    Please go back to Step 1
+                    and add at least one item.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        rows.forEach(
+            function (row, index) {
+
+                const itemName =
+                    row.getAttribute(
+                        "data-item-name"
+                    ) || "";
+
+
+                const offeredQty =
+                    parseFloat(
+                        row.getAttribute(
+                            "data-offered-qty"
+                        )
+                    ) || 0;
+
+
+                createSewingItemCard(
+                    container,
+                    index,
+                    itemName,
+                    offeredQty
+                );
+
+            }
+        );
+
+
+        refreshAllSewingCalculations();
+
+    }
+
+
+    // =====================================================
+    // CREATE ITEM CARD
+    // =====================================================
+
+    function createSewingItemCard(
+        container,
+        itemIndex,
+        itemName,
+        offeredQty
+    ) {
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "sewing-item-card";
+
+
+        card.dataset.itemIndex =
+            itemIndex;
+
+
+        card.dataset.itemName =
+            itemName;
+
+
+        card.dataset.totalQty =
+            offeredQty;
+
+
+        card.innerHTML = `
+
+            <!-- =========================================
+                 ITEM HEADER
+                 ========================================= -->
+
+            <div class="sewing-item-header">
+
+                <div class="d-flex
+                            justify-content-between
+                            align-items-center
+                            flex-wrap
+                            gap-2">
+
+
+                    <div>
+
+                        <div class="sewing-item-title">
+
+                            ${escapeHtml(itemName)}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="sewing-qty-summary">
+
+
+                        <div class="sewing-qty-box">
+
+                            <span class="sewing-qty-label">
+                                Order Qty
+                            </span>
+
+                            <span class="sewing-qty-value">
+
+                                ${formatQty(offeredQty)}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="sewing-qty-box">
+
+                            <span class="sewing-qty-label">
+                                Assigned
+                            </span>
+
+                            <span
+                                class="sewing-qty-value
+                                       sewing-assigned-value"
+                                data-role="assignedQty">
+
+                                0
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="sewing-qty-box">
+
+                            <span class="sewing-qty-label">
+                                Remaining
+                            </span>
+
+                            <span
+                                class="sewing-qty-value
+                                       sewing-remaining-value"
+                                data-role="remainingQty">
+
+                                ${formatQty(offeredQty)}
+
+                            </span>
+
+                        </div>
+
+
+                        <span
+                            class="sewing-status-badge
+                                   sewing-status-pending"
+                            data-role="status">
+
+                            Pending
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 ITEM BODY
+                 ========================================= -->
+
+            <div class="sewing-item-body">
+
+
+                <div class="table-responsive">
+
+
+                    <table class="table
+                                  table-sm
+                                  sewing-assignment-table">
+
+
+                        <thead>
+
+                            <tr>
+
+                                <th style="width:30%;">
+                                    Sewing Factory
+                                </th>
+
+
+                                <th style="width:16%;">
+                                    Assign Qty.
+                                </th>
+
+
+                                <th style="width:12%;">
+                                    SMV
+                                </th>
+
+
+                                <th style="width:12%;">
+                                    Machine
+                                </th>
+
+
+                                <th style="width:24%;">
+                                    Remarks
+                                </th>
+
+
+                                <th style="width:6%;">
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody
+                            data-role="assignmentRows">
+                        </tbody>
+
+
+                    </table>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-sm sewing-add-btn"
+                    data-role="addFactory">
+
+                    + Add Factory
+
+                </button>
+
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+
+        // -------------------------------------------------
+        // Add Factory
+        // -------------------------------------------------
+
+        const addButton =
+            card.querySelector(
+                '[data-role="addFactory"]'
+            );
+
+
+        addButton.addEventListener(
+            "click",
+            function () {
+
+                addSewingFactoryRow(card);
+
+            }
+        );
+
+
+        // -------------------------------------------------
+        // Initial row
+        // -------------------------------------------------
+
+        addSewingFactoryRow(card);
+
+    }
+
+
+    // =====================================================
+    // ADD FACTORY ROW
+    // =====================================================
+
+    function addSewingFactoryRow(card) {
+
+        const tbody =
+            card.querySelector(
+                '[data-role="assignmentRows"]'
+            );
+
+
+        if (!tbody) {
+            return;
+        }
+
+
+        // -------------------------------------------------
+        // Check Remaining Qty
+        // -------------------------------------------------
+
+        const totalQty =
+            parseFloat(
+                card.dataset.totalQty
+            ) || 0;
+
+
+        const assignedQty =
+            calculateAssignedQty(card);
+
+
+        const remainingQty =
+            totalQty - assignedQty;
+
+
+        if (remainingQty <= 0) {
+
+            updateAddFactoryButton(card);
+
+            return;
+        }
+
+
+        // -------------------------------------------------
+        // Row
+        // -------------------------------------------------
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+
+                <select
+                    class="form-select sewing-factory">
+
+                    <option value="">
+                        -- Select Factory --
+                    </option>
+
+                    ${sewingFactories.map(
+            function (factory) {
+
+                return `
+
+                                <option
+                                    value="${escapeHtmlAttribute(factory)}">
+
+                                    ${escapeHtml(factory)}
+
+                                </option>
+
+                            `;
+
+            }
+        ).join("")}
+
+                </select>
+
+            </td>
+
+
+            <td>
+
+                <input
+                    type="number"
+                    class="form-control sewing-production-qty"
+                    min="0"
+                    step="0.01"
+                    placeholder="0">
+
+            </td>
+
+
+            <td>
+
+                <input
+                    type="number"
+                    class="form-control sewing-smv"
+                    min="0"
+                    step="0.01"
+                    placeholder="SMV">
+
+            </td>
+
+
+            <td>
+
+                <input
+                    type="number"
+                    class="form-control sewing-machine"
+                    min="0"
+                    step="1"
+                    placeholder="Machine">
+
+            </td>
+
+
+            <td>
+
+                <input
+                    type="text"
+                    class="form-control sewing-row-remarks"
+                    placeholder="Remarks">
+
+            </td>
+
+
+            <td class="text-center">
+
+                <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm sewing-delete-btn"
+                    title="Remove">
+
+                    ×
+
+                </button>
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+
+        // =================================================
+        // EVENTS
+        // =================================================
+
+        const qtyInput =
+            row.querySelector(
+                ".sewing-production-qty"
+            );
+
+
+        const factorySelect =
+            row.querySelector(
+                ".sewing-factory"
+            );
+
+
+        const deleteButton =
+            row.querySelector(
+                ".sewing-delete-btn"
+            );
+
+
+        // -------------------------------------------------
+        // Quantity input
+        // -------------------------------------------------
+
+        qtyInput.addEventListener(
+            "input",
+            function () {
+
+                handleSewingQuantityInput(
+                    card,
+                    this
+                );
+
+            }
+        );
+
+
+        // -------------------------------------------------
+        // Factory change
+        // -------------------------------------------------
+
+        factorySelect.addEventListener(
+            "change",
+            function () {
+
+                validateSewingFactories(card);
+
+            }
+        );
+
+
+        // -------------------------------------------------
+        // Delete
+        // -------------------------------------------------
+
+        deleteButton.addEventListener(
+            "click",
+            function () {
+
+                row.remove();
+
+
+                validateSewingQuantity(card);
+
+                validateSewingFactories(card);
+
+                updateAddFactoryButton(card);
+
+            }
+        );
+
+
+        validateSewingQuantity(card);
+
+        validateSewingFactories(card);
+
+        updateAddFactoryButton(card);
+
+    }
+
+
+    // =====================================================
+    // HANDLE QTY INPUT
+    // =====================================================
+
+    function handleSewingQuantityInput(
+        card,
+        input
+    ) {
+
+        const totalQty =
+            parseFloat(
+                card.dataset.totalQty
+            ) || 0;
+
+
+        // -------------------------------------------------
+        // Calculate other rows
+        // -------------------------------------------------
+
+        let otherAssignedQty = 0;
+
+
+        card.querySelectorAll(
+            ".sewing-production-qty"
+        ).forEach(
+            function (qtyInput) {
+
+                if (qtyInput === input) {
+                    return;
+                }
+
+
+                const qty =
+                    parseFloat(
+                        qtyInput.value
+                    ) || 0;
+
+
+                otherAssignedQty += qty;
+
+            }
+        );
+
+
+        // -------------------------------------------------
+        // Maximum allowed for this row
+        // -------------------------------------------------
+
+        const maxAllowed =
+            Math.max(
+                totalQty - otherAssignedQty,
+                0
+            );
+
+
+        let currentQty =
+            parseFloat(
+                input.value
+            );
+
+
+        if (isNaN(currentQty)) {
+            currentQty = 0;
+        }
+
+
+        // -------------------------------------------------
+        // Prevent negative
+        // -------------------------------------------------
+
+        if (currentQty < 0) {
+
+            input.value = 0;
+
+            currentQty = 0;
+
+        }
+
+
+        // -------------------------------------------------
+        // Prevent over quantity
+        // -------------------------------------------------
+
+        if (currentQty > maxAllowed) {
+
+            input.value =
+                maxAllowed;
+
+
+            input.classList.add(
+                "sewing-invalid"
+            );
+
+
+            showSewingQtyWarning(
+                card,
+                totalQty
+            );
+
+
+            setTimeout(
+                function () {
+
+                    input.classList.remove(
+                        "sewing-invalid"
+                    );
+
+                },
+                1000
+            );
+
+        }
+
+
+        // -------------------------------------------------
+        // Recalculate
+        // -------------------------------------------------
+
+        validateSewingQuantity(card);
+
+
+        updateAddFactoryButton(card);
+
+    }
+
+
+    // =====================================================
+    // QTY WARNING
+    // =====================================================
+
+    function showSewingQtyWarning(
+        card,
+        totalQty
+    ) {
+
+        const itemName =
+            card.dataset.itemName || "Item";
+
+
+        const assignedQty =
+            calculateAssignedQty(card);
+
+
+        const remainingQty =
+            Math.max(
+                totalQty - assignedQty,
+                0
+            );
+
+
+        alert(
+            "Assigned Qty. cannot be greater than Offered Qty.\n\n" +
+            "Item: " + itemName + "\n" +
+            "Order Qty: " + formatQty(totalQty) + "\n" +
+            "Already Assigned: " + formatQty(assignedQty) + "\n" +
+            "Remaining Qty: " + formatQty(remainingQty)
+        );
+
+    }
+
+
+    // =====================================================
+    // CALCULATE ASSIGNED QTY
+    // =====================================================
+
+    function calculateAssignedQty(card) {
+
+        let assignedQty = 0;
+
+
+        card.querySelectorAll(
+            ".sewing-production-qty"
+        ).forEach(
+            function (input) {
+
+                const qty =
+                    parseFloat(
+                        input.value
+                    ) || 0;
+
+
+                assignedQty += qty;
+
+            }
+        );
+
+
+        return assignedQty;
+
+    }
+
+
+    // =====================================================
+    // VALIDATE SEWING QUANTITY
+    // =====================================================
+
+    function validateSewingQuantity(card) {
+
+        const totalQty =
+            parseFloat(
+                card.dataset.totalQty
+            ) || 0;
+
+
+        const assignedQty =
+            calculateAssignedQty(card);
+
+
+        const remainingQty =
+            Math.max(
+                totalQty - assignedQty,
+                0
+            );
+
+
+        const assignedElement =
+            card.querySelector(
+                '[data-role="assignedQty"]'
+            );
+
+
+        const remainingElement =
+            card.querySelector(
+                '[data-role="remainingQty"]'
+            );
+
+
+        const statusElement =
+            card.querySelector(
+                '[data-role="status"]'
+            );
+
+
+        if (assignedElement) {
+
+            assignedElement.innerText =
+                formatQty(assignedQty);
+
+        }
+
+
+        if (remainingElement) {
+
+            remainingElement.innerText =
+                formatQty(remainingQty);
+
+        }
+
+
+        // -------------------------------------------------
+        // Remove status classes
+        // -------------------------------------------------
+
+        statusElement.classList.remove(
+
+            "sewing-status-complete",
+
+            "sewing-status-partial",
+
+            "sewing-status-pending",
+
+            "sewing-status-over"
+
+        );
+
+
+        remainingElement.classList.remove(
+            "sewing-remaining-zero"
+        );
+
+
+        // -------------------------------------------------
+        // Complete
+        // -------------------------------------------------
+
+        if (
+            assignedQty === totalQty &&
+            totalQty > 0
+        ) {
+
+            remainingElement.classList.add(
+                "sewing-remaining-zero"
+            );
+
+
+            statusElement.classList.add(
+                "sewing-status-complete"
+            );
+
+
+            statusElement.innerText =
+                "Complete";
+
+        }
+
+
+        // -------------------------------------------------
+        // Partial
+        // -------------------------------------------------
+
+        else if (
+            assignedQty > 0 &&
+            assignedQty < totalQty
+        ) {
+
+            statusElement.classList.add(
+                "sewing-status-partial"
+            );
+
+
+            statusElement.innerText =
+                "Partial";
+
+        }
+
+
+        // -------------------------------------------------
+        // Pending
+        // -------------------------------------------------
+
+        else {
+
+            statusElement.classList.add(
+                "sewing-status-pending"
+            );
+
+
+            statusElement.innerText =
+                "Pending";
+
+        }
+
+
+        // -------------------------------------------------
+        // Over Qty
+        // -------------------------------------------------
+
+        if (assignedQty > totalQty) {
+
+            statusElement.classList.remove(
+                "sewing-status-pending",
+                "sewing-status-partial"
+            );
+
+
+            statusElement.classList.add(
+                "sewing-status-over"
+            );
+
+
+            statusElement.innerText =
+                "Over Qty";
+
+        }
+
+
+        // -------------------------------------------------
+        // Update button
+        // -------------------------------------------------
+
+        updateAddFactoryButton(card);
+
+    }
+
+
+    // =====================================================
+    // ADD FACTORY BUTTON ENABLE / DISABLE
+    // =====================================================
+
+    function updateAddFactoryButton(card) {
+
+        const addButton =
+            card.querySelector(
+                '[data-role="addFactory"]'
+            );
+
+
+        if (!addButton) {
+            return;
+        }
+
+
+        const totalQty =
+            parseFloat(
+                card.dataset.totalQty
+            ) || 0;
+
+
+        const assignedQty =
+            calculateAssignedQty(card);
+
+
+        // -------------------------------------------------
+        // Full Qty Assigned
+        // -------------------------------------------------
+
+        if (
+            assignedQty >= totalQty &&
+            totalQty > 0
+        ) {
+
+            addButton.disabled = true;
+
+
+            addButton.classList.add(
+                "disabled"
+            );
+
+
+            addButton.innerText =
+                "✓ Qty Fully Assigned";
+
+        }
+
+
+        // -------------------------------------------------
+        // Remaining Qty
+        // -------------------------------------------------
+
+        else {
+
+            addButton.disabled = false;
+
+
+            addButton.classList.remove(
+                "disabled"
+            );
+
+
+            addButton.innerText =
+                "+ Add Factory";
+
+        }
+
+    }
+
+
+    // =====================================================
+    // DUPLICATE FACTORY VALIDATION
+    // =====================================================
+
+    function validateSewingFactories(card) {
+
+        const selects =
+            card.querySelectorAll(
+                ".sewing-factory"
+            );
+
+
+        const selectedFactories = [];
+
+
+        selects.forEach(
+            function (select) {
+
+                select.classList.remove(
+                    "sewing-invalid"
+                );
+
+
+                if (!select.value) {
+                    return;
+                }
+
+
+                if (
+                    selectedFactories.includes(
+                        select.value
+                    )
+                ) {
+
+                    select.classList.add(
+                        "sewing-invalid"
+                    );
+
+                }
+                else {
+
+                    selectedFactories.push(
+                        select.value
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // =====================================================
+    // REFRESH ALL SEWING CALCULATIONS
+    // =====================================================
+
+    function refreshAllSewingCalculations() {
+
+        document
+            .querySelectorAll(
+                ".sewing-item-card"
+            )
+            .forEach(
+                function (card) {
+
+                    validateSewingQuantity(card);
+
+                    validateSewingFactories(card);
+
+                    updateAddFactoryButton(card);
+
+                }
+            );
+
+    }
 
 
     // =====================================================
     // STEP 3 -> STEP 4
     // =====================================================
 
-    $(document).on(
+    $("#nextStep3").on(
         "click",
-        "#nextStep3",
         function () {
 
-            console.log(
-                "STEP 3 -> STEP 4"
+            const cards =
+                document.querySelectorAll(
+                    ".sewing-item-card"
+                );
+
+
+            if (cards.length === 0) {
+
+                alert(
+                    "No sewing assignment item found."
+                );
+
+                return;
+            }
+
+
+            let hasError = false;
+
+
+            // -------------------------------------------------
+            // Validate every item
+            // -------------------------------------------------
+
+            cards.forEach(
+                function (card) {
+
+                    const totalQty =
+                        parseFloat(
+                            card.dataset.totalQty
+                        ) || 0;
+
+
+                    const assignedQty =
+                        calculateAssignedQty(card);
+
+
+                    // -----------------------------------------
+                    // Over quantity
+                    // -----------------------------------------
+
+                    if (
+                        assignedQty >
+                        totalQty
+                    ) {
+
+                        hasError = true;
+
+                        return;
+                    }
+
+
+                    // -----------------------------------------
+                    // Not fully assigned
+                    // -----------------------------------------
+
+                    if (
+                        assignedQty !==
+                        totalQty
+                    ) {
+
+                        hasError = true;
+
+                    }
+
+
+                    // -----------------------------------------
+                    // Factory validation
+                    // -----------------------------------------
+
+                    card.querySelectorAll(
+                        ".sewing-factory"
+                    ).forEach(
+                        function (select) {
+
+                            const row =
+                                select.closest("tr");
+
+
+                            const qtyInput =
+                                row.querySelector(
+                                    ".sewing-production-qty"
+                                );
+
+
+                            const qty =
+                                parseFloat(
+                                    qtyInput.value
+                                ) || 0;
+
+
+                            // ---------------------------------
+                            // Qty entered but factory missing
+                            // ---------------------------------
+
+                            if (
+                                qty > 0 &&
+                                !select.value
+                            ) {
+
+                                hasError = true;
+
+
+                                select.classList.add(
+                                    "sewing-invalid"
+                                );
+
+                            }
+
+                        }
+                    );
+
+
+                    // -----------------------------------------
+                    // Duplicate factory
+                    // -----------------------------------------
+
+                    validateSewingFactories(card);
+
+
+                    if (
+                        card.querySelector(
+                            ".sewing-invalid"
+                        )
+                    ) {
+
+                        hasError = true;
+
+                    }
+
+                }
             );
 
 
-            // =================================================
-            // OPTIONAL FACTORY VALIDATION
-            // =================================================
+            // -------------------------------------------------
+            // Error
+            // -------------------------------------------------
 
-            // If you want factory selection required,
-            // uncomment this section.
-            //
-            // const sewingFactory =
-            //     $("#SewingFactory").val();
-            //
-            // if (!sewingFactory) {
-            //
-            //     alert("Please select Sewing Factory.");
-            //     return;
-            // }
+            if (hasError) {
+
+                alert(
+                    "Please complete the sewing factory assignment for all items.\n\n" +
+                    "Each item's Assigned Qty. must exactly match the Order Qty."
+                );
 
 
-            // =================================================
-            // GO STEP 4
-            // =================================================
+                return;
+
+            }
+
+
+            // -------------------------------------------------
+            // Build hidden inputs
+            // -------------------------------------------------
+
+            buildSewingAssignmentHiddenInputs();
+
+
+            // -------------------------------------------------
+            // Step 4
+            // -------------------------------------------------
 
             showStep(4);
+
         }
     );
+
+
+    // =====================================================
+    // BUILD SEWING ASSIGNMENT HIDDEN INPUTS
+    // =====================================================
+
+    function buildSewingAssignmentHiddenInputs() {
+
+        const $container =
+            $("#sewingAssignmentInputs");
+
+
+        if (!$container.length) {
+            return;
+        }
+
+
+        $container.empty();
+
+
+        let assignmentIndex = 0;
+
+
+        document
+            .querySelectorAll(
+                ".sewing-item-card"
+            )
+            .forEach(
+                function (card) {
+
+                    const itemIndex =
+                        card.dataset.itemIndex;
+
+
+                    const itemName =
+                        card.dataset.itemName;
+
+
+                    card.querySelectorAll(
+                        '[data-role="assignmentRows"] tr'
+                    ).forEach(
+                        function (row) {
+
+                            const factory =
+                                row.querySelector(
+                                    ".sewing-factory"
+                                )?.value || "";
+
+
+                            const productionQty =
+                                row.querySelector(
+                                    ".sewing-production-qty"
+                                )?.value || "";
+
+
+                            const smv =
+                                row.querySelector(
+                                    ".sewing-smv"
+                                )?.value || "";
+
+
+                            const machine =
+                                row.querySelector(
+                                    ".sewing-machine"
+                                )?.value || "";
+
+
+                            const remarks =
+                                row.querySelector(
+                                    ".sewing-row-remarks"
+                                )?.value || "";
+
+
+                            // ---------------------------------
+                            // Skip empty rows
+                            // ---------------------------------
+
+                            if (
+                                !factory &&
+                                !productionQty
+                            ) {
+
+                                return;
+
+                            }
+
+
+                            // ---------------------------------
+                            // Hidden inputs
+                            // ---------------------------------
+
+                            appendHiddenInput(
+                                $container,
+                                `SewingAssignments[${assignmentIndex}].ItemIndex`,
+                                itemIndex
+                            );
+
+
+                            appendHiddenInput(
+                                $container,
+                                `SewingAssignments[${assignmentIndex}].ItemName`,
+                                itemName
+                            );
+
+
+                            appendHiddenInput(
+                                $container,
+                                `SewingAssignments[${assignmentIndex}].Factory`,
+                                factory
+                            );
+
+
+                            appendHiddenInput(
+                                $container,
+                                `SewingAssignments[${assignmentIndex}].ProductionQty`,
+                                productionQty
+                            );
+
+
+                            appendHiddenInput(
+                                $container,
+                                `SewingAssignments[${assignmentIndex}].SMV`,
+                                smv
+                            );
+
+
+                            appendHiddenInput(
+                                $container,
+                                `SewingAssignments[${assignmentIndex}].Machine`,
+                                machine
+                            );
+
+
+                            appendHiddenInput(
+                                $container,
+                                `SewingAssignments[${assignmentIndex}].Remarks`,
+                                remarks
+                            );
+
+
+                            assignmentIndex++;
+
+                        }
+                    );
+
+                }
+            );
+
+
+        console.log(
+            "Sewing Assignment Count:",
+            assignmentIndex
+        );
+
+    }
 
 
     // =====================================================
     // STEP 4 -> STEP 3
     // =====================================================
 
-    $(document).on(
+    $("#previousStep4").on(
         "click",
-        "#previousStep4",
         function () {
 
-            console.log(
-                "STEP 4 -> STEP 3"
-            );
-
             showStep(3);
+
         }
     );
 
@@ -1511,28 +2759,20 @@ $(document).ready(function () {
         function (e) {
 
             console.log(
-                "========================================"
-            );
-
-            console.log(
                 "========== FINAL SUBMIT =========="
             );
 
-            console.log(
-                "========================================"
-            );
 
-
-            // =================================================
-            // REBUILD ITEM DETAILS
-            // =================================================
+            // -------------------------------------------------
+            // Rebuild Item Details
+            // -------------------------------------------------
 
             buildItemHiddenInputs();
 
 
-            // =================================================
-            // REBUILD RECAP DETAILS
-            // =================================================
+            // -------------------------------------------------
+            // Rebuild Recap Details
+            // -------------------------------------------------
 
             const bookingNo =
                 $("#BookingNo").val();
@@ -1547,12 +2787,20 @@ $(document).ready(function () {
 
                 $("#recapDetailsInputs")
                     .empty();
+
             }
 
 
-            // =================================================
-            // ITEM DETAILS COUNT
-            // =================================================
+            // -------------------------------------------------
+            // Rebuild Sewing Assignment
+            // -------------------------------------------------
+
+            buildSewingAssignmentHiddenInputs();
+
+
+            // -------------------------------------------------
+            // Item Count
+            // -------------------------------------------------
 
             const itemCount =
                 $("#itemDetailsInputs")
@@ -1562,15 +2810,9 @@ $(document).ready(function () {
                     .length;
 
 
-            console.log(
-                "Final ItemDetails count:",
-                itemCount
-            );
-
-
-            // =================================================
-            // RECAP DETAILS COUNT
-            // =================================================
+            // -------------------------------------------------
+            // Detail Count
+            // -------------------------------------------------
 
             const detailCount =
                 $("#recapDetailsInputs")
@@ -1580,15 +2822,39 @@ $(document).ready(function () {
                     .length;
 
 
+            // -------------------------------------------------
+            // Sewing Count
+            // -------------------------------------------------
+
+            const sewingCount =
+                $("#sewingAssignmentInputs")
+                    .find(
+                        "input[name^='SewingAssignments['][name$='.Factory']"
+                    )
+                    .length;
+
+
             console.log(
-                "Final Details count:",
+                "Item Count:",
+                itemCount
+            );
+
+
+            console.log(
+                "Detail Count:",
                 detailCount
             );
 
 
-            // =================================================
-            // ITEM VALIDATION
-            // =================================================
+            console.log(
+                "Sewing Assignment Count:",
+                sewingCount
+            );
+
+
+            // -------------------------------------------------
+            // Item validation
+            // -------------------------------------------------
 
             if (itemCount === 0) {
 
@@ -1604,12 +2870,13 @@ $(document).ready(function () {
 
 
                 return false;
+
             }
 
 
-            // =================================================
-            // DETAIL VALIDATION
-            // =================================================
+            // -------------------------------------------------
+            // Detail validation
+            // -------------------------------------------------
 
             if (
                 bookingNo &&
@@ -1628,68 +2895,84 @@ $(document).ready(function () {
 
 
                 return false;
+
             }
 
 
-            // =================================================
-            // FINAL DEBUG
-            // =================================================
+            // -------------------------------------------------
+            // Sewing validation
+            // -------------------------------------------------
 
-            console.log(
-                "Master.StyleName:",
-                $("#StyleName").val()
-            );
-
-            console.log(
-                "Master.BookingNo:",
-                $("#BookingNo").val()
-            );
-
-            console.log(
-                "Master.PoNo:",
-                $("#PoNo").val()
-            );
-
-
-            console.log(
-                "----- ITEM DETAILS -----"
-            );
-
-
-            $("#itemDetailsInputs input")
-                .each(
-                    function () {
-
-                        console.log(
-                            $(this).attr("name"),
-                            "=",
-                            $(this).val()
-                        );
-                    }
+            const sewingCards =
+                document.querySelectorAll(
+                    ".sewing-item-card"
                 );
 
 
-            console.log(
-                "----- RECAP DETAILS -----"
+            let sewingError = false;
+
+
+            sewingCards.forEach(
+                function (card) {
+
+                    const totalQty =
+                        parseFloat(
+                            card.dataset.totalQty
+                        ) || 0;
+
+
+                    const assignedQty =
+                        calculateAssignedQty(card);
+
+
+                    if (
+                        assignedQty !==
+                        totalQty
+                    ) {
+
+                        sewingError = true;
+
+                    }
+
+
+                    validateSewingFactories(card);
+
+
+                    if (
+                        card.querySelector(
+                            ".sewing-invalid"
+                        )
+                    ) {
+
+                        sewingError = true;
+
+                    }
+
+                }
             );
 
 
-            $("#recapDetailsInputs input")
-                .each(
-                    function () {
+            if (sewingError) {
 
-                        console.log(
-                            $(this).attr("name"),
-                            "=",
-                            $(this).val()
-                        );
-                    }
+                e.preventDefault();
+
+
+                alert(
+                    "Please complete all Sewing Factory assignments before saving."
                 );
 
 
-            // =================================================
-            // FINAL FORM DATA
-            // =================================================
+                showStep(3);
+
+
+                return false;
+
+            }
+
+
+            // -------------------------------------------------
+            // Final FormData Debug
+            // -------------------------------------------------
 
             const formData =
                 new FormData(this);
@@ -1709,6 +2992,7 @@ $(document).ready(function () {
                     "=",
                     pair[1]
                 );
+
             }
 
 
@@ -1718,8 +3002,56 @@ $(document).ready(function () {
 
 
             return true;
+
         }
     );
+
+
+    // =====================================================
+    // EXISTING ITEM ROWS
+    // =====================================================
+
+    if (
+        $("#itemsBody tr").length > 0
+    ) {
+
+        renumberItems();
+
+        buildItemHiddenInputs();
+
+    }
+
+
+    // =====================================================
+    // EXISTING RECAP DETAIL ROWS
+    // =====================================================
+
+    if (
+        $("#detailsBody tr").length > 0
+    ) {
+
+        renumberRecapDetails();
+
+        buildRecapDetailHiddenInputsFromTable();
+
+    }
+
+
+    // =====================================================
+    // FORMAT QTY
+    // =====================================================
+
+    function formatQty(value) {
+
+        return Number(value)
+            .toLocaleString(
+                "en-US",
+                {
+                    maximumFractionDigits: 2
+                }
+            );
+
+    }
 
 
     // =====================================================
@@ -1734,15 +3066,32 @@ $(document).ready(function () {
         ) {
 
             return "";
+
         }
 
 
         return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
     }
 
 
@@ -1758,47 +3107,33 @@ $(document).ready(function () {
         ) {
 
             return "";
+
         }
 
 
         return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/"/g, "&quot;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            );
+
     }
 
 
     // =====================================================
-    // EXISTING ITEM ROWS
-    // =====================================================
-
-    if (
-        $("#itemsBody tr").length > 0
-    ) {
-
-        renumberItems();
-
-        buildItemHiddenInputs();
-    }
-
-
-    // =====================================================
-    // EXISTING RECAP DETAIL ROWS
-    // =====================================================
-
-    if (
-        $("#detailsBody tr").length > 0
-    ) {
-
-        renumberRecapDetails();
-
-        buildRecapDetailHiddenInputsFromTable();
-    }
-
-
-    // =====================================================
-    // FINAL
+    // DEBUG
     // =====================================================
 
     console.log(

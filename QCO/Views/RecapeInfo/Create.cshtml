@@ -5,6 +5,142 @@
 }
 
 <link href="~/css/recapinfo/recapinfo.css" rel="stylesheet" />
+<style>
+    /* =====================================================
+       SEWING ASSIGNMENT
+       ===================================================== */
+
+    .sewing-item-card {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        margin-bottom: 18px;
+        background: #fff;
+        overflow: hidden;
+    }
+
+    .sewing-item-header {
+        background: #e8f5f9;
+        border-bottom: 1px solid #cfe3e8;
+        padding: 12px 16px;
+    }
+
+    .sewing-item-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .sewing-qty-summary {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .sewing-qty-box {
+        font-size: 13px;
+    }
+
+    .sewing-qty-label {
+        color: #6c757d;
+        margin-right: 5px;
+    }
+
+    .sewing-qty-value {
+        font-weight: 700;
+    }
+
+    .sewing-assigned-value {
+        color: #198754;
+    }
+
+    .sewing-remaining-value {
+        color: #dc3545;
+    }
+
+    .sewing-remaining-zero {
+        color: #198754 !important;
+    }
+
+    .sewing-item-body {
+        padding: 15px;
+    }
+
+    .sewing-assignment-table {
+        margin-bottom: 10px;
+    }
+
+        .sewing-assignment-table th {
+            font-size: 13px;
+            font-weight: 600;
+            background: #f8f9fa;
+            vertical-align: middle;
+        }
+
+        .sewing-assignment-table td {
+            vertical-align: middle;
+        }
+
+        .sewing-assignment-table .form-control,
+        .sewing-assignment-table .form-select {
+            font-size: 13px;
+        }
+
+    .sewing-add-btn {
+        border: 1px dashed #0d6efd;
+        color: #0d6efd;
+        background: #f8fbff;
+    }
+
+        .sewing-add-btn:hover {
+            background: #eaf3ff;
+        }
+
+    .sewing-delete-btn {
+        width: 34px;
+        height: 34px;
+        padding: 0;
+    }
+
+    .sewing-empty-message {
+        padding: 30px;
+        text-align: center;
+        color: #6c757d;
+        background: #f8f9fa;
+        border: 1px dashed #ced4da;
+        border-radius: 6px;
+    }
+
+    .sewing-invalid {
+        border-color: #dc3545 !important;
+        background-color: #fff5f5;
+    }
+
+    .sewing-valid {
+        border-color: #198754 !important;
+    }
+
+    .sewing-status-badge {
+        font-size: 11px;
+        padding: 4px 8px;
+        border-radius: 20px;
+    }
+
+    .sewing-status-complete {
+        color: #198754;
+        background: #d1e7dd;
+    }
+
+    .sewing-status-pending {
+        color: #dc3545;
+        background: #f8d7da;
+    }
+
+    .sewing-status-partial {
+        color: #856404;
+        background: #fff3cd;
+    }
+</style>
 <!-- TITLE -->
 <h3 class="pb-4 text-center">
     Create Recap Information.
@@ -610,8 +746,8 @@
 
                         <th>SL</th>
                         <th>Item Name</th>
-                        <th>Offered Qty.</th>
-                        <th>Quoted Price</th>
+                        <th>Order Qty.</th>
+                        <th>Unit Price</th>
                         <th>Print</th>
                         <th>Wash</th>
                         <th>Embroidery</th>
@@ -764,7 +900,7 @@
 
                 <thead class="table-info">
 
-                    <tr>
+                    <tr class="text-center">
 
                         <th>SL</th>
                         <th>Item Name</th>
@@ -838,6 +974,10 @@
          STEP 3
          ASSIGN SEWING FACTORY
          ===================================================== -->
+    <!-- =====================================================
+      STEP 3
+      ASSIGN SEWING FACTORY
+      ===================================================== -->
 
     <div id="step3"
          class="step-content"
@@ -847,84 +987,22 @@
             Assign Sewing Factory
         </h6>
 
+        <!--
+            Step 1 থেকে Items এখানে dynamically load হবে
+        -->
 
-        <div class="card recap-card border mb-4">
+        <div id="sewingAssignmentContainer">
 
-            <div class="card-body">
-
-                <div class="row g-3">
-
-                    <!-- SEWING FACTORY -->
-
-                    <div class="col-lg-2 col-md-6">
-
-                        <label asp-for="Master.SewingFactory"
-                               class="form-label">
-
-                            Sewing Factory
-
-                        </label>
-
-                        <select asp-for="Master.SewingFactory"
-                                class="form-select">
-
-                            <option value="">
-                                -- Select Sewing Factory --
-                            </option>
-
-                            <option value="Cotton Clothing BD Ltd.">
-                                Cotton Clothing BD Ltd.
-                            </option>
-
-                            <option value="Tropical Knitex Ltd.">
-                                Tropical Knitex Ltd.
-                            </option>
-
-                            <option value="Cotton Clout [BD] ltd">
-                                Cotton Clout [BD] ltd
-                            </option>
-
-                            <option value="Cotton Club BD ltd [Extended Part].">
-                                Cotton Club BD ltd [Extended Part].
-                            </option>
-
-                            <option value="Noor Checks & Stripes Ltd.">
-                                Noor Checks & Stripes Ltd.
-                            </option>
-
-                            <option value="Cotton Club BD Ltd.">
-                                Cotton Club BD Ltd.
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <!-- SMV-->
-                    <div class="col-lg-1 col-md-4 col-sm-6">
-                        <label asp-for="Master.PoNo" class="form-label">SMV</label>
-                        <input asp-for="Master.PoNo" id="PoNo" class="form-control"/>
-                    </div>
-                    <!-- Machine-->
-                    <div class="col-lg-1 col-md-4 col-sm-6">
-                        <label asp-for="Master.PoNo" class="form-label">Machine</label>
-                        <input asp-for="Master.PoNo" id="PoNo" class="form-control" />
-                    </div>
-                    <!-- Production-->
-                    <div class="col-lg-1 col-md-4 col-sm-6">
-                        <label asp-for="Master.PoNo" class="form-label">Production(Pcs)</label>
-                        <input asp-for="Master.PoNo" id="PoNo" class="form-control" />
-                    </div>
-                    <!-- Renarks-->
-                    <div class="col-lg-7 col-md-7 col-sm-7">
-                        <label asp-for="Master.PoNo" class="form-label">Remarks(Garments Planning)</label>
-                        <input asp-for="Master.PoNo" id="PoNo" class="form-control" />
-                    </div>
-
-                </div>
-
+            <div class="alert alert-info">
+                Sewing assignment will be loaded from Step 1.
             </div>
 
+        </div>
+
+
+        <!-- HIDDEN SEWING ASSIGNMENT INPUTS -->
+
+        <div id="sewingAssignmentInputs">
         </div>
 
 
@@ -952,7 +1030,6 @@
         </div>
 
     </div>
-
 
     <!-- =====================================================
          STEP 4

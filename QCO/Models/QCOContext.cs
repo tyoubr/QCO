@@ -38,6 +38,8 @@ public partial class QCOContext : DbContext
     public virtual DbSet<TblRecapDetails> TblRecapDetails { get; set; }
     public virtual DbSet<TblRecapMaster> TblRecapMasters { get; set; }
     public virtual DbSet<TblRecapItemDetails> TblRecapItemDetails { get; set; }
+    public DbSet<TblCadConsFiles> TblCadConsFiles { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect sensitive information, use a configuration file for your connection string.
@@ -293,6 +295,10 @@ public partial class QCOContext : DbContext
             entity.HasOne(d => d.Cadm).WithMany(p => p.TblCadConsDs)
                 .HasForeignKey(d => d.Cadmid)
                 .HasConstraintName("FK_TBL_CAD_CONS_D_TBL_CAD_CONS_D");
+            entity.HasMany(d => d.TblCadConsFiles)
+                .WithOne(f => f.CadDetail)
+                .HasForeignKey(f => f.Caddid)
+                .HasConstraintName("FK_TBL_CAD_CONS_FILES_TBL_CAD_CONS_D");
         });
 
         modelBuilder.Entity<TblCadConsM>(entity =>
@@ -534,6 +540,47 @@ public partial class QCOContext : DbContext
                 .HasForeignKey(d => d.Rcmid)
                 .HasConstraintName("FK_TBL_RECAP_ITEM_DETAILS_TBL_RECAP_ITEM_DETAILS");
         });
+
+        modelBuilder.Entity<TblCadConsFiles>(entity =>
+        {
+            entity.HasKey(e => e.Fileid);
+
+            entity.ToTable("TBL_CAD_CONS_FILES");
+
+            entity.Property(e => e.Fileid)
+                .HasColumnName("FILEID");
+
+            entity.Property(e => e.Caddid)
+                .HasColumnName("CADDID");
+
+            entity.Property(e => e.Filename)
+                .HasMaxLength(250)
+                .HasColumnName("FILENAME");
+
+            entity.Property(e => e.Filepath)
+                .HasMaxLength(250)
+                .HasColumnName("FILEPATH");
+
+            entity.Property(e => e.Filesize)
+                .HasColumnName("FILESIZE");
+
+            entity.Property(e => e.Contenttype)
+                .HasMaxLength(250)
+                .HasColumnName("CONTENTTYPE");
+
+            entity.Property(e => e.Createddate)
+                .HasColumnName("CREATEDDATE");
+
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(100)
+                .HasColumnName("CREATEDBY");
+
+            entity.HasOne(d => d.CadDetail)
+                .WithMany(p => p.TblCadConsFiles)
+                .HasForeignKey(d => d.Caddid)
+                .HasConstraintName("FK_TBL_CAD_CONS_FILES_TBL_CAD_CONS_D");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 

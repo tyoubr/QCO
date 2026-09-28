@@ -1,36 +1,19 @@
 ﻿@model QCO.ViewModel.CadConsumptionViewModel
 
-
-
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit CAD Consumption";
 }
 
-<!-- Inline Styles -->
 <style>
     .container {
         max-width: 2020px;
         margin: 0 auto;
     }
 
-    .card {
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-    }
-
-    .card-header {
-        background: linear-gradient(to right, #4e73df, #1cc88a);
-        color: white;
-        padding: 15px;
-        font-size: 1.25rem;
-        font-weight: 600;
-    }
-
     .table {
         margin: 0;
-        width: 100%; /* Ensure table width is 100% */
-        table-layout: fixed; /* Prevent overflowing content */
+        width: 100%;
+        table-layout: fixed;
     }
 
         .table thead th {
@@ -40,6 +23,8 @@
             text-transform: uppercase;
             font-size: 0.9rem;
             word-wrap: break-word;
+            vertical-align: middle;
+            text-align: center;
         }
 
         .table tbody tr:hover {
@@ -49,9 +34,7 @@
         .table td {
             vertical-align: middle;
             padding: 5px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap; /* Prevent text from wrapping */
+            word-wrap: break-word;
         }
 
     .btn {
@@ -61,473 +44,1384 @@
         font-weight: 500;
         display: inline-flex;
         align-items: center;
-    }
-
-    .btn-outline-warning {
-        color: #ffc107;
-        border-color: #ffc107;
-    }
-
-        .btn-outline-warning:hover {
-            background-color: #ffc107;
-            color: white;
-        }
-
-    .btn-outline-info {
-        color: #17a2b8;
-        border-color: #17a2b8;
-    }
-
-        .btn-outline-info:hover {
-            background-color: #17a2b8;
-            color: white;
-        }
-
-    .btn-outline-danger {
-        color: #dc3545;
-        border-color: #dc3545;
-    }
-
-        .btn-outline-danger:hover {
-            background-color: #dc3545;
-            color: white;
-        }
-
-    .page-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-        .page-header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #4e73df;
-        }
-
-    .rounded-pill {
-        border-radius: 50px;
+        justify-content: center;
     }
 
     .shadow-sm {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    /* Column for action buttons - Ensure horizontal alignment */
-    .actions-column {
-        display: flex;
-        justify-content: flex-start; /* Align buttons to the left */
-        gap: 10px; /* Space out the buttons */
+    .existing-file {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        padding: 7px;
+        margin-bottom: 5px;
+        font-size: 13px;
     }
 
-    /* Additional adjustments for table layout */
-    .table th, .table td {
-        word-wrap: break-word;
-        text-align: left;
-    }
-
-        .table td .btn {
-            white-space: nowrap; /* Prevent buttons from wrapping */
+        .existing-file a {
+            text-decoration: none;
+            color: #0d6efd;
+            word-break: break-all;
         }
 
+            .existing-file a:hover {
+                text-decoration: underline;
+            }
+
+    .file-list {
+        max-height: 150px;
+        overflow-y: auto;
+        margin-bottom: 8px;
+    }
+
+    .new-files {
+        font-size: 12px;
+        color: #198754;
+        margin-top: 4px;
+    }
+
+    .remove-file {
+        margin-left: 5px;
+        padding: 2px 7px !important;
+        font-size: 11px !important;
+        border-radius: 12px !important;
+    }
+
+    .file-removed {
+        display: none !important;
+    }
+
+    .new-file-input {
+        font-size: 12px;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
 
-<h1 class="text-center text-primary">Edit CAD Consumption</h1>
+
+<h1 class="text-center text-primary">
+    Edit CAD Consumption
+</h1>
+
 <hr />
 
-<div class="container py-4" style="background-color: #F8F9FA;">
-    <form asp-action="Edit" enctype="multipart/form-data" method="post" class="p-4 shadow-sm bg-white rounded ">
-        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-        <!-- Form Sections -->
+<div class="container py-4" style="background-color:#F8F9FA;">
+
+    <form asp-action="Edit"
+          asp-controller="CAD"
+          method="post"
+          enctype="multipart/form-data"
+          class="p-4 shadow-sm bg-white rounded">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3">
+        </div>
+
+
+        <!-- =====================================================
+             MASTER ID
+        ====================================================== -->
+
+        <input type="hidden"
+               asp-for="Master.Cadmid" />
+
+
+        <!-- =====================================================
+             MASTER INFORMATION
+        ====================================================== -->
+
         <div class="row">
-            <input type="hidden" asp-for="Master.Cadmid" />
-            <!-- CAD Date -->
+
+            <!-- CAD DATE -->
             <div class="col-md-3">
-                @*  <div class="form-group mb-4">
-                    <label asp-for="Master.Caddate" class="form-label fw-bold text-dark">CAD Date<span class="text-danger">*</span></label>
-                    <input asp-for="Master.Caddate" class="form-control border-primary shadow-sm" type="datetime-local" bg-light" readonly />
-                    <span asp-validation-for="Master.Caddate" class="text-danger"></span>
-                </div> *@
+
                 <div class="form-group mb-4">
+
                     <label class="form-label fw-bold text-dark">
-                        CAD Date<span class="text-danger">*</span>
+                        CAD Date
+                        <span class="text-danger">*</span>
                     </label>
 
-                    <!-- 🔥 Hidden (this goes to controller) -->
-                    <input asp-for="Master.Caddate" type="hidden" />
+                    <!-- Actual value submitted -->
+                    <input asp-for="Master.Caddate"
+                           type="hidden" />
 
-                    <!-- 🔥 Display فقط -->
+                    <!-- Display only -->
                     <input value="@(Model.Master.Caddate.HasValue
-                                       ? Model.Master.Caddate.Value.ToString("dd-MM-yyyy")
-                                       : "")"
-                           class="form-control border-primary shadow-sm"
+                                                                                  ? Model.Master.Caddate.Value.ToString("dd-MM-yyyy")
+                                                                                  : "")"
+                           class="form-control border-primary shadow-sm bg-light"
                            readonly />
+
+                    <span asp-validation-for="Master.Caddate"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
-            <!-- Company -->
-            @* <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label asp-for="Master.Opt01" class="form-label fw-bold text-dark"> Working Company<span class="text-danger">*</span></label>
-                    <select asp-for="Master.Opt01" class="form-select border-primary shadow-sm">
-                        <option value="">Select Company</option>
-                        <option value="Tropical Knitex Ltd.">Tropical Knitex Ltd.</option>
-                        <option value="Cotton Club BD Ltd.">Cotton Club BD Ltd.</option>
-                        <option value="Cotton Club BD ltd [Extended Part]">Cotton Club BD ltd [Extended Part].</option>
-                        <option value="Cotton Clothing BD Ltd.">Cotton Clothing BD Ltd.</option>
-                    </select>
-                    <span asp-validation-for="Master.Opt01" class="text-danger"></span>
-                </div>
-            </div> *@
+
+
+            <!-- COMPANY -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Opt01" class="form-label fw-bold text-dark">Working Company<span class="text-danger">*</span></label>
-                    <input asp-for="Master.Opt01" class="form-control border-primary shadow-sm bg-light" readonly />
-                    <span asp-validation-for="Master.Opt01" class="text-danger"></span>
+
+                    <label asp-for="Master.Opt01"
+                           class="form-label fw-bold text-dark">
+                        Working Company
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <input asp-for="Master.Opt01"
+                           class="form-control border-primary shadow-sm bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Opt01"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
-            <!-- BookingNo Dropdown -->
-            @* <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label asp-for="Master.Styleref" class="form-label fw-bold text-dark">M. Style Ref.<span class="text-danger">*</span></label>
-                    <select asp-for="Master.Styleref" class="form-control select2 border-primary shadow-sm" id="BookingNo">
-                        <option value="">Select Booking No</option>
-                    </select>
-                    <span asp-validation-for="Master.Styleref" class="text-danger"></span>
-                </div>
-            </div> *@
+
+
+            <!-- STYLE REF -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Styleref" class="form-label fw-bold text-dark">M. Style Ref.<span class="text-danger">*</span></label>
-                    <input asp-for="Master.Styleref" id="Buyer" class="form-control border-primary shadow-sm bg-light" readonly />
-                    <span asp-validation-for="Master.Styleref" class="text-danger"></span>
+
+                    <label asp-for="Master.Styleref"
+                           class="form-label fw-bold text-dark">
+                        M. Style Ref.
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <input asp-for="Master.Styleref"
+                           class="form-control border-primary shadow-sm bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Styleref"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
+
+
             <!-- JOB -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Job" class="form-label fw-bold text-dark">Job No.</label>
-                    <input asp-for="Master.Job" id="Job" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Job" class="text-danger"></span>
+
+                    <label asp-for="Master.Job"
+                           class="form-label fw-bold text-dark">
+                        Job No.
+                    </label>
+
+                    <input asp-for="Master.Job"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Job"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
+
         </div>
 
+
+        <!-- =====================================================
+             SECOND ROW
+        ====================================================== -->
+
         <div class="row">
-            <!-- IR/IB -->
+
+            <!-- IR / IB -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Ir" class="form-label fw-bold text-dark">IR/IB</label>
-                    <input asp-for="Master.Ir" id="Ir" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Ir" class="text-danger"></span>
+
+                    <label asp-for="Master.Ir"
+                           class="form-label fw-bold text-dark">
+                        IR/IB
+                    </label>
+
+                    <input asp-for="Master.Ir"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Ir"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
+
+
+            <!-- BUYER -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Buyer" class="form-label fw-bold text-dark">Buyer Name</label>
-                    <input asp-for="Master.Buyer" id="Buyer" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Buyer" class="text-danger"></span>
+
+                    <label asp-for="Master.Buyer"
+                           class="form-label fw-bold text-dark">
+                        Buyer Name
+                    </label>
+
+                    <input asp-for="Master.Buyer"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Buyer"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
+
+
+            <!-- BRAND -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Brand" class="form-label fw-bold text-dark">Brand</label>
-                    <input asp-for="Master.Brand" id="Brand" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Brand" class="text-danger"></span>
+
+                    <label asp-for="Master.Brand"
+                           class="form-label fw-bold text-dark">
+                        Brand
+                    </label>
+
+                    <input asp-for="Master.Brand"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Brand"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
+
+
+            <!-- SEASON -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Season" class="form-label fw-bold text-dark">Season</label>
-                    <input asp-for="Master.Season" id="Season" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Season" class="text-danger"></span>
+
+                    <label asp-for="Master.Season"
+                           class="form-label fw-bold text-dark">
+                        Season
+                    </label>
+
+                    <input asp-for="Master.Season"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Season"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
+
         </div>
 
-        <!-- Pre Style Finish -->
+
+        <!-- =====================================================
+             THIRD ROW
+        ====================================================== -->
+
         <div class="row">
+
+            <!-- SEASON YEAR -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Seasonyear" class="form-label fw-bold text-dark">Season Year</label>
-                    <input asp-for="Master.Seasonyear" id="Seasonyear" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Seasonyear" class="text-danger"></span>
+
+                    <label asp-for="Master.Seasonyear"
+                           class="form-label fw-bold text-dark">
+                        Season Year
+                    </label>
+
+                    <input asp-for="Master.Seasonyear"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Seasonyear"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
 
+
+            <!-- STYLE DESCRIPTION -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Styledes" class="form-label fw-bold text-dark">Style Description</label>
-                    <input asp-for="Master.Styledes" id="Styledes" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Styledes" class="text-danger"></span>
+
+                    <label asp-for="Master.Styledes"
+                           class="form-label fw-bold text-dark">
+                        Style Description
+                    </label>
+
+                    <input asp-for="Master.Styledes"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Styledes"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
+
+
+            <!-- PATTERN MASTER -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Patternmaster" class="form-label fw-bold text-dark">Pattern Master</label>
-                    <input asp-for="Master.Patternmaster" class="form-control border-primary shadow-sm" />
-                    <span asp-validation-for="Master.Patternmaster" class="text-danger"></span>
+
+                    <label asp-for="Master.Patternmaster"
+                           class="form-label fw-bold text-dark">
+                        Pattern Master
+                    </label>
+
+                    <input asp-for="Master.Patternmaster"
+                           class="form-control border-primary shadow-sm" />
+
+                    <span asp-validation-for="Master.Patternmaster"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
+
+
+            <!-- CONSUMPTION FOR -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Consfor" class="form-label fw-bold text-dark">Consumption For</label>
-                    <select asp-for="Master.Consfor" class="form-select border-primary shadow-sm">
+
+                    <label asp-for="Master.Consfor"
+                           class="form-label fw-bold text-dark">
+                        Consumption For
+                    </label>
+
+                    <select asp-for="Master.Consfor"
+                            class="form-select border-primary shadow-sm">
+
                         <option value="">Select</option>
-                        <option value="Marketting">Marketting</option>
-                        <option value="Budget">Budget</option>
-                        <option value="Production">Production</option>
+
+                        <option value="Marketting">
+                            Marketting
+                        </option>
+
+                        <option value="Budget">
+                            Budget
+                        </option>
+
+                        <option value="Production">
+                            Production
+                        </option>
+
                     </select>
-                    <span asp-validation-for="Master.Opt01" class="text-danger"></span>
+
+                    <span asp-validation-for="Master.Consfor"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
+
         </div>
 
+
+        <!-- =====================================================
+             COMMENTS / APPROVAL
+        ====================================================== -->
+
         <div class="row">
+
+            <!-- COMMENTS -->
             <div class="col-md-6">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Comments" class="form-label fw-bold text-dark">Comments</label>
-                    <input asp-for="Master.Comments" class="form-control border-primary shadow-sm" />
-                    <span asp-validation-for="Master.Comments" class="text-danger"></span>
+
+                    <label asp-for="Master.Comments"
+                           class="form-label fw-bold text-dark">
+                        Comments
+                    </label>
+
+                    <input asp-for="Master.Comments"
+                           class="form-control border-primary shadow-sm" />
+
+                    <span asp-validation-for="Master.Comments"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
+
+
+            <!-- APPROVED -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Isapproved" class="form-label fw-bold text-dark">Is Approved?</label>
-                    <select asp-for="Master.Isapproved" class="form-select border-primary shadow-sm">
-                        <option value="False" selected>No</option>
-                        <option value="True">Yes</option>
+
+                    <label asp-for="Master.Isapproved"
+                           class="form-label fw-bold text-dark">
+                        Is Approved?
+                    </label>
+
+                    <select asp-for="Master.Isapproved"
+                            class="form-select border-primary shadow-sm">
+
+                        <option value="false">
+                            No
+                        </option>
+
+                        <option value="true">
+                            Yes
+                        </option>
+
                     </select>
-                    <span asp-validation-for="Master.Isapproved" class="text-danger"></span>
+
+                    <span asp-validation-for="Master.Isapproved"
+                          class="text-danger">
+                    </span>
+
                 </div>
+
             </div>
+
         </div>
+
+
+        <!-- =====================================================
+             MARKER DETAILS
+        ====================================================== -->
 
         <div class="form-group mb-4">
-            <h4 class="text-primary mb-3">Marker Details</h4>
+
+            <h4 class="text-primary mb-3">
+                Marker Details
+            </h4>
+
             <hr />
+
+
             <div class="table-responsive">
+
                 <table class="table table-bordered table-hover">
+
                     <thead class="table-primary">
+
                         <tr>
-                            <th style="width: 250px;">Garments Item</th>
-                            <th style="width: 500px;">Garments Color</th>
-                            <th style="width: 400px;">Fabric Description</th>
-                            <th style="width: 65px;">GSM</th>
-                            <th style="width: 300px;">Body Parts</th>
-                            <th style="width: 100px;">Ptn No.</th>
-                            <th style="width: 85px;">Marker Length</th>
-                            <th style="width: 85px;">Full Width</th>
-                            <th style="width: 85px;">Cutt. Width</th>
-                            <th style="width: 95px;">Efficiency %</th>
-                            <th style="width: 85px;">Size Ratio</th>
-                            <th style="width: 85px;">Marker Qty</th>
-                            <th style="width: 85px;">Wastage %</th>
-                            <th style="width: 95px;">Cons/Pcs</th>
-                            <th style="width: 95px;">Cons/Dzn</th>
-                            <th style="width: 300px;">Comments</th>
-                            <th style="width: 275px;">Upload File</th>
-                            <th style="width: 110px;">Action</th>
+
+                            <th style="width:250px;">
+                                Garments Item
+                            </th>
+
+                            <th style="width:500px;">
+                                Garments Color
+                            </th>
+
+                            <th style="width:400px;">
+                                Fabric Description
+                            </th>
+
+                            <th style="width:65px;">
+                                GSM
+                            </th>
+
+                            <th style="width:300px;">
+                                Body Parts
+                            </th>
+
+                            <th style="width:100px;">
+                                Ptn No.
+                            </th>
+
+                            <th style="width:85px;">
+                                Marker Length
+                            </th>
+
+                            <th style="width:85px;">
+                                Full Width
+                            </th>
+
+                            <th style="width:85px;">
+                                Cutt. Width
+                            </th>
+
+                            <th style="width:95px;">
+                                Efficiency %
+                            </th>
+
+                            <th style="width:85px;">
+                                Size Ratio
+                            </th>
+
+                            <th style="width:85px;">
+                                Marker Qty
+                            </th>
+
+                            <th style="width:85px;">
+                                Wastage %
+                            </th>
+
+                            <th style="width:95px;">
+                                Cons/Pcs
+                            </th>
+
+                            <th style="width:95px;">
+                                Cons/Dzn
+                            </th>
+
+                            <th style="width:300px;">
+                                Comments
+                            </th>
+
+                            <th style="width:350px;">
+                                Files
+                            </th>
+
+                            <th style="width:110px;">
+                                Action
+                            </th>
+
                         </tr>
+
                     </thead>
+
+
                     <tbody id="detailsBody">
-                        @if (Model.Details != null && Model.Details.Count > 0)
+
+                        @if (Model.Details != null &&
+                                                Model.Details.Count > 0)
                         {
-                            for (int i = 0; i < Model.Details.Count; i++)
+                            for (int i = 0;
+                            i < Model.Details.Count;
+                            i++)
                             {
                                 <tr>
-                                    <td><input asp-for="Details[i].Gmntitem" class="form-control" readonly /></td>
-                                    <td><input asp-for="Details[i].Gmntcolor" class="form-control" readonly /></td>
-                                    <td><input asp-for="Details[i].Fabricdes" class="form-control" readonly /></td>
-                                    <td><input asp-for="Details[i].Gsm" class="gsm form-control" readonly /></td>
-                                    <td><input asp-for="Details[i].Fabricusage" class="form-control" readonly /></td>
+
+                                    <!-- GARMENTS ITEM -->
                                     <td>
-                                        <input type="hidden" asp-for="Details[i].Caddid" />
-                                        <input asp-for="Details[i].Ptnnmbr" class="form-control" />
+
+                                        <input asp-for="Details[i].Gmntitem"
+                                               class="gmntitem form-control"
+                                               readonly />
+
                                     </td>
 
-                                    <td><input asp-for="Details[i].Opt01" class="length form-control" /></td> @* Marker Length *@
-                                    <td><input asp-for="Details[i].Fullwidth" class="width form-control" /></td>
-                                    <td><input asp-for="Details[i].Cutwidth" class="form-control" /></td>
-                                    <td><input asp-for="Details[i].Efficiency" class="form-control" /></td>
-                                    <td><input asp-for="Details[i].Sizeratio" class="form-control" /></td>
-                                    <td><input asp-for="Details[i].Markerqty" class="pcs form-control" /></td>
-                                    <td><input asp-for="Details[i].Wastage" class="allowance form-control" /></td>
-                                    <td><input asp-for="Details[i].Conspcs" class="conspcs form-control" readonly /></td>
-                                    <td><input asp-for="Details[i].Consdzn" class="consdzn form-control" readonly /></td>
-                                    <td><input asp-for="Details[i].Comments" class="form-control" /></td>
+
+                                    <!-- GARMENTS COLOR -->
                                     <td>
-                                        <!-- Existing file (optional preview) -->
-                                        @if (!string.IsNullOrEmpty(Model.Details[i].Filename))
+
+                                        <input asp-for="Details[i].Gmntcolor"
+                                               class="gmntcolor form-control"
+                                               readonly />
+
+                                    </td>
+
+
+                                    <!-- FABRIC DESCRIPTION -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Fabricdes"
+                                               class="fabricdes form-control"
+                                               readonly />
+
+                                    </td>
+
+
+                                    <!-- GSM -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Gsm"
+                                               class="gsm form-control"
+                                               readonly />
+
+                                    </td>
+
+
+                                    <!-- BODY PARTS -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Fabricusage"
+                                               class="fabricusage form-control"
+                                               readonly />
+
+                                    </td>
+
+
+                                    <!-- PTN NO + DETAIL ID -->
+                                    <td>
+
+                                        <input type="hidden"
+                                               asp-for="Details[i].Caddid" />
+
+                                        <input asp-for="Details[i].Ptnnmbr"
+                                               class="form-control" />
+
+                                    </td>
+
+
+                                    <!-- MARKER LENGTH -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Opt01"
+                                               class="length form-control" />
+
+                                    </td>
+
+
+                                    <!-- FULL WIDTH -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Fullwidth"
+                                               class="width form-control" />
+
+                                    </td>
+
+
+                                    <!-- CUT WIDTH -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Cutwidth"
+                                               class="form-control" />
+
+                                    </td>
+
+
+                                    <!-- EFFICIENCY -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Efficiency"
+                                               class="form-control" />
+
+                                    </td>
+
+
+                                    <!-- SIZE RATIO -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Sizeratio"
+                                               class="form-control" />
+
+                                    </td>
+
+
+                                    <!-- MARKER QTY -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Markerqty"
+                                               class="pcs form-control" />
+
+                                    </td>
+
+
+                                    <!-- WASTAGE -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Wastage"
+                                               class="allowance form-control" />
+
+                                    </td>
+
+
+                                    <!-- CONS/PCS -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Conspcs"
+                                               class="conspcs form-control bg-light"
+                                               readonly />
+
+                                    </td>
+
+
+                                    <!-- CONS/DZN -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Consdzn"
+                                               class="consdzn form-control bg-light"
+                                               readonly />
+
+                                    </td>
+
+
+                                    <!-- COMMENTS -->
+                                    <td>
+
+                                        <input asp-for="Details[i].Comments"
+                                               class="form-control" />
+
+                                    </td>
+
+
+                                    <!-- =================================================
+                                         FILE SECTION
+                                    ================================================== -->
+
+                                    <td>
+
+                                        <!-- EXISTING FILES -->
+                                        @if (Model.Details[i].ExistingFiles != null &&
+                                                                        Model.Details[i].ExistingFiles.Count > 0)
                                         {
-                                            var file = System.IO.Path.GetFileName(Model.Details[i].Filename);
+                                            <div class="file-list"
+                                                 id="fileList_@i">
 
-                                            var originalName = file.Contains("_")
-                                            ? file.Substring(file.IndexOf("_") + 1)
-                                            : file;
+                                                @foreach (var file in Model.Details[i].ExistingFiles)
+                                                {
+                                                    <div class="existing-file"
+                                                         id="file_@file.Fileid">
 
-                                            <div>
-                                                <span>@originalName</span><br />
+                                                        <div class="d-flex justify-content-between align-items-center gap-2">
+
+                                                            <div class="flex-grow-1">
+                                                                <span>📄</span>
+
+                                                                <a href="@file.Filepath"
+                                                                   target="_blank">
+                                                                    @file.Filename
+                                                                </a>
+                                                            </div>
+
+                                                            <button type="button"
+                                                                    class="btn btn-sm btn-outline-danger remove-file"
+                                                                    onclick="removeExistingFile(@file.Fileid, @i)">
+
+                                                                Remove
+
+                                                            </button>
+
+                                                        </div>
+
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="text-muted small mb-2">
+                                                No existing file
                                             </div>
                                         }
 
-                                        <input type="file" name="Details[i].File" class="form-control" />
+
+                                        <!-- NEW FILE UPLOAD -->
+                                        <input type="file"
+                                               name="Details[@i].Files"
+                                               multiple
+                                               class="form-control new-file-input" />
+
+                                        <div class="new-files">
+                                            New files are optional.
+                                        </div>
+
+
+                                        <!-- DELETED FILE IDS -->
+                                        <div id="deletedFiles_@i">
+                                        </div>
+
                                     </td>
 
+
+                                    <!-- ACTION -->
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-outline-success" onclick="addRow()">➕</button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRow(this)">➖</button>
+
+                                        <div class="action-buttons">
+
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-success"
+                                                    onclick="addRow()"
+                                                    title="Add Row">
+
+                                                ➕
+
+                                            </button>
+
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    onclick="removeRow(this)"
+                                                    title="Remove Row">
+
+                                                ➖
+
+                                            </button>
+
+                                        </div>
+
                                     </td>
+
                                 </tr>
                             }
                         }
+
                     </tbody>
+
                 </table>
+
             </div>
+
         </div>
 
-        <!-- Submit Buttons -->
+
+        <!-- =====================================================
+             BUTTONS
+        ====================================================== -->
+
         <div class="d-flex justify-content-between mt-4">
-            <a asp-action="Index" class="btn btn-secondary btn-lg shadow-sm">Back to List</a>
-            <input type="submit" value="Update" class="btn btn-primary btn-lg shadow-sm" />
+
+            <a asp-action="Index"
+               class="btn btn-secondary btn-lg shadow-sm">
+
+                Back to List
+
+            </a>
+
+
+            <button type="submit"
+                    class="btn btn-primary btn-lg shadow-sm">
+
+                Update
+
+            </button>
+
         </div>
+
     </form>
+
 </div>
 
 
-
 @section Scripts {
-    <!-- Add Select2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-    <!-- Add jQuery -->
+    <partial name="_ValidationScriptsPartial" />
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Add Select2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Initialize Select2 for BookingNo dropdown
-            $('#BookingNo').select2({
-                placeholder: "Select Booking No",
-                allowClear: true,
-                minimumInputLength: 3,
-                ajax: {
-                    url: '@Url.Action("GetBookingNos", "CAD")',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return { term: params.term };
-                    },
-                    processResults: function (data) {
-                        return { results: data.results };
-                    },
-                    cache: true
-                }
-            });
-
-           // Handle selection changes
-            $('#BookingNo').on('select2:select', function (e) {
-                var data = e.params.data;
-                console.log(data);
-
-                // Update BuyerName and Total SMV fields
-                $('#Buyer').val(data.buyerName || '');
-                $('#Season').val(data.season || 'N/A');
-                $('#Seasonyear').val(data.seasonYear || 'N/A');
-                $('#Job').val(data.jobNo || '');
-                $('#Ir').val(data.irIb || '');
-                $('#Brand').val(data.brand || 'N/A');
-                $('#Styledes').val(data.styleDescription || 'N/A');
-            });
-        });
-
-    </script>
 
     <script>
-        let rowIndex = @Model.Details?.Count ?? 0;
 
-        // Generate a new row HTML
-                function createRow(index) {
+        // =====================================================
+        // INITIAL ROW INDEX
+        // =====================================================
+
+        let rowIndex = @Model.Details.Count;
+
+
+        // =====================================================
+        // REMOVE EXISTING FILE
+        // =====================================================
+
+        function removeExistingFile(fileId, detailIndex) {
+
+            const fileDiv =
+                document.getElementById("file_" + fileId);
+
+            if (!fileDiv) {
+                return;
+            }
+
+
+            // Prevent duplicate delete ID
+            if (fileDiv.dataset.removed === "true") {
+                return;
+            }
+
+
+            // Mark as removed
+            fileDiv.dataset.removed = "true";
+
+            fileDiv.classList.add("file-removed");
+
+
+            // Hidden input for DeletedFileIds
+            const hiddenInput =
+                document.createElement("input");
+
+            hiddenInput.type = "hidden";
+
+            hiddenInput.name =
+                `Details[${detailIndex}].DeletedFileIds`;
+
+            hiddenInput.value = fileId;
+
+
+            const deletedContainer =
+                document.getElementById(
+                    "deletedFiles_" + detailIndex
+                );
+
+
+            if (deletedContainer) {
+
+                deletedContainer.appendChild(
+                    hiddenInput
+                );
+
+            }
+
+        }
+
+
+        // =====================================================
+        // CREATE NEW DETAIL ROW
+        // =====================================================
+
+        function createRow(index) {
+
             return `
-                <tr>
-                 <td><input name="Details[${index}].Ptnnmbr" class="form-control" /></td>
-                 <td><input name="Details[${index}].Gmntitem" class="form-control" /></td>
-                <td><input name="Details[${index}].Gmntcolor" class="form-control" /></td>
-                <td><input name="Details[${index}].Fabricdes" class="form-control" /></td>
-                <td><input name="Details[${index}].Fabricusage" class="form-control" /></td>
-                <td><input name="Details[${index}].Gsm" class="gsm form-control" /></td>
-                <td><input name="Details[${index}].Opt01" class="length form-control" /></td>
-                <td><input name="Details[${index}].Fullwidth" class="width form-control" /></td>
-                <td><input name="Details[${index}].Cutwidth" class="form-control" /></td>
-                <td><input name="Details[${index}].Efficiency" class="form-control" /></td>
-                <td><input name="Details[${index}].Sizeratio" class="form-control" /></td>
-                <td><input name="Details[${index}].Markerqty" class="pcs form-control" /></td>
-                <td><input name="Details[${index}].Wastage" class="allowance form-control" /></td>
-                <td><input name="Details[${index}].Conspcs" class="conspcs form-control bg-light" readonly /></td>
-                <td><input name="Details[${index}].Consdzn" class="consdzn form-control bg-light" readonly /></td>
-                <td><input name="Details[${index}].Comments" class="form-control" /></td>
-                <td><input type="file" name="Details[${index}].File" class="form-control" /></td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-sm btn-outline-success" onclick="addRow()">➕</button>
-                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRow(this)">➖</button>
-                    </td>
-                </tr>
-            `;
+            <tr>
+
+                <!-- GARMENTS ITEM -->
+                <td>
+                    <input name="Details[${index}].Gmntitem"
+                           class="gmntitem form-control" />
+                </td>
+
+
+                <!-- GARMENTS COLOR -->
+                <td>
+                    <input name="Details[${index}].Gmntcolor"
+                           class="gmntcolor form-control" />
+                </td>
+
+
+                <!-- FABRIC DESCRIPTION -->
+                <td>
+                    <input name="Details[${index}].Fabricdes"
+                           class="fabricdes form-control" />
+                </td>
+
+
+                <!-- GSM -->
+                <td>
+                    <input name="Details[${index}].Gsm"
+                           class="gsm form-control" />
+                </td>
+
+
+                <!-- BODY PARTS -->
+                <td>
+                    <input name="Details[${index}].Fabricusage"
+                           class="fabricusage form-control" />
+                </td>
+
+
+                <!-- PTN NO + DETAIL ID -->
+                <td>
+
+                    <input type="hidden"
+                           name="Details[${index}].Caddid"
+                           value="0" />
+
+                    <input name="Details[${index}].Ptnnmbr"
+                           class="form-control" />
+
+                </td>
+
+
+                <!-- MARKER LENGTH -->
+                <td>
+                    <input name="Details[${index}].Opt01"
+                           class="length form-control" />
+                </td>
+
+
+                <!-- FULL WIDTH -->
+                <td>
+                    <input name="Details[${index}].Fullwidth"
+                           class="width form-control" />
+                </td>
+
+
+                <!-- CUT WIDTH -->
+                <td>
+                    <input name="Details[${index}].Cutwidth"
+                           class="form-control" />
+                </td>
+
+
+                <!-- EFFICIENCY -->
+                <td>
+                    <input name="Details[${index}].Efficiency"
+                           class="form-control" />
+                </td>
+
+
+                <!-- SIZE RATIO -->
+                <td>
+                    <input name="Details[${index}].Sizeratio"
+                           class="form-control" />
+                </td>
+
+
+                <!-- MARKER QTY -->
+                <td>
+                    <input name="Details[${index}].Markerqty"
+                           class="pcs form-control" />
+                </td>
+
+
+                <!-- WASTAGE -->
+                <td>
+                    <input name="Details[${index}].Wastage"
+                           class="allowance form-control" />
+                </td>
+
+
+                <!-- CONS/PCS -->
+                <td>
+                    <input name="Details[${index}].Conspcs"
+                           class="conspcs form-control bg-light"
+                           readonly />
+                </td>
+
+
+                <!-- CONS/DZN -->
+                <td>
+                    <input name="Details[${index}].Consdzn"
+                           class="consdzn form-control bg-light"
+                           readonly />
+                </td>
+
+
+                <!-- COMMENTS -->
+                <td>
+                    <input name="Details[${index}].Comments"
+                           class="form-control" />
+                </td>
+
+
+                <!-- FILES -->
+                <td>
+
+                    <div class="text-muted small mb-2">
+                        No existing file
+                    </div>
+
+                    <input type="file"
+                           name="Details[${index}].Files"
+                           multiple
+                           class="form-control new-file-input" />
+
+                    <div class="new-files">
+                        New files are optional.
+                    </div>
+
+                    <div id="deletedFiles_${index}">
+                    </div>
+
+                </td>
+
+
+                <!-- ACTION -->
+                <td>
+
+                    <div class="action-buttons">
+
+                        <button type="button"
+                                class="btn btn-sm btn-outline-success"
+                                onclick="addRow()"
+                                title="Add Row">
+
+                            ➕
+
+                        </button>
+
+                        <button type="button"
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="removeRow(this)"
+                                title="Remove Row">
+
+                            ➖
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>`;
         }
-        // Add new row
+
+
+        // =====================================================
+        // ADD ROW
+        // =====================================================
+
         function addRow() {
-            const tbody = document.getElementById("detailsBody");
-            tbody.insertAdjacentHTML("beforeend", createRow(rowIndex));
+
+            $('#detailsBody')
+                .append(createRow(rowIndex));
+
             rowIndex++;
-        }
-        // Remove row (keep at least one)
-        function removeRow(btn) {
-            const tbody = document.getElementById("detailsBody");
 
-            if (tbody.rows.length > 1) {
-                btn.closest("tr").remove();
-            } else {
+        }
+
+
+        // =====================================================
+        // REMOVE DETAIL ROW
+        // =====================================================
+
+        function removeRow(button) {
+
+            const tbody =
+                document.getElementById("detailsBody");
+
+
+            if (tbody.rows.length <= 1) {
+
                 alert("At least one row is required.");
+
+                return;
             }
+
+
+            const row =
+                button.closest("tr");
+
+
+            if (row) {
+
+                row.remove();
+
+            }
+
+
+            reindexRows();
+
         }
-         // ✅ Auto calculation (per row)
-        $(document).on('input', '.length, .width, .gsm, .pcs, .allowance', function () {
 
-            let row = $(this).closest('tr');
 
-            let length = parseFloat(row.find('.length').val()) || 0;
-            let width = parseFloat(row.find('.width').val()) || 0;
-            let gsm = parseFloat(row.find('.gsm').val()) || 0;
-            let pcs = parseFloat(row.find('.pcs').val()) || 0;
+        // =====================================================
+        // REINDEX DETAIL ROWS
+        // =====================================================
 
-            // 👉 If wastage is %, convert it
-            let allowance = (parseFloat(row.find('.allowance').val()) || 0) / 100;
+        function reindexRows() {
 
-            if (length > 0 && width > 0 && gsm > 0 && pcs > 0) {
+            $('#detailsBody tr').each(function (index) {
 
-                let base = (length * width * gsm) / 1550 / 1000 / pcs;
+                $(this)
+                    .find('input, select, textarea')
+                    .each(function () {
 
-                let consPcs = base + (base * allowance);
-                let consDzn = consPcs * 12;
+                        const name =
+                            $(this).attr('name');
 
-                row.find('.conspcs').val(consPcs.toFixed(2));
-                row.find('.consdzn').val(consDzn.toFixed(2));
-            } else {
-                row.find('.conspcs').val('');
-                row.find('.consdzn').val('');
+
+                        if (name) {
+
+                            $(this).attr(
+                                'name',
+                                name.replace(
+                                    /Details\[\d+\]/,
+                                    `Details[${index}]`
+                                )
+                            );
+
+                        }
+
+                    });
+
+
+                // Update deleted file container
+                $(this)
+                    .find('[id^="deletedFiles_"]')
+                    .attr(
+                        'id',
+                        `deletedFiles_${index}`
+                    );
+
+
+                // Update file list ID if present
+                $(this)
+                    .find('[id^="fileList_"]')
+                    .attr(
+                        'id',
+                        `fileList_${index}`
+                    );
+
+
+                // Update remove button onclick
+                $(this)
+                    .find('.remove-file')
+                    .each(function () {
+
+                        const onclick =
+                            $(this).attr('onclick');
+
+                        if (onclick) {
+
+                            const match =
+                                onclick.match(
+                                    /removeExistingFile\((\d+),\s*\d+\)/
+                                );
+
+                            if (match) {
+
+                                const fileId =
+                                    match[1];
+
+                                $(this).attr(
+                                    'onclick',
+                                    `removeExistingFile(${fileId}, ${index})`
+                                );
+
+                            }
+
+                        }
+
+                    });
+
+            });
+
+
+            rowIndex =
+                $('#detailsBody tr').length;
+
+        }
+
+
+        // =====================================================
+        // AUTO CALCULATION
+        // =====================================================
+
+        $(document).on(
+            'input',
+            '.length, .width, .gsm, .pcs, .allowance',
+            function () {
+
+                const row =
+                    $(this).closest('tr');
+
+
+                const length =
+                    parseFloat(
+                        row.find('.length').val()
+                    ) || 0;
+
+
+                const width =
+                    parseFloat(
+                        row.find('.width').val()
+                    ) || 0;
+
+
+                const gsm =
+                    parseFloat(
+                        row.find('.gsm').val()
+                    ) || 0;
+
+
+                const pcs =
+                    parseFloat(
+                        row.find('.pcs').val()
+                    ) || 0;
+
+
+                const allowance =
+                    (
+                        parseFloat(
+                            row.find('.allowance').val()
+                        ) || 0
+                    ) / 100;
+
+
+                if (
+                    length > 0 &&
+                    width > 0 &&
+                    gsm > 0 &&
+                    pcs > 0
+                ) {
+
+                    const base =
+                        (length * width * gsm)
+                        / 1550
+                        / 1000
+                        / pcs;
+
+
+                    const consPcs =
+                        base +
+                        (base * allowance);
+
+
+                    const consDzn =
+                        consPcs * 12;
+
+
+                    row.find('.conspcs')
+                        .val(
+                            consPcs.toFixed(2)
+                        );
+
+
+                    row.find('.consdzn')
+                        .val(
+                            consDzn.toFixed(2)
+                        );
+
+                }
+                else {
+
+                    row.find('.conspcs')
+                        .val('');
+
+                    row.find('.consdzn')
+                        .val('');
+
+                }
+
             }
+        );
+
+
+        // =====================================================
+        // PAGE LOAD
+        // =====================================================
+
+        $(document).ready(function () {
+
+            // If there is no detail row,
+            // automatically create one.
+            if ($('#detailsBody tr').length === 0) {
+
+                addRow();
+
+            }
+
         });
 
-        // Initialize with one row
-                document.addEventListener("DOMContentLoaded", function () {
-
-            let existingRows = document.querySelectorAll("#detailsBody tr").length;
-
-            if (existingRows === 0) {
-                addRow();   // only for Create page
-            }
-        });
     </script>
+
 }

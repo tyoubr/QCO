@@ -4,100 +4,423 @@
     ViewData["Title"] = "Delete CAD Consumption";
 }
 
-<h3 class="text-danger">Delete Confirmation</h3>
-<hr />
+<style>
+    .container {
+        max-width: 2020px;
+        margin: 0 auto;
+    }
 
-<div class="card mb-3">
-    <div class="card-body">
-        <h5>Are you sure you want to delete this record?</h5>
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
 
-        <dl class="row mt-3">
-            <dt class="col-sm-3">CAD Date</dt>
-            <dd class="col-sm-9">@Model.Master?.Caddate?.ToString("yyyy-MM-dd")</dd>
+    .card-header {
+        background: linear-gradient(to right, #dc3545, #ff6b6b);
+        color: white;
+        padding: 15px;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
 
-            <dt class="col-sm-3">Style Ref.</dt>
-            <dd class="col-sm-9">@Model.Master?.Styleref</dd>
+    .info-label {
+        font-weight: 600;
+        color: #5a5c69;
+    }
 
-            <dt class="col-sm-3">Style</dt>
-            <dd class="col-sm-9">@Model.Master?.Style</dd>
+    .table th {
+        background-color: #f8f9fc;
+        color: #5a5c69;
+        font-weight: 600;
+        white-space: nowrap;
+    }
 
-            <dt class="col-sm-3">IR/IB</dt>
-            <dd class="col-sm-9">@Model.Master?.Ir</dd>
+    .table td {
+        vertical-align: middle;
+    }
 
-            <dt class="col-sm-3">Buyer</dt>
-            <dd class="col-sm-9">@Model.Master?.Buyer</dd> 
-            
-            <dt class="col-sm-3">Brand</dt>
-            <dd class="col-sm-9">@Model.Master?.Brand</dd>
+    .file-list {
+        margin: 0;
+        padding-left: 18px;
+    }
 
-            <dt class="col-sm-3">Season</dt>
-            <dd class="col-sm-9">@Model.Master?.Season Year</dd>
+        .file-list li {
+            margin-bottom: 4px;
+        }
 
-            <dt class="col-sm-3">Season Year</dt>
-            <dd class="col-sm-9">@Model.Master?.Seasonyear</dd>
+    .delete-warning {
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        color: #856404;
+        border-radius: 8px;
+        padding: 12px 15px;
+    }
+</style>
 
-            @* <dt class="col-sm-3">Approval Status</dt>
-            <dd class="col-sm-9">@Model.Master?.Isapproved</dd> *@
+<div class="container py-4">
 
-        </dl>
+    <!-- Page Title -->
+    <div class="text-center mb-4">
+        <h1 class="text-danger">Delete CAD Consumption</h1>
+        <hr />
     </div>
+
+    <!-- Warning -->
+    <div class="delete-warning mb-4">
+        <strong>Warning:</strong>
+        You are about to permanently delete this CAD Consumption record
+        and all related marker details and uploaded files.
+    </div>
+
+    <!-- Master Information -->
+    <div class="card mb-4">
+
+        <div class="card-header">
+            CAD Consumption Information
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <!-- CAD Date -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">CAD Date</div>
+                    <div>
+                        @(Model.Master?.Caddate?.ToString("dd-MM-yyyy") ?? "")
+                    </div>
+                </div>
+
+                <!-- Working Company -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Working Company</div>
+                    <div>
+                        @Model.Master?.Opt01
+                    </div>
+                </div>
+
+                <!-- Style Ref -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Style Ref.</div>
+                    <div>
+                        @Model.Master?.Styleref
+                    </div>
+                </div>
+
+                <!-- Job -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Job No.</div>
+                    <div>
+                        @Model.Master?.Job
+                    </div>
+                </div>
+
+                <!-- IR/IB -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">IR/IB</div>
+                    <div>
+                        @Model.Master?.Ir
+                    </div>
+                </div>
+
+                <!-- Buyer -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Buyer</div>
+                    <div>
+                        @Model.Master?.Buyer
+                    </div>
+                </div>
+
+                <!-- Brand -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Brand</div>
+                    <div>
+                        @Model.Master?.Brand
+                    </div>
+                </div>
+
+                <!-- Season -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Season</div>
+                    <div>
+                        @Model.Master?.Season
+                    </div>
+                </div>
+
+                <!-- Season Year -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Season Year</div>
+                    <div>
+                        @Model.Master?.Seasonyear
+                    </div>
+                </div>
+
+                <!-- Style Description -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Style Description</div>
+                    <div>
+                        @Model.Master?.Styledes
+                    </div>
+                </div>
+
+                <!-- Pattern Master -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Pattern Master</div>
+                    <div>
+                        @Model.Master?.Patternmaster
+                    </div>
+                </div>
+
+                <!-- Consumption For -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Consumption For</div>
+                    <div>
+                        @Model.Master?.Consfor
+                    </div>
+                </div>
+
+                <!-- Comments -->
+                <div class="col-md-8 mb-3">
+                    <div class="info-label">Comments</div>
+                    <div>
+                        @Model.Master?.Comments
+                    </div>
+                </div>
+
+                <!-- Approval -->
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Approval Status</div>
+                    <div>
+                        @if (Model.Master?.Isapproved == true)
+                        {
+                            <span class="badge bg-success">
+                                Approved
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">
+                                Pending Approval
+                            </span>
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Details -->
+    @if (Model.Details != null && Model.Details.Count > 0)
+    {
+        <div class="card mb-4">
+
+            <div class="card-header">
+                Marker Details
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-hover table-sm">
+
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Color</th>
+                                <th>Fabric Description</th>
+                                <th>GSM</th>
+                                <th>Body Parts</th>
+                                <th>Pattern No.</th>
+                                <th>Marker Length</th>
+                                <th>Full Width</th>
+                                <th>Cut Width</th>
+                                <th>Efficiency %</th>
+                                <th>Size Ratio</th>
+                                <th>Marker Qty</th>
+                                <th>Wastage %</th>
+                                <th>Cons/Pcs</th>
+                                <th>Cons/Dzn</th>
+                                <th>Comments</th>
+                                <th>Files</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var item in Model.Details)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @item.Gmntitem
+                                    </td>
+
+                                    <td>
+                                        @item.Gmntcolor
+                                    </td>
+
+                                    <td>
+                                        @item.Fabricdes
+                                    </td>
+
+                                    <td>
+                                        @item.Gsm
+                                    </td>
+
+                                    <td>
+                                        @item.Fabricusage
+                                    </td>
+
+                                    <td>
+                                        @item.Ptnnmbr
+                                    </td>
+
+                                    <td>
+                                        @item.Opt01
+                                    </td>
+
+                                    <td>
+                                        @item.Fullwidth
+                                    </td>
+
+                                    <td>
+                                        @item.Cutwidth
+                                    </td>
+
+                                    <td>
+                                        @item.Efficiency
+                                    </td>
+
+                                    <td>
+                                        @item.Sizeratio
+                                    </td>
+
+                                    <td>
+                                        @item.Markerqty
+                                    </td>
+
+                                    <td>
+                                        @item.Wastage
+                                    </td>
+
+                                    <td>
+                                        @item.Conspcs
+                                    </td>
+
+                                    <td>
+                                        @item.Consdzn
+                                    </td>
+
+                                    <td>
+                                        @item.Comments
+                                    </td>
+
+                                    <!-- FILES -->
+                                    <td>
+
+                                        @if (item.ExistingFiles != null &&
+                                                                        item.ExistingFiles.Count > 0)
+                                        {
+                                            <ul class="file-list">
+
+                                                @foreach (var file in item.ExistingFiles)
+                                                {
+                                                    <li>
+                                                        @(string.IsNullOrEmpty(file.Filename)
+                                                                                                ? "Uploaded File"
+                                                                                                : file.Filename)
+                                    </li>
+                                                                        }
+
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">
+                                                No file
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    }
+
+
+    <!-- Delete Form -->
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="text-center">
+
+                <h5 class="text-danger mb-4">
+                    Are you sure you want to delete this record?
+                </h5>
+
+                <form asp-action="Delete"
+                      method="post"
+                      class="d-inline">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden"
+                           name="id"
+                           value="@Model.Master.Cadmid" />
+
+                    <button type="submit"
+                            class="btn btn-danger btn-lg me-2"
+                            onclick="return confirmDelete();">
+
+                        🗑️ Yes, Delete
+
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-secondary btn-lg">
+
+                        Cancel
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
-@if (Model.Details != null && Model.Details.Count > 0)
-{
-    <h5>Details</h5>
 
-    <table class="table table-bordered table-sm">
-        <thead class="table-light">
-            <tr>
-                <th>Item</th>
-                <th>Color</th>
-                <th>Fabric Description</th>
-                <th>GSM</th>
-                <th>Marker Length</th>
-                <th>Marker Width</th>
-                <th>Marker Qty</th>
-                <th>Wastage %</th>
-                <th>Consumption (pcs)</th>
-                <th>Consumption (dzn)</th>
-                <th>File</th>
-            </tr>
-        </thead>
+@section Scripts {
 
-        <tbody>
-            @foreach (var item in Model.Details)
-            {
-                <tr>
-                    <td>@item.Gmntitem</td>
-                    <td>@item.Gmntcolor</td>
-                    <td>@item.Fabricdes</td>
-                    <td>@item.Gsm</td>
-                    <td>@item.Opt01</td>
-                    <td>@item.Fullwidth</td>
-                    <td>@item.Markerqty</td>
-                    <td>@item.Wastage</td>
-                    <td>@item.Conspcs</td>
-                    <td>@item.Consdzn</td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(item.Filepath))
-                        {
-                            <span>@System.IO.Path.GetFileName(item.Filepath)</span>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <script>
+
+        function confirmDelete() {
+
+            return confirm(
+                "Are you sure you want to permanently delete this CAD Consumption record and all related files?"
+            );
+
+        }
+
+    </script>
+
 }
-
-<form asp-action="Delete" method="post">
-    <input type="hidden" name="id" value="@Model.Master.Cadmid" />
-
-    <button type="submit" class="btn btn-danger">
-        Yes, Delete
-    </button>
-
-    <a asp-action="Index" class="btn btn-secondary">
-        Cancel
-    </a>
-</form>

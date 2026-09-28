@@ -49,7 +49,9 @@ public partial class TblCadConsD
     public string? Filename { get; set; }
     //For File Upload
     [NotMapped]
-    public IFormFile? File { get; set; }  // ✅ optional
+    public List<IFormFile> Files { get; set; } = new List<IFormFile>();
+
+    //public IFormFile? File { get; set; }
 
     public string? Filepath { get; set; }
 
@@ -69,4 +71,8 @@ public partial class TblCadConsD
     public string? OriginalFilename { get; set; }
 
     public virtual TblCadConsM? Cadm { get; set; }
+
+    // Navigation to multiple files
+    public virtual ICollection<TblCadConsFiles> TblCadConsFiles { get; set; }
+        = new List<TblCadConsFiles>();
 }

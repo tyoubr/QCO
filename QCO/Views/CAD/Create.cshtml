@@ -1,12 +1,9 @@
 ﻿@model QCO.ViewModel.CadConsumptionViewModel
 
-
-
 @{
     ViewData["Title"] = "Create";
 }
 
-<!-- Inline Styles -->
 <style>
     .container {
         max-width: 2020px;
@@ -19,18 +16,10 @@
         overflow: hidden;
     }
 
-    .card-header {
-        background: linear-gradient(to right, #4e73df, #1cc88a);
-        color: white;
-        padding: 15px;
-        font-size: 1.25rem;
-        font-weight: 600;
-    }
-
     .table {
         margin: 0;
-        width: 100%; /* Ensure table width is 100% */
-        table-layout: fixed; /* Prevent overflowing content */
+        width: 100%;
+        table-layout: fixed;
     }
 
         .table thead th {
@@ -49,9 +38,7 @@
         .table td {
             vertical-align: middle;
             padding: 5px;
-            text-overflow: ellipsis;
             overflow: hidden;
-            white-space: nowrap; /* Prevent text from wrapping */
         }
 
     .btn {
@@ -63,72 +50,14 @@
         align-items: center;
     }
 
-    .btn-outline-warning {
-        color: #ffc107;
-        border-color: #ffc107;
-    }
-
-        .btn-outline-warning:hover {
-            background-color: #ffc107;
-            color: white;
-        }
-
-    .btn-outline-info {
-        color: #17a2b8;
-        border-color: #17a2b8;
-    }
-
-        .btn-outline-info:hover {
-            background-color: #17a2b8;
-            color: white;
-        }
-
-    .btn-outline-danger {
-        color: #dc3545;
-        border-color: #dc3545;
-    }
-
-        .btn-outline-danger:hover {
-            background-color: #dc3545;
-            color: white;
-        }
-
-    .page-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-        .page-header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #4e73df;
-        }
-
-    .rounded-pill {
-        border-radius: 50px;
-    }
-
-    .shadow-sm {
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Column for action buttons - Ensure horizontal alignment */
-    .actions-column {
-        display: flex;
-        justify-content: flex-start; /* Align buttons to the left */
-        gap: 10px; /* Space out the buttons */
-    }
-
-    /* Additional adjustments for table layout */
-    .table th, .table td {
+    .table th,
+    .table td {
         word-wrap: break-word;
         text-align: left;
     }
 
         .table td .btn {
-            white-space: nowrap; /* Prevent buttons from wrapping */
+            white-space: nowrap;
         }
 
     label.required::after {
@@ -136,378 +65,567 @@
         color: red;
     }
 
+    .file-list {
+        margin-top: 5px;
+        font-size: 12px;
+    }
+
+    .file-item {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        padding: 3px 6px;
+        margin-bottom: 2px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 </style>
 
 <h1 class="text-center text-primary">Create CAD Consumption</h1>
 <hr />
 
-<div class="container py-4" style="background-color: #F8F9FA;">
-    <form asp-action="Create" enctype="multipart/form-data" method="post" class="p-4 shadow-sm bg-white rounded ">
-        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-        @* CheckBox *@
+<div class="container py-4" style="background-color:#F8F9FA;">
+
+    <form asp-action="Create"
+          method="post"
+          enctype="multipart/form-data"
+          class="p-4 shadow-sm bg-white rounded">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3"></div>
+
+        <!-- =========================
+             INDEPENDENT
+        ========================== -->
         <div class="text-center mb-3">
             <div class="form-check d-inline-block">
-                <input class="form-check-input" type="checkbox" id="independentChk">
-                <label class="form-check-label fw-bold text-dark" for="independentChk">
+
+                <input class="form-check-input"
+                       type="checkbox"
+                       id="independentChk" />
+
+                <label class="form-check-label fw-bold text-dark"
+                       for="independentChk">
                     Independent
                 </label>
+
             </div>
         </div>
 
-        <!-- Form Sections -->
+
+        <!-- =========================
+             HEADER ROW 1
+        ========================== -->
         <div class="row">
 
-            <!-- CAD Date -->
+            <!-- CAD DATE -->
             <div class="col-md-3">
-                @*  <div class="form-group mb-4">
-                    <label asp-for="Master.Caddate" class="form-label fw-bold text-dark">CAD Date<span class="text-danger">*</span></label>
-                    <input asp-for="Master.Caddate" class="form-control border-primary shadow-sm" type="datetime-local" />
-                    <span asp-validation-for="Master.Caddate" class="text-danger"></span>
-                </div> *@
                 <div class="form-group mb-4">
+
                     <label class="form-label fw-bold text-dark">
                         CAD Date<span class="text-danger">*</span>
                     </label>
 
-                    <!-- ✅ Real datetime (DB save হবে) -->
                     <input asp-for="Master.Caddate"
                            type="hidden"
                            value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")" />
 
-                    <!-- ✅ Only date show UI -->
                     <input value="@DateTime.Now.ToString("dd-MM-yyyy")"
                            class="form-control border-primary shadow-sm"
                            readonly />
+
                 </div>
             </div>
-            <!-- Company -->
+
+
+            <!-- COMPANY -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Opt01" class="form-label fw-bold text-dark"> Working Company<span class="text-danger">*</span></label>
-                    <select asp-for="Master.Opt01" class="form-select border-primary shadow-sm">
+
+                    <label asp-for="Master.Opt01"
+                           class="form-label fw-bold text-dark">
+                        Working Company<span class="text-danger">*</span>
+                    </label>
+
+                    <select asp-for="Master.Opt01"
+                            class="form-select border-primary shadow-sm">
+
                         <option value="">Select Company</option>
-                        <option value="Tropical Knitex Ltd.">Tropical Knitex Ltd.</option>
-                        <option value="Cotton Club BD Ltd.">Cotton Club BD Ltd.</option>
-                        <option value="Cotton Club BD ltd [Extended Part]">Cotton Club BD ltd [Extended Part].</option>
-                        <option value="Cotton Clothing BD Ltd.">Cotton Clothing BD Ltd.</option>
+
+                        <option value="Tropical Knitex Ltd.">
+                            Tropical Knitex Ltd.
+                        </option>
+
+                        <option value="Cotton Club BD Ltd.">
+                            Cotton Club BD Ltd.
+                        </option>
+
+                        <option value="Cotton Club BD ltd [Extended Part]">
+                            Cotton Club BD ltd [Extended Part]
+                        </option>
+
+                        <option value="Cotton Clothing BD Ltd.">
+                            Cotton Clothing BD Ltd.
+                        </option>
+
                     </select>
-                    <span asp-validation-for="Master.Opt01" class="text-danger"></span>
+
+                    <span asp-validation-for="Master.Opt01"
+                          class="text-danger"></span>
+
                 </div>
             </div>
-            <!-- BookingNo Dropdown -->
-            @* <div class="col-md-3">
-                <div class="form-group mb-4">
-                    <label asp-for="Master.Styleref" class="form-label fw-bold text-dark">M. Style Ref.<span class="text-danger">*</span></label>
-                    <select asp-for="Master.Styleref" class="form-control select2 border-primary shadow-sm" id="BookingNo">
-                        <option value="">Select Booking No</option>
-                    </select>
-                    <span asp-validation-for="Master.Styleref" class="text-danger"></span>
-                </div>
-            </div> *@
+
+
+            <!-- STYLE REF -->
             <div class="col-md-3">
-                <div class="form-group mb-4" id="stylerefWrapper">
+
+                <div class="form-group mb-4"
+                     id="stylerefWrapper">
 
                     <label class="form-label fw-bold text-dark">
                         M. Style Ref.<span class="text-danger">*</span>
                     </label>
 
-                    <!-- 🔹 Hidden (ONLY this will be submitted) -->
-                    <input type="hidden" id="StylerefHidden" name="Master.Styleref" />
+                    <!-- Actual submitted value -->
+                    <input type="hidden"
+                           id="StylerefHidden"
+                           name="Master.Styleref" />
 
-                    <!-- 🔹 Dropdown -->
+                    <!-- Booking dropdown -->
                     <select id="BookingNo"
                             class="form-control select2 border-primary shadow-sm">
-                        <option value="">Select Booking No</option>
+
+                        <option value="">
+                            Select Booking No
+                        </option>
+
                     </select>
 
-                    <!-- 🔹 Manual Input -->
+                    <!-- Independent input -->
                     <input type="text"
                            id="StylerefInput"
                            class="form-control border-primary shadow-sm d-none"
                            placeholder="Enter Style Ref" />
 
                 </div>
+
             </div>
+
+
             <!-- JOB -->
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Job" class="form-label fw-bold text-dark">Job No.</label>
+
+                    <label asp-for="Master.Job"
+                           class="form-label fw-bold text-dark">
+                        Job No.
+                    </label>
+
                     <input asp-for="Master.Job"
                            id="Job"
                            class="form-control bg-light"
                            readonly />
-                    <span asp-validation-for="Master.Job" class="text-danger"></span>
+
+                    <span asp-validation-for="Master.Job"
+                          class="text-danger"></span>
+
                 </div>
+
             </div>
+
         </div>
 
+
+        <!-- =========================
+             HEADER ROW 2
+        ========================== -->
         <div class="row">
+
+            <!-- IR -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Ir" class="form-label fw-bold text-dark">IR/IB</label>
-                    <input asp-for="Master.Ir" id="Ir" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Ir" class="text-danger"></span>
+
+                    <label asp-for="Master.Ir"
+                           class="form-label fw-bold text-dark">
+                        IR/IB
+                    </label>
+
+                    <input asp-for="Master.Ir"
+                           id="Ir"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Ir"
+                          class="text-danger"></span>
+
                 </div>
             </div>
+
+
+            <!-- BUYER -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Buyer" class="form-label fw-bold text-dark">Buyer Name</label>
-                    <input asp-for="Master.Buyer" id="Buyer" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Buyer" class="text-danger"></span>
+
+                    <label asp-for="Master.Buyer"
+                           class="form-label fw-bold text-dark">
+                        Buyer Name
+                    </label>
+
+                    <input asp-for="Master.Buyer"
+                           id="Buyer"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Buyer"
+                          class="text-danger"></span>
+
                 </div>
             </div>
+
+
+            <!-- BRAND -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Brand" class="form-label fw-bold text-dark">Brand</label>
-                    <input asp-for="Master.Brand" id="Brand" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Brand" class="text-danger"></span>
+
+                    <label asp-for="Master.Brand"
+                           class="form-label fw-bold text-dark">
+                        Brand
+                    </label>
+
+                    <input asp-for="Master.Brand"
+                           id="Brand"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Brand"
+                          class="text-danger"></span>
+
                 </div>
             </div>
+
+
+            <!-- SEASON -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Season" class="form-label fw-bold text-dark">Season</label>
-                    <input asp-for="Master.Season" id="Season" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Season" class="text-danger"></span>
+
+                    <label asp-for="Master.Season"
+                           class="form-label fw-bold text-dark">
+                        Season
+                    </label>
+
+                    <input asp-for="Master.Season"
+                           id="Season"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Season"
+                          class="text-danger"></span>
+
                 </div>
             </div>
+
         </div>
 
-        <!-- Pre Style Finish -->
+
+        <!-- =========================
+             HEADER ROW 3
+        ========================== -->
         <div class="row">
+
+            <!-- SEASON YEAR -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Seasonyear" class="form-label fw-bold text-dark">Season Year</label>
-                    <input asp-for="Master.Seasonyear" id="Seasonyear" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Seasonyear" class="text-danger"></span>
+
+                    <label asp-for="Master.Seasonyear"
+                           class="form-label fw-bold text-dark">
+                        Season Year
+                    </label>
+
+                    <input asp-for="Master.Seasonyear"
+                           id="Seasonyear"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Seasonyear"
+                          class="text-danger"></span>
+
                 </div>
             </div>
+
+
+            <!-- STYLE DESCRIPTION -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Styledes" class="form-label fw-bold text-dark">Style Description</label>
-                    <input asp-for="Master.Styledes" id="Styledes" class="form-control bg-light" readonly />
-                    <span asp-validation-for="Master.Styledes" class="text-danger"></span>
+
+                    <label asp-for="Master.Styledes"
+                           class="form-label fw-bold text-dark">
+                        Style Description
+                    </label>
+
+                    <input asp-for="Master.Styledes"
+                           id="Styledes"
+                           class="form-control bg-light"
+                           readonly />
+
+                    <span asp-validation-for="Master.Styledes"
+                          class="text-danger"></span>
+
                 </div>
             </div>
+
+
+            <!-- PATTERN MASTER -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Patternmaster" class="form-label fw-bold text-dark">Pattern Master</label>
-                    <input asp-for="Master.Patternmaster" class="form-control border-primary shadow-sm" />
-                    <span asp-validation-for="Master.Patternmaster" class="text-danger"></span>
+
+                    <label asp-for="Master.Patternmaster"
+                           class="form-label fw-bold text-dark">
+                        Pattern Master
+                    </label>
+
+                    <input asp-for="Master.Patternmaster"
+                           class="form-control border-primary shadow-sm" />
+
+                    <span asp-validation-for="Master.Patternmaster"
+                          class="text-danger"></span>
+
                 </div>
             </div>
+
+
+            <!-- CONSUMPTION FOR -->
             <div class="col-md-3">
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Consfor" class="form-label fw-bold text-dark">Consumption For</label>
-                    <select asp-for="Master.Consfor" class="form-select border-primary shadow-sm">
+
+                    <label asp-for="Master.Consfor"
+                           class="form-label fw-bold text-dark">
+                        Consumption For
+                    </label>
+
+                    <select asp-for="Master.Consfor"
+                            class="form-select border-primary shadow-sm">
+
                         <option value="">Select</option>
                         <option value="Marketting">Marketting</option>
                         <option value="Budget">Budget</option>
                         <option value="Production">Production</option>
+
                     </select>
-                    <span asp-validation-for="Master.Opt01" class="text-danger"></span>
+
+                    <span asp-validation-for="Master.Consfor"
+                          class="text-danger"></span>
+
                 </div>
             </div>
+
         </div>
 
+
+        <!-- =========================
+             COMMENTS / APPROVAL
+        ========================== -->
         <div class="row">
+
             <div class="col-md-6">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Comments" class="form-label fw-bold text-dark">Comments</label>
-                    <input asp-for="Master.Comments" class="form-control border-primary shadow-sm" />
-                    <span asp-validation-for="Master.Comments" class="text-danger"></span>
+
+                    <label asp-for="Master.Comments"
+                           class="form-label fw-bold text-dark">
+                        Comments
+                    </label>
+
+                    <input asp-for="Master.Comments"
+                           class="form-control border-primary shadow-sm" />
+
+                    <span asp-validation-for="Master.Comments"
+                          class="text-danger"></span>
+
                 </div>
+
             </div>
+
+
             <div class="col-md-3">
+
                 <div class="form-group mb-4">
-                    <label asp-for="Master.Isapproved" class="form-label fw-bold text-dark">Is Approved?</label>
-                    <select asp-for="Master.Isapproved" class="form-select border-primary shadow-sm">
-                        <option value="False" selected>No</option>
-                        <option value="True">Yes</option>
+
+                    <label asp-for="Master.Isapproved"
+                           class="form-label fw-bold text-dark">
+                        Is Approved?
+                    </label>
+
+                    <select asp-for="Master.Isapproved"
+                            class="form-select border-primary shadow-sm">
+
+                        <option value="False">
+                            No
+                        </option>
+
+                        <option value="True">
+                            Yes
+                        </option>
+
                     </select>
-                    <span asp-validation-for="Master.Isapproved" class="text-danger"></span>
+
+                    <span asp-validation-for="Master.Isapproved"
+                          class="text-danger"></span>
+
                 </div>
+
             </div>
+
         </div>
 
+
+        <!-- =========================
+             MARKER DETAILS
+        ========================== -->
         <div class="form-group mb-4">
-            <h4 class="text-primary mb-3">Marker Details</h4>
+
+            <h4 class="text-primary mb-3">
+                Marker Details
+            </h4>
+
             <hr />
+
             <div class="table-responsive">
+
                 <table class="table table-bordered table-hover">
+
                     <thead class="table-primary">
+
                         <tr>
-                            <th style="width: 250px;">Garments Item</th>
-                            <th style="width: 500px;">Garments Color</th>
-                            <th style="width: 400px;">Fabric Description</th>
-                            <th style="width: 65px;">GSM</th>
-                            <th style="width: 300px;">Body Parts</th>
-                            <th style="width: 100px;">Ptn No.</th>
-                            <th style="width: 85px;">Marker Length</th>
-                            <th style="width: 85px;">Full Width</th>
-                            <th style="width: 85px;">Cutt. Width</th>
-                            <th style="width: 95px;">Efficiency %</th>
-                            <th style="width: 85px;">Size Ratio</th>
-                            <th style="width: 85px;">Marker Qty</th>
-                            <th style="width: 85px;">Wastage %</th>
-                            <th style="width: 95px;">Cons/Pcs</th>
-                            <th style="width: 95px;">Cons/Dzn</th>
-                            <th style="width: 300px;">Comments</th>
-                            <th style="width: 275px;">Upload File</th>
-                            <th style="width: 110px;">Action</th>
+
+                            <th style="width:250px;">
+                                Garments Item
+                            </th>
+
+                            <th style="width:500px;">
+                                Garments Color
+                            </th>
+
+                            <th style="width:400px;">
+                                Fabric Description
+                            </th>
+
+                            <th style="width:65px;">
+                                GSM
+                            </th>
+
+                            <th style="width:300px;">
+                                Body Parts
+                            </th>
+
+                            <th style="width:100px;">
+                                Ptn No.
+                            </th>
+
+                            <th style="width:85px;">
+                                Marker Length
+                            </th>
+
+                            <th style="width:85px;">
+                                Full Width
+                            </th>
+
+                            <th style="width:85px;">
+                                Cutt. Width
+                            </th>
+
+                            <th style="width:95px;">
+                                Efficiency %
+                            </th>
+
+                            <th style="width:85px;">
+                                Size Ratio
+                            </th>
+
+                            <th style="width:85px;">
+                                Marker Qty
+                            </th>
+
+                            <th style="width:85px;">
+                                Wastage %
+                            </th>
+
+                            <th style="width:95px;">
+                                Cons/Pcs
+                            </th>
+
+                            <th style="width:95px;">
+                                Cons/Dzn
+                            </th>
+
+                            <th style="width:300px;">
+                                Comments
+                            </th>
+
+                            <th style="width:275px;">
+                                Upload Files
+                            </th>
+
+                            <th style="width:110px;">
+                                Action
+                            </th>
+
                         </tr>
+
                     </thead>
+
                     <tbody id="detailsBody">
                     </tbody>
+
                 </table>
+
             </div>
+
         </div>
 
-        <!-- Submit Buttons -->
+
+        <!-- =========================
+             SUBMIT
+        ========================== -->
         <div class="d-flex justify-content-between mt-4">
-            <a asp-action="Index" class="btn btn-secondary btn-lg shadow-sm">Back to List</a>
-            <input type="submit" value="Create" class="btn btn-primary btn-lg shadow-sm" />
-        </div>
-    </form>
-</div>
 
+            <a asp-action="Index"
+               class="btn btn-secondary btn-lg shadow-sm">
+                Back to List
+            </a>
+
+            <input type="submit"
+                   value="Create"
+                   class="btn btn-primary btn-lg shadow-sm" />
+
+        </div>
+
+    </form>
+
+</div>
 
 
 @section Scripts {
 
-    <!-- Select2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <partial name="_ValidationScriptsPartial" />
 
-    <!-- jQuery -->
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+          rel="stylesheet" />
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    @*    <script>
+
+    <script>
+
         let rowIndex = 0;
 
-        $(document).ready(function () {
-
-            // ✅ Initialize Select2
-            $('#BookingNo').select2({
-                placeholder: "Select Booking No",
-                allowClear: true,
-                minimumInputLength: 3,
-                ajax: {
-                    url: '@Url.Action("GetBookingNos", "CAD")',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return { term: params.term };
-                    },
-                    processResults: function (data) {
-                        return { results: data.results };
-                    },
-                    cache: true
-                }
-            });
-
-            // ✅ On Select2 change
-            $('#BookingNo').on('select2:select', function (e) {
-                let data = e.params.data;
-
-                $('#Buyer').val(data.buyerName || '');
-                $('#Season').val(data.season || 'N/A');
-                $('#Seasonyear').val(data.seasonYear || 'N/A');
-                $('#Job').val(data.jobNo || '');
-                $('#Ir').val(data.irIb || '');
-                $('#Brand').val(data.brand || 'N/A');
-                $('#Styledes').val(data.styleDescription || 'N/A');
-            });
-
-            // ✅ Load first row automatically
-            addRow();
-        });
-
-        // ✅ Create dynamic row
-        function createRow(index) {
-            return `
-            <tr>
-                <td><input name="Details[${index}].Ptnnmbr" class="form-control" /></td>
-                <td><input name="Details[${index}].Gmntitem" class="form-control" /></td>
-                <td><input name="Details[${index}].Gmntcolor" class="form-control" /></td>
-                <td><input name="Details[${index}].Fabricdes" class="form-control" /></td>
-                <td><input name="Details[${index}].Fabricusage" class="form-control" /></td>
-
-                <td><input name="Details[${index}].Gsm" class="gsm form-control" /></td>
-                <td><input name="Details[${index}].Opt01" class="length form-control" /></td>
-                <td><input name="Details[${index}].Fullwidth" class="width form-control" /></td>
-                <td><input name="Details[${index}].Cutwidth" class="form-control" /></td>
-
-                <td><input name="Details[${index}].Efficiency" class="form-control" /></td>
-                <td><input name="Details[${index}].Sizeratio" class="form-control" /></td>
-
-                <td><input name="Details[${index}].Markerqty" class="pcs form-control" /></td>
-                <td><input name="Details[${index}].Wastage" class="allowance form-control" /></td>
-
-                <td><input name="Details[${index}].Conspcs" class="conspcs form-control bg-light" readonly /></td>
-                <td><input name="Details[${index}].Consdzn" class="consdzn form-control bg-light" readonly /></td>
-
-                <td><input name="Details[${index}].Comments" class="form-control" /></td>
-                <td><input type="file" name="Details[${index}].File" class="form-control" /></td>
-
-                <td class="text-center">
-                    <button type="button" class="btn btn-sm btn-outline-success" onclick="addRow()">➕</button>
-                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRow(this)">➖</button>
-                </td>
-            </tr>
-            `;
-        }
-
-        // ✅ Add row
-        function addRow() {
-            const tbody = document.getElementById("detailsBody");
-            tbody.insertAdjacentHTML("beforeend", createRow(rowIndex));
-            rowIndex++;
-        }
-
-        // ✅ Remove row
-        function removeRow(btn) {
-            const tbody = document.getElementById("detailsBody");
-
-            if (tbody.rows.length > 1) {
-                btn.closest("tr").remove();
-            } else {
-                alert("At least one row is required.");
-            }
-        }
-
-        // ✅ Auto calculation (per row)
-        $(document).on('input', '.length, .width, .gsm, .pcs, .allowance', function () {
-
-            let row = $(this).closest('tr');
-
-            let length = parseFloat(row.find('.length').val()) || 0;
-            let width = parseFloat(row.find('.width').val()) || 0;
-            let gsm = parseFloat(row.find('.gsm').val()) || 0;
-            let pcs = parseFloat(row.find('.pcs').val()) || 0;
-
-            // 👉 If wastage is %, convert it
-            let allowance = (parseFloat(row.find('.allowance').val()) || 0) / 100;
-
-            if (length > 0 && width > 0 && gsm > 0 && pcs > 0) {
-
-                let base = (length * width * gsm) / 1550 / 1000 / pcs;
-
-                let consPcs = base + (base * allowance);
-                let consDzn = consPcs * 12;
-
-                row.find('.conspcs').val(consPcs.toFixed(2));
-                row.find('.consdzn').val(consDzn.toFixed(2));
-            } else {
-                row.find('.conspcs').val('');
-                row.find('.consdzn').val('');
-            }
-        });
-
-    </script> *@
-    <script>
-              let rowIndex = 0;
 
         $(document).ready(function () {
 
@@ -516,334 +634,687 @@
             const input = $('#StylerefInput');
             const hidden = $('#StylerefHidden');
 
-            // =========================
-            // 🔹 SELECT2 INIT
-            // =========================
-            booking.select2({
-                placeholder: "Select Booking No",
-                allowClear: true,
-                minimumInputLength: 3,
-                ajax: {
-                    url: '@Url.Action("GetBookingNos", "CAD")',
-                    dataType: 'json',
-                    delay: 250,
-                    data: params => ({ term: params.term }),
-                    processResults: data => ({ results: data.results }),
-                    cache: true
-                }
-            });
 
             // =========================
-            // 🔹 DROPDOWN CHANGE
+            // SELECT2
+            // =========================
+            booking.select2({
+
+                placeholder: "Select Booking No",
+
+                allowClear: true,
+
+                minimumInputLength: 3,
+
+                ajax: {
+
+                    url: '@Url.Action("GetBookingNos", "CAD")',
+
+                    dataType: 'json',
+
+                    delay: 250,
+
+                    data: function (params) {
+
+                        return {
+                            term: params.term
+                        };
+
+                    },
+
+                    processResults: function (data) {
+
+                        return {
+                            results: data.results
+                        };
+
+                    },
+
+                    cache: true
+                }
+
+            });
+
+
+            // =========================
+            // BOOKING SELECT
             // =========================
             booking.on('select2:select', function (e) {
 
-                let data = e.params.data;
+                const data = e.params.data;
 
-                // 🔸 Sync hidden
                 hidden.val(data.id);
 
-                // 🔸 Header Fill
                 setHeader(data);
 
-                // 🔸 Load Details
                 loadDetails(data.jobNo);
+
             });
 
+
             // =========================
-            // 🔹 INPUT CHANGE
+            // MANUAL STYLE REF
             // =========================
             input.on('input', function () {
+
                 hidden.val($(this).val());
+
             });
 
+
             // =========================
-            // 🔹 CHECKBOX TOGGLE
+            // INDEPENDENT CHECKBOX
             // =========================
             chk.on('change', function () {
 
-                let isChecked = this.checked;
+                const isChecked = this.checked;
 
                 toggleStylerefMode(isChecked);
+
                 toggleHeaderFields(isChecked);
+
                 toggleDetailFields(isChecked);
+
             });
 
-            // 🔹 Default row
+
+            // =========================
+            // DEFAULT ROW
+            // =========================
             addRow();
+
         });
 
 
         // =========================
-        // 🔥 FUNCTIONS
+        // HEADER DATA
         // =========================
-
-        // 🔹 Header Fill
         function setHeader(data) {
+
             $('#Buyer').val(data.buyerName || '');
-            $('#Season').val(data.season || 'N/A');
-            $('#Seasonyear').val(data.seasonYear || 'N/A');
+
+            $('#Season').val(data.season || '');
+
+            $('#Seasonyear').val(data.seasonYear || '');
+
             $('#Job').val(data.jobNo || '');
+
             $('#Ir').val(data.irIb || '');
-            $('#Brand').val(data.brand || 'N/A');
-            $('#Styledes').val(data.styleDescription || 'N/A');
+
+            $('#Brand').val(data.brand || '');
+
+            $('#Styledes').val(data.styleDescription || '');
+
         }
 
-        // 🔹 Load Details
+
+        // =========================
+        // LOAD DETAILS
+        // =========================
         function loadDetails(jobNo) {
 
             $.ajax({
+
                 url: '@Url.Action("GetBookingDetails", "CAD")',
+
                 type: 'GET',
-                data: { jobNo: jobNo },
+
+                data: {
+                    jobNo: jobNo
+                },
+
                 success: function (res) {
 
                     $('#detailsBody').empty();
+
                     rowIndex = 0;
 
-                    res.forEach(item => {
+
+                    res.forEach(function (item) {
 
                         addRow();
 
-                        let row = $('#detailsBody tr').last();
-                        let i = rowIndex - 1;
+                        const row =
+                            $('#detailsBody tr').last();
 
-                        row.find(`[name="Details[${i}].Gmntitem"]`).val(item.garmentsItem);
-                        row.find(`[name="Details[${i}].Gmntcolor"]`).val(item.color);
-                        row.find(`[name="Details[${i}].Fabricdes"]`).val(item.fabricDescription);
-                        row.find(`[name="Details[${i}].Gsm"]`).val(item.gsm);
-                        row.find(`[name="Details[${i}].Fabricusage"]`).val(item.fabricUsage);
+                        const i = rowIndex - 1;
+
+
+                        row.find(
+                            `[name="Details[${i}].Gmntitem"]`
+                        ).val(item.garmentsItem);
+
+
+                        row.find(
+                            `[name="Details[${i}].Gmntcolor"]`
+                        ).val(item.color);
+
+
+                        row.find(
+                            `[name="Details[${i}].Fabricdes"]`
+                        ).val(item.fabricDescription);
+
+
+                        row.find(
+                            `[name="Details[${i}].Gsm"]`
+                        ).val(item.gsm);
+
+
+                        row.find(
+                            `[name="Details[${i}].Fabricusage"]`
+                        ).val(item.fabricUsage);
+
                     });
 
-                    // Apply readonly based on checkbox
-                    toggleDetailFields($('#independentChk').is(':checked'));
+
+                    toggleDetailFields(
+                        $('#independentChk').is(':checked')
+                    );
+
                 }
+
             });
+
         }
 
-        // 🔹 Toggle StyleRef Mode
+
+        // =========================
+        // STYLE REF MODE
+        // =========================
         function toggleStylerefMode(isChecked) {
 
             const booking = $('#BookingNo');
+
             const input = $('#StylerefInput');
+
             const hidden = $('#StylerefHidden');
 
+
             if (isChecked) {
+
                 booking.next(".select2").hide();
+
                 booking.val(null).trigger("change");
 
                 input.removeClass('d-none');
+
                 hidden.val(input.val());
 
-            } else {
+            }
+            else {
+
                 booking.next(".select2").show();
+
                 input.addClass('d-none');
 
                 hidden.val(booking.val());
+
             }
+
         }
 
-        // 🔹 Toggle Header Fields
+
+        // =========================
+        // HEADER EDITABLE
+        // =========================
         function toggleHeaderFields(isEditable) {
 
             const fields = [
-                '#Job', '#Ir', '#Buyer',
-                '#Brand', '#Season',
-                '#Seasonyear', '#Styledes'
+
+                '#Job',
+                '#Ir',
+                '#Buyer',
+                '#Brand',
+                '#Season',
+                '#Seasonyear',
+                '#Styledes'
+
             ];
 
-            fields.forEach(f => {
-                $(f).prop('readonly', !isEditable)
+
+            fields.forEach(function (selector) {
+
+                $(selector)
+                    .prop('readonly', !isEditable)
                     .toggleClass('bg-light', !isEditable);
+
             });
+
         }
 
-        // 🔹 Toggle Detail Fields
+
+        // =========================
+        // DETAIL EDITABLE
+        // =========================
         function toggleDetailFields(isEditable) {
 
             $('#detailsBody')
-                .find('.gmntitem, .gmntcolor, .fabricdes, .gsm, .fabricusage')
+                .find(
+                    '.gmntitem, .gmntcolor, .fabricdes, .gsm, .fabricusage'
+                )
                 .prop('readonly', !isEditable)
                 .toggleClass('bg-light', !isEditable);
+
         }
 
 
         // =========================
-        // 🔹 ROW FUNCTIONS
+        // CREATE ROW
         // =========================
-
         function createRow(index) {
+
             return `
+
             <tr>
-                <td><input name="Details[${index}].Gmntitem" class="gmntitem form-control" readonly /></td>
-                <td><input name="Details[${index}].Gmntcolor" class="gmntcolor form-control" readonly /></td>
-                <td><input name="Details[${index}].Fabricdes" class="fabricdes form-control" readonly /></td>
-                <td><input name="Details[${index}].Gsm" class="gsm form-control" readonly /></td>
-                <td><input name="Details[${index}].Fabricusage" class="fabricusage form-control" readonly /></td>
 
-                <td><input name="Details[${index}].Ptnnmbr" class="form-control" /></td>
-                <td><input name="Details[${index}].Opt01" class="length form-control" /></td>
-                <td><input name="Details[${index}].Fullwidth" class="width form-control" /></td>
-                <td><input name="Details[${index}].Cutwidth" class="form-control" /></td>
+                <!-- GARMENTS ITEM -->
+                <td>
 
-                <td><input name="Details[${index}].Efficiency" class="form-control" /></td>
-                <td><input name="Details[${index}].Sizeratio" class="form-control" /></td>
+                    <input name="Details[${index}].Gmntitem"
+                           class="gmntitem form-control"
+                           readonly />
 
-                <td><input name="Details[${index}].Markerqty" class="pcs form-control" /></td>
-                <td><input name="Details[${index}].Wastage" class="allowance form-control" /></td>
-
-                <td><input name="Details[${index}].Conspcs" class="conspcs form-control bg-light" readonly /></td>
-                <td><input name="Details[${index}].Consdzn" class="consdzn form-control bg-light" readonly /></td>
-
-                <td><input name="Details[${index}].Comments" class="form-control" /></td>
-                <td><input type="file" name="Details[${index}].File" class="form-control" /></td>
-
-                <td class="text-center">
-                    <button type="button" class="btn btn-sm btn-outline-success" onclick="addRow()">➕</button>
-                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRow(this)">➖</button>
                 </td>
-            </tr>`;
+
+
+                <!-- COLOR -->
+                <td>
+
+                    <input name="Details[${index}].Gmntcolor"
+                           class="gmntcolor form-control"
+                           readonly />
+
+                </td>
+
+
+                <!-- FABRIC DESCRIPTION -->
+                <td>
+
+                    <input name="Details[${index}].Fabricdes"
+                           class="fabricdes form-control"
+                           readonly />
+
+                </td>
+
+
+                <!-- GSM -->
+                <td>
+
+                    <input name="Details[${index}].Gsm"
+                           class="gsm form-control"
+                           readonly />
+
+                </td>
+
+
+                <!-- BODY PARTS -->
+                <td>
+
+                    <input name="Details[${index}].Fabricusage"
+                           class="fabricusage form-control"
+                           readonly />
+
+                </td>
+
+
+                <!-- PATTERN -->
+                <td>
+
+                    <input name="Details[${index}].Ptnnmbr"
+                           class="form-control" />
+
+                </td>
+
+
+                <!-- MARKER LENGTH -->
+                <td>
+
+                    <input name="Details[${index}].Opt01"
+                           class="length form-control" />
+
+                </td>
+
+
+                <!-- FULL WIDTH -->
+                <td>
+
+                    <input name="Details[${index}].Fullwidth"
+                           class="width form-control" />
+
+                </td>
+
+
+                <!-- CUT WIDTH -->
+                <td>
+
+                    <input name="Details[${index}].Cutwidth"
+                           class="form-control" />
+
+                </td>
+
+
+                <!-- EFFICIENCY -->
+                <td>
+
+                    <input name="Details[${index}].Efficiency"
+                           class="form-control" />
+
+                </td>
+
+
+                <!-- SIZE RATIO -->
+                <td>
+
+                    <input name="Details[${index}].Sizeratio"
+                           class="form-control" />
+
+                </td>
+
+
+                <!-- MARKER QTY -->
+                <td>
+
+                    <input name="Details[${index}].Markerqty"
+                           class="pcs form-control" />
+
+                </td>
+
+
+                <!-- WASTAGE -->
+                <td>
+
+                    <input name="Details[${index}].Wastage"
+                           class="allowance form-control" />
+
+                </td>
+
+
+                <!-- CONS PCS -->
+                <td>
+
+                    <input name="Details[${index}].Conspcs"
+                           class="conspcs form-control bg-light"
+                           readonly />
+
+                </td>
+
+
+                <!-- CONS DZN -->
+                <td>
+
+                    <input name="Details[${index}].Consdzn"
+                           class="consdzn form-control bg-light"
+                           readonly />
+
+                </td>
+
+
+                <!-- COMMENTS -->
+                <td>
+
+                    <input name="Details[${index}].Comments"
+                           class="form-control" />
+
+                </td>
+
+
+                <!-- =========================
+                     MULTIPLE FILE UPLOAD
+                ========================== -->
+                <td>
+
+                    <input type="file"
+                           name="Details[${index}].Files"
+                           class="form-control file-input"
+                           multiple
+                           accept="*/*" />
+
+                    <div class="file-list"></div>
+
+                </td>
+
+
+                <!-- ACTION -->
+                <td class="text-center">
+
+                    <button type="button"
+                            class="btn btn-sm btn-outline-success"
+                            onclick="addRow()">
+                        ➕
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-sm btn-outline-danger"
+                            onclick="removeRow(this)">
+                        ➖
+                    </button>
+
+                </td>
+
+            </tr>
+
+            `;
+
         }
 
-        function addRow() {
-            $('#detailsBody').append(createRow(rowIndex));
 
-            // 🔥 Apply checkbox state to new row
-            toggleDetailFields($('#independentChk').is(':checked'));
+        // =========================
+        // ADD ROW
+        // =========================
+        function addRow() {
+
+            $('#detailsBody')
+                .append(createRow(rowIndex));
+
+
+            toggleDetailFields(
+                $('#independentChk').is(':checked')
+            );
+
 
             rowIndex++;
+
         }
 
+
+        // =========================
+        // REMOVE ROW
+        // =========================
         function removeRow(btn) {
-            if ($('#detailsBody tr').length > 1) {
-                $(btn).closest('tr').remove();
-            } else {
+
+            if ($('#detailsBody tr').length <= 1) {
+
                 alert("At least one row is required.");
+
+                return;
+
             }
+
+
+            $(btn)
+                .closest('tr')
+                .remove();
+
+
+            reindexRows();
+
         }
 
 
         // =========================
-        // 🔥 AUTO CALCULATION
+        // REINDEX
         // =========================
-        $(document).on('input', '.length, .width, .gsm, .pcs, .allowance', function () {
+        function reindexRows() {
 
-            let row = $(this).closest('tr');
+            $('#detailsBody tr').each(function (index) {
 
-            let length = parseFloat(row.find('.length').val()) || 0;
-            let width = parseFloat(row.find('.width').val()) || 0;
-            let gsm = parseFloat(row.find('.gsm').val()) || 0;
-            let pcs = parseFloat(row.find('.pcs').val()) || 0;
-            let allowance = (parseFloat(row.find('.allowance').val()) || 0) / 100;
+                $(this)
+                    .find('input, select, textarea')
+                    .each(function () {
 
-            if (length && width && gsm && pcs) {
+                        let name = $(this).attr('name');
 
-                let base = (length * width * gsm) / 1550 / 1000 / pcs;
+                        if (name) {
 
-                let consPcs = base + (base * allowance);
-                let consDzn = consPcs * 12;
+                            name = name.replace(
+                                /Details\[\d+\]/,
+                                `Details[${index}]`
+                            );
 
-                row.find('.conspcs').val(consPcs.toFixed(2));
-                row.find('.consdzn').val(consDzn.toFixed(2));
+                            $(this).attr('name', name);
 
-            } else {
-                row.find('.conspcs, .consdzn').val('');
-            }
-        });
+                        }
 
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
+                    });
 
-            const chk = document.getElementById("independentChk");
-            const select = $("#BookingNo");
-            const input = document.getElementById("StylerefInput");
-            const jobInput = document.getElementById("Job");
-            const irInput = document.getElementById("Ir");
-            const buyerInput = document.getElementById("Buyer");
-            const brandInput = document.getElementById("Brand");
-            const seasonInput = document.getElementById("Season");
-            const seasonyearInput = document.getElementById("Seasonyear");
-            const styledesInput = document.getElementById("Styledes");
-
-            chk.addEventListener("change", function () {
-
-                if (this.checked) {
-
-                    // hide select2 UI properly
-                    select.next(".select2").hide();
-                    select.val(null).trigger("change");
-
-                    // show input
-                    input.classList.remove("d-none");
-
-                    // 🔥 Job editable
-                    jobInput.removeAttribute("readonly");
-                    jobInput.classList.remove("bg-light");
-
-                    //IR/this.ATTRIBUTE_NODE editable
-                    irInput.removeAttribute("readonly");
-                    irInput.classList.remove("bg-light");
-
-                    buyerInput.removeAttribute("readonly");
-                    buyerInput.classList.remove("bg-light");
-
-                    brandInput.removeAttribute("readonly");
-                    brandInput.classList.remove("bg-light");
-
-                    seasonInput.removeAttribute("readonly");
-                    seasonInput.classList.remove("bg-light");
-
-                    seasonyearInput.removeAttribute("readonly");
-                    seasonyearInput.classList.remove("bg-light");
-
-                    styledesInput.removeAttribute("readonly");
-                    styledesInput.classList.remove("bg-light");
-
-                    styledesInput.removeAttribute("readonly");
-                    styledesInput.classList.remove("bg-light");
-                     // 🔓 Make details editable
-                    $('#detailsBody').find('.gmntitem, .gmntcolor, .fabricdes, .gsm, .fabricusage')
-                    .prop('readonly', false)
-                    .removeClass('bg-light');
-
-                } else {
-
-                    // show select2 UI
-                    select.next(".select2").show();
-
-                    // hide input
-                    input.classList.add("d-none");
-
-                    // 🔥 Job readonly again
-                    jobInput.setAttribute("readonly", true);
-                    jobInput.classList.add("bg-light");
-                    // 🔥 IR/IB readonly again
-                    irInput.setAttribute("readonly", true);
-                    irInput.classList.add("bg-light");
-
-                    buyerInput.setAttribute("readonly", true);
-                    buyerInput.classList.add("bg-light");
-
-                    brandInput.setAttribute("readonly", true);
-                    brandInput.classList.add("bg-light");
-
-                    seasonInput.setAttribute("readonly", true);
-                    seasonInput.classList.add("bg-light");
-
-                    seasonyearInput.setAttribute("readonly", true);
-                    seasonyearInput.classList.add("bg-light");
-
-                    styledesInput.setAttribute("readonly", true);
-                    styledesInput.classList.add("bg-light");
-
-                     // 🔒 Make details readonly again
-                    $('#detailsBody').find('.gmntitem, .gmntcolor, .fabricdes, .gsm, .fabricusage')
-                    .prop('readonly', true)
-                    .addClass('bg-light');
-                }
             });
 
-        });
+
+            rowIndex =
+                $('#detailsBody tr').length;
+
+        }
+
+
+        // =========================
+        // FILE SELECTION PREVIEW
+        // =========================
+        $(document).on(
+            'change',
+            '.file-input',
+            function () {
+
+                const container =
+                    $(this)
+                        .closest('td')
+                        .find('.file-list');
+
+                container.empty();
+
+
+                if (this.files && this.files.length > 0) {
+
+                    Array.from(this.files).forEach(function (file) {
+
+                        const size =
+                            (file.size / 1024).toFixed(1);
+
+                        container.append(`
+
+                            <div class="file-item"
+                                 title="${escapeHtml(file.name)}">
+
+                                📎 ${escapeHtml(file.name)}
+                                (${size} KB)
+
+                            </div>
+
+                        `);
+
+                    });
+
+                }
+
+            }
+        );
+
+
+        // =========================
+        // HTML ESCAPE
+        // =========================
+        function escapeHtml(value) {
+
+            return $('<div>')
+                .text(value)
+                .html();
+
+        }
+
+
+        // =========================
+        // AUTO CALCULATION
+        // =========================
+        $(document).on(
+            'input',
+            '.length, .width, .gsm, .pcs, .allowance',
+            function () {
+
+                const row =
+                    $(this).closest('tr');
+
+
+                const length =
+                    parseFloat(
+                        row.find('.length').val()
+                    ) || 0;
+
+
+                const width =
+                    parseFloat(
+                        row.find('.width').val()
+                    ) || 0;
+
+
+                const gsm =
+                    parseFloat(
+                        row.find('.gsm').val()
+                    ) || 0;
+
+
+                const pcs =
+                    parseFloat(
+                        row.find('.pcs').val()
+                    ) || 0;
+
+
+                const allowance =
+                    (
+                        parseFloat(
+                            row.find('.allowance').val()
+                        ) || 0
+                    ) / 100;
+
+
+                if (
+                    length &&
+                    width &&
+                    gsm &&
+                    pcs
+                ) {
+
+                    const base =
+                        (length * width * gsm)
+                        / 1550
+                        / 1000
+                        / pcs;
+
+
+                    const consPcs =
+                        base +
+                        (base * allowance);
+
+
+                    const consDzn =
+                        consPcs * 12;
+
+
+                    row.find('.conspcs')
+                        .val(consPcs.toFixed(2));
+
+
+                    row.find('.consdzn')
+                        .val(consDzn.toFixed(2));
+
+                }
+                else {
+
+                    row.find('.conspcs, .consdzn')
+                        .val('');
+
+                }
+
+            }
+        );
+
     </script>
 }

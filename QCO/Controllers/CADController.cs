@@ -37,80 +37,350 @@ namespace QCO.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string search, int? page)
+        public async Task<IActionResult> Index(string? search, int? page)
         {
             int pageSize = 10;
             int pageNumber = page ?? 1;
 
-            // Fetch masters with their details from database
-            //var query = _context.TblCadConsMs
-            //    .Include(m => m.TblCadConsDs)
-            //    .AsEnumerable()
-            //    .Select(m => new CadConsumptionViewModel
-            //    {
-            //        Master = m,
-            //        Details = m.TblCadConsDs?.ToList() ?? new List<TblCadConsD>()
-            //    })
-            //    .ToList();
+            // =====================================================
+            // BASE QUERY
+            // =====================================================
             var query = _context.TblCadConsMs
+                .AsNoTracking()
                 .Include(m => m.TblCadConsDs)
-                .Select(m => new CadConsumptionViewModel
-                {
-                    Master = m,
-                    Details = m.TblCadConsDs.ToList()
-                })
-                .ToList();
+                .AsQueryable();
 
-            // Filter if search is provided
+
+            // =====================================================
+            // SEARCH
+            // =====================================================
             if (!string.IsNullOrWhiteSpace(search))
             {
+                search = search.Trim();
+
                 query = query.Where(x =>
-                    (x.Master.Opt01?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
-                    (x.Master.Styleref?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
-                    (x.Master.Styledes?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
-                    (x.Master.Buyer?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
-                    (x.Master.Patternmaster?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
-                    //(x.Master.Season?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
-                    //(x.Master.Seasonyear?.ToString().Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
-                    (x.Master.Caddate.ToString().Contains(search, StringComparison.OrdinalIgnoreCase)) ||
-                    // ✅ convert Isapproved to string
-                    (("Approved").Contains(search, StringComparison.OrdinalIgnoreCase) && x.Master.Isapproved == true) ||
-                    (("Pending Approval").Contains(search, StringComparison.OrdinalIgnoreCase) && x.Master.Isapproved == false) ||
-                    x.Details.Any(d =>
-                        (d.Ptnnmbr?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
-                        (d.Gmntitem?.Contains(search, StringComparison.OrdinalIgnoreCase) == true) ||
-                        (d.Fabricdes?.Contains(search, StringComparison.OrdinalIgnoreCase) == true)
+                    // ---------------------------------------------
+                    // MASTER SEARCH
+                    // ---------------------------------------------
+                    (x.Opt01 != null &&
+                     x.Opt01.Contains(search)) ||
+
+                    (x.Styleref != null &&
+                     x.Styleref.Contains(search)) ||
+
+                    (x.Styledes != null &&
+                     x.Styledes.Contains(search)) ||
+
+                    (x.Buyer != null &&
+                     x.Buyer.Contains(search)) ||
+
+                    (x.Patternmaster != null &&
+                     x.Patternmaster.Contains(search)) ||
+
+                    // ---------------------------------------------
+                    // DATE SEARCH
+                    // ---------------------------------------------
+                    (x.Caddate != null &&
+                     x.Caddate.ToString().Contains(search)) ||
+
+                    // ---------------------------------------------
+                    // APPROVAL STATUS
+                    // ---------------------------------------------
+                    (search.ToLower() == "approved" &&
+                     x.Isapproved == true) ||
+
+                    (search.ToLower() == "pending approval" &&
+                     x.Isapproved == false) ||
+
+                    // ---------------------------------------------
+                    // DETAIL SEARCH
+                    // ---------------------------------------------
+                    x.TblCadConsDs.Any(d =>
+                        (d.Ptnnmbr != null &&
+                         d.Ptnnmbr.Contains(search)) ||
+
+                        (d.Gmntitem != null &&
+                         d.Gmntitem.Contains(search)) ||
+
+                        (d.Fabricdes != null &&
+                         d.Fabricdes.Contains(search))
                     )
-                ).ToList();
+                );
             }
 
-            // Order by date descending
-            query = query.OrderByDescending(x => x.Master.Caddate).ToList();
 
-            // Set search for ViewBag
+            // =====================================================
+            // ORDER BY DATE
+            // =====================================================
+            query = query
+                .OrderByDescending(x => x.Caddate);
+
+
+            // =====================================================
+            // FETCH DATA
+            // =====================================================
+            var masters = await query.ToListAsync();
+
+
+            // =====================================================
+            // CREATE VIEW MODELS
+            // =====================================================
+            var data = masters.Select(master => new CadConsumptionViewModel
+            {
+                Master = master,
+
+                Details = master.TblCadConsDs
+                    .Select(detail => new CadConsumptionDetailViewModel
+                    {
+                        Caddid = detail.Caddid,
+                        Cadmid = detail.Cadmid,
+                        Transdate = detail.Transdate,
+
+                        Ptnnmbr = detail.Ptnnmbr,
+                        Gmntitem = detail.Gmntitem,
+                        Gmntcolor = detail.Gmntcolor,
+                        Fabricdes = detail.Fabricdes,
+                        Fabricusage = detail.Fabricusage,
+
+                        Gsm = detail.Gsm,
+                        Opt01 = detail.Opt01,
+                        Fullwidth = detail.Fullwidth,
+                        Cutwidth = detail.Cutwidth,
+                        Efficiency = detail.Efficiency,
+
+                        Sizeratio = detail.Sizeratio,
+
+                        Markerqty = detail.Markerqty,
+                        Conspcs = detail.Conspcs,
+                        Consdzn = detail.Consdzn,
+
+                        Wastage = detail.Wastage,
+
+                        Comments = detail.Comments
+                    })
+                    .ToList()
+
+            }).ToList();
+
+
+            // =====================================================
+            // SEARCH VALUE FOR VIEW
+            // =====================================================
             ViewBag.Search = search;
 
-            // Paginate (X.PagedList)
-            var data = query.ToPagedList(pageNumber, pageSize);
 
-            return View(data);
+            // =====================================================
+            // PAGINATION
+            // =====================================================
+            var pagedData = data.ToPagedList(
+                pageNumber,
+                pageSize
+            );
+
+
+            return View(pagedData);
         }
+
+
         [HttpGet]
         public IActionResult Create()
         {
-
-            // Fetch distinct booking numbers
+            // =========================
+            // FETCH DISTINCT BOOKING NOS
+            // =========================
             var bookingNos = _oracleContext.NewView3
-                                           .Where(b => !string.IsNullOrEmpty(b.BOOKING_NO)) // Exclude null or empty values
-                                           .Select(b => b.BOOKING_NO.Trim()) // Trim whitespace
-                                           .Distinct() // Ensure unique values
-                                           .ToList();
+                .Where(b => !string.IsNullOrEmpty(b.BOOKING_NO))
+                .Select(b => b.BOOKING_NO.Trim())
+                .Distinct()
+                .ToList();
 
-            // Pass distinct booking numbers to the view using ViewBag
             ViewBag.BookingNos = new SelectList(bookingNos);
 
             return View();
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CadConsumptionViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = "Validation failed!";
+                return View(model);
+            }
+
+            try
+            {
+                // =====================================================
+                // 1. SAVE MASTER
+                // =====================================================
+                _context.TblCadConsMs.Add(model.Master);
+
+                await _context.SaveChangesAsync();
+
+
+                // =====================================================
+                // 2. UPLOAD FOLDER
+                // =====================================================
+                var folderPath = Path.Combine(
+                    _webHostEnvironment.WebRootPath,
+                    "UploadFiles"
+                );
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+
+                // =====================================================
+                // 3. SAVE DETAILS
+                // =====================================================
+                if (model.Details != null && model.Details.Count > 0)
+                {
+                    foreach (var item in model.Details)
+                    {
+                        // =================================================
+                        // CREATE DETAIL
+                        // =================================================
+                        var detail = new TblCadConsD
+                        {
+                            Cadmid = model.Master.Cadmid,
+                            Transdate = DateTime.Now,
+
+                            Ptnnmbr = item.Ptnnmbr,
+                            Gmntitem = item.Gmntitem,
+                            Gmntcolor = item.Gmntcolor,
+                            Fabricdes = item.Fabricdes,
+                            Fabricusage = item.Fabricusage,
+
+                            Gsm = item.Gsm,
+
+                            Opt01 = item.Opt01,
+
+                            Fullwidth = item.Fullwidth,
+                            Cutwidth = item.Cutwidth,
+                            Efficiency = item.Efficiency,
+
+                            Sizeratio = item.Sizeratio,
+
+                            Markerqty = item.Markerqty,
+                            Conspcs = item.Conspcs,
+                            Consdzn = item.Consdzn,
+
+                            Wastage = item.Wastage,
+
+                            Comments = item.Comments
+                        };
+
+
+                        // =================================================
+                        // ADD DETAIL
+                        // =================================================
+                        _context.TblCadConsDs.Add(detail);
+
+                        // =================================================
+                        // IMPORTANT:
+                        // Save first to generate CADDID
+                        // =================================================
+                        await _context.SaveChangesAsync();
+
+
+                        // =================================================
+                        // 4. SAVE MULTIPLE FILES
+                        // =================================================
+                        if (item.Files != null && item.Files.Count > 0)
+                        {
+                            foreach (var file in item.Files)
+                            {
+                                // Ignore empty file
+                                if (file == null || file.Length == 0)
+                                    continue;
+
+
+                                // =================================================
+                                // UNIQUE FILE NAME
+                                // =================================================
+                                var fileName =
+                                    $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+
+
+                                // =================================================
+                                // PHYSICAL FILE PATH
+                                // =================================================
+                                var physicalFilePath =
+                                    Path.Combine(folderPath, fileName);
+
+
+                                // =================================================
+                                // SAVE FILE TO WWWROOT
+                                // =================================================
+                                using (var stream = new FileStream(
+                                    physicalFilePath,
+                                    FileMode.Create))
+                                {
+                                    await file.CopyToAsync(stream);
+                                }
+
+
+                                // =================================================
+                                // SAVE FILE INFORMATION
+                                // TBL_CAD_CONS_FILES
+                                // =================================================
+                                var fileRecord = new TblCadConsFiles
+                                {
+                                    // Link with TblCadConsD
+                                    Caddid = detail.Caddid,
+
+                                    Filename = fileName,
+
+                                    Filepath = "/UploadFiles/" + fileName,
+
+                                    Filesize = file.Length,
+
+                                    Contenttype = file.ContentType,
+
+                                    Createddate = DateTime.Now,
+
+                                    Createdby = User.Identity?.Name ?? "System"
+                                };
+
+
+                                _context.TblCadConsFiles.Add(fileRecord);
+                            }
+
+
+                            // =================================================
+                            // SAVE ALL FILE RECORDS
+                            // =================================================
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                }
+
+
+                // =====================================================
+                // SUCCESS
+                // =====================================================
+                TempData["Success"] = "Data saved successfully!";
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // =====================================================
+                // ERROR
+                // =====================================================
+                TempData["Error"] =
+                    "Something went wrong while saving data!";
+
+                Console.WriteLine(ex);
+
+                return View(model);
+            }
+        }
+
 
         [HttpGet]
         public IActionResult GetBookingNos(string term)
@@ -167,102 +437,101 @@ namespace QCO.Controllers
             return Json(data);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CadConsumptionViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    // Save Master
-                    _context.TblCadConsMs.Add(model.Master);
-                    await _context.SaveChangesAsync();
-
-                    // ✅ Use wwwroot/UploadFiles instead of network path
-                    var folderPath = Path.Combine(_webHostEnvironment.WebRootPath, "UploadFiles");
-
-                    // Ensure directory exists
-                    if (!Directory.Exists(folderPath))
-                        Directory.CreateDirectory(folderPath);
-
-                    if (model.Details != null && model.Details.Count > 0)
-                    {
-                        foreach (var item in model.Details)
-                        {
-                            item.Cadmid = model.Master.Cadmid;
-                            item.Transdate = DateTime.Now;
-
-                            if (item.File != null && item.File.Length > 0)
-                            {
-                                // Make filename unique
-                                var fileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(item.File.FileName);
-
-                                var filePath = Path.Combine(folderPath, fileName);
-
-                                using (var stream = new FileStream(filePath, FileMode.Create))
-                                {
-                                    await item.File.CopyToAsync(stream);
-                                }
-
-                                item.Filename = fileName;
-
-                                // ✅ Store relative path (better for web access)
-                                item.Filepath = "/UploadFiles/" + fileName;
-
-                                item.Filesize = item.File.Length;
-                                item.Contenttype = item.File.ContentType;
-                            }
-
-                            _context.TblCadConsDs.Add(item);
-                        }
-
-                        await _context.SaveChangesAsync();
-                    }
-
-                    TempData["Success"] = "Data saved successfully!";
-                    return RedirectToAction("Index");
-                }
-                catch (Exception)
-                {
-                    TempData["Error"] = "Something went wrong while saving data!";
-                    return View(model);
-                }
-            }
-
-            TempData["Error"] = "Validation failed!";
-            return View(model);
-        }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            // Fetch master record
-            var master = _context.TblCadConsMs.FirstOrDefault(m => m.Cadmid == id);
+            // =====================================================
+            // 1. FETCH MASTER
+            // =====================================================
+            var master = await _context.TblCadConsMs
+                .FirstOrDefaultAsync(m => m.Cadmid == id);
+
             if (master == null)
                 return NotFound();
 
-            // Fetch related details
-            var details = _context.TblCadConsDs
-                                  .Where(d => d.Cadmid == id)
-                                  .ToList();
 
+            // =====================================================
+            // 2. FETCH DETAILS
+            // =====================================================
+            var details = await _context.TblCadConsDs
+                .Where(d => d.Cadmid == id)
+                .ToListAsync();
+
+
+            // =====================================================
+            // 3. CREATE VIEW MODEL
+            // =====================================================
             var model = new CadConsumptionViewModel
             {
                 Master = master,
-                Details = details
+                Details = new List<CadConsumptionDetailViewModel>()
             };
 
-            // Fetch distinct booking numbers for dropdown
+
+            // =====================================================
+            // 4. LOAD DETAILS + EXISTING FILES
+            // =====================================================
+            foreach (var detail in details)
+            {
+                var existingFiles = await _context.TblCadConsFiles
+                    .Where(f => f.Caddid == detail.Caddid)
+                    .ToListAsync();
+
+                var detailViewModel = new CadConsumptionDetailViewModel
+                {
+                    Caddid = detail.Caddid,
+                    Cadmid = detail.Cadmid,
+                    Transdate = detail.Transdate,
+
+                    Ptnnmbr = detail.Ptnnmbr,
+                    Gmntitem = detail.Gmntitem,
+                    Gmntcolor = detail.Gmntcolor,
+                    Fabricdes = detail.Fabricdes,
+                    Fabricusage = detail.Fabricusage,
+
+                    Gsm = detail.Gsm,
+                    Opt01 = detail.Opt01,
+                    Fullwidth = detail.Fullwidth,
+                    Cutwidth = detail.Cutwidth,
+                    Efficiency = detail.Efficiency,
+
+                    Sizeratio = detail.Sizeratio,
+
+                    Markerqty = detail.Markerqty,
+                    Conspcs = detail.Conspcs,
+                    Consdzn = detail.Consdzn,
+
+                    Wastage = detail.Wastage,
+
+                    Comments = detail.Comments,
+
+                    // Existing uploaded files
+                    ExistingFiles = existingFiles
+                };
+
+                model.Details.Add(detailViewModel);
+            }
+
+
+            // =====================================================
+            // 5. BOOKING NOS
+            // =====================================================
             var bookingNos = _oracleContext.NewView3
-                                           .Where(b => !string.IsNullOrEmpty(b.BOOKING_NO))
-                                           .Select(b => b.BOOKING_NO.Trim())
-                                           .Distinct()
-                                           .ToList();
-            ViewBag.BookingNos = new SelectList(bookingNos, master.Styleref);
+                .Where(b => !string.IsNullOrEmpty(b.BOOKING_NO))
+                .Select(b => b.BOOKING_NO.Trim())
+                .Distinct()
+                .ToList();
+
+            ViewBag.BookingNos = new SelectList(
+                bookingNos,
+                master.Styleref
+            );
+
 
             return View(model);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -276,143 +545,586 @@ namespace QCO.Controllers
 
             try
             {
-                // =========================
-                // UPDATE MASTER
-                // =========================
-                model.Master.UpdatedAt = DateTime.Now;
-                model.Master.UpdatedBy = User.Identity?.Name ?? "System";
+                // =====================================================
+                // 1. UPDATE MASTER
+                // =====================================================
 
-                _context.TblCadConsMs.Update(model.Master);
+                var existingMaster = await _context.TblCadConsMs
+                    .FirstOrDefaultAsync(m => m.Cadmid == model.Master.Cadmid);
+
+                if (existingMaster == null)
+                    return NotFound();
+
+
+                existingMaster.Caddate = model.Master.Caddate;
+                existingMaster.Opt01 = model.Master.Opt01;
+                existingMaster.Styleref = model.Master.Styleref;
+                existingMaster.Job = model.Master.Job;
+                existingMaster.Ir = model.Master.Ir;
+                existingMaster.Buyer = model.Master.Buyer;
+                existingMaster.Brand = model.Master.Brand;
+                existingMaster.Season = model.Master.Season;
+                existingMaster.Seasonyear = model.Master.Seasonyear;
+                existingMaster.Styledes = model.Master.Styledes;
+                existingMaster.Patternmaster = model.Master.Patternmaster;
+                existingMaster.Consfor = model.Master.Consfor;
+                existingMaster.Comments = model.Master.Comments;
+                existingMaster.Isapproved = model.Master.Isapproved;
+
+                existingMaster.UpdatedAt = DateTime.Now;
+                existingMaster.UpdatedBy =
+                    User.Identity?.Name ?? "System";
+
+
                 await _context.SaveChangesAsync();
 
-                // =========================
-                // LOCAL wwwroot PATH
-                // =========================
-                var folderPath = Path.Combine(_webHostEnvironment.WebRootPath, "UploadFiles");
+
+                // =====================================================
+                // 2. UPLOAD FOLDER
+                // =====================================================
+
+                var folderPath = Path.Combine(
+                    _webHostEnvironment.WebRootPath,
+                    "UploadFiles"
+                );
 
                 if (!Directory.Exists(folderPath))
+                {
                     Directory.CreateDirectory(folderPath);
+                }
 
-                // =========================
-                // UPDATE DETAILS
-                // =========================
+
+                // =====================================================
+                // 3. UPDATE DETAILS
+                // =====================================================
+
                 if (model.Details != null && model.Details.Count > 0)
                 {
                     foreach (var item in model.Details)
                     {
-                        var existingDetail = _context.TblCadConsDs
-                            .FirstOrDefault(d => d.Caddid == item.Caddid);
+                        // =================================================
+                        // FIND EXISTING DETAIL
+                        // =================================================
+
+                        TblCadConsD? existingDetail = null;
+
+                        if (item.Caddid > 0)
+                        {
+                            existingDetail = await _context.TblCadConsDs
+                                .FirstOrDefaultAsync(
+                                    d => d.Caddid == item.Caddid
+                                );
+                        }
+
+
+                        // =================================================
+                        // EXISTING DETAIL
+                        // =================================================
 
                         if (existingDetail != null)
                         {
-                            // =========================
-                            // UPDATE FIELDS
-                            // =========================
-                            existingDetail.Cadmid = model.Master.Cadmid;
-                            existingDetail.Transdate = DateTime.Now;
+                            // =============================================
+                            // UPDATE DETAIL FIELDS
+                            // =============================================
 
-                            existingDetail.Ptnnmbr = item.Ptnnmbr;
-                            existingDetail.Gmntitem = item.Gmntitem;
-                            existingDetail.Gmntcolor = item.Gmntcolor;
-                            existingDetail.Fabricdes = item.Fabricdes;
-                            existingDetail.Fabricusage = item.Fabricusage;
-                            existingDetail.Gsm = item.Gsm;
-                            existingDetail.Opt01 = item.Opt01;
-                            existingDetail.Fullwidth = item.Fullwidth;
-                            existingDetail.Cutwidth = item.Cutwidth;
-                            existingDetail.Efficiency = item.Efficiency;
-                            existingDetail.Sizeratio = item.Sizeratio;
-                            existingDetail.Markerqty = item.Markerqty;
-                            existingDetail.Conspcs = item.Conspcs;
-                            existingDetail.Consdzn = item.Consdzn;
-                            existingDetail.Wastage = item.Wastage;
-                            existingDetail.Comments = item.Comments;
+                            existingDetail.Cadmid =
+                                model.Master.Cadmid;
 
-                            // =========================
-                            // FILE UPDATE
-                            // =========================
-                            if (item.File != null && item.File.Length > 0)
+                            existingDetail.Transdate =
+                                DateTime.Now;
+
+                            existingDetail.Ptnnmbr =
+                                item.Ptnnmbr;
+
+                            existingDetail.Gmntitem =
+                                item.Gmntitem;
+
+                            existingDetail.Gmntcolor =
+                                item.Gmntcolor;
+
+                            existingDetail.Fabricdes =
+                                item.Fabricdes;
+
+                            existingDetail.Fabricusage =
+                                item.Fabricusage;
+
+                            existingDetail.Gsm =
+                                item.Gsm;
+
+                            existingDetail.Opt01 =
+                                item.Opt01;
+
+                            existingDetail.Fullwidth =
+                                item.Fullwidth;
+
+                            existingDetail.Cutwidth =
+                                item.Cutwidth;
+
+                            existingDetail.Efficiency =
+                                item.Efficiency;
+
+                            existingDetail.Sizeratio =
+                                item.Sizeratio;
+
+                            existingDetail.Markerqty =
+                                item.Markerqty;
+
+                            existingDetail.Conspcs =
+                                item.Conspcs;
+
+                            existingDetail.Consdzn =
+                                item.Consdzn;
+
+                            existingDetail.Wastage =
+                                item.Wastage;
+
+                            existingDetail.Comments =
+                                item.Comments;
+
+
+                            // =============================================
+                            // DELETE EXISTING FILES
+                            // =============================================
+
+                            if (item.DeletedFileIds != null &&
+                                item.DeletedFileIds.Count > 0)
                             {
-                                var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(item.File.FileName)}";
-                                var filePath = Path.Combine(folderPath, fileName);
-
-                                using (var stream = new FileStream(filePath, FileMode.Create))
+                                foreach (var fileId in item.DeletedFileIds.Distinct())
                                 {
-                                    await item.File.CopyToAsync(stream);
+                                    var existingFile =
+                                        await _context.TblCadConsFiles
+                                            .FirstOrDefaultAsync(
+                                                f =>
+                                                    f.Fileid == fileId &&
+                                                    f.Caddid == existingDetail.Caddid
+                                            );
+
+                                    if (existingFile != null)
+                                    {
+                                        // =================================
+                                        // DELETE PHYSICAL FILE
+                                        // =================================
+
+                                        if (!string.IsNullOrWhiteSpace(
+                                            existingFile.Filepath))
+                                        {
+                                            var relativePath =
+                                                existingFile.Filepath
+                                                    .TrimStart('/')
+                                                    .Replace(
+                                                        "/",
+                                                        Path.DirectorySeparatorChar
+                                                            .ToString()
+                                                    );
+
+                                            var physicalFilePath =
+                                                Path.Combine(
+                                                    _webHostEnvironment.WebRootPath,
+                                                    relativePath
+                                                );
+
+                                            if (System.IO.File.Exists(
+                                                physicalFilePath))
+                                            {
+                                                try
+                                                {
+                                                    System.IO.File.Delete(
+                                                        physicalFilePath
+                                                    );
+                                                }
+                                                catch (Exception fileEx)
+                                                {
+                                                    Console.WriteLine(
+                                                        "Physical file delete failed: "
+                                                        + fileEx.Message
+                                                    );
+                                                }
+                                            }
+                                        }
+
+
+                                        // =================================
+                                        // DELETE DATABASE RECORD
+                                        // =================================
+
+                                        _context.TblCadConsFiles
+                                            .Remove(existingFile);
+                                    }
                                 }
-
-                                existingDetail.Filename = fileName;
-
-                                // ✅ Store relative path
-                                existingDetail.Filepath = "/UploadFiles/" + fileName;
-
-                                existingDetail.Filesize = item.File.Length;
-                                existingDetail.Contenttype = item.File.ContentType;
                             }
-                            // else → old file থাকবে
+
+
+                            // =============================================
+                            // NEW FILES UPLOAD - OPTIONAL
+                            // =============================================
+
+                            if (item.Files != null &&
+                                item.Files.Count > 0)
+                            {
+                                foreach (var file in item.Files)
+                                {
+                                    if (file == null ||
+                                        file.Length == 0)
+                                    {
+                                        continue;
+                                    }
+
+
+                                    // =====================================
+                                    // UNIQUE FILE NAME
+                                    // =====================================
+
+                                    var fileName =
+                                        $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+
+
+                                    var physicalFilePath =
+                                        Path.Combine(
+                                            folderPath,
+                                            fileName
+                                        );
+
+
+                                    // =====================================
+                                    // SAVE PHYSICAL FILE
+                                    // =====================================
+
+                                    using (var stream =
+                                           new FileStream(
+                                               physicalFilePath,
+                                               FileMode.Create))
+                                    {
+                                        await file.CopyToAsync(stream);
+                                    }
+
+
+                                    // =====================================
+                                    // SAVE DATABASE RECORD
+                                    // =====================================
+
+                                    var fileRecord =
+                                        new TblCadConsFiles
+                                        {
+                                            Caddid =
+                                                existingDetail.Caddid,
+
+                                            Filename =
+                                                fileName,
+
+                                            Filepath =
+                                                "/UploadFiles/" +
+                                                fileName,
+
+                                            Filesize =
+                                                file.Length,
+
+                                            Contenttype =
+                                                file.ContentType,
+
+                                            Createddate =
+                                                DateTime.Now,
+
+                                            Createdby =
+                                                User.Identity?.Name ??
+                                                "System"
+                                        };
+
+
+                                    _context.TblCadConsFiles
+                                        .Add(fileRecord);
+                                }
+                            }
                         }
+
+
+                        // =================================================
+                        // NEW DETAIL
+                        // =================================================
+
                         else
                         {
-                            // =========================
-                            // INSERT NEW ROW
-                            // =========================
-                            item.Cadmid = model.Master.Cadmid;
-                            item.Transdate = DateTime.Now;
+                            // =============================================
+                            // CREATE DETAIL
+                            // =============================================
 
-                            if (item.File != null && item.File.Length > 0)
-                            {
-                                var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(item.File.FileName)}";
-                                var filePath = Path.Combine(folderPath, fileName);
-
-                                using (var stream = new FileStream(filePath, FileMode.Create))
+                            var newDetail =
+                                new TblCadConsD
                                 {
-                                    await item.File.CopyToAsync(stream);
+                                    Cadmid =
+                                        model.Master.Cadmid,
+
+                                    Transdate =
+                                        DateTime.Now,
+
+                                    Ptnnmbr =
+                                        item.Ptnnmbr,
+
+                                    Gmntitem =
+                                        item.Gmntitem,
+
+                                    Gmntcolor =
+                                        item.Gmntcolor,
+
+                                    Fabricdes =
+                                        item.Fabricdes,
+
+                                    Fabricusage =
+                                        item.Fabricusage,
+
+                                    Gsm =
+                                        item.Gsm,
+
+                                    Opt01 =
+                                        item.Opt01,
+
+                                    Fullwidth =
+                                        item.Fullwidth,
+
+                                    Cutwidth =
+                                        item.Cutwidth,
+
+                                    Efficiency =
+                                        item.Efficiency,
+
+                                    Sizeratio =
+                                        item.Sizeratio,
+
+                                    Markerqty =
+                                        item.Markerqty,
+
+                                    Conspcs =
+                                        item.Conspcs,
+
+                                    Consdzn =
+                                        item.Consdzn,
+
+                                    Wastage =
+                                        item.Wastage,
+
+                                    Comments =
+                                        item.Comments
+                                };
+
+
+                            _context.TblCadConsDs.Add(newDetail);
+
+
+                            // =============================================
+                            // SAVE DETAIL FIRST
+                            // GET CADDID
+                            // =============================================
+
+                            await _context.SaveChangesAsync();
+
+
+                            // =============================================
+                            // NEW FILES FOR NEW DETAIL - OPTIONAL
+                            // =============================================
+
+                            if (item.Files != null &&
+                                item.Files.Count > 0)
+                            {
+                                foreach (var file in item.Files)
+                                {
+                                    if (file == null ||
+                                        file.Length == 0)
+                                    {
+                                        continue;
+                                    }
+
+
+                                    // =====================================
+                                    // UNIQUE FILE NAME
+                                    // =====================================
+
+                                    var fileName =
+                                        $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+
+
+                                    var physicalFilePath =
+                                        Path.Combine(
+                                            folderPath,
+                                            fileName
+                                        );
+
+
+                                    // =====================================
+                                    // SAVE PHYSICAL FILE
+                                    // =====================================
+
+                                    using (var stream =
+                                           new FileStream(
+                                               physicalFilePath,
+                                               FileMode.Create))
+                                    {
+                                        await file.CopyToAsync(stream);
+                                    }
+
+
+                                    // =====================================
+                                    // SAVE DATABASE RECORD
+                                    // =====================================
+
+                                    var fileRecord =
+                                        new TblCadConsFiles
+                                        {
+                                            Caddid =
+                                                newDetail.Caddid,
+
+                                            Filename =
+                                                fileName,
+
+                                            Filepath =
+                                                "/UploadFiles/" +
+                                                fileName,
+
+                                            Filesize =
+                                                file.Length,
+
+                                            Contenttype =
+                                                file.ContentType,
+
+                                            Createddate =
+                                                DateTime.Now,
+
+                                            Createdby =
+                                                User.Identity?.Name ??
+                                                "System"
+                                        };
+
+
+                                    _context.TblCadConsFiles
+                                        .Add(fileRecord);
                                 }
-
-                                item.Filename = fileName;
-
-                                // ✅ Store relative path
-                                item.Filepath = "/UploadFiles/" + fileName;
-
-                                item.Filesize = item.File.Length;
-                                item.Contenttype = item.File.ContentType;
                             }
-
-                            _context.TblCadConsDs.Add(item);
                         }
                     }
+
+
+                    // =====================================================
+                    // SAVE ALL CHANGES
+                    // =====================================================
 
                     await _context.SaveChangesAsync();
                 }
 
-                TempData["success"] = "Data updated successfully!";
+
+                // =====================================================
+                // SUCCESS
+                // =====================================================
+
+                TempData["success"] =
+                    "Data updated successfully!";
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                TempData["error"] = "Something went wrong!";
-                Console.WriteLine(ex.Message);
+                TempData["error"] =
+                    "Something went wrong!";
+
+                Console.WriteLine(ex);
+
                 return View(model);
             }
         }
 
+
+
+
         [HttpGet]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var data = new CadConsumptionViewModel();
+            // =====================================================
+            // 1. FETCH MASTER
+            // =====================================================
+            var master = await _context.TblCadConsMs
+                .FirstOrDefaultAsync(x => x.Cadmid == id);
 
-            data.Master = _context.TblCadConsMs
-                                  .FirstOrDefault(x => x.Cadmid == id);
-
-            if (data.Master == null)
+            if (master == null)
                 return NotFound();
 
-            data.Details = _context.TblCadConsDs
-                                   .Where(x => x.Cadmid == id)
-                                   .ToList();
 
-            return View(data);
+            // =====================================================
+            // 2. FETCH DETAILS
+            // =====================================================
+            var details = await _context.TblCadConsDs
+                .Where(x => x.Cadmid == id)
+                .ToListAsync();
+
+
+            // =====================================================
+            // 3. CREATE VIEW MODEL
+            // =====================================================
+            var model = new CadConsumptionViewModel
+            {
+                Master = master,
+                Details = new List<CadConsumptionDetailViewModel>()
+            };
+
+
+            // =====================================================
+            // 4. LOAD DETAILS + FILES
+            // =====================================================
+            foreach (var detail in details)
+            {
+                // ---------------------------------------------
+                // Get files for this detail
+                // ---------------------------------------------
+                var files = await _context.TblCadConsFiles
+                    .Where(f => f.Caddid == detail.Caddid)
+                    .OrderBy(f => f.Fileid)
+                    .ToListAsync();
+
+
+                // ---------------------------------------------
+                // Create Detail ViewModel
+                // ---------------------------------------------
+                var detailViewModel = new CadConsumptionDetailViewModel
+                {
+                    Caddid = detail.Caddid,
+                    Cadmid = detail.Cadmid,
+                    Transdate = detail.Transdate,
+
+                    Ptnnmbr = detail.Ptnnmbr,
+                    Gmntitem = detail.Gmntitem,
+                    Gmntcolor = detail.Gmntcolor,
+                    Fabricdes = detail.Fabricdes,
+                    Fabricusage = detail.Fabricusage,
+
+                    Gsm = detail.Gsm,
+                    Opt01 = detail.Opt01,
+                    Fullwidth = detail.Fullwidth,
+                    Cutwidth = detail.Cutwidth,
+                    Efficiency = detail.Efficiency,
+
+                    Sizeratio = detail.Sizeratio,
+
+                    Markerqty = detail.Markerqty,
+                    Conspcs = detail.Conspcs,
+                    Consdzn = detail.Consdzn,
+
+                    Wastage = detail.Wastage,
+
+                    Comments = detail.Comments,
+
+                    // -----------------------------------------
+                    // Existing Files
+                    // -----------------------------------------
+                    ExistingFiles = files
+                };
+
+
+                model.Details.Add(detailViewModel);
+            }
+
+
+            // =====================================================
+            // 5. RETURN VIEW
+            // =====================================================
+            return View(model);
         }
+
 
 
         [HttpGet]
@@ -522,36 +1234,127 @@ namespace QCO.Controllers
             return File(fileBytes, fileRecord.Contenttype, fileRecord.Filename);
         }
 
+        // =========================================================
+        // GET: Delete
+        // =========================================================
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var data = await _context.TblCadConsMs
-                .Include(m => m.TblCadConsDs)
+            // =====================================================
+            // 1. FETCH MASTER
+            // =====================================================
+            var master = await _context.TblCadConsMs
                 .FirstOrDefaultAsync(m => m.Cadmid == id);
 
-            if (data == null)
+            if (master == null)
             {
                 TempData["Error"] = "Record not found!";
                 return RedirectToAction("Index");
             }
 
+
+            // =====================================================
+            // 2. FETCH DETAILS
+            // =====================================================
+            var details = await _context.TblCadConsDs
+                .Where(d => d.Cadmid == id)
+                .ToListAsync();
+
+
+            // =====================================================
+            // 3. GET DETAIL IDS
+            // =====================================================
+            var detailIds = details
+                .Select(d => d.Caddid)
+                .ToList();
+
+
+            // =====================================================
+            // 4. FETCH FILES
+            // =====================================================
+            var files = new List<TblCadConsFiles>();
+
+            if (detailIds.Count > 0)
+            {
+                files = await _context.TblCadConsFiles
+                    .Where(f => detailIds.Contains(f.Caddid))
+                    .ToListAsync();
+            }
+
+
+            // =====================================================
+            // 5. CREATE VIEW MODEL
+            // =====================================================
             var model = new CadConsumptionViewModel
             {
-                Master = data,
-                Details = data.TblCadConsDs.ToList()
+                Master = master,
+                Details = new List<CadConsumptionDetailViewModel>()
             };
+
+
+            // =====================================================
+            // 6. MAP DETAILS + EXISTING FILES
+            // =====================================================
+            foreach (var detail in details)
+            {
+                var detailFiles = files
+                    .Where(f => f.Caddid == detail.Caddid)
+                    .ToList();
+
+
+                var detailViewModel = new CadConsumptionDetailViewModel
+                {
+                    Caddid = detail.Caddid,
+                    Cadmid = detail.Cadmid,
+                    Transdate = detail.Transdate,
+
+                    Ptnnmbr = detail.Ptnnmbr,
+                    Gmntitem = detail.Gmntitem,
+                    Gmntcolor = detail.Gmntcolor,
+                    Fabricdes = detail.Fabricdes,
+                    Fabricusage = detail.Fabricusage,
+
+                    Gsm = detail.Gsm,
+                    Opt01 = detail.Opt01,
+                    Fullwidth = detail.Fullwidth,
+                    Cutwidth = detail.Cutwidth,
+                    Efficiency = detail.Efficiency,
+
+                    Sizeratio = detail.Sizeratio,
+
+                    Markerqty = detail.Markerqty,
+                    Conspcs = detail.Conspcs,
+                    Consdzn = detail.Consdzn,
+
+                    Wastage = detail.Wastage,
+
+                    Comments = detail.Comments,
+
+                    ExistingFiles = detailFiles
+                };
+
+
+                model.Details.Add(detailViewModel);
+            }
+
 
             return View(model);
         }
 
+
+        // =========================================================
+        // POST: Delete
+        // =========================================================
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try
             {
+                // =====================================================
+                // 1. FIND MASTER
+                // =====================================================
                 var master = await _context.TblCadConsMs
-                    .Include(m => m.TblCadConsDs)
                     .FirstOrDefaultAsync(m => m.Cadmid == id);
 
                 if (master == null)
@@ -560,42 +1363,124 @@ namespace QCO.Controllers
                     return RedirectToAction("Index");
                 }
 
-                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
 
-                if (master.TblCadConsDs != null && master.TblCadConsDs.Count > 0)
+                // =====================================================
+                // 2. FIND DETAILS
+                // =====================================================
+                var details = await _context.TblCadConsDs
+                    .Where(d => d.Cadmid == id)
+                    .ToListAsync();
+
+
+                // =====================================================
+                // 3. GET DETAIL IDS
+                // =====================================================
+                var detailIds = details
+                    .Select(d => d.Caddid)
+                    .ToList();
+
+
+                // =====================================================
+                // 4. FIND ALL FILE RECORDS
+                // =====================================================
+                var files = new List<TblCadConsFiles>();
+
+                if (detailIds.Count > 0)
                 {
-                    foreach (var detail in master.TblCadConsDs)
-                    {
-                        if (!string.IsNullOrEmpty(detail.Filepath))
-                        {
-                            var fullPath = Path.Combine(
-                                Directory.GetCurrentDirectory(),
-                                "wwwroot",
-                                detail.Filepath.TrimStart('/'));
-
-                            if (System.IO.File.Exists(fullPath))
-                            {
-                                System.IO.File.Delete(fullPath);
-                            }
-                        }
-                    }
-
-                    _context.TblCadConsDs.RemoveRange(master.TblCadConsDs);
+                    files = await _context.TblCadConsFiles
+                        .Where(f => detailIds.Contains(f.Caddid))
+                        .ToListAsync();
                 }
 
+
+                // =====================================================
+                // 5. WWWROOT UPLOAD FOLDER
+                // =====================================================
+                var uploadFolder = Path.Combine(
+                    _webHostEnvironment.WebRootPath,
+                    "UploadFiles"
+                );
+
+
+                // =====================================================
+                // 6. DELETE PHYSICAL FILES
+                // =====================================================
+                foreach (var file in files)
+                {
+                    if (string.IsNullOrWhiteSpace(file.Filepath))
+                        continue;
+
+
+                    // Get only filename
+                    var fileName = Path.GetFileName(file.Filepath);
+
+                    if (string.IsNullOrWhiteSpace(fileName))
+                        continue;
+
+
+                    // Physical path
+                    var physicalPath = Path.Combine(
+                        uploadFolder,
+                        fileName
+                    );
+
+
+                    // Delete physical file
+                    if (System.IO.File.Exists(physicalPath))
+                    {
+                        System.IO.File.Delete(physicalPath);
+                    }
+                }
+
+
+                // =====================================================
+                // 7. DELETE FILE DATABASE RECORDS
+                // =====================================================
+                if (files.Count > 0)
+                {
+                    _context.TblCadConsFiles.RemoveRange(files);
+                }
+
+
+                // =====================================================
+                // 8. DELETE DETAIL RECORDS
+                // =====================================================
+                if (details.Count > 0)
+                {
+                    _context.TblCadConsDs.RemoveRange(details);
+                }
+
+
+                // =====================================================
+                // 9. DELETE MASTER
+                // =====================================================
                 _context.TblCadConsMs.Remove(master);
 
+
+                // =====================================================
+                // 10. SAVE CHANGES
+                // =====================================================
                 await _context.SaveChangesAsync();
 
-                TempData["Success"] = "Data deleted successfully!";
+
+                // =====================================================
+                // SUCCESS
+                // =====================================================
+                TempData["Success"] =
+                    "Data and all associated files deleted successfully!";
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "Error occurred while deleting data!";
-                Console.WriteLine(ex.Message);
+                TempData["Error"] =
+                    "Error occurred while deleting data!";
+
+                Console.WriteLine(ex);
+
                 return RedirectToAction("Index");
             }
         }
+
     }
 }

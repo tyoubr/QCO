@@ -1,19 +1,62 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - QCO</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/QCO.styles.css" asp-append-version="true" />
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/thirdparty.bundle.css" />
-    <script src="~/js/thirdparty.bundle.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - QCO</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+
+    <!-- =====================================================
+         SITE CSS
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/QCO.styles.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/thirdparty.bundle.css" />
+
+
+    <!-- =====================================================
+         TOASTR CSS
+    ====================================================== -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+          rel="stylesheet" />
+
+
+    <!-- =====================================================
+         SELECT2 CSS
+    ====================================================== -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+          rel="stylesheet" />
+
+
     <style>
+
+        /* =====================================================
+                   TOASTR
+                ====================================================== */
+
         #toast-container > .toast {
             opacity: 1;
             color: #fff;
@@ -34,94 +77,332 @@
         .toast-warning {
             background-color: #F89406 !important;
         }
+
     </style>
 
 </head>
+
+
 <body>
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
     <header>
+
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">QCO</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+
+
+                <!-- =================================================
+                     BRAND
+                ================================================== -->
+
+                <a class="navbar-brand"
+                   asp-area=""
+                   asp-controller="Home"
+                   asp-action="Index">
+
+                    QCO
+
+                </a>
+
+
+                <!-- =================================================
+                     MOBILE TOGGLE
+                ================================================== -->
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
                     <span class="navbar-toggler-icon"></span>
+
                 </button>
+
+
+                <!-- =================================================
+                     NAVIGATION
+                ================================================== -->
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+
                     <ul class="navbar-nav flex-grow-1">
-                        @if (User.Identity.IsAuthenticated)
+
+
+                        @if (User.Identity?.IsAuthenticated == true)
                         {
+
+                            <!-- =========================================
+                                 HOME
+                            ========================================== -->
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+                                <a class="nav-link text-dark"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="Index">
+
+                                    Home
+
+                                </a>
+
                             </li>
+
+
+                            <!-- =========================================
+                                 LAYOUT MONITORING
+                            ========================================== -->
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="LayoutMonitoringSheets" asp-action="Index">Layout Monitoring Sheets</a>
+
+                                <a class="nav-link text-dark"
+                                   asp-area=""
+                                   asp-controller="LayoutMonitoringSheets"
+                                   asp-action="Index">
+
+                                    Layout Monitoring Sheets
+
+                                </a>
+
                             </li>
+
+
+                            <!-- =========================================
+                                 CAUSE OF DELAY
+                            ========================================== -->
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Cause_Of_Delay" asp-action="Index">Cause Of Delay</a>
+
+                                <a class="nav-link text-dark"
+                                   asp-area=""
+                                   asp-controller="Cause_Of_Delay"
+                                   asp-action="Index">
+
+                                    Cause Of Delay
+
+                                </a>
+
                             </li>
+
+
+                            <!-- =========================================
+                                 HIT RATE REPORT
+                            ========================================== -->
+
                             <li class="nav-item">
-                             <a class="nav-link text-dark" asp-controller="ReportCalling" asp-action="Viewer" asp-route-reportName="rptHitRate">HIT Rate Report</a>
+
+                                <a class="nav-link text-dark"
+                                   asp-controller="ReportCalling"
+                                   asp-action="Viewer"
+                                   asp-route-reportName="rptHitRate">
+
+                                    HIT Rate Report
+
+                                </a>
+
                             </li>
+
+
+                            <!-- =========================================
+                                 LAYOUT MONITORING REPORT
+                            ========================================== -->
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="ReportCalling" asp-action="Viewer" asp-route-reportName="rptLayoutMonitoringSheet">Layout Monitoring Report</a>
+
+                                <a class="nav-link text-dark"
+                                   asp-controller="ReportCalling"
+                                   asp-action="Viewer"
+                                   asp-route-reportName="rptLayoutMonitoringSheet">
+
+                                    Layout Monitoring Report
+
+                                </a>
+
                             </li>
+
+
+                            <!-- =========================================
+                                 SEWING EFFICIENCY
+                            ========================================== -->
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="SewingEfficiency" asp-action="SewingEfficiencyList">Sewing Efficiency</a>
+
+                                <a class="nav-link text-dark"
+                                   asp-controller="SewingEfficiency"
+                                   asp-action="SewingEfficiencyList">
+
+                                    Sewing Efficiency
+
+                                </a>
+
                             </li>
-                            @* <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="CAD" asp-action="Index" >CAD Consumption</a>
-                            </li> *@
+
+
+                            <!-- =================================================
+                                 CAD ACCESS
+
+                                 Username/User ID-er moddhe "cad" thakle
+                                 sudhu tokhoni CAD menu show korbe.
+
+                                 Examples:
+                                 cad01
+                                 cad.admin
+                                 user_cad
+                                 CAD123
+                            ================================================== -->
+                            @if (User.Identity?.Name?.Contains(
+                                                    "cad",
+                                                    StringComparison.OrdinalIgnoreCase) == true)
+                            {
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link text-dark"
+                                       asp-controller="CAD"
+                                       asp-action="Index">
+
+                                        CAD
+
+                                    </a>
+
+                                </li>
+
+                            }
+
+
+                            <!-- =========================================
+                                 RECAP
+                            ========================================== -->
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="RecapeInfo" asp-action="RecapeInfoList">Recap</a>
+
+                                <a class="nav-link text-dark"
+                                   asp-controller="RecapeInfo"
+                                   asp-action="RecapeInfoList">
+
+                                    Recap
+
+                                </a>
+
                             </li>
 
                         }
+
                     </ul>
+
+
+                    <!-- =================================================
+                         LOGIN / LOGOUT
+                    ================================================== -->
+
                     <partial name="_LoginPartial" />
+
                 </div>
+
             </div>
+
         </nav>
+
     </header>
 
+
+    <!-- =====================================================
+         PAGE CONTENT
+    ====================================================== -->
+
     <div class="container-fluid">
+
         @RenderBody()
+
     </div>
 
-    @* <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - QCO - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer> *@
 
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Select2 JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
-
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+    <!-- jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+    <!-- Bootstrap -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Third Party Bundle -->
+    <script src="~/js/thirdparty.bundle.js"></script>
+
+
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
+    <!-- Toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+
+    <!-- =====================================================
+         TOAST MESSAGE
+    ====================================================== -->
+
     <script>
+
         $(function () {
 
             toastr.options = {
+
                 positionClass: "toast-top-right",
-                timeOut: "3000"
+
+                timeOut: "3000",
+
+                closeButton: true,
+
+                progressBar: true
+
             };
 
-            var success = @Html.Raw(Json.Serialize(TempData["Success"]));
-            var error = @Html.Raw(Json.Serialize(TempData["Error"]));
 
-            if (success) toastr.success(success);
-            if (error) toastr.error(error);
+            var success =
+                @Html.Raw(Json.Serialize(TempData["Success"]));
+
+            var error =
+                @Html.Raw(Json.Serialize(TempData["Error"]));
+
+
+            if (success) {
+
+                toastr.success(success);
+
+            }
+
+
+            if (error) {
+
+                toastr.error(error);
+
+            }
+
         });
+
     </script>
-  
-  
-    @await RenderSectionAsync("Scripts", required: false) <!-- Optional section for additional scripts -->
+
+
+    <!-- =====================================================
+         PAGE-SPECIFIC SCRIPTS
+    ====================================================== -->
+    @await RenderSectionAsync(
+    "Scripts",
+        required: false
+        )
+
 </body>
 
 </html>

@@ -1,186 +1,387 @@
 ﻿@model QCO.ViewModel.CadConsumptionViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "CAD Consumption Details";
 }
+
+<style>
+    .details-container {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    .info-table th {
+        width: 18%;
+        background-color: #f8f9fc;
+        color: #495057;
+        font-weight: 600;
+    }
+
+    .info-table td {
+        width: 32%;
+    }
+
+    .detail-card {
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .detail-card-header {
+        background: linear-gradient(to right, #4e73df, #1cc88a);
+        color: white;
+        padding: 10px 15px;
+        font-weight: 600;
+    }
+
+    .detail-table {
+        margin-bottom: 0;
+    }
+
+        .detail-table th {
+            width: 25%;
+            background-color: #f8f9fc;
+            color: #495057;
+            font-weight: 600;
+        }
+
+        .detail-table td {
+            width: 25%;
+        }
+
+    .file-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        padding: 7px 10px;
+        background-color: #f8f9fa;
+        border-radius: 6px;
+        border: 1px solid #e9ecef;
+    }
+
+    .file-name {
+        flex: 1;
+        word-break: break-word;
+    }
+</style>
 
 <h2 class="text-primary text-center">CAD Consumption Details</h2>
 <hr />
 
-<div class="container bg-light p-4 rounded shadow-sm">
+<div class="container-fluid bg-light p-4 rounded shadow-sm details-container">
 
-    <!-- MASTER INFO -->
-    <h4 class="text-success">General Information</h4>
-    <table class="table table-bordered">
-        <tr>
-            <th>CAD Date</th>
-            <td>@Model.Master?.Caddate.Value.ToString("dd-MM-yyyy")</td>
+    <!-- ========================= -->
+    <!-- MASTER INFORMATION -->
+    <!-- ========================= -->
 
-            <th>Company</th>
-            <td>@Model.Master.Opt01</td>
-        </tr>
-        <tr>
-            <th>Style Ref</th>
-            <td>@Model.Master.Styleref</td>
+    <h4 class="text-success mb-3">
+        General Information
+    </h4>
 
-            <th>Buyer</th>
-            <td>@Model.Master.Buyer</td>
-        </tr>
-        <tr>
-            <th>Brand</th>
-            <td>@Model.Master.Brand</td>
+    <div class="table-responsive">
+        <table class="table table-bordered info-table bg-white">
+            <tbody>
 
-            <th>Season</th>
-            <td>@Model.Master.Season</td>
-        </tr>
-        <tr>
-            <th>Season Year</th>
-            <td>@Model.Master.Seasonyear</td>
+                <tr>
+                    <th>CAD Date</th>
+                    <td>
+                        @(Model.Master?.Caddate?.ToString("dd-MM-yyyy") ?? "")
+                    </td>
 
-            <th>Consumption For</th>
-            <td>@Model.Master.Consfor</td>
-        </tr>
-        <tr>
-            <th>Pattern Master</th>
-            <td>@Model.Master.Patternmaster</td>
+                    <th>Working Company</th>
+                    <td>
+                        @Model.Master?.Opt01
+                    </td>
+                </tr>
 
-            <th>Approval Status</th>
-            <td>@((Model.Master.Isapproved ?? false) ? "Approved" : "Pending Approval")</td>
-        </tr>
-        <tr>
-            <th>Comments</th>
-            <td colspan="3">@Model.Master.Comments</td>
-        </tr>
-    </table>
+                <tr>
+                    <th>Style Ref</th>
+                    <td>
+                        @Model.Master?.Styleref
+                    </td>
 
-    <!-- DETAILS TABLE -->
-    <h4 class="text-success mt-4">Marker Details</h4>
+                    <th>Job No.</th>
+                    <td>
+                        @Model.Master?.Job
+                    </td>
+                </tr>
 
-    @if (Model.Details != null && Model.Details.Any())
-    {
-        foreach (var item in Model.Details)
-        {
-            <div class="border rounded p-3 mb-3 bg-light">
+                <tr>
+                    <th>IR/IB</th>
+                    <td>
+                        @Model.Master?.Ir
+                    </td>
 
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Ptn No</div>
-                    <div class="col-7">: @item.Ptnnmbr</div>
-                </div>
+                    <th>Buyer</th>
+                    <td>
+                        @Model.Master?.Buyer
+                    </td>
+                </tr>
 
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Item</div>
-                    <div class="col-7">: @item.Gmntitem</div>
-                </div>
+                <tr>
+                    <th>Brand</th>
+                    <td>
+                        @Model.Master?.Brand
+                    </td>
 
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Color</div>
-                    <div class="col-7">: @item.Gmntcolor</div>
-                </div>
+                    <th>Season</th>
+                    <td>
+                        @Model.Master?.Season
+                    </td>
+                </tr>
 
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Fabric</div>
-                    <div class="col-7">: @item.Fabricdes</div>
-                </div>
+                <tr>
+                    <th>Season Year</th>
+                    <td>
+                        @Model.Master?.Seasonyear
+                    </td>
 
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Usage</div>
-                    <div class="col-7">: @item.Fabricusage</div>
-                </div>
+                    <th>Consumption For</th>
+                    <td>
+                        @Model.Master?.Consfor
+                    </td>
+                </tr>
 
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">GSM</div>
-                    <div class="col-7">: @item.Gsm</div>
-                </div>
+                <tr>
+                    <th>Pattern Master</th>
+                    <td>
+                        @Model.Master?.Patternmaster
+                    </td>
 
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Marker Length</div>
-                    <div class="col-7">: @item.Opt01</div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Full W</div>
-                    <div class="col-7">: @item.Fullwidth</div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Cut W</div>
-                    <div class="col-7">: @item.Cutwidth</div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Eff %</div>
-                    <div class="col-7">: @item.Efficiency</div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Size</div>
-                    <div class="col-7">: @item.Sizeratio</div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Qty</div>
-                    <div class="col-7">: @item.Markerqty</div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Cons/Pcs</div>
-                    <div class="col-7">: @item.Conspcs</div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Cons/Dzn</div>
-                    <div class="col-7">: @item.Consdzn</div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Wastage</div>
-                    <div class="col-7">: @item.Wastage</div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">Comments</div>
-                    <div class="col-7">: @item.Comments</div>
-                </div>
-
-                <div class="row mb-1">
-                    <div class="col-5 fw-bold">File</div>
-                    <div class="col-7">
-                        @if (!string.IsNullOrEmpty(item.Filepath))
+                    <th>Approval Status</th>
+                    <td>
+                        @if (Model.Master?.Isapproved == true)
                         {
-                            var file = System.IO.Path.GetFileName(item.Filepath);
-
-                            var originalName = file.Contains("_")
-                            ? file.Substring(file.IndexOf("_") + 1)
-                            : file;
-
-                            @* <div class="mb-1">📄 @originalName</div>
-
-                            <a asp-action="DownloadFile"
-                               asp-route-id="@item.Caddid"
-                               class="btn btn-sm btn-outline-primary">
-                                Download
-                            </a> *@
-                            <div class="mb-1">📄 @originalName</div>
-
-                            <a asp-controller="CAD"
-                               asp-action="ViewFile"
-                               asp-route-id="@item.Caddid"
-                               target="_blank"
-                               class="btn btn-sm btn-outline-success me-2">
-                                View
-                            </a>
-
-                            @* <a asp-action="DownloadFile"
-                               asp-route-id="@item.Caddid"
-                               class="btn btn-sm btn-outline-primary">
-                                Download
-                            </a> *@
+                            <span class="badge bg-success">
+                                Approved
+                            </span>
                         }
                         else
                         {
-                            <span class="text-muted">No File</span>
+                            <span class="badge bg-warning text-dark">
+                                Pending Approval
+                            </span>
                         }
-                    </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Style Description</th>
+                    <td colspan="3">
+                        @Model.Master?.Styledes
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Comments</th>
+                    <td colspan="3">
+                        @Model.Master?.Comments
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- MARKER DETAILS -->
+    <!-- ========================= -->
+
+    <h4 class="text-success mt-4 mb-3">
+        Marker Details
+    </h4>
+
+    @if (Model.Details != null && Model.Details.Any())
+    {
+        for (int i = 0; i < Model.Details.Count; i++)
+        {
+            var item = Model.Details[i];
+
+            <div class="detail-card">
+
+                <!-- Detail Header -->
+                <div class="detail-card-header">
+                    Marker #@(i + 1)
+
+                    @if (!string.IsNullOrWhiteSpace(item.Ptnnmbr))
+                    {
+                        <span class="ms-2">
+                            | Pattern No: @item.Ptnnmbr
+                        </span>
+                    }
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered detail-table">
+
+                        <tbody>
+
+                            <!-- Row 1 -->
+                            <tr>
+                                <th>Pattern No.</th>
+                                <td>
+                                    @item.Ptnnmbr
+                                </td>
+
+                                <th>Garments Item</th>
+                                <td>
+                                    @item.Gmntitem
+                                </td>
+                            </tr>
+
+                            <!-- Row 2 -->
+                            <tr>
+                                <th>Garments Color</th>
+                                <td>
+                                    @item.Gmntcolor
+                                </td>
+
+                                <th>Fabric Description</th>
+                                <td>
+                                    @item.Fabricdes
+                                </td>
+                            </tr>
+
+                            <!-- Row 3 -->
+                            <tr>
+                                <th>Body Parts / Fabric Usage</th>
+                                <td>
+                                    @item.Fabricusage
+                                </td>
+
+                                <th>GSM</th>
+                                <td>
+                                    @item.Gsm
+                                </td>
+                            </tr>
+
+                            <!-- Row 4 -->
+                            <tr>
+                                <th>Marker Length</th>
+                                <td>
+                                    @item.Opt01
+                                </td>
+
+                                <th>Full Width</th>
+                                <td>
+                                    @item.Fullwidth
+                                </td>
+                            </tr>
+
+                            <!-- Row 5 -->
+                            <tr>
+                                <th>Cut Width</th>
+                                <td>
+                                    @item.Cutwidth
+                                </td>
+
+                                <th>Efficiency %</th>
+                                <td>
+                                    @item.Efficiency
+                                </td>
+                            </tr>
+
+                            <!-- Row 6 -->
+                            <tr>
+                                <th>Size Ratio</th>
+                                <td>
+                                    @item.Sizeratio
+                                </td>
+
+                                <th>Marker Qty</th>
+                                <td>
+                                    @item.Markerqty
+                                </td>
+                            </tr>
+
+                            <!-- Row 7 -->
+                            <tr>
+                                <th>Wastage %</th>
+                                <td>
+                                    @item.Wastage
+                                </td>
+
+                                <th>Consumption / Pcs</th>
+                                <td>
+                                    @item.Conspcs
+                                </td>
+                            </tr>
+
+                            <!-- Row 8 -->
+                            <tr>
+                                <th>Consumption / Dzn</th>
+                                <td>
+                                    @item.Consdzn
+                                </td>
+
+                                <th>Comments</th>
+                                <td>
+                                    @item.Comments
+                                </td>
+                            </tr>
+
+                            <!-- ========================= -->
+                            <!-- FILES -->
+                            <!-- ========================= -->
+
+                            <tr>
+                                <th>Uploaded Files</th>
+
+                                <td colspan="3">
+
+                                    @if (item.ExistingFiles != null &&
+                                                                item.ExistingFiles.Any())
+                                    {
+                                        foreach (var file in item.ExistingFiles)
+                                        {
+                                            var fileName =
+                                            System.IO.Path.GetFileName(
+                                            file.Filepath ?? ""
+                                            );
+
+                                            var originalName =
+                                            fileName.Contains("_")
+                                            ? fileName.Substring(
+                                            fileName.IndexOf("_") + 1)
+                                            : fileName;
+
+                                            <div class="file-item">
+
+                                                <span class="file-name">
+                                                    📄 @originalName
+                                                </span>
+
+                                                <a asp-controller="CAD"
+                                                   asp-action="ViewFile"
+                                                   asp-route-id="@file.Fileid"
+                                                   target="_blank"
+                                                   class="btn btn-sm btn-outline-success">
+                                                    View
+                                                </a>
+
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">
+                                            No files uploaded.
+                                        </span>
+                                    }
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
                 </div>
 
             </div>
@@ -188,14 +389,23 @@
     }
     else
     {
-        <div class="text-center text-danger">
-            No details found
+        <div class="alert alert-warning text-center">
+            No marker details found.
         </div>
     }
 
+
+    <!-- ========================= -->
     <!-- BACK BUTTON -->
-    <div class="mt-3">
-        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    <!-- ========================= -->
+
+    <div class="mt-4">
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+            ← Back to List
+        </a>
+
     </div>
 
 </div>
