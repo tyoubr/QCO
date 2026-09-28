@@ -1132,7 +1132,7 @@ namespace QCO.Controllers
         {
             try
             {
-                var item = _context.TblCadConsDs.FirstOrDefault(x => x.Caddid == id);
+                var item = _context.TblCadConsFiles.FirstOrDefault(x => x.Fileid == id);
 
                 if (item == null || string.IsNullOrEmpty(item.Filepath))
                     return NotFound();
@@ -1214,7 +1214,7 @@ namespace QCO.Controllers
         public IActionResult DownloadFile(int id)
         {
             // Find the detail record
-            var fileRecord = _context.TblCadConsDs.FirstOrDefault(d => d.Caddid == id);
+            var fileRecord = _context.TblCadConsFiles.FirstOrDefault(d => d.Caddid == id);
 
             if (fileRecord == null)
                 return NotFound("File not found.");
