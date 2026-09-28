@@ -2,27 +2,16 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8" />
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>@ViewData["Title"] - QCO</title>
 
-
-    <!-- =====================================================
-         BOOTSTRAP
-    ====================================================== -->
-
+    <!-- Bootstrap -->
     <link rel="stylesheet"
           href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
-
-    <!-- =====================================================
-         SITE CSS
-    ====================================================== -->
-
+    <!-- Site CSS -->
     <link rel="stylesheet"
           href="~/css/site.css"
           asp-append-version="true" />
@@ -31,31 +20,19 @@
           href="~/QCO.styles.css"
           asp-append-version="true" />
 
+    <!-- Third Party CSS -->
     <link rel="stylesheet"
           href="~/css/thirdparty.bundle.css" />
 
-
-    <!-- =====================================================
-         TOASTR CSS
-    ====================================================== -->
-
+    <!-- Toastr -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
           rel="stylesheet" />
 
-
-    <!-- =====================================================
-         SELECT2 CSS
-    ====================================================== -->
-
+    <!-- Select2 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
           rel="stylesheet" />
 
-
     <style>
-
-        /* =====================================================
-                   TOASTR
-                ====================================================== */
 
         #toast-container > .toast {
             opacity: 1;
@@ -82,12 +59,7 @@
 
 </head>
 
-
 <body>
-
-    <!-- =====================================================
-         NAVBAR
-    ====================================================== -->
 
     <header>
 
@@ -95,10 +67,7 @@
 
             <div class="container-fluid">
 
-
-                <!-- =================================================
-                     BRAND
-                ================================================== -->
+                <!-- BRAND -->
 
                 <a class="navbar-brand"
                    asp-area=""
@@ -110,9 +79,7 @@
                 </a>
 
 
-                <!-- =================================================
-                     MOBILE TOGGLE
-                ================================================== -->
+                <!-- MOBILE TOGGLE -->
 
                 <button class="navbar-toggler"
                         type="button"
@@ -127,150 +94,187 @@
                 </button>
 
 
-                <!-- =================================================
-                     NAVIGATION
-                ================================================== -->
-
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
 
-                    <ul class="navbar-nav flex-grow-1">
+                        /*
+                        * ============================================================
+                        * USER NAME
+                        * ============================================================
+                        *
+                        * Example:
+                        *
+                        * tkl@cad.com
+                        *
+                        * Contains "cad" => CAD USER
+                        *
+                        */
 
+                        var userName = User.Identity?.Name ?? "";
 
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-
-                            <!-- =========================================
-                                 HOME
-                            ========================================== -->
-
-                            <li class="nav-item">
-
-                                <a class="nav-link text-dark"
-                                   asp-area=""
-                                   asp-controller="Home"
-                                   asp-action="Index">
-
-                                    Home
-
-                                </a>
-
-                            </li>
-
-
-                            <!-- =========================================
-                                 LAYOUT MONITORING
-                            ========================================== -->
-
-                            <li class="nav-item">
-
-                                <a class="nav-link text-dark"
-                                   asp-area=""
-                                   asp-controller="LayoutMonitoringSheets"
-                                   asp-action="Index">
-
-                                    Layout Monitoring Sheets
-
-                                </a>
-
-                            </li>
+                        bool isCadUser =
+                        userName.Contains(
+                        "cad",
+                        StringComparison.OrdinalIgnoreCase
+                        );
 
 
-                            <!-- =========================================
-                                 CAUSE OF DELAY
-                            ========================================== -->
+                        /*
+                        * ============================================================
+                        * NAVIGATION MENU
+                        * ============================================================
+                        */
 
-                            <li class="nav-item">
-
-                                <a class="nav-link text-dark"
-                                   asp-area=""
-                                   asp-controller="Cause_Of_Delay"
-                                   asp-action="Index">
-
-                                    Cause Of Delay
-
-                                </a>
-
-                            </li>
+                        <ul class="navbar-nav flex-grow-1">
 
 
-                            <!-- =========================================
-                                 HIT RATE REPORT
-                            ========================================== -->
+                            @* =========================================================
+                               CAD USER
+                               ---------------------------------------------------------
+                               If username contains "cad", ONLY CAD menu will show.
+                               Example:
+                               tkl@cad.com
+                               cad01@rh.com
+                               user_cad
+                               CAD.admin
+                               ========================================================= *@
 
-                            <li class="nav-item">
-
-                                <a class="nav-link text-dark"
-                                   asp-controller="ReportCalling"
-                                   asp-action="Viewer"
-                                   asp-route-reportName="rptHitRate">
-
-                                    HIT Rate Report
-
-                                </a>
-
-                            </li>
-
-
-                            <!-- =========================================
-                                 LAYOUT MONITORING REPORT
-                            ========================================== -->
-
-                            <li class="nav-item">
-
-                                <a class="nav-link text-dark"
-                                   asp-controller="ReportCalling"
-                                   asp-action="Viewer"
-                                   asp-route-reportName="rptLayoutMonitoringSheet">
-
-                                    Layout Monitoring Report
-
-                                </a>
-
-                            </li>
-
-
-                            <!-- =========================================
-                                 SEWING EFFICIENCY
-                            ========================================== -->
-
-                            <li class="nav-item">
-
-                                <a class="nav-link text-dark"
-                                   asp-controller="SewingEfficiency"
-                                   asp-action="SewingEfficiencyList">
-
-                                    Sewing Efficiency
-
-                                </a>
-
-                            </li>
-
-
-                            <!-- =================================================
-                                 CAD ACCESS
-
-                                 Username/User ID-er moddhe "cad" thakle
-                                 sudhu tokhoni CAD menu show korbe.
-
-                                 Examples:
-                                 cad01
-                                 cad.admin
-                                 user_cad
-                                 CAD123
-                            ================================================== -->
-                            @if (User.Identity?.Name?.Contains(
-                                                    "cad",
-                                                    StringComparison.OrdinalIgnoreCase) == true)
+                            @if (isCadUser)
                             {
+
+                                <!-- ONLY CAD -->
 
                                 <li class="nav-item">
 
                                     <a class="nav-link text-dark"
+                                       asp-area=""
                                        asp-controller="CAD"
                                        asp-action="Index">
 
-                                        CAD
+                                        CAD Consumption
+
+                                    </a>
+
+                                </li>
+
+                            }
+                            else
+                            {
+
+                                @* =====================================================
+                                   NORMAL USER MENU
+                                   -----------------------------------------------------
+                                   Users whose username does NOT contain "cad"
+                                   will see the normal QCO menus.
+                                   ===================================================== *@
+
+
+                                <!-- HOME -->
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-controller="Home"
+                                       asp-action="Index">
+
+                                        Home
+
+                                    </a>
+
+                                </li>
+
+
+                                <!-- LAYOUT MONITORING -->
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-controller="LayoutMonitoringSheets"
+                                       asp-action="Index">
+
+                                        Layout Monitoring Sheets
+
+                                    </a>
+
+                                </li>
+
+
+                                <!-- CAUSE OF DELAY -->
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link text-dark"
+                                       asp-area=""
+                                       asp-controller="Cause_Of_Delay"
+                                       asp-action="Index">
+
+                                        Cause Of Delay
+
+                                    </a>
+
+                                </li>
+
+
+                                <!-- HIT RATE REPORT -->
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link text-dark"
+                                       asp-controller="ReportCalling"
+                                       asp-action="Viewer"
+                                       asp-route-reportName="rptHitRate">
+
+                                        HIT Rate Report
+
+                                    </a>
+
+                                </li>
+
+
+                                <!-- LAYOUT MONITORING REPORT -->
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link text-dark"
+                                       asp-controller="ReportCalling"
+                                       asp-action="Viewer"
+                                       asp-route-reportName="rptLayoutMonitoringSheet">
+
+                                        Layout Monitoring Report
+
+                                    </a>
+
+                                </li>
+
+
+                                <!-- SEWING EFFICIENCY -->
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link text-dark"
+                                       asp-controller="SewingEfficiency"
+                                       asp-action="SewingEfficiencyList">
+
+                                        Sewing Efficiency
+
+                                    </a>
+
+                                </li>
+
+
+                                <!-- RECAP -->
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link text-dark"
+                                       asp-controller="RecapeInfo"
+                                       asp-action="RecapeInfoList">
+
+                                        Recap
 
                                     </a>
 
@@ -278,31 +282,12 @@
 
                             }
 
+                        </ul>
 
-                            <!-- =========================================
-                                 RECAP
-                            ========================================== -->
-
-                            <li class="nav-item">
-
-                                <a class="nav-link text-dark"
-                                   asp-controller="RecapeInfo"
-                                   asp-action="RecapeInfoList">
-
-                                    Recap
-
-                                </a>
-
-                            </li>
-
-                        }
-
-                    </ul>
+                    }
 
 
-                    <!-- =================================================
-                         LOGIN / LOGOUT
-                    ================================================== -->
+                    <!-- LOGIN / LOGOUT -->
 
                     <partial name="_LoginPartial" />
 
@@ -315,9 +300,9 @@
     </header>
 
 
-    <!-- =====================================================
+    <!-- =========================================================
          PAGE CONTENT
-    ====================================================== -->
+         ========================================================= -->
 
     <div class="container-fluid">
 
@@ -326,32 +311,37 @@
     </div>
 
 
-    <!-- =====================================================
+    <!-- =========================================================
          JAVASCRIPT
-    ====================================================== -->
+         ========================================================= -->
+    <!-- Third Party JS -->
+
+    <script src="~/js/thirdparty.bundle.js"></script>
+
+
     <!-- jQuery -->
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 
     <!-- Bootstrap -->
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 
-    <!-- Third Party Bundle -->
-    <script src="~/js/thirdparty.bundle.js"></script>
-
-
     <!-- Select2 -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 
     <!-- Toastr -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
-    <!-- =====================================================
-         TOAST MESSAGE
-    ====================================================== -->
+    <!-- =========================================================
+         TOASTR
+         ========================================================= -->
 
     <script>
 
@@ -361,17 +351,14 @@
 
                 positionClass: "toast-top-right",
 
-                timeOut: "3000",
-
-                closeButton: true,
-
-                progressBar: true
+                timeOut: "3000"
 
             };
 
 
             var success =
                 @Html.Raw(Json.Serialize(TempData["Success"]));
+
 
             var error =
                 @Html.Raw(Json.Serialize(TempData["Error"]));
@@ -395,9 +382,9 @@
     </script>
 
 
-    <!-- =====================================================
-         PAGE-SPECIFIC SCRIPTS
-    ====================================================== -->
+    <!-- =========================================================
+         PAGE SPECIFIC SCRIPTS
+         ========================================================= -->
     @await RenderSectionAsync(
     "Scripts",
         required: false
