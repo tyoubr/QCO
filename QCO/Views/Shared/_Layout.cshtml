@@ -2,16 +2,25 @@
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
 
     <title>@ViewData["Title"] - QCO</title>
 
-    <!-- Bootstrap -->
+
+    <!-- =========================================================
+         BOOTSTRAP CSS
+         ========================================================= -->
     <link rel="stylesheet"
           href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
-    <!-- Site CSS -->
+
+    <!-- =========================================================
+         SITE CSS
+         ========================================================= -->
     <link rel="stylesheet"
           href="~/css/site.css"
           asp-append-version="true" />
@@ -20,23 +29,36 @@
           href="~/QCO.styles.css"
           asp-append-version="true" />
 
-    <!-- Third Party CSS -->
+
+    <!-- =========================================================
+         THIRD PARTY CSS
+         ========================================================= -->
     <link rel="stylesheet"
           href="~/css/thirdparty.bundle.css" />
 
-    <!-- Toastr -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-          rel="stylesheet" />
 
-    <!-- Select2 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
-          rel="stylesheet" />
+    <!-- =========================================================
+         SELECT2 CSS
+         ========================================================= -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
 
+
+    <!-- =========================================================
+         TOASTR CSS
+         ========================================================= -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+
+    <!-- =========================================================
+         CUSTOM TOAST STYLE
+         ========================================================= -->
     <style>
 
         #toast-container > .toast {
-            opacity: 1;
-            color: #fff;
+            opacity: 1 !important;
+            color: #ffffff !important;
         }
 
         .toast-success {
@@ -55,11 +77,41 @@
             background-color: #F89406 !important;
         }
 
+        /* =====================================================
+                   GENERAL PAGE
+                   ===================================================== */
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* =====================================================
+                   REPORT VIEWER
+                   ===================================================== */
+
+        .report-viewer-container {
+            width: 100%;
+            min-height: 800px;
+            overflow: hidden;
+        }
+
     </style>
 
 </head>
 
+
 <body>
+
+
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
 
     <header>
 
@@ -67,7 +119,10 @@
 
             <div class="container-fluid">
 
-                <!-- BRAND -->
+
+                <!-- =================================================
+                     BRAND
+                     ================================================= -->
 
                 <a class="navbar-brand"
                    asp-area=""
@@ -79,7 +134,9 @@
                 </a>
 
 
-                <!-- MOBILE TOGGLE -->
+                <!-- =================================================
+                     MOBILE MENU BUTTON
+                     ================================================= -->
 
                 <button class="navbar-toggler"
                         type="button"
@@ -94,26 +151,25 @@
                 </button>
 
 
+                <!-- =================================================
+                     NAVIGATION
+                     ================================================= -->
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
 
                     @if (User.Identity?.IsAuthenticated == true)
                     {
 
-                        /*
-                        * ============================================================
-                        * USER NAME
-                        * ============================================================
-                        *
-                        * Example:
-                        *
-                        * tkl@cad.com
-                        *
-                        * Contains "cad" => CAD USER
-                        *
-                        */
-
+                        <!-- =================================================
+                             GET USERNAME
+                             ================================================= -->
                         var userName = User.Identity?.Name ?? "";
 
+
+                        <!-- =================================================
+                             CAD USER CHECK
+                             ================================================= -->
                         bool isCadUser =
                         userName.Contains(
                         "cad",
@@ -121,30 +177,19 @@
                         );
 
 
-                        /*
-                        * ============================================================
-                        * NAVIGATION MENU
-                        * ============================================================
-                        */
+                        <!-- =================================================
+                             NAVIGATION MENU
+                             ================================================= -->
 
                         <ul class="navbar-nav flex-grow-1">
 
 
-                            @* =========================================================
-                               CAD USER
-                               ---------------------------------------------------------
-                               If username contains "cad", ONLY CAD menu will show.
-                               Example:
-                               tkl@cad.com
-                               cad01@rh.com
-                               user_cad
-                               CAD.admin
-                               ========================================================= *@
-
                             @if (isCadUser)
                             {
 
-                                <!-- ONLY CAD -->
+                                <!-- =================================================
+                                     CAD USER MENU
+                                     ================================================= -->
 
                                 <li class="nav-item">
 
@@ -163,15 +208,9 @@
                             else
                             {
 
-                                @* =====================================================
-                                   NORMAL USER MENU
-                                   -----------------------------------------------------
-                                   Users whose username does NOT contain "cad"
-                                   will see the normal QCO menus.
-                                   ===================================================== *@
-
-
-                                <!-- HOME -->
+                                <!-- =================================================
+                                     HOME
+                                     ================================================= -->
 
                                 <li class="nav-item">
 
@@ -187,7 +226,9 @@
                                 </li>
 
 
-                                <!-- LAYOUT MONITORING -->
+                                <!-- =================================================
+                                     LAYOUT MONITORING
+                                     ================================================= -->
 
                                 <li class="nav-item">
 
@@ -203,7 +244,9 @@
                                 </li>
 
 
-                                <!-- CAUSE OF DELAY -->
+                                <!-- =================================================
+                                     CAUSE OF DELAY
+                                     ================================================= -->
 
                                 <li class="nav-item">
 
@@ -219,7 +262,9 @@
                                 </li>
 
 
-                                <!-- HIT RATE REPORT -->
+                                <!-- =================================================
+                                     HIT RATE REPORT
+                                     ================================================= -->
 
                                 <li class="nav-item">
 
@@ -235,7 +280,9 @@
                                 </li>
 
 
-                                <!-- LAYOUT MONITORING REPORT -->
+                                <!-- =================================================
+                                     LAYOUT MONITORING REPORT
+                                     ================================================= -->
 
                                 <li class="nav-item">
 
@@ -251,7 +298,9 @@
                                 </li>
 
 
-                                <!-- SEWING EFFICIENCY -->
+                                <!-- =================================================
+                                     SEWING EFFICIENCY
+                                     ================================================= -->
 
                                 <li class="nav-item">
 
@@ -266,7 +315,9 @@
                                 </li>
 
 
-                                <!-- RECAP -->
+                                <!-- =================================================
+                                     RECAP
+                                     ================================================= -->
 
                                 <li class="nav-item">
 
@@ -287,7 +338,9 @@
                     }
 
 
-                    <!-- LOGIN / LOGOUT -->
+                    <!-- =================================================
+                         LOGIN / LOGOUT
+                         ================================================= -->
 
                     <partial name="_LoginPartial" />
 
@@ -301,79 +354,122 @@
 
 
     <!-- =========================================================
-         PAGE CONTENT
+         MAIN CONTENT
          ========================================================= -->
 
-    <div class="container-fluid">
+    <main role="main"
+          class="pb-3">
 
-        @RenderBody()
+        <div class="container-fluid">
 
-    </div>
+            @RenderBody()
+
+        </div>
+
+    </main>
 
 
     <!-- =========================================================
          JAVASCRIPT
+         IMPORTANT:
+         jQuery MUST load before scripts that depend on jQuery.
          ========================================================= -->
-    <!-- Third Party JS -->
-
-    <script src="~/js/thirdparty.bundle.js"></script>
-
-
-    <!-- jQuery -->
+    <!-- =========================================================
+         JQUERY
+         ========================================================= -->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 
-    <!-- Bootstrap -->
+    <!-- =========================================================
+         THIRD PARTY JS
+         ========================================================= -->
+
+    <script src="~/js/thirdparty.bundle.js"></script>
+
+
+    <!-- =========================================================
+         BOOTSTRAP JS
+         ========================================================= -->
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 
-    <!-- Select2 -->
+    <!-- =========================================================
+         SELECT2 JS
+         ========================================================= -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
-
-    <!-- Toastr -->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js">
+    </script>
 
 
     <!-- =========================================================
-         TOASTR
+         TOASTR JS
+         ========================================================= -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js">
+    </script>
+
+
+    <!-- =========================================================
+         TOASTR CONFIGURATION
          ========================================================= -->
 
     <script>
 
-        $(function () {
+        $(document).ready(function () {
 
             toastr.options = {
 
+                closeButton: true,
+
+                progressBar: true,
+
                 positionClass: "toast-top-right",
 
-                timeOut: "3000"
+                preventDuplicates: true,
+
+                timeOut: 3000,
+
+                extendedTimeOut: 1000
 
             };
 
 
-            var success =
+            // =====================================================
+            // SUCCESS MESSAGE
+            // =====================================================
+
+            var successMessage =
                 @Html.Raw(Json.Serialize(TempData["Success"]));
 
 
-            var error =
+            // =====================================================
+            // ERROR MESSAGE
+            // =====================================================
+
+            var errorMessage =
                 @Html.Raw(Json.Serialize(TempData["Error"]));
 
 
-            if (success) {
+            // =====================================================
+            // SHOW SUCCESS
+            // =====================================================
 
-                toastr.success(success);
+            if (successMessage) {
+
+                toastr.success(successMessage);
 
             }
 
 
-            if (error) {
+            // =====================================================
+            // SHOW ERROR
+            // =====================================================
 
-                toastr.error(error);
+            if (errorMessage) {
+
+                toastr.error(errorMessage);
 
             }
 
@@ -389,6 +485,7 @@
     "Scripts",
         required: false
         )
+
 
 </body>
 

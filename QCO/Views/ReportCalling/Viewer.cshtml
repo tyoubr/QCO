@@ -1,17 +1,61 @@
 ﻿@using QCO.Reports
-@model DevExpress.XtraReports.UI.XtraReport
+@using DevExpress.XtraReports.UI
+
+@model XtraReport
 
 @{
     ViewData["Title"] = "Document Viewer";
+
+    var viewerRender = Html.DevExpress()
+        .WebDocumentViewer("DocumentViewer")
+        .Height("1000px")
+        .Bind(Model);
 }
 
-<!-- DevExpress Report Viewer CSS -->
-<link rel="stylesheet" href="~/css/viewer.part.bundle.css" />
-<script src="~/js/viewer.part.bundle.js"></script>
+<!-- =========================================================
+     DEVEXPRESS REPORT VIEWER CSS
+     ========================================================= -->
 
-<div class="container mt-3">
-    <h2 class="text-center">Report Viewer</h2>
-    <div class="card shadow-lg p-3">
-        @Html.DevExpress().WebDocumentViewer("DocumentViewer").Height("1000px").Bind(Model)
+<link rel="stylesheet"
+      href="~/css/viewer.part.bundle.css"
+      asp-append-version="true" />
+
+
+<!-- =========================================================
+     PAGE
+     ========================================================= -->
+
+<div class="container-fluid mt-3">
+
+    <h2 class="text-center mb-3">
+        Report Viewer
+    </h2>
+
+
+    <div class="card shadow-sm">
+
+        <div class="card-body p-2">
+
+            <!-- =================================================
+                 DEVEXPRESS VIEWER HTML
+                 ================================================= -->
+            @viewerRender.RenderHtml()
+
+        </div>
+
     </div>
+
 </div>
+
+
+<!-- =========================================================
+     DEVEXPRESS VIEWER SCRIPTS
+     ========================================================= -->
+@section Scripts
+{
+    <script src="~/js/viewer.part.bundle.js"
+            asp-append-version="true">
+    </script>
+
+    @viewerRender.RenderScripts()
+}
